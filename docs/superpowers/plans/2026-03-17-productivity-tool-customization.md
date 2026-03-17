@@ -1,4 +1,4 @@
-# Productivity Tool Customization — Implementation Plan
+# Liam's Product Management System Customization — Implementation Plan
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -78,7 +78,7 @@ All skills share these replacements:
 
 | Pattern                                                             | Replacement                                                 |
 | ------------------------------------------------------------------- | ----------------------------------------------------------- |
-| `/Users/quinn.daneyko/Documents/claude-experiments/my-work-agents/` | `C:/Users/liam.bond/Documents/Productivity Tool/workspace/` |
+| `/Users/quinn.daneyko/Documents/claude-experiments/my-work-agents/` | `C:/Users/liam.bond/Documents/Liam's Product Management System/workspace/` |
 | `quinn.daneyko`                                                     | `liam.bond`                                                 |
 | `initiatives/aida/`                                                 | `initiatives/ukcaud/`                                       |
 | `initiatives/dca/`                                                  | `initiatives/dist/`                                         |
@@ -157,7 +157,7 @@ ${initiativeName === 'platform' ? '- PY (architecture), AiDA/DCA agents (depende
 - [ ] **Step 1: Create all directories**
 
 ```bash
-cd "C:/Users/liam.bond/Documents/Productivity Tool"
+cd "C:/Users/liam.bond/Documents/Liam's Product Management System"
 mkdir -p workspace/coordinator/notes
 mkdir -p workspace/coordinator/archive
 mkdir -p workspace/initiatives/ukcaud/archive
@@ -359,7 +359,7 @@ Customer insights, use cases, and feedback.
 - [ ] **Step 6: Verify directory structure**
 
 ```bash
-find "C:/Users/liam.bond/Documents/Productivity Tool/workspace" -type f | sort
+find "C:/Users/liam.bond/Documents/Liam's Product Management System/workspace" -type f | sort
 ```
 
 Expected: 17 files across coordinator/, initiatives/ukcaud/, initiatives/dist/, initiatives/ukcas/, strategy/.
@@ -367,7 +367,7 @@ Expected: 17 files across coordinator/, initiatives/ukcaud/, initiatives/dist/, 
 - [ ] **Step 7: Commit workspace structure**
 
 ```bash
-cd "C:/Users/liam.bond/Documents/Productivity Tool"
+cd "C:/Users/liam.bond/Documents/Liam's Product Management System"
 git add workspace/
 git commit -m "feat: create workspace directory structure for Liam's productivity system"
 ```
@@ -595,7 +595,7 @@ git commit -m "feat: customize content processing skills and fix Windows compati
 - [ ] **Step 1: Copy customized skills to commands directory**
 
 ```bash
-cd "C:/Users/liam.bond/Documents/Productivity Tool"
+cd "C:/Users/liam.bond/Documents/Liam's Product Management System"
 for f in morning-checkin.md evening-checkin.md weekly-todo-review.md ai-checkin-prep.md \
   create-initiative.md create-epic.md split-initiative.md discover-child-epics.md \
   process-raw-input.md review-github-code.md create-internal-deck.md markdown-to-pdf.md; do
@@ -648,13 +648,13 @@ Replace Quinn's customization table with Liam's actual values. Update:
 Comprehensive user guide covering:
 
 ```markdown
-# Productivity Tool — User Guide
+# Liam's Product Management System — User Guide
 
 ## Quick Start
 
 ### First-Time Setup
 
-1. Your workspace is at: `C:\Users\liam.bond\Documents\Productivity Tool\workspace\`
+1. Your workspace is at: `C:\Users\liam.bond\Documents\Liam's Product Management System\workspace\`
 2. Skills are installed as Claude Code commands (`/morning-checkin`, etc.)
 3. Jira projects: UKCAUD (delivery), DIST (escalations), UKCAS (support)
 4. Confluence space: Personal space at [URL]
@@ -785,7 +785,7 @@ git commit -m "docs: add user guide, customization log, and update README for Li
 - [ ] **Step 1: Verify no Quinn-specific references remain across ALL files**
 
 ```bash
-cd "C:/Users/liam.bond/Documents/Productivity Tool"
+cd "C:/Users/liam.bond/Documents/Liam's Product Management System"
 grep -r "quinn\|daneyko\|/Users/" *.md
 grep -r "Peter\|Citrin\|PY\b\|Jeff\|Saul\|Oscar" *.md
 grep -r "CWP-10\|project = AI\b\|key: \"AI\"" *.md
@@ -811,7 +811,7 @@ Expected: 12.
 
 - [ ] **Step 4: Smoke test — run /morning-checkin**
 
-In a fresh Claude Code session in the Productivity Tool directory, run `/morning-checkin` and verify it:
+In a fresh Claude Code session in the Liam's Product Management System directory, run `/morning-checkin` and verify it:
 
 1. Reads the correct workspace files
 2. Uses UKCAUD/DIST/UKCAS initiative names

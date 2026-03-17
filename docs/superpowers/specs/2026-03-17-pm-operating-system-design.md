@@ -531,7 +531,7 @@ Sprint close-off triggers:
 ## 9. Workspace Structure
 
 ```
-C:\Users\liam.bond\Documents\Productivity Tool\
+C:\Users\liam.bond\Documents\Liams Product Management System\
 ├── workspace/
 │   ├── coordinator/
 │   │   ├── weekly-plan.md          # Working scratch pad (Confluence is source of truth)

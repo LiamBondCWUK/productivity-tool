@@ -6,4 +6,4 @@
 
 ## 2026-03-17
 
-- 2026-03-17 17:12:18 [added] `C:\Users\liam.bond\Documents\Productivity Tool\docs\superpowers\specs\2026-03-17-pm-operating-system-design.md`
+- 2026-03-17 17:12:18 [added] `C:\Users\liam.bond\Documents\Liam's Product Management System\docs\superpowers\specs\2026-03-17-pm-operating-system-design.md`

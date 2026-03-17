@@ -1,4 +1,4 @@
-# AI-Powered Productivity Prompts Collection
+# Liam's Product Management System
 
 ## Overview
 
