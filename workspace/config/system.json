@@ -1,0 +1,31 @@
+{
+  "user": {
+    "name": "Liam Bond",
+    "username": "liam.bond",
+    "email": "liam.bond@caseware.com"
+  },
+  "atlassian": {
+    "domain": "caseware.atlassian.net",
+    "confluenceSpaceId": "~623c6d5401f8660070b73415",
+    "confluenceParentPageId": "71467254",
+    "goalsEndpoint": "https://caseware.atlassian.net/gateway/api/graphql"
+  },
+  "workspace": {
+    "basePath": "C:/Users/liam.bond/Documents/Productivity Tool/workspace",
+    "brandAssetsPath": "C:/Users/liam.bond/Documents/CW Release Notes Tool/brand-assets",
+    "ukjpdWorkflowsPath": "C:/Users/liam.bond/Documents/CW UKJPD Workflows",
+    "ukcaudTrackerPath": "C:/Users/liam.bond/Documents/CW UKCAUD Project Tracker"
+  },
+  "meetings": {
+    "aiCheckinName": "Liam's AI Check-in"
+  },
+  "sprintCadence": {
+    "commitmentCheckDay": "Wednesday",
+    "retroDay": "Friday",
+    "planningDay": "Monday"
+  },
+  "sourceOfTruth": {
+    "ticketStatus": "jira",
+    "narrativeContext": "local"
+  }
+}

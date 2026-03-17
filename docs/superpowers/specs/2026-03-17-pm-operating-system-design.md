@@ -565,7 +565,8 @@ C:\Users\liam.bond\Documents\Productivity Tool\
 | Confluence                        | Atlassian MCP                                          | Weekly Review, Ticket Factory            |
 | Atlassian Goals                   | GraphQL API (direct curl)                              | Daily Hub, Weekly Review, Ticket Factory |
 | Atlassian Projects                | GraphQL API (direct curl)                              | Weekly Review                            |
-| Microsoft Teams                   | Browser automation (Claude in Chrome) or Teams webhook | Escalations, Daily Hub                   |
+| Microsoft Teams                   | Playwright MCP (browser automation)                    | Escalations, Daily Hub                   |
+| Microsoft Calendar                | Playwright MCP (browser automation)                    | Daily Hub (meeting data)                 |
 | GitHub                            | GitHub MCP                                             | Code review (existing /code-review)      |
 | Local filesystem                  | Read/Write/Edit tools                                  | All subsystems                           |
 | Jira Dashboards                   | Referenced by URL in outputs                           | Weekly Review                            |
@@ -588,15 +589,18 @@ C:\Users\liam.bond\Documents\Productivity Tool\
 
 | Command                    | Subsystem      | Purpose                                                  |
 | -------------------------- | -------------- | -------------------------------------------------------- |
-| `/gm`                      | Daily Hub      | Morning briefing (Jira + Teams + local + Goals)          |
+| `/gm`                      | Daily Hub      | Morning briefing (Jira + Playwright + local + Goals)     |
 | `/eod`                     | Daily Hub      | Evening wrap (log + commitments + IBP flags)             |
 | `/prep`                    | Daily Hub      | Meeting prep (live Jira sprint/board status + goals)     |
-| `/sprint retro`            | Weekly Review  | Sprint close-off → single Confluence page + Goal updates |
-| `/sprint retro --preview`  | Weekly Review  | Mid-sprint draft, no archival                            |
+| `/standup`                 | Daily Hub      | Quick 3-line standup (yesterday/today/blockers)          |
+| `/sprint-retro`            | Weekly Review  | Sprint retrospective → Confluence page + Goal updates    |
+| `/sprint-retro --preview`  | Weekly Review  | Mid-sprint draft, no archival                            |
+| `/sprint-plan`             | Weekly Review  | Sprint planning — backlog, capacity, scope, goal         |
 | `/discover <type> "Title"` | Ticket Factory | JPD discovery item creation                              |
 | `/clone <UKJPD-key>`       | Ticket Factory | Clone JPD → UKCAUD for delivery                          |
 | `/clone-ready`             | Ticket Factory | Batch clone all ready JPD items                          |
 | `/ticket <type> "Title"`   | Ticket Factory | Direct UKCAUD creation with inference                    |
+| `/ticket --dry-run`        | Ticket Factory | Preview — shows what would be created                    |
 | `/tickets fix-hygiene`     | Ticket Factory | Audit + fix data quality issues                          |
 | `/tickets bulk-edit ...`   | Ticket Factory | Bulk update tickets + subtasks                           |
 | `/tickets relink-epics`    | Ticket Factory | Audit + fix epic hierarchy                               |
@@ -605,6 +609,9 @@ C:\Users\liam.bond\Documents\Productivity Tool\
 | `/deck`                    | Deck & Docs    | Branded internal presentation                            |
 | `/pdf`                     | Deck & Docs    | Markdown to PDF (Caseware branded)                       |
 | `/process`                 | Deck & Docs    | Raw content → insights → Jira/Goals/workspace            |
+| `/handoff`                 | Utility        | Leave/handoff status doc                                 |
+| `/search "query"`          | Utility        | Natural language workspace search                        |
+| `/health`                  | Utility        | System health check — MCP + workspace + tools            |
 
 ---
 
@@ -625,28 +632,110 @@ C:\Users\liam.bond\Documents\Productivity Tool\
 
 ---
 
-## 14. Outstanding Questions
+## 14. Design Decisions (Resolved 2026-03-17)
 
-1. **Teams channel names** — need actual channel names for escalation routing (dev oncall, content, audit squad, dist)
-2. **UKJPD remaining tasks** — 16/33 tasks still pending (template uploads, automation rule updates, Rovo agent verification). Should this system complete those as Phase 0?
-3. **Teams integration method** — browser automation via Claude in Chrome, or Teams webhook/incoming connector?
-4. **Jira Analytics dashboard promotion** — should the system auto-promote sandbox dashboards to live when improvements are validated?
-5. **`scripts/analyze-epic-hierarchy.mjs`** — referenced in discover-child-epics but doesn't exist. Build it or use JQL-only approach?
+1. **Teams integration** — **Playwright MCP** for browser automation. No Azure AD authorization available. Playwright handles both reading (messages, calendar, meetings) and writing (posting to channels). Fragile but functional until a dedicated Teams MCP becomes available.
+2. **Calendar data** — **Playwright MCP** against Outlook/Teams web. Same rationale — no Graph API access. Calendar reads are best-effort; if Playwright can't reach the page, `/gm` continues without meeting data and flags the gap.
+3. **Sprint planning vs retro** — **Separated into distinct commands.** `/sprint-retro` handles retrospective (close-off, wins, blockers, carry-forward, Goal updates). `/sprint-plan` handles planning (backlog ranking, capacity vs velocity, proposed scope, sprint goal draft). Both produce Confluence output.
+4. **Implementation approach** — **Option B: build from scratch.** Quinn's 12 skills are reference material only. All commands are built fresh for Liam's workflow, projects (UKCAUD/DIST/UKCAS/UKJPD), and enhanced feature set.
+5. **Project config** — **Driven by `workspace/config/projects.json`** rather than hardcoded project names. Adding a 4th project is a config change, not a 12-file edit.
+6. **Source of truth** — **Jira is authoritative** for ticket status. Local markdown is authoritative for narrative/strategy context. Daily hub detects drift and reconciles.
+7. **Idempotency** — All commands check for existing output before creating. Running `/gm` twice in a morning updates the existing brief rather than duplicating.
+8. **Graceful degradation** — If Atlassian MCP or Playwright is unavailable, commands fall back to local-only mode and flag the gap. Never fail silently.
+9. **Transaction safety** — Ticket Factory operations that create multiple Jira tickets write intent to a local transaction log before executing. `/tickets resume` can finish interrupted operations.
+10. **Teams channel names** — Stored in `workspace/config/teams-channels.json`. User configures once. Still need actual channel names.
+11. **UKJPD remaining tasks** — Assessed separately. Not a blocker for Phase 1-3. `/discover` and `/clone` depend on UKJPD automation rules being functional.
+12. **Dashboard promotion** — Manual only. System suggests but doesn't auto-promote sandbox dashboards.
+13. **`scripts/analyze-epic-hierarchy.mjs`** — JQL-only approach. No local script needed.
 
 ---
 
-## 15. Implementation Phases (Suggested)
+## 15. New Commands (Added from review 2026-03-17)
 
-| Phase | What                                                | Depends On |
-| ----- | --------------------------------------------------- | ---------- |
-| 0     | Complete UKJPD Workflows (remaining 16 tasks)       | Nothing    |
-| 1     | Workspace structure + local file templates          | Nothing    |
-| 2     | Daily Hub (/gm, /eod, /prep)                        | Phase 1    |
-| 3     | Ticket Factory — direct creation + inference engine | Phase 1    |
-| 4     | Ticket Factory — multi-product + hotfix flow        | Phase 3    |
-| 5     | Ticket Factory — mass management + hygiene          | Phase 3    |
-| 6     | Escalation flow (/escalate + Teams routing)         | Phase 3    |
-| 7     | Weekly Review (/sprint retro → Confluence + Goals)  | Phase 2    |
-| 8     | Goals integration (GraphQL API wiring)              | Phase 7    |
-| 9     | Deck & Docs (/deck, /pdf, /process)                 | Phase 1    |
-| 10    | Documentation + User Guide                          | All phases |
+| Command | Subsystem | Purpose |
+|---------|-----------|---------|
+| `/standup` | Daily Hub | Quick 3-line standup (yesterday/today/blockers) — 30-second version of `/gm` |
+| `/handoff` | Daily Hub | Generate leave/handoff status doc — all in-progress work, blockers, contacts |
+| `/search "query"` | Utility | Natural language search across entire workspace (logs, decisions, strategy) |
+| `/ticket --dry-run` | Ticket Factory | Preview mode — shows what would be created without touching Jira |
+| `/health` | Utility | System health check — validates MCP connections, workspace structure, tool installs |
+| `/sprint-retro` | Weekly Review | Sprint retrospective only — close-off, wins, carry-forward, Goal updates |
+| `/sprint-plan` | Weekly Review | Sprint planning only — backlog ranking, capacity, proposed scope, sprint goal |
+
+### `/sprint-plan` — Sprint Planning (Enhanced)
+
+Structured planning ceremony:
+
+1. **Backlog pull** (via Atlassian MCP):
+   - All tickets in next sprint, grouped by epic
+   - Tickets in backlog prioritized by urgency/value
+   - Tickets with upcoming fix version deadlines
+2. **Capacity check:**
+   - Average velocity from last 3 sprints
+   - Team availability (configurable in workspace/config/)
+   - Capacity vs proposed scope comparison
+3. **Scope proposal:**
+   - Ranked by: value/impact → urgency → dependencies → effort
+   - Grouped by epic with subtask completeness check
+   - Flags tickets missing estimates
+4. **Sprint goal draft:**
+   - Outcome-based goal derived from top priorities
+   - Links to relevant initiatives and goals
+5. **Dependency tracking:**
+   - Surfaces cross-project dependencies (UKCAUD blocked by DIST)
+   - Flags dependency chains with aging (e.g., "UKCAUD-456 blocked by DIST-789, open 14 days")
+6. **Output:** Confluence page section + local sprint-plan file
+
+### `/sprint-retro` — Sprint Retrospective (Focused)
+
+Close-off ceremony:
+
+1. **Sprint metrics** from Jira + dashboards
+2. **Wins & Impact** from daily log IBP-notable flags + Jira completions
+3. **Commitment tracking** — committed vs completed vs carried
+4. **Blockers & escalations** — active blockers with owner + age
+5. **Data quality flags** — missing epic/labels/component/release
+6. **SLA/aging alerts** — DIST escalations >10 days, UKCAS L3 bugs without UKCAUD ticket
+7. **Goal alignment** — updates to Atlassian Goals (learnings, decisions, progress)
+8. **Output:** Confluence page + Goal updates + Project status update
+
+---
+
+## 16. Implementation Phases (Revised)
+
+| Phase | What | Depends On |
+|-------|------|-----------|
+| 1 | Workspace structure + config files + `/health` | Nothing |
+| 2 | Daily Hub (`/gm`, `/eod`, `/standup`, `/prep`) | Phase 1 |
+| 3 | Ticket Factory — direct creation + inference + `--dry-run` | Phase 1 |
+| 4 | Ticket Factory — multi-product + hotfix flow | Phase 3 |
+| 5 | Ticket Factory — mass management + hygiene | Phase 3 |
+| 6 | Escalation flow (`/escalate` + Teams via Playwright) | Phase 3 |
+| 7 | Sprint Review (`/sprint-retro` + `/sprint-plan`) | Phase 2 |
+| 8 | Goals integration (GraphQL API wiring) | Phase 7 |
+| 9 | Deck & Docs (`/deck`, `/pdf`, `/process`) | Phase 1 |
+| 10 | Utility (`/handoff`, `/search`) | Phase 2 |
+| 11 | Documentation + User Guide | All phases |
+
+---
+
+## 17. System Telemetry
+
+Lightweight command usage tracking in `workspace/coordinator/system-metrics.md`:
+
+```markdown
+## Command Usage Log
+
+| Date | Command | Duration | Data Sources Used | Fallbacks Triggered |
+|------|---------|----------|-------------------|---------------------|
+```
+
+Reviewed monthly to identify: which commands are used, which are skipped, where fallbacks fire most often, and where to invest improvement effort.
+
+---
+
+## 18. Remaining Open Items
+
+1. **Teams channel names** — need actual channel names for escalation routing config
+2. **UKJPD remaining tasks** — 16/33 tasks still pending; assess which block `/discover` and `/clone`
+3. **Template evolution** — inference engine feedback loop (log accepted modifications, evolve defaults after 10+ deltas)

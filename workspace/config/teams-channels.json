@@ -1,0 +1,22 @@
+{
+  "channelRouting": {
+    "L3-Product/Dev": {
+      "channel": "[TODO: dev oncall channel name]",
+      "teamsUrl": "[TODO: Teams channel URL]"
+    },
+    "L2-Content": {
+      "channel": "[TODO: content channel name]",
+      "teamsUrl": "[TODO: Teams channel URL]"
+    },
+    "Audit_Squad": {
+      "channel": "[TODO: audit squad channel name]",
+      "teamsUrl": "[TODO: Teams channel URL]"
+    },
+    "DIST_General": {
+      "channel": "[TODO: dist escalations channel name]",
+      "teamsUrl": "[TODO: Teams channel URL]"
+    }
+  },
+  "defaultChannel": "[TODO: default fallback channel]",
+  "teamsBaseUrl": "https://teams.microsoft.com"
+}

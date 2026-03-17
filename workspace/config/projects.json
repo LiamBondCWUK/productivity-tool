@@ -1,0 +1,53 @@
+[
+  {
+    "key": "UKCAUD",
+    "name": "UK Cloud Audit Delivery",
+    "dir": "ukcaud",
+    "type": "delivery",
+    "issueTypes": ["Story", "Bug", "Epic", "Initiative"],
+    "subtaskTypes": ["Development", "Manual Testing", "Content", "Automated Testing", "Peer Review", "Code Review", "UX Review"],
+    "bugLabels": {
+      "develop": ["UKCAUD_BUGS_DEV/QA", "UKCAUD_DEVELOP"],
+      "release": ["UKCAUD_BUGS_DEV/QA", "UKCAUD_RELEASE"],
+      "releaseAqa": ["UKCAUD_BUGS_DEV_AQA", "UKCAUD_RELEASE"]
+    },
+    "storyLabels": ["UKCAUD_CONTENT/PEERREVIEW", "UKCAUD_CONTENT/QA"],
+    "bugSubtasks": ["Development", "Manual Testing"],
+    "storySubtasks": ["Content", "Peer Review"],
+    "blockingLinks": {
+      "Development": ["Manual Testing", "Automated Testing"]
+    },
+    "bugNaming": "{DEVELOP|RELEASE} - {Product} - {Description}",
+    "subtaskSummaryCopiesParent": true,
+    "confluenceSpaceId": "~623c6d5401f8660070b73415",
+    "confluenceParentPageId": "71467254"
+  },
+  {
+    "key": "DIST",
+    "name": "Platform Escalations",
+    "dir": "dist",
+    "type": "escalation",
+    "issueTypes": ["Request", "Question", "Issue"],
+    "labels": ["auto-triaged", "FeatureFlag", "DIST_SolutionRelease", "Audit_Squad"]
+  },
+  {
+    "key": "UKCAS",
+    "name": "Internal Support",
+    "dir": "ukcas",
+    "type": "support",
+    "issueTypes": ["Bug"],
+    "escalationLabels": ["L1-Support", "L2-Content", "L3-Product/Dev"]
+  },
+  {
+    "key": "UKJPD",
+    "name": "UK Product Discovery",
+    "dir": "ukjpd",
+    "type": "discovery",
+    "issueTypes": ["Idea", "Solution", "Initiative", "Discovery"],
+    "cloneMappings": {
+      "Idea": "Story",
+      "Solution": "Epic",
+      "Initiative": "Initiative"
+    }
+  }
+]
