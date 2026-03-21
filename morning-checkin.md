@@ -82,6 +82,35 @@ After loading the weekly plan (Step 1):
 
 **On Monday/Tuesday**: Skip this step entirely. The daily brief surfaces the top 3 from the weekly plan as today's context (current behavior in Step 3).
 
+### Step 1f: Tool Factory Proposals
+
+Check if `~/.claude/homunculus/proposals-queue.md` exists and contains any proposals with **Status: ⏳ pending**.
+
+**If pending proposals exist**, surface them before moving on:
+
+```
+🏭 Tool Factory found N new tool proposals from yesterday's sessions:
+
+1. [S] auto-property-report (high) — Automates report generation you ran 4x this week
+2. [M] jira-bulk-update (medium) — Batch ticket updates instead of one-by-one
+
+For each: approve / reject / defer?
+```
+
+Wait for user response. For each proposal:
+- **approve**: Run `sed` or edit to change status from `⏳ pending` to `✅ approved` in proposals-queue.md
+- **reject**: Change status to `❌ rejected`
+- **defer**: Leave as `⏳ pending` (will surface again tomorrow)
+- **"approve all"**: Approve all pending proposals at once
+- **"skip"**: Proceed without reviewing (will surface again tomorrow)
+
+After processing responses, if any proposals were approved:
+```
+✅ Approved N proposals. Run /tool-factory build <name> when ready to build.
+```
+
+**If no pending proposals**: Skip this step silently (no output).
+
 ### Step 1.5: Stale Todos Check
 
 Compare the `Week Start:` date from each initiative's todos against the current Monday's date.
