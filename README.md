@@ -246,3 +246,12 @@ your-workspace/
 ```
 
 Then start with `morning-checkin.md` and iterate from there. Each prompt is self-contained enough to be adopted independently.
+
+## Related Projects
+
+| Project | Relationship |
+|---------|-------------|
+| [AI Breaking News Tool](../AI%20Breaking%20News%20Tool/) | AI ecosystem research feeds into daily briefings |
+| [Property Search Tool](../Property%20Search%20Tool/) | Property reports feed into daily briefing context |
+| [CW UKCAUD Project Tracker](../CW%20UKCAUD%20Project%20Tracker/) | Jira automation and delivery tracking |
+| [CW UKJPD Workflows](../CW%20UKJPD%20Workflows/) | JPD feature request delivery prompts |

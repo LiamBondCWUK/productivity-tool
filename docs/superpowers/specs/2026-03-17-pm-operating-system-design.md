@@ -65,12 +65,27 @@ Jira Initiative (UKCAUD / UKJPD)
 
 ## 3. Jira Projects & Boards
 
-| Project                 | Key    | Purpose                                         | Issue Types                                                                                                                                        |
-| ----------------------- | ------ | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| UK Cloud Audit Delivery | UKCAUD | Primary delivery board                          | Story, Bug, Epic, Initiative, + subtask types (Development, Manual Testing, Content, Automated Testing, Peer Review, Code Review, UX Review, etc.) |
-| Platform Escalations    | DIST   | Escalate to international platform team         | Request, Question, Issue                                                                                                                           |
-| Internal Support        | UKCAS  | Customer-reported bugs triaged by support       | Bug (with L1/L2/L3 labels)                                                                                                                         |
-| UK Product Discovery    | UKJPD  | Discovery layer — ideas, solutions, initiatives | Idea, Solution, Initiative, Discovery                                                                                                              |
+### CWAS Framework Alignment
+
+All projects operate under the [Caseware Agile Standard (CWAS)](https://caseware.atlassian.net/wiki/spaces/cwas/overview?homepageId=1633845604):
+
+- **UKCAUD** — Scrum/Scrumban execution framework (planned delivery). Phase 1 rollout gaps: missing DoR/DoD, KTLO labels, 89 orphaned stories, 7 failing automation rules. See [automation fix plan](../../../CW%20UKCAUD%20Project%20Tracker/automation-fix-plan.md).
+- **UKJPD** — Maps to Build for Trust Playbook (Discover → Build → Deliver → Learn → Adapt). Most mature project — 9-status workflow, 4 Rovo AI agents, 35 views.
+- **UKCAS** — Kanban framework (reactive/support). Currently has no board, workflow, or automation. Setup plan: [board-config.md](../../../Productivity%20Tool/workspace/initiatives/ukcas/board-config.md).
+- **DIST** — External escalation project (out of scope for CWAS direct management).
+
+**Hierarchy requirement (CWAS):** Pillar → Input Goal → Initiative → Epic → Story. 0 orphan tolerance. All Initiatives must link to Goals, Epics to Initiatives.
+
+**Required metrics (Phase 1):** Velocity, Cycle Time, Completion Ratio, Risk Burndown, Blocker Resolution Time, SLA/MTTA/MTTR. Plandek integration for automated flow metrics.
+
+For the full compliance matrix across all projects, see the [Framework Gap Analysis](../../../CW%20UKCAUD%20Project%20Tracker/agile-framework-gap-analysis.md).
+
+| Project                 | Key    | Purpose                                         | CWAS Framework | Issue Types                                                                                                                                        |
+| ----------------------- | ------ | ----------------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| UK Cloud Audit Delivery | UKCAUD | Primary delivery board                          | Scrumban       | Story, Bug, Epic, Initiative, + subtask types (Development, Manual Testing, Content, Automated Testing, Peer Review, Code Review, UX Review, etc.) |
+| Platform Escalations    | DIST   | Escalate to international platform team         | N/A (external) | Request, Question, Issue                                                                                                                           |
+| Internal Support        | UKCAS  | Customer-reported bugs triaged by support       | Kanban         | Bug (with L1/L2/L3 labels)                                                                                                                         |
+| UK Product Discovery    | UKJPD  | Discovery layer — ideas, solutions, initiatives | BfT Playbook   | Idea, Solution, Initiative, Discovery                                                                                                              |
 
 ### Observed Ticket Patterns (from board analysis 2026-03-17)
 

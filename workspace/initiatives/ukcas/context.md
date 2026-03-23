@@ -4,6 +4,10 @@
 
 Internal support project (Jira: UKCAS). Customer-reported bugs triaged by the support team.
 
+**CWAS Framework:** Kanban execution framework (reactive/support work). See [board-config.md](board-config.md) for the full Kanban board setup plan aligned to the CWAS Agile Standard, and [CWAS Agile Framework Reference](../../../CW%20UKCAUD%20Project%20Tracker/cwas-agile-framework.md) for the company-wide framework.
+
+**Gap Analysis Status:** ❌ Major gaps — no board, no workflow, no automation, no metrics. See [Framework Gap Analysis](../../../CW%20UKCAUD%20Project%20Tracker/agile-framework-gap-analysis.md) for full scoring.
+
 ## Issue Types
 
 - All bugs — customer-reported issues
