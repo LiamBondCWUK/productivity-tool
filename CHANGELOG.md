@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-04-02 (Full-deploy script + .gitignore + playwright devDep)
+
+### Added
+
+- `scripts/jira-automation-full-deploy.mjs` — fully non-interactive Playwright script to create Jira rules 1.1–1.3 and disable 1.4; takes debug screenshots to `scripts/deploy-screenshots/`; includes `waitForURL` fix (explicit string cast to handle Playwright URL objects); replaces `jira-deploy-fixed.mjs` (deleted as duplicate)
+- `.gitignore` — excludes `node_modules/`, `scripts/deploy-screenshots/`, `scripts/*.png`, `.env`
+
+### Changed
+
+- `package.json` / `package-lock.json` — added `playwright@^1.59.1` as devDependency (already installed globally, pinned here for reproducibility)
+- `scripts/playwright-jira-automation.mjs` — minor fix from prior session
+
+---
+
 ## 2026-04-02 (Playwright automation scripts for Jira rules + Rovo Studio)
 
 ### Added

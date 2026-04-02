@@ -23,5 +23,8 @@
   "homepage": "https://github.com/Bondlw/Bondlw-productivity-tool#readme",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.82.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.59.1"
   }
 }

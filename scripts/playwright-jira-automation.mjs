@@ -288,7 +288,6 @@ async function main() {
 
   const browser = await chromium.launch({
     headless: HEADLESS,
-    channel: 'chrome', // Use system Chrome (likely already logged into Atlassian)
     args: ['--no-first-run', '--disable-blink-features=AutomationControlled'],
   });
 
