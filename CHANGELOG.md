@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-04-02 (Jira automation status sync script)
+
+### Added
+
+- `scripts/check-jira-automation-status.mjs` — queries the Jira Automation 1.0 REST API to detect which automation rules (phases 1.1–1.4) are live/disabled and syncs status into `workspace/coordinator/dashboard-data.json`; supports `--dry-run` flag; skips Rovo Studio agents (2.1/2.2) which require manual confirmation; never downgrades manually confirmed 'deployed' status
+
+---
+
 ## 2026-04-02 (AutomationStatus dashboard panel + Jira rule tracking API)
 
 ### Added
