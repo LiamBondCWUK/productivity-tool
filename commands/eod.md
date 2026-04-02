@@ -2,174 +2,217 @@
 
 ## Description
 
-End-of-day capture: synthesizes accomplishments from the day's log, conversation context, and Jira activity. Maps progress to weekly commitments, flags IBP-notable items for Friday retro, pre-loads tomorrow's meetings, and appends to the daily log.
+End-of-day capture: synthesizes accomplishments from Jira activity, Office file edits, Teams messages, and the day's log entries. Writes a structured `daily-log.md` entry in the new standard format, appends time totals to `time-log.json`, and updates `dashboard-data.json`.
 
 **Idempotent:** If an evening entry already exists for today, updates it rather than appending a duplicate.
 
-**Context-aware:** If the daily log already has entries for today (from `/gm`, ad-hoc notes, or sub-agent handoffs), synthesizes directly without asking. Only prompts if the log is empty for today.
+**Context-aware:** If the daily log already has entries for today (from `/gm`, `/log`, or sub-agent handoffs), synthesizes from those first. Only prompts if the log is empty.
 
-Tone: **Reflective, brief** — capture what's worth remembering, don't reconstruct the whole day.
+Tone: **Reflective, brief** — capture what's worth remembering.
 
 ## Trigger
 
 Run when user says:
+
 - `/eod`
 - "end of day" / "wrapping up" / "evening check-in"
 - "that's a wrap" / "signing off"
 
+---
+
 ## Workflow
 
-### Step 0: Load Config + Scan Handoff Files
+### Step 0: Load Config + Scan Existing Log
 
-Read `workspace/config/system.json` and `workspace/config/projects.json`.
-
-Scan for today's sub-agent handoff files:
-```
-Glob: workspace/coordinator/notes/{today}-handoff-*.md
-```
-
-If handoff files exist:
-1. Read each (they're typically 5-10 lines)
-2. Extract task name, status, and created keys/IDs
-3. Hold as pre-populated accomplishments for Step 2
-
-### Step 1: Synthesize or Ask
+Read `workspace/config/projects.json`.
 
 Read `workspace/coordinator/daily-log.md` and check for entries with today's date.
 
-**If entries exist for today** (morning entry, ad-hoc logs, handoff files):
-- Synthesize directly from available context — no question needed
-- Draw from: daily log entries, handoff files, conversation thread, daily brief
+If entries exist (from `/gm`, `/log`, or handoff files): synthesize directly — no questions needed.
 
-**If the log is empty for today** (fresh session, no prior entries):
-- Ask one open question:
-```
-Wrapping up — what happened today? Accomplishments, decisions, or anything worth capturing?
-```
-
-If a morning focus entry was found, frame contextually:
-```
-Wrapping up — how did today go?
-
-(You mentioned focusing on: [morning focus items from daily brief])
-
-What got done, and anything worth capturing — decisions, blockers, surprises?
-```
-
-At most one follow-up question:
-```
-Anything blocking progress, or any decisions made today worth logging?
-```
-
-Skip follow-up if the user already covered blockers/decisions.
-
-### Step 2: Pull Jira Activity (via Atlassian MCP)
-
-Query for tickets updated today by the user:
+If log is empty for today: ask one open question:
 
 ```
-JQL: project in (UKCAUD, DIST, UKCAS) AND updatedDate >= startOfDay()
-     AND assignee = currentUser() ORDER BY updated DESC
+Wrapping up — what happened today? Accomplishments, decisions, blockers?
 ```
 
-Cross-reference with morning brief's "Top 3" to see what was accomplished vs planned.
+### Step 1: Pull Jira Activity (via Atlassian MCP)
 
-### Step 3: Map to Weekly Commitments
+Query tickets updated today:
 
-Read `workspace/coordinator/weekly-plan.md` → "This Week: Top Priorities".
+```
+JQL: (assignee = currentUser() OR reporter = currentUser() OR comment ~ "Liam Bond")
+     AND updated >= startOfDay() ORDER BY updated DESC
+```
 
-For each commitment, check:
-- Daily log mentions → progress noted
-- Jira activity → tickets moved forward
-- Conversation context → decisions made
+For each ticket: capture key, summary, status transition (if any), and story points.
 
-Flag items that advanced and items that didn't move.
+Cross-reference with morning brief's priority inbox to see what was accomplished vs planned.
 
-### Step 4: IBP-Notable Flagging
+### Step 2: Scan Office Files Modified Today
 
-Scan today's accomplishments for items worth surfacing at Friday's sprint retrospective:
+Run via PowerShell (best-effort):
 
-**Flag as IBP-notable if:**
-- A milestone was hit or a key deliverable shipped
-- A strategic decision was made
-- A cross-team dependency was resolved
-- An escalation was resolved or a customer issue fixed
-- Something surprised or shifted priorities significantly
+```powershell
+Get-ChildItem "$env:USERPROFILE\Documents" -Recurse -Include *.xlsx,*.docx,*.pptx |
+  Where-Object { $_.LastWriteTime -ge (Get-Date).Date } |
+  Select-Object Name, LastWriteTime, FullName |
+  Sort-Object LastWriteTime -Descending
+```
 
-Mark with `[IBP]` tag in the log entry.
+For each modified file:
 
-### Step 5: Pre-load Tomorrow's Meetings (via Playwright — best effort)
+- Flag as `[NOTABLE]` if the filename suggests strategic work (roadmap, schedule, spec, plan, strategy, OKR)
+- Estimate time spent (default: 30min unless multiple saves suggest longer)
 
-Attempt to navigate to Outlook calendar for tomorrow:
-1. Extract meeting names and times
-2. Write a "Meeting Pre-load" section for tomorrow
+### Step 3: Pull Teams Activity (via Playwright — best effort)
+
+Attempt to navigate to Teams and capture:
+
+- Unread messages received (count and senders)
+- Messages posted by the user today (channel, content summary)
+- Any @mentions or direct messages
 
 **If Playwright unavailable:**
+
 ```
-SKIPPED: Calendar data unavailable. Add tomorrow's meetings manually to daily log if needed.
+SKIPPED: Teams data unavailable. Add notable conversations manually via /log.
 ```
 
-### Step 6: Append Evening Entry to Daily Log
+### Step 4: Pull Calendar (via Microsoft Graph API or Playwright)
 
-Check if an evening entry for today already exists in `workspace/coordinator/daily-log.md`.
-- If yes: update the existing entry
-- If no: append new entry
+Fetch today's completed meetings:
+
+- Meeting title, time, duration
+- Flag as `[NOTABLE]` if > 30min or matches strategic keywords (strategy, OKR, roadmap, stakeholder, retro)
+
+Tomorrow's meetings (for carry-forward):
+
+- List tomorrow's events from calendar for pre-load section
+
+**If calendar unavailable:** Skip and log.
+
+### Step 5: Synthesize and Present Draft Entry
+
+Present a structured draft for review/confirmation:
+
+```
+EOD Summary for {today}:
+
+Jira Activity ({n} tickets):
+  - [UKCAUD-xxx] Transitioned "..." -> Done
+  - [UKCAS-xxx] Triaged, labelled L3-Product/Dev
+
+Office Files ({n} files):
+  - CW_Q2_Roadmap_2026.pptx [NOTABLE] ~45min
+  - Lead_Schedule_Spec_v3.xlsx ~30min
+
+Meetings ({n}):
+  - 09:30 Sprint standup (15min)
+  - 14:00 Product strategy review (60min) [NOTABLE]
+
+Teams: {n} messages sent, {n} received
+
+Notes from /log today:
+  - [any /log entries from daily-log.md for today]
+
+Confirm? (y/edit/cancel)
+```
+
+### Step 6: Write Daily Log Entry (New Standard Format)
+
+Find or create today's section in `workspace/coordinator/daily-log.md`.
+
+If a `## {today}` section exists: update it. Otherwise append:
 
 ```markdown
-## {today} — Evening
+## {YYYY-MM-DD} ({Day of Week})
 
-**Accomplished:**
-- [Synthesized accomplishments — merged from handoff files, user input, Jira activity]
-- [IBP] [IBP-notable items flagged]
+### Jira Activity
 
-**Decisions:**
-- [Any strategic decisions made today]
+- [{key}] Transitioned "{summary}" -> {status} ({SP} SP)
+- [{key}] Created {type}: "{summary}"
+- [{key}] Triaged -> labelled {label}, created {linked-key}
 
-**Blockers:**
-- [Active blockers — new or ongoing]
+### Meetings
 
-**Commitment Progress:**
-- [Commitment]: [status — advanced / no change / completed]
+- {HH:MM} {Meeting Title} ({duration}min) [{NOTABLE if flagged}]
 
-**Tomorrow:**
-- Meetings: [list from calendar, or "check calendar"]
-- Carry forward: [items not completed today]
+### Documents
 
----
+- {filename} — edited ~{time}min [{NOTABLE if flagged}]
+
+### Teams Activity
+
+- {summary of posts/receives}
+
+### Time Log
+
+- {ticket or task}: {Hh MMm} (from time tracker or estimate)
+- Meeting overhead: {Hh MMm}
+- Total: {Hh MMm}
+
+### Notes
+
+{any <!-- tag: note --> entries from /log today}
+
+### Tomorrow's Priorities
+
+- [ ] {carry-forward item 1}
+- [ ] {carry-forward item 2}
 ```
 
-### Step 7: Update Initiative Weekly-Todos
+### Step 7: Update time-log.json
 
-For each initiative directory in `workspace/initiatives/`:
-- If an accomplishment relates to that initiative, move the relevant item from "In Progress" to "Completed" in the weekly-todos file
-- If a new blocker was identified, add it to "Blocked"
-- Update "Last Updated" timestamp
+Append today's session summary to `workspace/coordinator/time-log.json`:
 
-### Step 8: Inline Output
-
-Print a condensed summary:
-
-```
-Evening wrap for {today}:
-
-✅ Done:
-- [Key accomplishments]
-
-📌 Decisions:
-- [Key decisions, if any]
-
-🚧 Carry forward:
-- [Items for tomorrow]
-
-{IBP flags if any}
-{Tomorrow's meetings if available}
-
-Logged to: workspace/coordinator/daily-log.md
+```json
+{
+  "date": "{YYYY-MM-DD}",
+  "sessions": [
+    {
+      "label": "{ticket or task}",
+      "durationMinutes": {n},
+      "source": "tracker|estimate"
+    }
+  ],
+  "totalMinutes": {n},
+  "meetingMinutes": {n},
+  "notableItems": ["{IBP-notable items}"]
+}
 ```
 
-### Step 9: Log to Metrics
+### Step 8: Update dashboard-data.json
 
-Append to `workspace/coordinator/system-metrics.md`:
+Write the EOD summary to `workspace/coordinator/dashboard-data.json`:
+
+```json
+{
+  "lastEod": {
+    "date": "{today}",
+    "completedCount": {n},
+    "jiraActivity": [{key, summary, transition}],
+    "standingBacklogProgress": {notes},
+    "tomorrowPriorities": [{label}]
+  }
+}
 ```
-| {date} | /eod | {sources used} | {fallbacks triggered} | — |
+
+### Step 9: Output
+
+```
+EOD logged for {today}.
+
+Done ({n}): {key list}
+Notable: {flagged items}
+Time: {today total}h | This week: {week total}h
+
+Tomorrow: {n} meetings, {n} carry-forward items.
+Logged to: workspace/coordinator/daily-log.md + time-log.json
+```
+
+### Step 10: Log to Metrics
+
+```
+| {date} | /eod | {sources: jira+office+teams+cal} | {fallbacks triggered} | -- |
 ```

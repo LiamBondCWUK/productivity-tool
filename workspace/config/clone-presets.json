@@ -1,0 +1,30 @@
+{
+  "presets": [
+    {
+      "name": "lead-schedule",
+      "description": "Lead Schedules bulk clone — one ticket per product variant",
+      "sourceKey": "UKCAUD-TODO",
+      "note": "Replace UKCAUD-TODO with the live lead schedule template ticket key once created",
+      "summaryTemplate": "Lead Schedules - {Variant} - Implementation",
+      "variants": [
+        "UK Company",
+        "UK LLP",
+        "UK Sole Trader",
+        "UK Partnership",
+        "UK Charity"
+      ],
+      "fieldOverrides": {
+        "labels": ["FY26", "Q1"],
+        "component": "Lead Schedules"
+      },
+      "subtasks": ["Development", "Manual Testing"],
+      "blockingLinks": [
+        {
+          "from": "Development",
+          "to": "Manual Testing",
+          "type": "blocks"
+        }
+      ]
+    }
+  ]
+}
