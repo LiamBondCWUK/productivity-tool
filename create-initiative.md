@@ -11,44 +11,51 @@ Automates the creation of a new Jira Initiative issue with comprehensive validat
 ```
 
 **Parameters**:
-- `<initiative-name>`: Initiative directory name (aida, dca, platform)
+
+- `<initiative-name>`: Initiative directory name (ukcaud, ukcas, dist, ukjpd)
 - `"<initiative-title>"`: Brief initiative title (will become Jira summary)
 
 **Examples**:
+
 ```bash
-/create-initiative aida "Agentic AiDA Beta"
-/create-initiative dca "DCA Beta Release"
-/create-initiative platform "Regional Localization Infrastructure"
+/create-initiative ukcaud "Agentic UKCAUD Beta"
+/create-initiative ukcas "UKCAS Beta Release"
+/create-initiative dist "Regional Localization Infrastructure"
 ```
 
 ## Workflow
 
 ### Step 1: Gather Information
 
+**Project selection**: If the user has not specified which project, ask: "Which project does this relate to? (UKCAUD / UKJPD / UKCAS / DIST)" before proceeding. Store the answer as `projectKey`.
+
 Prompt user for:
+
 1. **Initiative title** (passed as parameter or prompt)
 2. **Problem statement** (brief, 1-2 sentences)
-3. **Strategic alignment** (which input goal? e.g., CWP-10)
+3. **Strategic alignment** (which input goal? e.g., UKJPD-10)
 4. **Target date** (YYYY-MM-DD format)
 5. **Parent issue** (default based on initiative):
-   - AiDA: CWP-10
-   - DCA: CWP-XX (prompt for which)
-   - Platform: None (optional)
+   - UKCAUD: [Input Goal from UKJPD]
+   - UKCAS: [Input Goal from UKJPD]
+   - DIST: None (optional)
+   - UKJPD: None (discovery phase, optional)
 6. **Assignee** (optional, Jira account ID)
 
 **Example prompts**:
+
 ```
 Problem statement: What problem does this initiative solve?
-> Users need better engagement tracking to measure AiDA adoption and effectiveness
+> UK team needs better engagement tracking to measure initiative adoption
 
-Strategic alignment: Which input goal does this support? (e.g., CWP-10)
-> CWP-10
+Strategic alignment: Which input goal does this support? (e.g., UKJPD-10)
+> UKJPD-10
 
 Target date: When should this initiative launch? (YYYY-MM-DD)
 > 2026-03-25
 
-Parent issue: Link to parent goal? (default: CWP-10 for AiDA)
-> CWP-10
+Parent issue: Link to parent goal? (default: input goal for UK initiatives)
+> UKJPD-10
 ```
 
 ### Step 2: Validation
@@ -56,35 +63,43 @@ Parent issue: Link to parent goal? (default: CWP-10 for AiDA)
 Run these validation checks:
 
 #### 2.1 Required Fields Check
+
 ```javascript
 if (!title || !problemStatement || !targetDate) {
-  throw new Error("Missing required fields: title, problem statement, and target date are required");
+  throw new Error(
+    "Missing required fields: title, problem statement, and target date are required",
+  );
 }
 ```
 
 #### 2.2 Parent Exists Check
+
 If parent provided:
+
 ```javascript
-const parent = await mcp__atlassian__jira_get_issue({issueKey: parentKey});
+const parent = await mcp__atlassian__jira_get_issue({ issueKey: parentKey });
 if (!parent) {
   throw new Error(`Parent issue ${parentKey} does not exist`);
 }
 ```
 
 #### 2.3 Duplicate Check
+
 ```javascript
 const duplicates = await mcp__atlassian__jira_search_issues({
-  jql: `project = AI AND issuetype = Initiative AND summary ~ "${title}"`,
-  maxResults: 5
+  jql: `project = ${projectKey} AND issuetype = Initiative AND summary ~ "${title}"`,
+  maxResults: 5,
 });
 
 if (duplicates.total > 0) {
   console.warn("⚠️  Potential duplicate initiatives found:");
-  duplicates.issues.forEach(issue => {
+  duplicates.issues.forEach((issue) => {
     console.warn(`   - ${issue.key}: ${issue.fields.summary}`);
   });
 
-  const proceed = await promptUser("Potential duplicates found. Proceed anyway? (yes/no)");
+  const proceed = await promptUser(
+    "Potential duplicates found. Proceed anyway? (yes/no)",
+  );
   if (proceed !== "yes") {
     throw new Error("Initiative creation cancelled by user");
   }
@@ -92,6 +107,7 @@ if (duplicates.total > 0) {
 ```
 
 #### 2.4 Date Validation
+
 ```javascript
 const targetDateObj = new Date(targetDate);
 const today = new Date();
@@ -101,7 +117,20 @@ if (targetDateObj < today) {
 }
 
 if (targetDateObj > new Date(today.getTime() + 365 * 24 * 60 * 60 * 1000)) {
-  console.warn("⚠️  Target date is more than 1 year away. Confirm this is correct.");
+  console.warn(
+    "⚠️  Target date is more than 1 year away. Confirm this is correct.",
+  );
+}
+```
+
+#### 2.5 Project Key Validation
+
+```javascript
+const validProjects = ["UKCAUD", "UKJPD", "UKCAS", "DIST"];
+if (!validProjects.includes(projectKey)) {
+  throw new Error(
+    `Invalid project key: ${projectKey}. Must be one of: ${validProjects.join(", ")}`,
+  );
 }
 ```
 
@@ -112,17 +141,20 @@ if (targetDateObj > new Date(today.getTime() + 365 * 24 * 60 * 60 * 1000)) {
 #### 3.1 Build Payload
 
 Determine labels based on initiative:
+
 ```javascript
 const labelMap = {
-  "aida": ["IntelligentAssistant", "AgenticList", "AiDA"],
-  "dca": ["DisclosureChecklist", "AssuranceAgent"],
-  "platform": ["Platform", "Infrastructure"]
+  ukcaud: ["CWAS-Feature", "UKCAUD"],
+  ukcas: ["CWAS-Support", "UKCAS"],
+  dist: ["CWAS-Distribution", "DIST"],
+  ukjpd: ["CWAS-Discovery", "UKJPD"],
 };
 
 const labels = labelMap[initiativeName] || [];
 ```
 
 Build description (minimal - just placeholder for Confluence link):
+
 ```javascript
 const description = {
   type: "doc",
@@ -131,37 +163,41 @@ const description = {
     {
       type: "paragraph",
       content: [
-        {type: "text", text: "Confluence One-Pager: [To be added after page creation]"}
-      ]
-    }
-  ]
+        {
+          type: "text",
+          text: "Confluence One-Pager: [To be added after page creation]",
+        },
+      ],
+    },
+  ],
 };
 ```
 
 **Note**: Jira description should be minimal - just the Confluence link. All content (problem statement, strategic alignment, value, etc.) belongs in the Confluence one-pager, not duplicated in Jira. See [Jira Formatting Guide](../guides/jira-formatting.md) for formatting patterns.
 
 Create payload:
+
 ```javascript
 const payload = {
   fields: {
-    project: {key: "AI"},
-    issuetype: {name: "Initiative"},
+    project: { key: projectKey },
+    issuetype: { name: "Initiative" },
     summary: title,
     description: description,
-    duedate: targetDate,                    // Standard due date field
+    duedate: targetDate, // Standard due date field
     labels: labels,
-    customfield_10015: targetDate,          // Start date (set to same as target for now)
-    customfield_10022: targetDate,          // Target start (Advanced Roadmaps field)
-    customfield_10023: targetDate           // Target end (Advanced Roadmaps field)
-  }
+    customfield_10015: targetDate, // Start date (set to same as target for now)
+    customfield_10022: targetDate, // Target start (Advanced Roadmaps field)
+    customfield_10023: targetDate, // Target end (Advanced Roadmaps field)
+  },
 };
 
 if (parentKey) {
-  payload.fields.parent = {key: parentKey};
+  payload.fields.parent = { key: parentKey };
 }
 
 if (assigneeId) {
-  payload.fields.assignee = {accountId: assigneeId};
+  payload.fields.assignee = { accountId: assigneeId };
 }
 ```
 
@@ -205,7 +241,7 @@ const pageBody = `
 
 <h2>🎯 Strategic Alignment</h2>
 <p>${strategicAlignment}</p>
-${parentKey ? `<p>Parent Goal: <a href="https://caseware.atlassian.net/browse/${parentKey}">${parentKey}</a></p>` : ''}
+${parentKey ? `<p>Parent Goal: <a href="https://caseware.atlassian.net/browse/${parentKey}">${parentKey}</a></p>` : ""}
 
 <h2>💡 Value &amp; Differentiation</h2>
 <p><em>To be filled in</em></p>
@@ -254,14 +290,14 @@ ${parentKey ? `<p>Parent Goal: <a href="https://caseware.atlassian.net/browse/${
 
 ```javascript
 const confluencePage = await mcp__atlassian__confluence_create_page({
-  spaceId: "PM",  // PM space ID
+  spaceId: "UKCAUD", // ⚠️ Verify correct Confluence space key
   title: pageTitle,
   body: pageBody,
-  parentId: "1724679265"  // Initiatives parent page
+  parentId: "[VERIFY: Confluence Initiatives parent page ID for UK space]",
 });
 
 const pageId = confluencePage.id;
-const confluenceUrl = `https://caseware.atlassian.net/wiki/spaces/PM/pages/${pageId}`;
+const confluenceUrl = `https://caseware.atlassian.net/wiki/spaces/UKCAUD/pages/${pageId}`;
 
 console.log(`✅ Created Confluence page: ${pageId}`);
 console.log(`   View: ${confluenceUrl}`);
@@ -274,7 +310,7 @@ console.log(`   View: ${confluenceUrl}`);
 #### 5.1 Update Jira Description with Confluence Link
 
 ```javascript
-const confluenceUrl = `https://caseware.atlassian.net/wiki/spaces/PM/pages/${pageId}`;
+const confluenceUrl = `https://caseware.atlassian.net/wiki/spaces/UKCAUD/pages/${pageId}`;
 
 // Minimal description - just the Confluence link
 const updatedDescription = {
@@ -284,18 +320,18 @@ const updatedDescription = {
     {
       type: "paragraph",
       content: [
-        {type: "text", text: "Confluence One-Pager: "},
-        {type: "inlineCard", attrs: {url: confluenceUrl}}
-      ]
-    }
-  ]
+        { type: "text", text: "Confluence One-Pager: " },
+        { type: "inlineCard", attrs: { url: confluenceUrl } },
+      ],
+    },
+  ],
 };
 
 await mcp__atlassian__jira_update_issue({
   issueKey: issueKey,
   fields: {
-    description: updatedDescription
-  }
+    description: updatedDescription,
+  },
 });
 
 console.log(`✅ Updated Jira issue with Confluence link`);
@@ -324,22 +360,22 @@ This embeds the Jira issue card in the Confluence page.
 #### 6.1 Update milestones.md
 
 ```javascript
-const milestonesPath = `/Users/quinn.daneyko/Documents/claude-experiments/my-work-agents/initiatives/${initiativeName}/milestones.md`;
+const milestonesPath = `C:/Users/liam.bond/Documents/Productivity Tool/workspace/initiatives/${initiativeName}/milestones.md`;
 
 const newRow = `| ${issueKey} | ${title} | ${targetDate} | To Do | [${pageId}](${confluenceUrl}) |`;
 
 // Read existing file
-const existingContent = await Read({file_path: milestonesPath});
+const existingContent = await Read({ file_path: milestonesPath });
 
 // Find table and add row
-const lines = existingContent.split('\n');
-const tableIndex = lines.findIndex(line => line.startsWith('| Jira Issue'));
+const lines = existingContent.split("\n");
+const tableIndex = lines.findIndex((line) => line.startsWith("| Jira Issue"));
 if (tableIndex !== -1) {
   // Insert after header and separator
   lines.splice(tableIndex + 2, 0, newRow);
   await Write({
     file_path: milestonesPath,
-    content: lines.join('\n')
+    content: lines.join("\n"),
   });
 } else {
   console.warn("⚠️  Milestones table not found, please add manually");
@@ -351,10 +387,10 @@ console.log(`✅ Updated ${initiativeName}/milestones.md`);
 #### 6.2 Log in context.md
 
 ```javascript
-const contextPath = `/Users/quinn.daneyko/Documents/claude-experiments/my-work-agents/initiatives/${initiativeName}/context.md`;
+const contextPath = `C:/Users/liam.bond/Documents/Productivity Tool/workspace/initiatives/${initiativeName}/context.md`;
 
 const decision = `
-## ${new Date().toISOString().split('T')[0]}: Created Initiative ${issueKey}
+## ${new Date().toISOString().split("T")[0]}: Created Initiative ${issueKey}
 
 **Initiative**: ${title}
 **Target**: ${targetDate}
@@ -372,16 +408,18 @@ const decision = `
 `;
 
 // Read existing content
-const existingContext = await Read({file_path: contextPath});
+const existingContext = await Read({ file_path: contextPath });
 
 // Find Recent Decisions section and append
-const contextLines = existingContext.split('\n');
-const decisionsIndex = contextLines.findIndex(line => line.includes('## Recent Decisions'));
+const contextLines = existingContext.split("\n");
+const decisionsIndex = contextLines.findIndex((line) =>
+  line.includes("## Recent Decisions"),
+);
 if (decisionsIndex !== -1) {
   contextLines.splice(decisionsIndex + 1, 0, decision);
   await Write({
     file_path: contextPath,
-    content: contextLines.join('\n')
+    content: contextLines.join("\n"),
   });
 } else {
   console.warn("⚠️  Recent Decisions section not found, please add manually");
@@ -412,10 +450,7 @@ Display success summary:
 2. Identify child epics needed to deliver this initiative
 3. Create epics using /create-epic skill
 4. Set up weekly todos in initiatives/${initiativeName}/weekly-todos.md
-5. Coordinate with stakeholders:
-   ${initiativeName === 'aida' ? '- Peter (UX/design), PY (platform), Citrin (GA requirements)' : ''}
-   ${initiativeName === 'dca' ? '- Peter (Figma review), Citrin (prod GA), PY (platform)' : ''}
-   ${initiativeName === 'platform' ? '- PY (architecture), AiDA/DCA agents (dependencies)' : ''}
+5. Coordinate with UK team on initiative launch
 
 Run /weekly-todo-review to track progress.
 ```
@@ -423,17 +458,19 @@ Run /weekly-todo-review to track progress.
 ## Error Handling
 
 ### Error: Parent Issue Not Found
+
 ```
 ❌ Error: Parent issue ${parentKey} does not exist
 
-Please verify the parent issue key and try again. For AiDA initiatives, use CWP-10.
+Please verify the parent issue key and try again. Use a valid UK project goal (UKJPD-XX).
 ```
 
 ### Error: Duplicate Initiative Found
+
 ```
 ⚠️  Potential duplicate initiatives found:
-   - AI-909: Engagement Intelligence - CWX Launch
-   - AI-536: AiDA Engagement Intelligence Alpha
+   - UKCAUD-909: Engagement Intelligence - UK Launch
+   - UKCAUD-536: UKCAUD Engagement Intelligence Alpha
 
 Creating duplicate initiatives can cause confusion. Consider:
 1. Update existing initiative instead
@@ -444,18 +481,34 @@ Proceed with creation? (yes/no)
 ```
 
 ### Error: Invalid Date Format
+
 ```
 ❌ Error: Invalid target date format: ${targetDate}
 
 Please use YYYY-MM-DD format (e.g., 2026-03-25)
 ```
 
+### Error: Invalid Project Key
+
+```
+❌ Error: Invalid project key: ${projectKey}
+
+Valid projects are: UKCAUD, UKJPD, UKCAS, DIST
+
+Supported project initiatives:
+- UKCAUD: Core UK Audit delivery
+- UKJPD: Discovery and insight generation
+- UKCAS: Case management and support
+- DIST: Distribution and platform services
+```
+
 ### Error: Jira API Failure
+
 ```
 ❌ Error creating Jira issue: ${error.message}
 
 Please check:
-1. Jira permissions (can you create initiatives in AI project?)
+1. Jira permissions (can you create initiatives in ${projectKey} project?)
 2. Required fields are valid
 3. Network connectivity to caseware.atlassian.net
 
@@ -465,6 +518,8 @@ Retry? (yes/no)
 ## Validation Checklist
 
 Before creating initiative, skill verifies:
+
+- [ ] Project key provided and valid (UKCAUD, UKJPD, UKCAS, DIST)
 - [ ] Title provided and < 255 characters
 - [ ] Problem statement provided and not empty
 - [ ] Strategic alignment specified
@@ -472,7 +527,7 @@ Before creating initiative, skill verifies:
 - [ ] Target date is not in the past
 - [ ] Parent issue exists (if provided)
 - [ ] No duplicate initiatives found (or user confirms override)
-- [ ] Initiative name is valid (aida, dca, platform)
+- [ ] Initiative name is valid (ukcaud, ukcas, dist, ukjpd)
 - [ ] Tracking files exist (milestones.md, context.md)
 
 ## Comment Formatting Guidelines
@@ -480,14 +535,16 @@ Before creating initiative, skill verifies:
 When adding comments to Jira issues (manually or via API):
 
 **Format**: Plain text with attribution
+
 ```
-Wave 1 (UK/AU/CA frameworks) split from AI-931
+Initiative created for UK delivery framework
 
 ---
 Co-authored with Claude Code
 ```
 
 **Do NOT use**:
+
 - Markdown formatting (`**bold**` doesn't render in Jira comments)
 - Complex formatting (stick to plain text)
 
@@ -507,11 +564,13 @@ Co-authored with Claude Code
 ```
 
 **Why all four?**
+
 - Jira UI shows "Start date: None" and "Due date: None" if standard fields not set
 - Advanced Roadmaps uses custom fields (10022, 10023)
 - Both field sets must be synchronized for proper display
 
 **Field mapping**:
+
 - `customfield_10015`: Start date (standard custom field)
 - `customfield_10022`: Target start (Advanced Roadmaps)
 - `customfield_10023`: Target end (Advanced Roadmaps)
@@ -519,13 +578,14 @@ Co-authored with Claude Code
 
 ## Notes
 
-- **No stakeholder check for creation**: User is intentionally creating, so no need to check with Peter/PY/Citrin
+- **No stakeholder check for creation**: User is intentionally creating, so no need to check with UK team
 - **Stakeholder checks for updates**: Use /update-milestone skill for updates, which includes stakeholder checks
 - **Confluence page creation is manual**: Uses native Confluence template system for consistency
 - **Tracking files updated automatically**: Ensures workspace stays in sync
 - **Incomplete creation tracked**: If user skips Confluence page, log in context.md for follow-up
 - **Minimal Jira descriptions**: Only Confluence link in Jira; all content lives in Confluence one-pager
 - **All four date fields required**: Set both standard (duedate, customfield_10015) and custom roadmap fields (10022, 10023)
+- **Project selection required**: Always ask user for project if not specified upfront
 
 ## Related Documents
 
@@ -535,61 +595,61 @@ Co-authored with Claude Code
 
 ## Examples
 
-### Example 1: AiDA Initiative with Parent
+### Example 1: UKCAUD Initiative with Parent
 
 ```bash
-/create-initiative aida "Agentic AiDA Beta"
+/create-initiative ukcaud "Agentic UKCAUD Beta"
 
-Problem statement: Users need planning and execution capabilities in AiDA for complex workflows
-Strategic alignment: CWP-10
+Problem statement: UK team needs planning and execution capabilities for complex workflows
+Strategic alignment: UKJPD-10
 Target date: 2026-03-25
-Parent issue: CWP-10
+Parent issue: UKJPD-10
 Assignee: [leave empty]
 
-✅ Created Jira initiative: AI-1234
-✅ Updated initiatives/aida/milestones.md
-✅ Logged decision in initiatives/aida/context.md
+✅ Created Jira initiative: UKCAUD-1234
+✅ Updated initiatives/ukcaud/milestones.md
+✅ Logged decision in initiatives/ukcaud/context.md
 
-Next: Create Confluence one-pager from template 1727561734
+Next: Create Confluence one-pager from template [VERIFY: Confluence template ID for UK space]
 ```
 
-### Example 2: DCA Initiative
+### Example 2: UKCAS Initiative
 
 ```bash
-/create-initiative dca "DCA Beta Release"
+/create-initiative ukcas "UKCAS Beta Release"
 
-Problem statement: Beta testing with Citrin for production GA validation
-Strategic alignment: CWP-XX (DCA goal)
+Problem statement: Beta testing with UK team for production GA validation
+Strategic alignment: UKJPD-XX (UKCAS goal)
 Target date: 2026-03-25
-Parent issue: [leave empty or specify DCA parent goal]
+Parent issue: [leave empty or specify UKCAS parent goal]
 Assignee: [leave empty]
 
-✅ Created Jira initiative: AI-1235
-✅ Updated initiatives/dca/milestones.md
-✅ Logged decision in initiatives/dca/context.md
+✅ Created Jira initiative: UKCAS-1235
+✅ Updated initiatives/ukcas/milestones.md
+✅ Logged decision in initiatives/ukcas/context.md
 
-Next: Create Confluence one-pager from template 1727561734
+Next: Create Confluence one-pager from template [VERIFY: Confluence template ID for UK space]
 ```
 
-### Example 3: Platform Epic (Localization)
+### Example 3: DIST Initiative (Platform)
 
 ```bash
-/create-initiative platform "Regional Localization Infrastructure"
+/create-initiative dist "Regional Localization Infrastructure"
 
-Problem statement: Need shared infrastructure for EMEA, APAC, AMER localization
-Strategic alignment: Supports AiDA regional rollout (AI-607)
+Problem statement: Shared infrastructure for EMEA, APAC, AMER localization support
+Strategic alignment: Supports UK regional rollout (UKCAUD-607)
 Target date: 2026-06-01
-Parent issue: AI-607 (optional link to AiDA regional rollout)
+Parent issue: UKCAUD-607 (optional link to UK regional rollout)
 Assignee: [leave empty]
 
-✅ Created Jira initiative: AI-1236
-✅ Updated initiatives/platform/milestones.md
-✅ Logged decision in initiatives/platform/context.md
+✅ Created Jira initiative: DIST-1236
+✅ Updated initiatives/dist/milestones.md
+✅ Logged decision in initiatives/dist/context.md
 
-Next: Create Confluence one-pager from template 1727561734
+Next: Create Confluence one-pager from template [VERIFY: Confluence template ID for UK space]
 ```
 
 ---
 
-**Last Updated**: 2026-02-09
-**Version**: 1.0 (Initial skill)
+**Last Updated**: 2026-04-02
+**Version**: 1.1 (Updated for UK projects: UKCAUD, UKJPD, UKCAS, DIST)

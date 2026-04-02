@@ -5,6 +5,7 @@ When you need to find ALL child epics under a Jira initiative, use this proven m
 ## Problem
 
 Jira REST API doesn't reliably expose parent-child epic hierarchy:
+
 - `fields.subtasks[]` is EMPTY for Initiative-type issues
 - `fields.issuelinks[]` only shows explicitly linked epics (misses many parent-child relationships)
 - JQL search works but requires full API access and may miss epics without parent field set
@@ -20,6 +21,7 @@ node scripts/analyze-epic-hierarchy.mjs
 ```
 
 This script:
+
 1. Reads all `content/raw/jira-*.json` files
 2. Filters for Epic-type issues
 3. Extracts `fields.parent.key` from each epic
@@ -29,11 +31,13 @@ This script:
 ### Step 2: Review the Output
 
 Check the analysis results:
+
 ```bash
 cat content/raw/epic-hierarchy.json | jq '.initiatives[] | {key, summary, childEpicCount, childEpics: [.childEpics[].key]}'
 ```
 
 Or review the console output from Step 1 which shows:
+
 - Total initiatives and epics
 - Child epic count per initiative
 - Epics with/without parent field
@@ -42,7 +46,8 @@ Or review the console output from Step 1 which shows:
 ### Step 3: Verify Against Jira UI (Optional)
 
 If epic counts seem incorrect or incomplete:
-1. Open the initiative issue in Jira UI (e.g., browse to AI-909)
+
+1. Open the initiative issue in Jira UI (e.g., browse to UKCAUD-909)
 2. Expand the "Child issues" section
 3. Count epics shown in the UI
 4. Compare against the analysis output
@@ -59,15 +64,17 @@ node scripts/fetch-missing-epics.mjs
 ```
 
 Or use MCP tools to fetch individual epics:
+
 ```javascript
 mcp__atlassian__jira_get_issue({
-  issueKey: "AI-1018"
-})
+  issueKey: "UKCAUD-1018",
+});
 ```
 
 ### Step 5: Update Documentation
 
 After verifying epic hierarchy:
+
 1. Update `initiatives/{name}/epics.md` with correct epic counts
 2. Update `initiatives/{name}/context.md` Child Epics summary
 3. Log discovery in `context.md` Recent Decisions section
@@ -82,12 +89,14 @@ After verifying epic hierarchy:
 ## Why This Works
 
 The `fields.parent` field in epic JSON files is the **source of truth** for parent-child relationships. This reverse lookup method:
+
 - ✅ Finds all epics with parent field set (true children)
 - ✅ Works with existing data (no additional API calls)
 - ✅ Identifies epics without parent field (relationship issues)
 - ✅ Fast and reliable
 
 Limitations:
+
 - ❌ Won't find epics not yet fetched
 - ❌ Won't find epics with incorrect/missing parent field
 
@@ -106,30 +115,22 @@ If reverse lookup gives incomplete results:
 ```
 📋 Epic Hierarchy by Initiative:
 
-AI-909: Engagement Intelligence - CWX Launch to Production
+UKCAUD-909: UK Engagement Intelligence Initiative
 Status: To Do
 Child Epics: 4
 
-  ├─ AI-1018: Let users guide AiDA to the right context
+  ├─ UKCAUD-1018: Let users guide to right context
   │  Status: To Do
 
-  ├─ AI-1019: AiDA proactive guidance
+  ├─ UKCAUD-1019: Proactive guidance
   │  Status: To Do
 
-  ├─ AI-1057: AiDA Usage Caps
+  ├─ UKCAUD-1057: Usage Caps
   │  Status: To Do
 
-  ├─ AI-1058: AiDA Reliability & Response Quality
+  ├─ UKCAUD-1058: Reliability & Response Quality
   │  Status: To Do
 ```
-
-## Lessons Learned (2026-02-10)
-
-- Initial method using `issuelinks[]` found only 13 epics; reverse lookup found 17
-- AI-909 had 4 child epics, not 2 (AI-606 and AI-897 belonged to AI-536)
-- AI-312 had 1 child epic, not 3 (AI-884 and AI-910 lacked parent field)
-- AI-536 initiative was discovered via reverse lookup (was not in initial fetch)
-- Always verify epic counts against Jira UI if numbers seem low
 
 ## Related Files
 
@@ -140,5 +141,5 @@ Child Epics: 4
 
 ---
 
-**Last Updated**: 2026-02-10
+**Last Updated**: 2026-04-02
 **Method**: Reverse lookup from epic parent fields (most reliable)

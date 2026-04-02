@@ -20,13 +20,14 @@ No parameters required. The skill automatically discovers all initiative todos a
 
 Read the following files to gather current week context:
 
-- `/Users/quinn.daneyko/Documents/claude-experiments/my-work-agents/coordinator/weekly-plan.md`
-- `/Users/quinn.daneyko/Documents/claude-experiments/my-work-agents/coordinator/daily-log.md`
-- `/Users/quinn.daneyko/Documents/claude-experiments/my-work-agents/initiatives/aida/weekly-todos.md`
-- `/Users/quinn.daneyko/Documents/claude-experiments/my-work-agents/initiatives/dca/weekly-todos.md`
-- `/Users/quinn.daneyko/Documents/claude-experiments/my-work-agents/initiatives/platform/weekly-todos.md`
+- `C:/Users/liam.bond/Documents/Productivity Tool/workspace/coordinator/weekly-plan.md`
+- `C:/Users/liam.bond/Documents/Productivity Tool/workspace/coordinator/daily-log.md`
+- `C:/Users/liam.bond/Documents/Productivity Tool/workspace/initiatives/ukcaud/weekly-todos.md`
+- `C:/Users/liam.bond/Documents/Productivity Tool/workspace/initiatives/ukcas/weekly-todos.md`
+- `C:/Users/liam.bond/Documents/Productivity Tool/workspace/initiatives/dist/weekly-todos.md`
 
 Parse each file to extract:
+
 - Week start/end dates from metadata section
 - Completed items (checked checkboxes: `- [x]`)
 - In progress items (for carryover to next week)
@@ -37,15 +38,19 @@ Parse each file to extract:
 For each file, identify completed items by searching for `- [x]` patterns.
 
 **Example extraction**:
+
 ```markdown
-From initiatives/aida/weekly-todos.md:
-- [x] Create Agentic AiDA Beta initiative (Jira + Confluence)
+From initiatives/ukcaud/weekly-todos.md:
+
+- [x] Create Agentic UKCAUD Beta initiative (Jira + Confluence)
 - [x] Review document ingest tickets and identify missing stories
 
-From initiatives/dca/weekly-todos.md:
-- [x] Check with Peter on DCA Figma (AI-1036)
+From initiatives/ukcas/weekly-todos.md:
 
-From initiatives/platform/weekly-todos.md:
+- [x] Check with team on UKCAS Figma (UKCAUD-1036)
+
+From initiatives/dist/weekly-todos.md:
+
 - [x] Document Shared Auth v2.0 migration guide
 ```
 
@@ -59,7 +64,7 @@ Read `coordinator/daily-log.md` and extract content from all entries for the cur
 - **Evening entries**: "Accomplished" and "IBP-notable" fields (signals what actually happened)
 - **Ad-hoc entries**: Any notable mid-day captures
 
-**Group extracted content by initiative** (Cross-Cutting, DCA, AiDA 2.0, Platform) by reading the context of each entry. If an entry mentions a specific initiative, assign it there. Otherwise, assign to Cross-Cutting.
+**Group extracted content by initiative** (Cross-Cutting, UKCAUD, UKCAS, DIST) by reading the context of each entry. If an entry mentions a specific initiative, assign it there. Otherwise, assign to Cross-Cutting.
 
 **Draft pre-populated Wins & Impact bullets** using the daily log content:
 
@@ -69,16 +74,17 @@ Read `coordinator/daily-log.md` and extract content from all entries for the cur
 - Write each bullet in **narrative style**: accomplishment + implicit value, no `→ Impact:` separator
 
 **Example synthesis**:
+
 ```
 Daily log evening entries contained:
-- 2026-02-24: "DCA citations release shipped, 81% baseline established"
-- 2026-02-25: "Re-engaged MNP as alpha/beta partner" (IBP-notable)
+- 2026-02-24: "UKCAS citations release shipped, 81% baseline established"
+- 2026-02-25: "Re-engaged alpha/beta partner" (IBP-notable)
 - 2026-02-26: "Held QA/Dev/Product agentic quality session, booked weekly CoE sync"
 
 Draft bullets:
-DCA:
-- DCA citations release shipped + 81% suggestion accuracy baseline established
-- Re-engaged MNP as alpha/beta partner for DCA Canada launch
+UKCAS:
+- UKCAS citations release shipped + 81% suggestion accuracy baseline established
+- Re-engaged alpha/beta partner for UKCAS Canada launch
 
 Cross-Cutting:
 - Held agentic quality QA/Dev/Product session + booked weekly CoE sync
@@ -116,7 +122,7 @@ Items carried forward:
 **Carry-forward handling**: Items marked ↗️ should be pre-populated as the first items in next week's "🔥 This Week: Top Priorities" section (in Step 7), with context about why they were carried. Format:
 
 ```markdown
-1. **[Carried item name]** *(carried from last week: [brief reason])* — [original description]
+1. **[Carried item name]** _(carried from last week: [brief reason])_ — [original description]
 ```
 
 ### Step 3: Present Draft and Collect User Input
@@ -131,10 +137,13 @@ Review, edit, or add anything missing:
 - [pre-populated narrative bullet]
 - [pre-populated narrative bullet]
 
-### DCA
+### UKCAUD
 - [pre-populated narrative bullet]
 
-### AiDA 2.0
+### UKCAS
+- [pre-populated narrative bullet]
+
+### DIST
 - [pre-populated narrative bullet]
 
 ---
@@ -144,6 +153,7 @@ Add, remove, or rephrase any bullets. Type "done" when ready, or paste revised b
 ```
 
 If no daily log content exists, use the original prompt approach:
+
 ```
 📋 No daily log entries found. Let's build the Wins & Impact section from scratch.
 What were the key accomplishments this week? (Group by initiative, one per line)
@@ -156,15 +166,17 @@ What were the key accomplishments this week? (Group by initiative, one per line)
 Group completed items by initiative and cross-cutting work:
 
 **Cross-Cutting Work** (if applicable):
+
 - Items that affect multiple initiatives
 - Foundational work (workspace setup, documentation, architecture)
 - Strategic decisions or planning
 
 **Initiative-Specific Work**:
-- **DCA**: Items from `initiatives/dca/weekly-todos.md`
-- **AiDA 2.0**: Items from `initiatives/aida/weekly-todos.md`
-- **Platform**: Items from `initiatives/platform/weekly-todos.md`
-- **DAS**: Items related to Document Automation Services (if present)
+
+- **UKCAS**: Items from `initiatives/ukcas/weekly-todos.md`
+- **UKCAUD**: Items from `initiatives/ukcaud/weekly-todos.md`
+- **DIST**: Items from `initiatives/dist/weekly-todos.md`
+- **UKJPD**: Items related to UK JPD product discovery (if present)
 
 ### Step 5: Generate IBP "Wins & Impact" Section
 
@@ -174,20 +186,25 @@ Build the "🚀 Current Week: Wins & Impact" section in IBP format using the use
 ## 🚀 Current Week: Wins & Impact
 
 ### Cross-Cutting Work
+
 - [Narrative bullet: accomplishment + implicit value inline]
 - [Narrative bullet]
 
-### DCA
+### UKCAUD
+
 - [Narrative bullet]
 
-### AiDA 2.0
+### UKCAS
+
 - [Narrative bullet]
 
-### Platform
+### DIST
+
 - [Narrative bullet]
 ```
 
 **Format Rules**:
+
 - **Narrative style**: Each bullet reads as a status update — what happened AND its significance are in one sentence
 - No `→ Impact:` separator — weave accomplishment and value together naturally
 - Bold is used sparingly (for names or initiative labels), not for every word
@@ -195,15 +212,17 @@ Build the "🚀 Current Week: Wins & Impact" section in IBP format using the use
 - Group by initiative
 
 **Good example** (narrative):
+
 ```
-- DCA citations release shipped — 81% suggestion accuracy baseline established
-- Re-engaged MNP as alpha/beta partner for AiDA 2.0 & DCA Canada launch
+- UKCAS citations release shipped — 81% suggestion accuracy baseline established
+- Re-engaged alpha/beta partner for UKCAS & UKCAUD Canada launch
 - Held agentic quality QA/Dev/Product session + booked weekly CoE sync to sustain momentum
 ```
 
 **Bad example** (old format — avoid):
+
 ```
-- **Ship DCA citations** → Impact: Enabled beta baseline measurement
+- **Ship UKCAS citations** → Impact: Enabled beta baseline measurement
 ```
 
 ### Step 6: Archive Current Week Files
@@ -212,9 +231,9 @@ Create archive directories if they don't exist:
 
 ```bash
 mkdir -p coordinator/archive
-mkdir -p initiatives/aida/archive
-mkdir -p initiatives/dca/archive
-mkdir -p initiatives/platform/archive
+mkdir -p initiatives/ukcaud/archive
+mkdir -p initiatives/ukcas/archive
+mkdir -p initiatives/dist/archive
 ```
 
 Extract week start date from file metadata (format: `Week Start: YYYY-MM-DD`).
@@ -231,14 +250,14 @@ cp coordinator/daily-log.md \
    coordinator/archive/daily-log-YYYY-MM-DD.md
 
 # Archive initiative todos
-cp initiatives/aida/weekly-todos.md \
-   initiatives/aida/archive/weekly-todos-YYYY-MM-DD.md
+cp initiatives/ukcaud/weekly-todos.md \
+   initiatives/ukcaud/archive/weekly-todos-YYYY-MM-DD.md
 
-cp initiatives/dca/weekly-todos.md \
-   initiatives/dca/archive/weekly-todos-YYYY-MM-DD.md
+cp initiatives/ukcas/weekly-todos.md \
+   initiatives/ukcas/archive/weekly-todos-YYYY-MM-DD.md
 
-cp initiatives/platform/weekly-todos.md \
-   initiatives/platform/archive/weekly-todos-YYYY-MM-DD.md
+cp initiatives/dist/weekly-todos.md \
+   initiatives/dist/archive/weekly-todos-YYYY-MM-DD.md
 ```
 
 **Archive Naming Convention**: `{type}-YYYY-MM-DD.md` where date is the **Monday** of that week.
@@ -284,12 +303,19 @@ Read the current `coordinator/weekly-plan.md` file.
 ## 🔥 This Week: Top Priorities
 
 ### Cross-Cutting Work
+
 [Cleared - to be filled during Monday planning]
 
-### AiDA 2.0
+### UKCAUD
+
 [Cleared - to be filled during Monday planning]
 
-### DCA
+### UKCAS
+
+[Cleared - to be filled during Monday planning]
+
+### DIST
+
 [Cleared - to be filled during Monday planning]
 
 ---
@@ -297,12 +323,19 @@ Read the current `coordinator/weekly-plan.md` file.
 ## 🚀 Last Week: Wins & Impact (Mon DD–DD)
 
 ### Cross-Cutting Work
+
 [Generated narrative bullets from Step 5]
 
-### AiDA 2.0
+### UKCAUD
+
 [Generated narrative bullets]
 
-### DCA
+### UKCAS
+
+[Generated narrative bullets]
+
+### DIST
+
 [Generated narrative bullets]
 
 ---
@@ -310,9 +343,11 @@ Read the current `coordinator/weekly-plan.md` file.
 ## ⚠️ Issues / Blockers
 
 ### Critical (Blocking Work)
+
 [Carried over from last week if unresolved]
 
 ### Informational (Monitoring)
+
 [Updated status from last week]
 
 ---
@@ -320,7 +355,7 @@ Read the current `coordinator/weekly-plan.md` file.
 ## 🔮 Looking Ahead
 
 - **[Date]**: [Major milestone] — [Jira link] / [one-pager link]
-[Maintained from last week, updated if milestones passed]
+  [Maintained from last week, updated if milestones passed]
 ```
 
 ### Step 8: Update Initiative Todos
@@ -328,10 +363,11 @@ Read the current `coordinator/weekly-plan.md` file.
 For each initiative file (`initiatives/{name}/weekly-todos.md`):
 
 1. **Move completed items to "Completed This Week ✅" section** with impact statements:
+
    ```markdown
    ## Completed This Week ✅
 
-   - [x] **[Task description]** - [Related Jira: AI-XXX]
+   - [x] **[Task description]** - [Related Jira: UKCAUD-XXX]
      - **Impact**: [User-provided impact from Step 3]
      - Completed: YYYY-MM-DD
    ```
@@ -343,6 +379,7 @@ For each initiative file (`initiatives/{name}/weekly-todos.md`):
 3. **Clear old priorities** that are done or no longer relevant
 
 4. **Add "This Week's Focus" section** (cleared for Monday planning):
+
    ```markdown
    ## 📋 This Week's Focus
 
@@ -350,10 +387,11 @@ For each initiative file (`initiatives/{name}/weekly-todos.md`):
    ```
 
 5. **Carry over "Blocked" items** with updated status:
+
    ```markdown
    ## Blocked
 
-   - [ ] **[Task]** - [Related Jira: AI-XXX]
+   - [ ] **[Task]** - [Related Jira: UKCAUD-XXX]
      - Blocker: [Description]
      - Waiting On: [Person/Team]
      - Escalation Path: [If not resolved by date]
@@ -367,7 +405,7 @@ For each initiative file (`initiatives/{name}/weekly-todos.md`):
 **Example transformed file**:
 
 ```markdown
-# AiDA Weekly Todos - Week of 2026-02-16
+# UKCAUD Weekly Todos - Week of 2026-02-16
 
 ## 📋 This Week's Focus
 
@@ -383,7 +421,7 @@ For each initiative file (`initiatives/{name}/weekly-todos.md`):
 
 ## Completed Last Week ✅
 
-- [x] **Create Agentic AiDA Beta initiative** - [Related Jira: AI-XXXX]
+- [x] **Create Agentic UKCAUD Beta initiative** - [Related Jira: UKCAUD-XXXX]
   - **Impact**: Enables March 25 beta launch, defines scope and success criteria
   - Completed: 2026-02-10
 
@@ -417,25 +455,25 @@ Display final summary for user:
 
 **Total Completed**: X items across all initiatives
   - Cross-Cutting: X items
-  - AiDA: X items
-  - DCA: X items
-  - Platform: X items
+  - UKCAUD: X items
+  - UKCAS: X items
+  - DIST: X items
 
 **Impact Statements Collected**: X/X (100%)
 
 📁 Archived:
   ✅ coordinator/archive/weekly-plan-YYYY-MM-DD.md
   ✅ coordinator/archive/daily-log-YYYY-MM-DD.md
-  ✅ initiatives/aida/archive/weekly-todos-YYYY-MM-DD.md
-  ✅ initiatives/dca/archive/weekly-todos-YYYY-MM-DD.md
-  ✅ initiatives/platform/archive/weekly-todos-YYYY-MM-DD.md
+  ✅ initiatives/ukcaud/archive/weekly-todos-YYYY-MM-DD.md
+  ✅ initiatives/ukcas/archive/weekly-todos-YYYY-MM-DD.md
+  ✅ initiatives/dist/archive/weekly-todos-YYYY-MM-DD.md
 
 📝 Updated for Next Week (Week of YYYY-MM-DD):
   ✅ coordinator/weekly-plan.md (IBP format applied)
   ✅ coordinator/daily-log.md (reset for next week)
-  ✅ initiatives/aida/weekly-todos.md
-  ✅ initiatives/dca/weekly-todos.md
-  ✅ initiatives/platform/weekly-todos.md
+  ✅ initiatives/ukcaud/weekly-todos.md
+  ✅ initiatives/ukcas/weekly-todos.md
+  ✅ initiatives/dist/weekly-todos.md
 
 ⚠️ Blockers Carried Over:
   - Critical: X items
@@ -513,7 +551,7 @@ If user provides generic impact:
 Good impact statements explain business value:
 - "Enabled March 25 beta launch"
 - "Identified 3 missing stories"
-- "Unblocked DCA Beta initiative"
+- "Unblocked UKCAUD Beta initiative"
 
 Please provide a more specific impact statement, or type "skip" to fill later:
 ```
@@ -525,12 +563,13 @@ Please provide a more specific impact statement, or type "skip" to fill later:
 When milestones are updated during the week, note in weekly-todos.md:
 
 ```markdown
-- [x] Updated AI-909 target date to May 21 - [Jira: AI-909]
+- [x] Updated UKCAUD-909 target date to May 21 - [Jira: UKCAUD-909]
 ```
 
 During weekly review, impact template:
+
 ```
-Impact: Aligned CWX launch with GA readiness
+Impact: Aligned UK delivery with GA readiness
 ```
 
 ### With `/check-updates`
@@ -562,7 +601,7 @@ The coordinator creates tasks from "Next Week: Top Priorities" on Monday. When a
 1. **Mark items complete during the week** - Don't wait until Friday to check boxes
 2. **Update "In Progress" status** - Keep stakeholders informed of current work
 3. **Log blockers immediately** - Don't wait for Friday review to escalate
-4. **Link Jira issues** - Include `[Related Jira: AI-XXX]` for traceability
+4. **Link Jira issues** - Include `[Related Jira: UKCAUD-XXX]` for traceability
 
 ## Notes
 
@@ -579,22 +618,22 @@ $ /weekly-todo-review
 
 📋 Reading current week files...
 ✅ Found coordinator/weekly-plan.md (Week of 2026-02-09)
-✅ Found initiatives/aida/weekly-todos.md
-✅ Found initiatives/dca/weekly-todos.md
-✅ Found initiatives/platform/weekly-todos.md
+✅ Found initiatives/ukcaud/weekly-todos.md
+✅ Found initiatives/ukcas/weekly-todos.md
+✅ Found initiatives/dist/weekly-todos.md
 
 📋 Extracting completed work...
 ✅ Found 6 completed items:
-  - AiDA: 3 items
-  - DCA: 2 items
-  - Platform: 1 item
+  - UKCAUD: 3 items
+  - UKCAS: 2 items
+  - DIST: 1 item
 
 📋 Please provide impact statements for completed work...
 
-1. AiDA: "Create Agentic AiDA Beta initiative (Jira + Confluence)"
-   Impact: > Enables March 25 beta launch with Citrin, defines scope and success criteria
+1. UKCAUD: "Create Agentic UKCAUD Beta initiative (Jira + Confluence)"
+   Impact: > Enables March 25 beta launch with team, defines scope and success criteria
 
-2. AiDA: "Review document ingest tickets and identify missing stories"
+2. UKCAUD: "Review document ingest tickets and identify missing stories"
    Impact: > Identified 3 missing stories for Q1 backlog, prioritized refinement
 
 [... continues for all items ...]
@@ -603,15 +642,15 @@ $ /weekly-todo-review
 
 📁 Creating archive directories...
 ✅ coordinator/archive/ created
-✅ initiatives/aida/archive/ created
-✅ initiatives/dca/archive/ created
-✅ initiatives/platform/archive/ created
+✅ initiatives/ukcaud/archive/ created
+✅ initiatives/ukcas/archive/ created
+✅ initiatives/dist/archive/ created
 
 📁 Archiving current week files...
 ✅ coordinator/archive/weekly-plan-2026-02-09.md
-✅ initiatives/aida/archive/weekly-todos-2026-02-09.md
-✅ initiatives/dca/archive/weekly-todos-2026-02-09.md
-✅ initiatives/platform/archive/weekly-todos-2026-02-09.md
+✅ initiatives/ukcaud/archive/weekly-todos-2026-02-09.md
+✅ initiatives/ukcas/archive/weekly-todos-2026-02-09.md
+✅ initiatives/dist/archive/weekly-todos-2026-02-09.md
 
 📝 Updating coordinator plan with IBP format...
 ✅ "🚀 Current Week: Wins & Impact" section generated
@@ -619,9 +658,9 @@ $ /weekly-todo-review
 ✅ Metadata updated (Week of 2026-02-16)
 
 📝 Updating initiative todos...
-✅ initiatives/aida/weekly-todos.md updated
-✅ initiatives/dca/weekly-todos.md updated
-✅ initiatives/platform/weekly-todos.md updated
+✅ initiatives/ukcaud/weekly-todos.md updated
+✅ initiatives/ukcas/weekly-todos.md updated
+✅ initiatives/dist/weekly-todos.md updated
 
 ✅ Weekly Review Complete!
 

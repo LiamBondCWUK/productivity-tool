@@ -9,6 +9,7 @@ Tone: **Reflective, brief** — capture what's worth remembering, don't reconstr
 ## Trigger
 
 Run when user says:
+
 - `/evening-checkin`
 - "end of day" / "wrapping up" / "evening check-in"
 - "that's a wrap" / "signing off"
@@ -26,6 +27,7 @@ Glob: coordinator/notes/YYYY-MM-DD-handoff-*.md
 (Replace `YYYY-MM-DD` with today's date.)
 
 If handoff files exist:
+
 1. Read each one (they're 5-10 lines each)
 2. Extract task name, status, and created keys/IDs
 3. Hold these as pre-populated accomplishments for Step 4
@@ -37,6 +39,7 @@ This ensures sub-agent work is captured even if the user forgets to mention it.
 Read `coordinator/daily-log.md` and check for any entries for today (morning, ad-hoc, or prior evening entries — anything with today's date `YYYY-MM-DD`).
 
 **If entries exist for today** (log already has content): synthesize directly from available context — no question needed. Draw from:
+
 - All logged entries in `coordinator/daily-log.md` for today
 - Handoff files found in Step 0
 - Updates and decisions shared in the current conversation thread
@@ -78,14 +81,15 @@ Append a timestamped evening entry to `coordinator/daily-log.md`.
 
 **Accomplished:**
 [What user did today — paraphrased or verbatim]
-[Sub-agent completions from handoff files, e.g.: "Created AI-1233 (Page Context Awareness) — via sub-agent"]
+[Sub-agent completions from handoff files, e.g.: "Created UKCAUD-1233 (Page Context Awareness) — via sub-agent"]
 
 **Decisions/context:**
 [Any decisions, agreements, or context captured]
 
 **Weekly commitment progress:**
 [Map today's work back to weekly commitments. Only include commitments that were touched or are at risk.]
-- [Commitment X]: advanced (describe how)
+
+- [Commitment X]: advanced "describe how"
 - [Commitment Y]: at risk (explain why)
 
 **Blockers/open items:**
@@ -98,6 +102,7 @@ Append a timestamped evening entry to `coordinator/daily-log.md`.
 The "IBP-notable" field is optional. Only fill it when something is clearly worth including in the Friday synthesis — a shipped release, a significant decision, a milestone reached, or an important customer interaction.
 
 **Commitment mapping guidelines**:
+
 - Load the weekly plan's "🔥 This Week: Top Priorities" to identify commitments
 - Only map commitments that were actually touched today — don't list every commitment
 - "No change today" entries are optional — only include if the item is at risk
@@ -117,6 +122,7 @@ After the main evening entry, append a `## Process Notes` section to `coordinato
 Pull these from today's session — anything that felt awkward, slow, or worth fixing next time. If synthesis came from thread context, scan the conversation for friction points or process observations.
 
 **Guidelines:**
+
 - Keep it observational, not prescriptive (e.g., "Plan/approve cycles were frequent today for small edits" not "We should change the plan mode threshold")
 - 1-3 bullets only — don't over-capture
 - Skip this section if there's genuinely nothing to note (don't force it)
@@ -135,11 +141,13 @@ If the current session appears large (multiple plan/execute cycles, long convers
 ### Step 5: Confirm (with IBP flag if applicable)
 
 If IBP-notable was populated:
+
 ```
 Logged. That [brief description of notable item] sounds worth including in this week's IBP summary — I'll pull it in on Friday.
 ```
 
 Otherwise:
+
 ```
 Logged. See you tomorrow.
 ```
@@ -147,10 +155,13 @@ Logged. See you tomorrow.
 ## Error Handling
 
 ### daily-log.md doesn't exist
+
 Create it with the blank template before appending (same as morning-checkin).
 
 ### User's response is very brief ("fine" / "okay" / "nothing special")
+
 Accept it. Append a minimal entry:
+
 ```markdown
 ## YYYY-MM-DD — Evening
 
@@ -181,6 +192,7 @@ If the user provides meetings, append a brief entry to `coordinator/daily-log.md
 ## YYYY-MM-DD — Meeting Pre-load (for tomorrow YYYY-MM-DD)
 
 **Tomorrow's meetings:**
+
 - [list each meeting with time as provided]
 ```
 

@@ -9,6 +9,7 @@ Tone: **Brief, conversational** — this is a quick grounding, not a status meet
 ## Trigger
 
 Run when user says:
+
 - `/morning-checkin`
 - "good morning" / "start of day" / "morning check-in"
 - "what's on my plate today"
@@ -18,24 +19,25 @@ Run when user says:
 ### Step 1: Load Context
 
 Read these files in parallel:
+
 - `coordinator/weekly-plan.md` → extract "🔥 This Week: Top Priorities" and "🔮 Looking Ahead" sections
 - `coordinator/daily-log.md` → find yesterday's evening entry (if any); also scan for any Meeting Pre-load entry for today
-- `initiatives/aida/weekly-todos.md` → extract `Week Start:` metadata line
-- `initiatives/dca/weekly-todos.md` → extract `Week Start:` metadata line
+- `initiatives/ukcaud/weekly-todos.md` → extract `Week Start:` metadata line
+- `initiatives/ukcas/weekly-todos.md` → extract `Week Start:` metadata line
 
-Parse the weekly plan priorities by initiative (Cross-Cutting, DCA, AiDA 2.0, Platform).
+Parse the weekly plan priorities by initiative (Cross-Cutting, UKCAUD, UKCAS, DIST).
 
 ### Step 1b: Load Monthly Context
 
 From the "🔮 Looking Ahead" section already loaded, extract any dates within the next 4 weeks (relative to today). Format as: `DATE — Initiative: Event`.
 
-Also scan `initiatives/aida/milestones.md` and `initiatives/dca/milestones.md` for upcoming milestone targets within 4 weeks.
+Also scan `initiatives/ukcaud/milestones.md`, `initiatives/ukcas/milestones.md`, and `initiatives/dist/milestones.md` for upcoming milestone targets within 4 weeks.
 
 Hold these as a dated list for the brief.
 
 ### Step 1c: Load Recent Insights
 
-Glob `coordinator/notes/` for the 3 most recently dated files (YYYY-MM-DD-*.md pattern). Read each and extract anything flagged as IBP-notable, a major decision, or a resolved risk.
+Glob `coordinator/notes/` for the 3 most recently dated files (YYYY-MM-DD-\*.md pattern). Read each and extract anything flagged as IBP-notable, a major decision, or a resolved risk.
 
 Also scan `coordinator/daily-log.md` for any IBP-notable flags in the last 3 days.
 
@@ -45,9 +47,10 @@ Hold as 1-2 bullets for the brief. Skip if nothing stands out.
 
 Check the daily log for a Meeting Pre-load entry for today (written by the previous evening's check-in). If found, extract tomorrow's meetings list.
 
-The user may also provide meetings in their morning response. For any named meeting (e.g., "MNP sync", "platform arch planning"), surface 1-2 relevant context bullets from:
+The user may also provide meetings in their morning response. For any named meeting (e.g., "UKCAUD sync", "DIST arch planning"), surface 1-2 relevant context bullets from:
+
 - `coordinator/weekly-plan.md` (this week's priorities)
-- `initiatives/aida/context.md` or `initiatives/dca/context.md` if topic is AiDA/DCA
+- `initiatives/ukcaud/context.md`, `initiatives/ukcas/context.md`, or `initiatives/dist/context.md` if topic is UKCAUD/UKCAS/DIST
 
 Load meeting context lazily — only look up what's actually listed. Skip this step if no named meetings are available yet (user can add them in their morning response and context will be captured in the log).
 
@@ -69,13 +72,16 @@ After loading the weekly plan (Step 1):
 
 ```markdown
 ## 📊 Commitment Check (Wed+)
+
 [For each weekly priority: one-line status]
+
 - **[Commitment name]**: [status emoji] [brief explanation]
 - **[Commitment name]**: [status emoji] [brief explanation]
-...
+  ...
 ```
 
 5. If any items are 🔴 or ⚠️, flag them in the inline output:
+
 ```
 ⚠️  At-risk commitments: [list names] — see daily brief for details
 ```
@@ -98,6 +104,7 @@ For each: approve / reject / defer?
 ```
 
 Wait for user response. For each proposal:
+
 - **approve**: Run `sed` or edit to change status from `⏳ pending` to `✅ approved` in proposals-queue.md
 - **reject**: Change status to `❌ rejected`
 - **defer**: Leave as `⏳ pending` (will surface again tomorrow)
@@ -105,6 +112,7 @@ Wait for user response. For each proposal:
 - **"skip"**: Proceed without reviewing (will surface again tomorrow)
 
 After processing responses, if any proposals were approved:
+
 ```
 ✅ Approved N proposals. Run /tool-factory build <name> when ready to build.
 ```
@@ -119,8 +127,9 @@ Compare the `Week Start:` date from each initiative's todos against the current 
 
 ```
 ⚠️  Initiative todos are out of date:
-- initiatives/aida/weekly-todos.md → Week of YYYY-MM-DD (current week: YYYY-MM-DD)
-- initiatives/dca/weekly-todos.md → Week of YYYY-MM-DD (current week: YYYY-MM-DD)
+- initiatives/ukcaud/weekly-todos.md → Week of YYYY-MM-DD (current week: YYYY-MM-DD)
+- initiatives/ukcas/weekly-todos.md → Week of YYYY-MM-DD (current week: YYYY-MM-DD)
+- initiatives/dist/weekly-todos.md → Week of YYYY-MM-DD (current week: YYYY-MM-DD)
 
 Looks like /weekly-todo-review was missed last Friday. Options:
 1. Run /weekly-todo-review now to archive and reset (recommended, ~5 min)
@@ -138,6 +147,7 @@ What would you like to do?
 Scan `daily-log.md` for the most recent evening entry (format: `## YYYY-MM-DD — Evening`).
 
 If found, extract:
+
 - What was accomplished
 - Any open items or blockers mentioned
 - Anything flagged as needing follow-up today
@@ -154,22 +164,28 @@ Write a structured daily brief file to `coordinator/daily-brief-YYYY-MM-DD.md` (
 # Daily Brief — YYYY-MM-DD
 
 ## 📅 Today
+
 **Meetings**: [list each meeting with time, from pre-load or user input]
 **Focus**: [1-3 focus areas from user's stated priorities or weekly plan top items]
 
 ## 🔥 This Week (Top 3)
+
 [Top 3 items from weekly plan "This Week" section — one line each]
 
 ## 🗓️ This Month (Key Dates)
+
 [Upcoming dates within 4 weeks: DATE — Initiative: Event]
 
 ## 💡 Recent Insights
+
 [1-2 bullets from IBP-notable items in recent daily log or coordinator notes]
 
 ## 🧠 Don't Forget
+
 [Open blockers, pending follow-ups, carryover items from yesterday's evening entry]
 
 ## 📋 Meeting Prep
+
 [Only if named meetings present: per-meeting context, 1-2 bullets each. Omit section if no named meetings.]
 ```
 
@@ -201,6 +217,7 @@ Instead of a generic "What's your focus?", provide a **time-aware, directive pro
    - **Deep focus** (1-2+ hrs): Strategic or creative work best saved for the largest uninterrupted block. Look for: 🔴 not-started commitments, planning/scoping work, items flagged as "needs alignment."
 
 3. **Frame with time context**, e.g.:
+
    ```
    It's 8:20 AM — you've got [meeting] at [time], so here's how to use the next [N] minutes:
 
@@ -212,6 +229,7 @@ Instead of a generic "What's your focus?", provide a **time-aware, directive pro
    ```
 
 **Principles:**
+
 - Lead with the time and the constraint ("you have X at Y")
 - Be specific about actions, not categories ("assemble the participant list" not "work on AiDA stuff")
 - Explain why each option matters right now
@@ -246,6 +264,7 @@ Use today's actual date. Keep entries concise — this is a log, not a report.
 ### Step 6: Confirm
 
 Brief confirmation:
+
 ```
 Logged. Have a good day — let me know if anything changes.
 ```
@@ -255,13 +274,16 @@ No need for lengthy output after logging.
 ## Error Handling
 
 ### No weekly-plan.md found
+
 ```
 ⚠️  Can't find coordinator/weekly-plan.md. Proceeding without weekly context.
 What are you focusing on today?
 ```
 
 ### daily-log.md doesn't exist
+
 Create it with the blank template before appending:
+
 ```markdown
 # Daily Log - Week of YYYY-MM-DD
 
@@ -271,6 +293,7 @@ Week: YYYY-MM-DD → YYYY-MM-DD
 ```
 
 ### coordinator/notes/ is empty or has no recent files
+
 Skip Step 1c silently — omit the "Recent Insights" section from the brief.
 
 ## Notes

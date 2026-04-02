@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-04-02 (UK prompt customisation + PRD cascade skill)
+
+### Changed (Phase 1.6 — all 12 prompts personalised for Liam Bond / UK Caseware team)
+
+- `morning-checkin.md` — initiative paths updated to `ukcaud/ukcas/dist`; groupings now Cross-Cutting / UKCAUD / UKCAS / DIST; milestone + context paths updated; stale-todos warning uses UK initiative names
+- `weekly-todo-review.md` — all quinn.daneyko paths → liam workspace; section headers use UKCAUD/UKCAS/DIST; archive directories updated
+- `ai-checkin-prep.md` — "DCA first, AiDA second" → "UKCAUD first, then UKCAS/DIST"; quinn paths replaced; output format updated
+- `evening-checkin.md` — initiative groupings + example log entries updated to UKCAUD/UKCAS context
+- `create-initiative.md` — project selection prompt added; `project: {key: "AI"}` → dynamic projectKey; labelMap → CWAS taxonomy; spaceId → "UKCAUD" (⚠️ verify); valid initiatives: ukcaud/ukcas/dist/ukjpd
+- `create-epic.md` — project selection added; project key validation updated to UKCAUD/UKJPD/UKCAS/DIST pattern; DoR label → UKCAUD_Epic_DoR (⚠️ verify)
+- `split-initiative.md` — project selection added; labelMap → CWAS; spaces/PM/ → spaces/UKCAUD/; examples updated
+- `process-raw-input.md` — quinn paths → liam workspace; initiative routing: aida→ukcaud, dca→ukcas, platform→dist
+- `discover-child-epics.md` — example issue keys updated to UKCAUD-XXX format
+- `create-internal-deck.md` — owner names → UK team placeholders; AiDA/DCA → UKCAUD/UKCAS examples
+- `review-github-code.md` — Windows setup added (`$env:GITHUB_TOKEN`); macOS-only references removed
+- `markdown-to-pdf.md` — Windows install commands added (winget pandoc/typst); `open` → `Start-Process`
+
+### Added (Phase 3.2 — new 13th prompt)
+
+- `create-prd.md` — full PRD cascade skill: minimal input → UKJPD Idea + UKCAUD Initiative (created or linked) → 5 Confluence pages (PRD master, Initiative One-Pager, Epic One-Pager(s), Tech Spec stub, UAT Test Plan stub) → Jira Epics + placeholder Stories with embedded CWAS DoR checklist → all linked back to UKJPD; returns all URLs + issue keys + manual completion checklist
+
+---
+
 ## 2026-04-02 (Replit deployment + test data population)
 
 ### Added
