@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": "1.0.0",
-    "lastUpdated": "2026-04-02T05:04:51.497Z",
+    "lastUpdated": "2026-04-02T15:46:55.764Z",
     "lastUpdatedBy": "populate-test-data"
   },
   "priorityInbox": {
@@ -13,8 +13,8 @@
         "source": "jira",
         "link": "https://caseware.atlassian.net/browse/UKCAS-789",
         "priority": "urgent",
-        "addedAt": "2026-04-02T03:04:51.499Z",
-        "dueAt": "2026-04-02T05:49:51.499Z",
+        "addedAt": "2026-04-02T13:46:55.766Z",
+        "dueAt": "2026-04-02T16:31:55.766Z",
         "labels": [
           "L3-Escalation",
           "UKCAUD_BUGS_DEV/QA"
@@ -28,7 +28,7 @@
         "source": "jira",
         "link": "https://caseware.atlassian.net/browse/UKCAUD-1024",
         "priority": "urgent",
-        "addedAt": "2026-04-02T04:04:51.499Z",
+        "addedAt": "2026-04-02T14:46:55.766Z",
         "labels": [
           "UKCAUD_CONTENT/PEERREVIEW"
         ],
@@ -43,7 +43,7 @@
         "source": "overnight",
         "priority": "high",
         "effort": "S",
-        "addedAt": "2026-04-01T23:04:51.499Z",
+        "addedAt": "2026-04-02T09:46:55.766Z",
         "reasoning": "Rule has been ready for 5 days. No dependencies. Directly unblocks 3 open UKJPD enhancements."
       },
       {
@@ -53,7 +53,7 @@
         "source": "overnight",
         "priority": "medium",
         "effort": "M",
-        "addedAt": "2026-04-01T23:04:51.499Z",
+        "addedAt": "2026-04-02T09:46:55.766Z",
         "reasoning": "38 items have been untriaged for >7 days. Triage window closes Thursday."
       },
       {
@@ -63,7 +63,7 @@
         "source": "overnight",
         "priority": "medium",
         "effort": "M",
-        "addedAt": "2026-04-01T23:04:51.499Z",
+        "addedAt": "2026-04-02T09:46:55.766Z",
         "reasoning": "Two overlapping code paths. Consolidation saves ~15min per epic creation."
       }
     ],
@@ -75,7 +75,7 @@
         "source": "jira",
         "link": "https://caseware.atlassian.net/browse/UKCAUD-989",
         "priority": "today",
-        "addedAt": "2026-04-01T22:04:51.499Z",
+        "addedAt": "2026-04-02T08:46:55.766Z",
         "labels": [
           "UKCAUD_CONTENT/QA"
         ],
@@ -87,7 +87,7 @@
         "type": "teams",
         "source": "manual",
         "priority": "today",
-        "addedAt": "2026-04-02T04:04:51.499Z"
+        "addedAt": "2026-04-02T14:46:55.766Z"
       },
       {
         "id": "daily-ibp-notes",
@@ -95,7 +95,7 @@
         "type": "task",
         "source": "manual",
         "priority": "today",
-        "addedAt": "2026-04-01T21:04:51.499Z"
+        "addedAt": "2026-04-02T07:46:55.766Z"
       }
     ],
     "backlog": [
@@ -105,7 +105,7 @@
         "type": "standing",
         "source": "manual",
         "link": null,
-        "addedAt": "2026-03-28T05:04:51.500Z"
+        "addedAt": "2026-03-28T15:46:55.766Z"
       },
       {
         "id": "standing-ukpfr-crossover",
@@ -113,7 +113,7 @@
         "type": "standing",
         "source": "manual",
         "link": null,
-        "addedAt": "2026-03-28T05:04:51.500Z"
+        "addedAt": "2026-03-28T15:46:55.766Z"
       },
       {
         "id": "standing-teams-config",
@@ -121,7 +121,7 @@
         "type": "standing",
         "source": "manual",
         "link": null,
-        "addedAt": "2026-03-30T05:04:51.500Z"
+        "addedAt": "2026-03-30T15:46:55.766Z"
       },
       {
         "id": "standing-jira-rules",
@@ -129,7 +129,7 @@
         "type": "standing",
         "source": "manual",
         "link": null,
-        "addedAt": "2026-03-30T05:04:51.500Z"
+        "addedAt": "2026-03-30T15:46:55.766Z"
       },
       {
         "id": "ukjpd-55-review",
@@ -138,12 +138,12 @@
         "source": "jira",
         "link": "https://caseware.atlassian.net/browse/UKJPD-55",
         "priority": "backlog",
-        "addedAt": "2026-04-01T05:04:51.500Z"
+        "addedAt": "2026-04-01T15:46:55.766Z"
       }
     ]
   },
   "personalProjects": {
-    "lastRefreshed": "2026-04-02T05:04:51.497Z",
+    "lastRefreshed": "2026-04-02T15:46:55.764Z",
     "projects": [
       {
         "id": "command-center",
@@ -159,26 +159,26 @@
           "dashboard",
           "productivity"
         ],
-        "lastActivity": "2026-04-02T03:04:51.500Z",
+        "lastActivity": "2026-04-02T13:46:55.766Z",
         "lastCommitSubject": "feat: complete command center phases 4-7 — CLI consolidation, EOD pipeline, focus blocks",
         "suggestions": [
           {
             "priority": "HIGH",
             "action": "Add Replit deployment config (.replit + run command)",
             "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
+            "addedAt": "2026-04-02T09:46:55.766Z"
           },
           {
             "priority": "MED",
             "action": "Wire /eod command to write time-log.json entries",
             "effort": "M",
-            "addedAt": "2026-04-01T23:04:51.500Z"
+            "addedAt": "2026-04-02T09:46:55.766Z"
           },
           {
             "priority": "LOW",
             "action": "Add compact mode toggle to ProjectsBoard cards",
             "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
+            "addedAt": "2026-04-02T09:46:55.766Z"
           }
         ],
         "state": "All 7 phases built. Dashboard live at localhost:3000. Replit deployment pending.",
@@ -201,20 +201,20 @@
           "jira",
           "productivity"
         ],
-        "lastActivity": "2026-04-02T02:04:51.500Z",
+        "lastActivity": "2026-04-02T12:46:55.766Z",
         "lastCommitSubject": "feat: add /ticket epic, /clone --preset, /focus, /log commands",
         "suggestions": [
           {
             "priority": "HIGH",
             "action": "Deploy Jira Rule 1 (UKCAS→UKJPD routing) — unblocked, 10min",
             "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
+            "addedAt": "2026-04-02T09:46:55.766Z"
           },
           {
             "priority": "MED",
             "action": "Update /eod to pull Microsoft Graph calendar events",
             "effort": "M",
-            "addedAt": "2026-04-01T23:04:51.500Z"
+            "addedAt": "2026-04-02T09:46:55.766Z"
           }
         ],
         "state": "Core commands complete. /focus command needs Graph token setup.",
@@ -237,14 +237,14 @@
           "email",
           "automation"
         ],
-        "lastActivity": "2026-03-30T05:04:51.500Z",
+        "lastActivity": "2026-03-30T15:46:55.766Z",
         "lastCommitSubject": "fix: handle rate limiting in scraper",
         "suggestions": [
           {
             "priority": "LOW",
             "action": "Add Perplexity as backup source when primary APIs are down",
             "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
+            "addedAt": "2026-04-02T09:46:55.766Z"
           }
         ],
         "state": "Running daily. Last issue sent successfully 3 days ago.",
@@ -265,20 +265,20 @@
           "jira",
           "automation"
         ],
-        "lastActivity": "2026-03-28T05:04:51.500Z",
+        "lastActivity": "2026-03-28T15:46:55.766Z",
         "lastCommitSubject": null,
         "suggestions": [
           {
             "priority": "HIGH",
             "action": "Deploy Jira Rule 2 (UKCAUD→UKJPD sync) — review before deploying",
             "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
+            "addedAt": "2026-04-02T09:46:55.766Z"
           },
           {
             "priority": "MED",
             "action": "Triage 56 UPFR items — Product Area/Line fields empty",
             "effort": "L",
-            "addedAt": "2026-04-01T23:04:51.500Z"
+            "addedAt": "2026-04-02T09:46:55.766Z"
           }
         ],
         "state": "Rules 1 & 2 staged. Deployment blocked pending review.",
@@ -300,32 +300,32 @@
           "caseware",
           "ukcaud"
         ],
-        "lastActivity": "2026-04-01T05:04:51.500Z",
+        "lastActivity": "2026-04-01T15:46:55.766Z",
         "lastCommitSubject": null,
         "suggestions": [
           {
             "priority": "HIGH",
             "action": "Create clone preset for lead schedule story variants",
             "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
+            "addedAt": "2026-04-02T09:46:55.766Z"
           },
           {
             "priority": "HIGH",
             "action": "UKCAUD-989 subtask completion — Content + QA subtasks pending",
             "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
+            "addedAt": "2026-04-02T09:46:55.766Z"
           },
           {
             "priority": "MED",
             "action": "Review UKCAUD-1012 acceptance criteria against spec",
             "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
+            "addedAt": "2026-04-02T09:46:55.766Z"
           },
           {
             "priority": "LOW",
             "action": "Update context.md with Q2 scope changes from last Monday",
             "effort": "XS",
-            "addedAt": "2026-04-01T23:04:51.500Z"
+            "addedAt": "2026-04-02T09:46:55.766Z"
           }
         ],
         "state": "3 stories in progress. 2 subtasks blocked on QA resource.",
@@ -337,7 +337,7 @@
     ]
   },
   "calendar": {
-    "lastRefreshed": "2026-04-02T05:04:51.497Z",
+    "lastRefreshed": "2026-04-02T15:46:55.764Z",
     "source": "mock",
     "events": [
       {
@@ -349,7 +349,7 @@
         "isFocusBlock": false,
         "organizer": "scrum-bot",
         "status": "accepted",
-        "past": false
+        "past": true
       },
       {
         "id": "cal-focus-ukcaud",
@@ -360,7 +360,7 @@
         "isFocusBlock": true,
         "organizer": "liam.bond",
         "status": "accepted",
-        "past": false
+        "past": true
       },
       {
         "id": "cal-product-review",
@@ -371,7 +371,7 @@
         "isFocusBlock": false,
         "organizer": "peter.smith",
         "status": "accepted",
-        "past": false
+        "past": true
       },
       {
         "id": "cal-1on1",
@@ -382,7 +382,7 @@
         "isFocusBlock": false,
         "organizer": "kirsten.jones",
         "status": "tentative",
-        "past": false
+        "past": true
       },
       {
         "id": "cal-tomorrow-release",
@@ -461,7 +461,7 @@
     ]
   },
   "overnightAnalysis": {
-    "generatedAt": "2026-04-01T23:04:51.500Z",
+    "generatedAt": "2026-04-02T09:46:55.766Z",
     "reportPath": "workspace/coordinator/overnight-report.md",
     "summary": "5 projects analysed. 3 high-priority actions identified. Lead Schedules has 4 neglected tasks. Jira Rule 1 remains undeployed after 5 days.",
     "projects": {
@@ -579,8 +579,8 @@
       "status": "pending",
       "priority": "urgent",
       "source": "manual",
-      "addedAt": "2026-04-02T04:04:51.500Z",
-      "dueAt": "2026-04-02T05:34:51.500Z"
+      "addedAt": "2026-04-02T14:46:55.766Z",
+      "dueAt": "2026-04-02T16:16:55.766Z"
     },
     {
       "id": "task-2",
@@ -588,7 +588,7 @@
       "status": "pending",
       "priority": "today",
       "source": "jira",
-      "addedAt": "2026-04-02T02:04:51.500Z"
+      "addedAt": "2026-04-02T12:46:55.766Z"
     },
     {
       "id": "task-3",
@@ -596,7 +596,7 @@
       "status": "pending",
       "priority": "today",
       "source": "ai",
-      "addedAt": "2026-04-01T23:04:51.500Z"
+      "addedAt": "2026-04-02T09:46:55.766Z"
     },
     {
       "id": "task-4",
@@ -604,7 +604,7 @@
       "status": "pending",
       "priority": "today",
       "source": "recurring",
-      "addedAt": "2026-04-01T21:04:51.500Z",
+      "addedAt": "2026-04-02T07:46:55.766Z",
       "dueAt": "2026-04-02T16:00:00.000Z"
     },
     {
@@ -613,72 +613,7 @@
       "status": "pending",
       "priority": "backlog",
       "source": "manual",
-      "addedAt": "2026-04-01T05:04:51.500Z"
+      "addedAt": "2026-04-01T15:46:55.766Z"
     }
-  ],
-  "automationRules": {
-    "lastChecked": null,
-    "rules": [
-      {
-        "id": "retro-enrichment",
-        "name": "UKCAUD Retro Enrichment",
-        "description": "Auto-enriches retro stories via Rovo agent when UKCAUD_RETRO_ENRICH label is applied",
-        "project": "UKCAUD",
-        "phase": "1.1",
-        "status": "pending",
-        "jiraLink": "https://caseware.atlassian.net/jira/software/projects/UKCAUD/settings/automation",
-        "verificationCheck": "Create test retro story with UKCAUD_RETRO + UKCAUD_RETRO_TEAMS_FORM + UKCAUD_RETRO_ENRICH labels under UKCAUD-15913 → agent fires, label swaps to UKCAUD_RETRO_ENRICHED within 2 min"
-      },
-      {
-        "id": "enhancement-routing",
-        "name": "UKCAS → UKJPD Enhancement Routing",
-        "description": "Routes UKCAS bugs to UKJPD Ideas when enhancement-request label is added",
-        "project": "UKCAS",
-        "phase": "1.2",
-        "status": "pending",
-        "jiraLink": "https://caseware.atlassian.net/jira/software/projects/UKCAS/settings/automation",
-        "verificationCheck": "Apply enhancement-request to a test UKCAS bug → UKJPD Idea auto-created, linked, UKCAS resolved"
-      },
-      {
-        "id": "epic-done-sync",
-        "name": "UKCAUD Epic Done → UKJPD Status Sync",
-        "description": "Posts delivery-complete comment to linked UKJPD items when UKCAUD Epic transitions to Done",
-        "project": "UKCAUD",
-        "phase": "1.3",
-        "status": "pending",
-        "jiraLink": "https://caseware.atlassian.net/jira/software/projects/UKCAUD/settings/automation",
-        "verificationCheck": "Transition a test UKCAUD Epic to Done with UKJPD link → auto-comment on UKJPD item"
-      },
-      {
-        "id": "disable-resolution-recommender",
-        "name": "Disable Stale Resolution Recommender (019d1f89)",
-        "description": "Disable UKCAS rule 019d1f89 — merged into Triage Agent 1592e332 on 2026-03-26",
-        "project": "UKCAS",
-        "phase": "1.4",
-        "status": "pending",
-        "jiraLink": "https://caseware.atlassian.net/jira/software/projects/UKCAS/settings/automation",
-        "verificationCheck": "Rule 019d1f89 status = disabled in UKCAS automation list"
-      },
-      {
-        "id": "readiness-checker",
-        "name": "Enable Readiness Checker on UKCAUD",
-        "description": "Rovo ambient quality gate — flags thin tickets missing AC, estimate, or DoR criteria on creation",
-        "project": "UKCAUD",
-        "phase": "2.1",
-        "status": "pending",
-        "jiraLink": "https://caseware.atlassian.net/rovo",
-        "verificationCheck": "Create a thin UKCAUD ticket (no AC, no estimate) → Readiness Checker flags it"
-      },
-      {
-        "id": "theme-analyzer",
-        "name": "Enable Jira Theme Analyzer on UKJPD",
-        "description": "Run Theme Analyzer on migrated UKJPD backlog (45 UPFR ideas) to identify clustering opportunities",
-        "project": "UKJPD",
-        "phase": "2.2",
-        "status": "pending",
-        "jiraLink": "https://caseware.atlassian.net/rovo",
-        "verificationCheck": "Theme Analyzer returns clustered themes from migrated UKJPD backlog"
-      }
-    ]
-  }
+  ]
 }

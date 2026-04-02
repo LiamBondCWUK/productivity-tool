@@ -8,6 +8,7 @@ import type {
 
 interface Props {
   inbox: PriorityInboxType;
+  onClear: (id: string) => Promise<void>;
 }
 
 function formatDeadlineCountdown(deadline: string): string {
@@ -19,20 +20,47 @@ function formatDeadlineCountdown(deadline: string): string {
   return `${minutes}m`;
 }
 
-function InboxItemRow({ item }: { item: InboxItem }) {
+function InboxItemRow({
+  item,
+  onClear,
+}: {
+  item: InboxItem;
+  onClear?: (id: string) => Promise<void>;
+}) {
+  const [clearing, setClearing] = useState(false);
+  const isClearable =
+    item.type === "jira-comment" || item.type === "doc-comment";
   const isJira = item.jiraKey !== undefined;
+
+  const handleClear = async () => {
+    if (!onClear) return;
+    setClearing(true);
+    try {
+      await onClear(item.id);
+    } finally {
+      setClearing(false);
+    }
+  };
+
+  const typeIcon =
+    item.type === "jira"
+      ? "🎫"
+      : item.type === "ai-suggestion"
+        ? "🤖"
+        : item.type === "teams"
+          ? "💬"
+          : item.type === "standing"
+            ? "📌"
+            : item.type === "jira-comment"
+              ? "@"
+              : item.type === "doc-comment"
+                ? "📝"
+                : "□";
+
   return (
     <div className="flex items-start gap-2 py-1.5 px-2 rounded hover:bg-gray-700/50 transition-colors group">
-      <span className="text-gray-400 text-xs mt-0.5 shrink-0">
-        {item.type === "jira"
-          ? "🎫"
-          : item.type === "ai-suggestion"
-            ? "🤖"
-            : item.type === "teams"
-              ? "💬"
-              : item.type === "standing"
-                ? "📌"
-                : "□"}
+      <span className="text-gray-400 text-xs mt-0.5 shrink-0 font-mono">
+        {typeIcon}
       </span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 flex-wrap">
@@ -43,6 +71,17 @@ function InboxItemRow({ item }: { item: InboxItem }) {
           )}
           <span className="text-gray-200 text-sm truncate">{item.title}</span>
         </div>
+        {item.commentSnippet && (
+          <p className="text-gray-500 text-xs truncate mt-0.5 italic">
+            {item.commentAuthor ? `${item.commentAuthor}: ` : ""}
+            {item.commentSnippet}
+          </p>
+        )}
+        {item.filePath && (
+          <p className="text-gray-500 text-xs truncate mt-0.5">
+            {item.filePath}
+          </p>
+        )}
         {item.slaDeadline && (
           <span className="text-red-400 text-xs">
             SLA: {formatDeadlineCountdown(item.slaDeadline)}
@@ -52,21 +91,37 @@ function InboxItemRow({ item }: { item: InboxItem }) {
           <span className="text-yellow-400 text-xs">{item.deadlineLabel}</span>
         )}
       </div>
-      {item.link && (
-        <a
-          href={item.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-500 hover:text-blue-400 text-xs opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
-        >
-          ↗
-        </a>
-      )}
+      <div className="flex items-center gap-1 shrink-0">
+        {item.link && (
+          <a
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-blue-400 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            ↗
+          </a>
+        )}
+        {isClearable && onClear && (
+          <button
+            onClick={handleClear}
+            disabled={clearing}
+            title={
+              item.type === "doc-comment"
+                ? "Resolve comment in document"
+                : "Mark notification as read"
+            }
+            className="text-xs text-gray-600 hover:text-green-400 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed px-1"
+          >
+            {clearing ? "…" : "✓"}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
 
-export function PriorityInbox({ inbox }: Props) {
+export function PriorityInbox({ inbox, onClear }: Props) {
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
 
   const toggleSection = (section: string) => {
@@ -105,7 +160,7 @@ export function PriorityInbox({ inbox }: Props) {
             </button>
             {!collapsed["urgent"] &&
               inbox.urgent.map((item) => (
-                <InboxItemRow key={item.id} item={item} />
+                <InboxItemRow key={item.id} item={item} onClear={onClear} />
               ))}
           </section>
         )}
@@ -126,7 +181,7 @@ export function PriorityInbox({ inbox }: Props) {
             </button>
             {!collapsed["ai"] &&
               inbox.aiSuggested.map((item) => (
-                <InboxItemRow key={item.id} item={item} />
+                <InboxItemRow key={item.id} item={item} onClear={onClear} />
               ))}
           </section>
         )}
@@ -145,7 +200,7 @@ export function PriorityInbox({ inbox }: Props) {
           {!collapsed["today"] &&
             (inbox.today.length > 0 ? (
               inbox.today.map((item) => (
-                <InboxItemRow key={item.id} item={item} />
+                <InboxItemRow key={item.id} item={item} onClear={onClear} />
               ))
             ) : (
               <p className="text-gray-600 text-xs px-2">Run /gm to populate</p>
@@ -165,7 +220,7 @@ export function PriorityInbox({ inbox }: Props) {
           </button>
           {!collapsed["backlog"] &&
             inbox.backlog.map((item) => (
-              <InboxItemRow key={item.id} item={item} />
+              <InboxItemRow key={item.id} item={item} onClear={onClear} />
             ))}
         </section>
       </div>

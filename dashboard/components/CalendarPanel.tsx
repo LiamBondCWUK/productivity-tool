@@ -44,7 +44,8 @@ function EventRow({ event }: { event: CalendarEvent }) {
 }
 
 export function CalendarPanel({ today, weekAhead, hasToken }: Props) {
-  const todayEvents = today.sort(
+  const safeWeekAhead = weekAhead ?? [];
+  const todayEvents = (today ?? []).sort(
     (a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
   );
 
@@ -78,12 +79,12 @@ export function CalendarPanel({ today, weekAhead, hasToken }: Props) {
         </section>
 
         {/* Week ahead */}
-        {weekAhead.length > 0 && (
+        {safeWeekAhead.length > 0 && (
           <section>
             <p className="text-gray-500 text-xs font-semibold mb-2 uppercase tracking-wide">
               Week Ahead
             </p>
-            {weekAhead.map((event) => (
+            {safeWeekAhead.map((event) => (
               <div key={event.id} className="flex items-center gap-2 py-0.5">
                 <span className="text-gray-600 text-xs w-16 shrink-0">
                   {new Date(event.startTime).toLocaleDateString("en-GB", {

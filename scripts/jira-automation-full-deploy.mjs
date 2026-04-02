@@ -13,6 +13,11 @@
  *
  * Usage:
  *   node scripts/jira-automation-full-deploy.mjs [--headless]
+ *   node scripts/jira-automation-full-deploy.mjs --cdp           # attach to running Chrome on port 9222
+ *   node scripts/jira-automation-full-deploy.mjs --cdp --cdp-port 9222
+ *
+ * To prepare for --cdp mode:
+ *   .\scripts\launch-chrome-debug.ps1
  */
 
 import { chromium } from 'playwright';
@@ -20,6 +25,15 @@ import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
 const HEADLESS = process.argv.includes('--headless');
+const CDP_MODE = process.argv.includes('--cdp');
+const CDP_PORT = (() => {
+  const idx = process.argv.indexOf('--cdp-port');
+  return idx !== -1 ? parseInt(process.argv[idx + 1], 10) : 9222;
+})();
+const PERSISTENT_MODE = process.argv.includes('--persistent');
+const APPDATA = process.env.LOCALAPPDATA || 'C:/Users/liam.bond/AppData/Local';
+const USER_DATA_DIR = APPDATA + '/Google/Chrome/User Data';
+
 const BASE_URL = 'https://caseware.atlassian.net';
 const DASHBOARD_FILE = 'C:/Users/liam.bond/Documents/Productivity Tool/workspace/coordinator/dashboard-data.json';
 const SCREENSHOTS_DIR = 'C:/Users/liam.bond/Documents/Productivity Tool/scripts/deploy-screenshots';
@@ -374,18 +388,50 @@ async function main() {
   console.log('═'.repeat(50));
   console.log('Phases: 1.4 (disable), 1.1, 1.2, 1.3 (create rules)');
   console.log('Screenshots saved to:', SCREENSHOTS_DIR);
+  const modeLabel = CDP_MODE ? `CDP (port ${CDP_PORT})` : PERSISTENT_MODE ? `persistent profile: ${USER_DATA_DIR}` : 'new browser (must log in)';
+  console.log('Mode:', modeLabel);
+  if (PERSISTENT_MODE) {
+    console.log('NOTE: Make sure Chrome is fully closed before running --persistent mode');
+  }
   console.log('');
 
-  const browser = await chromium.launch({
-    headless: HEADLESS,
-    args: ['--no-first-run', '--disable-blink-features=AutomationControlled'],
-  });
+  let browser, context, page;
 
-  // Try to reuse existing session by using persistent context
-  const context = await browser.newContext({
-    viewport: { width: 1400, height: 900 },
-  });
-  const page = await context.newPage();
+  if (CDP_MODE) {
+    console.log(`Connecting to Chrome via CDP on http://localhost:${CDP_PORT}...`);
+    browser = await chromium.connectOverCDP(`http://localhost:${CDP_PORT}`);
+    // Use the first existing context (the one with your live session)
+    const contexts = browser.contexts();
+    if (contexts.length === 0) {
+      throw new Error('No browser contexts found. Make sure Chrome is open with a tab.');
+    }
+    context = contexts[0];
+    page = await context.newPage();
+    console.log('   Attached to running Chrome session');
+  } else if (PERSISTENT_MODE) {
+    console.log('Launching Chrome with persistent profile (inherits Atlassian cookies)...');
+    context = await chromium.launchPersistentContext(USER_DATA_DIR, {
+      channel: 'chrome',
+      headless: HEADLESS,
+      args: [
+        '--no-first-run',
+        '--no-default-browser-check',
+        '--disable-blink-features=AutomationControlled',
+      ],
+      viewport: { width: 1400, height: 900 },
+    });
+    page = await context.newPage();
+    console.log('   Chrome launched with your real profile');
+  } else {
+    browser = await chromium.launch({
+      headless: HEADLESS,
+      args: ['--no-first-run', '--disable-blink-features=AutomationControlled'],
+    });
+    context = await browser.newContext({
+      viewport: { width: 1400, height: 900 },
+    });
+    page = await context.newPage();
+  }
 
   const results = {};
 
@@ -411,9 +457,19 @@ async function main() {
     console.error('\n❌ Fatal error:', err.message);
     await shot(page, 'fatal-error');
   } finally {
-    console.log('\nBrowser will close in 10 seconds...');
-    await page.waitForTimeout(10000);
-    await browser.close();
+    if (CDP_MODE) {
+      console.log('\nClosing the automation tab...');
+      await page.close().catch(() => {});
+      // Do NOT call browser.close() in CDP mode
+    } else if (PERSISTENT_MODE) {
+      console.log('\nClosing persistent context...')
+      if (page) await page.close().catch(() => {});
+      await context.close().catch(() => {});
+    } else {
+      console.log('\nBrowser will close in 10 seconds...');
+      await page.waitForTimeout(10000);
+      await browser.close();
+    }
   }
 }
 

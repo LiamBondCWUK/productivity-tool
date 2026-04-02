@@ -155,3 +155,66 @@
 ### Changed
 
 - Design spec updated: Playwright MCP chosen for Teams/Calendar integration, sprint planning separated from retro, project config driven by `projects.json`
+
+---
+
+## 2026-04-02 (Personal Command Center redesign — Phases 1–7)
+
+### Added (Phase 1: Tab Workspace + Jira Detail View)
+
+- `dashboard/components/TabWorkspace.tsx` — 5-tab shell with URL-based state (`?tab=today`)
+- `dashboard/components/TodayTab.tsx` — Today view: AI day plan + priority inbox + calendar + active window
+- `dashboard/components/TasksTab.tsx` — Split-pane task list (20%) + detail view (80%)
+- `dashboard/components/TaskDetail.tsx` — Full read-only Jira ticket: ADF description, subtasks, comments, action buttons
+- `dashboard/components/AISchedule.tsx` — Day plan with accept/reject per block + Accept All
+- `dashboard/components/ProjectsTab.tsx` — All ~/Documents projects as Kanban cards
+- `dashboard/components/LearningTab.tsx` — Overnight analysis findings per project
+- `dashboard/components/NewsTab.tsx` — AI Breaking News Tool results
+- `dashboard/components/ActiveWindow.tsx` — Live "currently working on" display from activity tracker
+- `dashboard/app/api/jira/[key]/route.ts` — Proxy Jira issue detail (read-only, 5-min cache)
+- `dashboard/app/api/activity/route.ts` — Today's activity log from activity-log.json
+- `dashboard/app/api/day-plan/route.ts` — Generate and accept day plan
+- `dashboard/app/api/notifications/route.ts` — Fetch Jira/doc notifications
+
+### Added (Phase 2: Activity Tracker Daemon)
+
+- `scripts/activity-tracker.mjs` — pm2 daemon: PowerShell window poll every 30s → activity-log.json
+- `workspace/coordinator/activity-log.json` — Activity session log (empty until daemon runs)
+- `workspace/coordinator/ecosystem.config.js` — pm2 config with dashboard + activity-tracker processes
+
+### Added (Phase 3: AI Day Plan)
+
+- `scripts/generate-day-plan.mjs` — Claude Haiku API → prioritised day plan written to dashboard-data.json
+
+### Added (Phase 4: Project Discovery + Overnight)
+
+- `scripts/project-discovery.mjs` — Scan ~/Documents/ → project-registry.json (13 projects)
+- `workspace/coordinator/project-registry.json` — Registry of all ~/Documents/ projects
+
+### Added (Phase 5: Learning + News)
+
+- `scripts/extract-news-results.mjs` — Read AI Breaking News Tool output → aiNewsResults in dashboard-data.json
+
+### Added (Phase 7: Unified Activity Log + IBP Pipeline)
+
+- `scripts/extract-claude-sessions.mjs` — Parse ~/.claude/projects/**/*.jsonl → claude-sessions-today.json
+- `scripts/merge-activity-log.mjs` — Merge window + Claude sessions + Jira worklog → daily-unified-log.json
+- `scripts/generate-ibp.mjs` — Read unified log → IBP markdown (Claude Haiku narrative or plain fallback)
+- `workspace/coordinator/claude-sessions-today.json` — Today's Claude coding sessions
+- `workspace/coordinator/daily-unified-log.json` — Merged activity log from all 3 sources
+
+### Changed
+
+- `dashboard/app/page.tsx` — Replaced panel grid with `<TabWorkspace>` router
+- `dashboard/types/dashboard.ts` — Added ProjectEntry, TeamMessage, FlaggedEmail, DayPlan, ActivitySession types
+- `dashboard/components/PriorityInbox.tsx` — Updated for Today tab integration
+- `dashboard/components/CalendarPanel.tsx` — Updated for Today tab integration
+- `scripts/overnight-analysis.mjs` — Extended to use project-discovery.mjs, analyse all 13 projects
+- `scripts/gm-auto.ps1` — Added generate-day-plan, fetch-notifications calls
+- `scripts/jira-automation-full-deploy.mjs` — Updated deploy flow
+
+### Added (other)
+
+- `scripts/fetch-notifications.mjs` — Jira @mentions + doc comment notifications
+- `scripts/launch-chrome-debug.ps1` — Chrome remote debugging launcher
+

@@ -46,7 +46,9 @@ export type InboxItemType =
   | "ai-suggestion"
   | "standing"
   | "free-form"
-  | "recurring";
+  | "recurring"
+  | "jira-comment"
+  | "doc-comment";
 
 export interface InboxItem {
   id: string;
@@ -59,6 +61,16 @@ export interface InboxItem {
   jiraKey?: string;
   priority?: "urgent" | "today" | "backlog";
   addedAt: string;
+  // jira-comment fields
+  commentId?: string;
+  commentAuthor?: string;
+  commentSnippet?: string;
+  // doc-comment fields
+  filePath?: string;
+  fileUrl?: string;
+  driveItemId?: string;
+  driveId?: string;
+  commentObjectId?: string;
 }
 
 export interface PriorityInbox {
@@ -152,6 +164,66 @@ export interface AutomationRule {
   verificationCheck?: string;
 }
 
+export interface ProjectEntry {
+  name: string;
+  path: string;
+  phase: ProjectPhase;
+  lastCommit: string | null;
+  lastCommitMsg: string | null;
+  description: string | null;
+  hasGit: boolean;
+  hasClaude: boolean;
+  hasPkg: boolean;
+}
+
+export interface TeamMessage {
+  id: string;
+  from: string;
+  preview: string;
+  chatUrl: string;
+  unreadCount: number;
+  receivedAt: string;
+}
+
+export interface FlaggedEmail {
+  id: string;
+  subject: string;
+  from: string;
+  webLink: string;
+  receivedAt: string;
+}
+
+export type DayPlanBlockType = "focus" | "admin" | "meeting" | "buffer";
+
+export interface DayPlanBlock {
+  time: string;
+  duration: number;
+  task: string;
+  type: DayPlanBlockType;
+  booked: boolean;
+  rationale?: string;
+}
+
+export interface DayPlan {
+  generatedAt: string;
+  accepted: boolean;
+  blocks: DayPlanBlock[];
+}
+
+export interface ActivitySession {
+  start: string;
+  end: string;
+  windowTitle: string;
+  inferredTask: string | null;
+  durationMin: number;
+}
+
+export interface AiNewsResults {
+  lastRun: string | null;
+  topStories: Array<{ title: string; summary: string; url?: string }>;
+  suggestions: string[];
+}
+
 export interface DashboardData {
   meta: {
     version: string;
@@ -179,4 +251,11 @@ export interface DashboardData {
     lastChecked: string | null;
     rules: AutomationRule[];
   };
+  projectRegistry: ProjectEntry[];
+  teamMessages: TeamMessage[];
+  flaggedEmails: FlaggedEmail[];
+  dayPlan: DayPlan | null;
+  activityLog: ActivitySession[];
+  aiNewsResults: AiNewsResults | null;
+  lastActivitySync: string | null;
 }

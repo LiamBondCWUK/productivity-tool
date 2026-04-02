@@ -10,9 +10,14 @@ import { join } from 'path';
 import { execSync, spawnSync } from 'child_process';
 
 const BASE_DIR = 'C:/Users/liam.bond/Documents/Productivity Tool';
-const PROJECTS_FILE = join(BASE_DIR, 'workspace/config/personal-projects.json');
+const REGISTRY_FILE = join(BASE_DIR, 'workspace/coordinator/project-registry.json');
 const DASHBOARD_DATA_FILE = join(BASE_DIR, 'workspace/coordinator/dashboard-data.json');
 const OVERNIGHT_REPORT_FILE = join(BASE_DIR, 'workspace/coordinator/overnight-report.md');
+
+
+function slugify(name) {
+  return name.toLowerCase().replace(/\s+/g, '-');
+}
 
 function readJson(filePath) {
   try {
@@ -56,15 +61,17 @@ function globMarkdownFiles(dir) {
   }
 }
 
-function collectProjectContext(project) {
+function collectProjectContext(entry) {
   const sections = [];
-  sections.push(`## Project: ${project.name} (id: ${project.id})`);
-  sections.push(`Phase: ${project.phase} | Completion: ${project.completionPercent}%`);
-  sections.push(`Tags: ${(project.tags || []).join(', ')}`);
-  sections.push(`Description: ${project.description}`);
+  const slug = slugify(entry.name);
+  sections.push(`## Project: ${entry.name} (key: ${slug})`);
+  sections.push(`Phase: ${entry.phase} | HasGit: ${entry.hasGit} | HasClaude: ${entry.hasClaude}`);
+  sections.push(`Description: ${entry.description || 'none'}`);
+  sections.push(`Last commit: ${entry.lastCommit || 'none'}`);
+  if (entry.lastCommitMsg) sections.push(`Last commit message: ${entry.lastCommitMsg}`);
 
-  if (project.gitDir && existsSync(project.gitDir)) {
-    const log = gitLog(project.gitDir);
+  if (entry.hasGit && entry.path && existsSync(entry.path)) {
+    const log = gitLog(entry.path);
     if (log) {
       sections.push(`\n### Git Log (last 7 days)\n${log}`);
     } else {
@@ -72,35 +79,34 @@ function collectProjectContext(project) {
     }
   }
 
-  if (project.dir && existsSync(project.dir)) {
-    if (project.devDocsDir) {
-      const devDir = join(project.dir, project.devDocsDir);
-      if (existsSync(devDir)) {
-        const mdFiles = globMarkdownFiles(devDir);
-        for (const filePath of mdFiles.slice(0, 3)) {
-          const content = readTextFile(filePath, 80);
-          if (content) {
-            const filename = filePath.split('/').pop();
-            sections.push(`\n### Dev Doc: ${filename}\n${content}`);
-          }
+  if (entry.path && existsSync(entry.path)) {
+    const devActiveDir = join(entry.path, 'dev', 'active');
+    if (existsSync(devActiveDir)) {
+      const mdFiles = globMarkdownFiles(devActiveDir);
+      for (const filePath of mdFiles.slice(0, 3)) {
+        const fileContent = readTextFile(filePath, 80);
+        if (fileContent) {
+          const filename = filePath.split('/').pop();
+          sections.push(`\n### Dev Doc: ${filename}\n${fileContent}`);
         }
       }
     }
 
-    const commandsDir = join(project.dir, 'commands');
+    const commandsDir = join(entry.path, 'commands');
     if (existsSync(commandsDir)) {
       const cmdFiles = globMarkdownFiles(commandsDir);
       const cmdList = cmdFiles.map(f => f.split('/').pop().replace('.md', '')).join(', ');
       if (cmdList) sections.push(`\n### Commands Available\n${cmdList}`);
     }
 
-    const changelogFile = join(project.dir, 'CHANGELOG-PENDING.md');
+    const changelogFile = join(entry.path, 'CHANGELOG-PENDING.md');
     const changelog = readTextFile(changelogFile, 50);
     if (changelog) sections.push(`\n### CHANGELOG-PENDING\n${changelog}`);
   }
 
   return sections.join('\n');
 }
+
 
 function callClaudeViaCLI(systemPrompt, userPrompt) {
   const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
@@ -117,11 +123,12 @@ function callClaudeViaCLI(systemPrompt, userPrompt) {
 }
 
 function analyseProjects() {
-  const projects = readJson(PROJECTS_FILE);
-  if (!projects) {
-    console.error('Could not read personal-projects.json');
+  const registry = readJson(REGISTRY_FILE);
+  if (!registry || !registry.projects) {
+    console.error('Could not read project-registry.json — run node scripts/project-discovery.mjs first');
     process.exit(1);
   }
+  const projects = registry.projects;
 
   const projectContexts = projects.map(collectProjectContext).join('\n\n---\n\n');
 
@@ -140,7 +147,7 @@ Focus on what will have the highest impact in the next 1-2 days.`;
 Respond ONLY as JSON with this exact structure (no markdown wrapper):
 {
   "projects": {
-    "<project-id>": {
+    "<project-name-slug>": {
       "state": "string",
       "suggestions": [
         { "priority": "HIGH|MED|LOW", "action": "string", "effort": "S|M|L" }
@@ -186,11 +193,12 @@ ${projectContexts}`;
 
   if (dashboardData.personalProjects?.projects) {
     dashboardData.personalProjects.projects = dashboardData.personalProjects.projects.map(project => {
-      const analysis = analysisResult.projects?.[project.id];
+      const key = slugify(project.name);
+      const analysis = analysisResult.projects?.[key];
       if (!analysis) return project;
       return {
         ...project,
-        overnightState: analysis.state,
+        state: analysis.state,
         suggestions: analysis.suggestions || [],
         neglected: analysis.neglected || [],
         crossProjectDeps: analysis.crossProjectDeps || [],
@@ -215,11 +223,12 @@ ${projectContexts}`;
     report += `## Global Insights\n${analysisResult.globalInsights.map(i => `- ${i}`).join('\n')}\n\n`;
   }
 
-  for (const project of projects) {
-    const analysis = analysisResult.projects?.[project.id];
+  for (const entry of projects) {
+    const key = slugify(entry.name);
+    const analysis = analysisResult.projects?.[key];
     if (!analysis) continue;
 
-    report += `## ${project.name} (${project.phase})\n`;
+    report += `## ${entry.name} (${entry.phase})\n`;
     report += `**State:** ${analysis.state}\n\n`;
 
     if (analysis.suggestions?.length) {

@@ -1,0 +1,148 @@
+{
+  "updatedAt": "2026-04-02T21:34:19.326Z",
+  "projects": [
+    {
+      "name": "CW UKJPD Workflows",
+      "path": "C:/Users/liam.bond/Documents/CW UKJPD Workflows",
+      "phase": "Building",
+      "lastCommit": "2026-04-02T17:37:21+01:00",
+      "lastCommitMsg": "chore: eod sync (6 added, 4 modified, 1 deleted) - D USER-GUIDE.md, M plans/dist-review-list.md, M plans/ukjpd-action-plan.md, M plans/ukjpd-configuration-guide.md, M plans/upfr-triage-report.md",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": "**Documentation and artifacts for the UK Product Feature Requests (JPD) project automation at Caseware.**"
+    },
+    {
+      "name": "CW UKCAUD Project Tracker",
+      "path": "C:/Users/liam.bond/Documents/CW UKCAUD Project Tracker",
+      "phase": "Building",
+      "lastCommit": "2026-04-02T17:37:04+01:00",
+      "lastCommitMsg": "Merge branch 'feature/ukcas-transformation-specs'",
+      "hasGit": true,
+      "hasPkg": true,
+      "hasClaude": false,
+      "description": "**AI-powered sprint ceremony automation and delivery tracking for the UK Cloud Audit (UKCAUD) Jira project.**"
+    },
+    {
+      "name": "CW Template Comparison Tool",
+      "path": "C:/Users/liam.bond/Documents/CW Template Comparison Tool",
+      "phase": "Building",
+      "lastCommit": "2026-04-02T17:36:25+01:00",
+      "lastCommitMsg": "Merge branch 'feature/replit-deploy'",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": "A full-stack tool for comparing CaseWare Cloud document templates across products. It wraps the [CW API Scraper](cw-api-"
+    },
+    {
+      "name": "CW Release Notes Tool",
+      "path": "C:/Users/liam.bond/Documents/CW Release Notes Tool",
+      "phase": "Building",
+      "lastCommit": "2026-04-02T17:35:50+01:00",
+      "lastCommitMsg": "chore: eod sync (3 added, 4 modified) - M config/products.json, M scripts/build_from_json.py, M scripts/merge_sources.py, M scripts/parse_whats_changed.py, inputs/test-jira-export.txt",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": "> **Status: Implemented**"
+    },
+    {
+      "name": "CW Lead Schedule Specifications",
+      "path": "C:/Users/liam.bond/Documents/CW Lead Schedule Specifications",
+      "phase": "Building",
+      "lastCommit": "2026-04-02T17:35:15+01:00",
+      "lastCommitMsg": "Merge branch 'feature/replit-deploy'",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": "Specification management platform for CaseWare financial statement lead schedule documents. Validates Excel specs agains"
+    },
+    {
+      "name": "AI Breaking News Tool",
+      "path": "C:/Users/liam.bond/Documents/AI Breaking News Tool",
+      "phase": "Building",
+      "lastCommit": "2026-04-02T17:30:05+01:00",
+      "lastCommitMsg": "chore: eod sync (3 modified) - M recommended-installs.md, M setup-suggestions.md, M trending-daily-feed.md",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": "A curated research collection tracking AI tool developments, integrations, and ecosystem updates relevant to daily workf"
+    },
+    {
+      "name": "claude-mobile",
+      "path": "C:/Users/liam.bond/Documents/claude-mobile",
+      "phase": "Building",
+      "lastCommit": "2026-04-02T16:25:36+01:00",
+      "lastCommitMsg": "feat: multi-session dashboard with TUI + CLI dispatch",
+      "hasGit": true,
+      "hasPkg": true,
+      "hasClaude": false,
+      "description": null
+    },
+    {
+      "name": "Productivity Tool",
+      "path": "C:/Users/liam.bond/Documents/Productivity Tool",
+      "phase": "Building",
+      "lastCommit": "2026-04-02T16:22:21+01:00",
+      "lastCommitMsg": "feat: add full-deploy script + .gitignore + playwright devDep",
+      "hasGit": true,
+      "hasPkg": true,
+      "hasClaude": false,
+      "description": "The dashboard is a Next.js 14 app at `localhost:3000`, managed by pm2. It provides a live view of the priority inbox, pe"
+    },
+    {
+      "name": "UKCAUD AI Project",
+      "path": "C:/Users/liam.bond/Documents/UKCAUD AI Project",
+      "phase": "Building",
+      "lastCommit": "2026-04-02T12:25:30+01:00",
+      "lastCommitMsg": "chore: initial commit — UKCAUD AI project structure",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": "> **Status:** Placeholder — not yet started."
+    },
+    {
+      "name": "AI Work Presentation Tool",
+      "path": "C:/Users/liam.bond/Documents/AI Work Presentation Tool",
+      "phase": "Building",
+      "lastCommit": "2026-04-02T12:25:20+01:00",
+      "lastCommitMsg": "feat: AI at work presentation generator script",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": null
+    },
+    {
+      "name": "Property Search Tool",
+      "path": "C:/Users/liam.bond/Documents/Property Search Tool",
+      "phase": "Building",
+      "lastCommit": "2026-03-23T15:01:46Z",
+      "lastCommitMsg": "feat: update scoring, search config, and report generation",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": "Automated UK property search tool for the Tunbridge Wells cluster. Scrapes Rightmove daily, applies financial and qualit"
+    },
+    {
+      "name": "CW UAT Testing Tool",
+      "path": "C:/Users/liam.bond/Documents/CW UAT Testing Tool",
+      "phase": "Backlog",
+      "lastCommit": "2026-03-16T13:26:32Z",
+      "lastCommitMsg": "sync: 7 modified - .gitignore,README.md,USER-GUIDE.md,rovo-agent/agent-config.md,rovo-agent/changelog.md",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": "This folder contains all artifacts related to User Acceptance Testing (UAT) for the UK Cloud Audit squad."
+    },
+    {
+      "name": "UKCAUD-Authoring-Agent-Spec-Layer",
+      "path": "C:/Users/liam.bond/Documents/UKCAUD-Authoring-Agent-Spec-Layer",
+      "phase": "Backlog",
+      "lastCommit": "2026-03-06T09:48:40Z",
+      "lastCommitMsg": "Update README to remove branch structure details",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": "**AI-powered automation for audit, compliance, and financial workflows**"
+    }
+  ]
+}
