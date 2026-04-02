@@ -1,122 +1,174 @@
-# setup-graph-token.ps1
-# One-time OAuth2 device code flow for Microsoft Graph API access.
-# Writes workspace/config/graph-token.json with access + refresh tokens.
-#
-# Required scopes: Calendars.ReadWrite, User.Read
-#
-# Usage: powershell -File scripts/setup-graph-token.ps1
+param(
+    [string]$ClientId = $env:GRAPH_CLIENT_ID
+)
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = 'Stop'
 
-$configDir = "$PSScriptRoot\..\workspace\config"
-$tokenFile = "$configDir\graph-token.json"
+$COORDINATOR_PATH = Join-Path $PSScriptRoot '..' 'workspace' 'coordinator'
+$TOKEN_FILE = Join-Path $COORDINATOR_PATH 'graph-token.json'
+$TENANT = 'common'
+$SCOPES = 'Calendars.ReadWrite offline_access User.Read'
 
-# ---------------------------------------------------------------------------
-# Config — edit CLIENT_ID if you register a new Azure app
-# ---------------------------------------------------------------------------
-# To use your own app registration:
-#   1. Go to portal.azure.com > Azure Active Directory > App registrations > New
-#   2. Set Redirect URI: https://login.microsoftonline.com/common/oauth2/nativeclient
-#   3. Add API permissions: Microsoft Graph > Delegated: Calendars.ReadWrite, User.Read
-#   4. Copy the Application (client) ID and paste below
-$clientId     = "d3590ed6-52b3-4102-aeff-aad2292ab01c"  # Microsoft Office mobile client (public)
-$tenantId     = "common"
-$scope        = "https://graph.microsoft.com/Calendars.ReadWrite https://graph.microsoft.com/User.Read offline_access"
-$deviceCodeUrl = "https://login.microsoftonline.com/$tenantId/oauth2/v2.0/devicecode"
-$tokenUrl      = "https://login.microsoftonline.com/$tenantId/oauth2/v2.0/token"
+function Write-Step { param([string]$msg) Write-Host "`n[*] $msg" -ForegroundColor Cyan }
+function Write-OK   { param([string]$msg) Write-Host '[+] ' -ForegroundColor Green -NoNewline; Write-Host $msg }
+function Write-Warn { param([string]$msg) Write-Host '[!] ' -ForegroundColor Yellow -NoNewline; Write-Host $msg }
 
-# ---------------------------------------------------------------------------
-# Step 1: Request device code
-# ---------------------------------------------------------------------------
-Write-Host "`nRequesting device code from Microsoft..." -ForegroundColor Cyan
-
-$deviceCodeResponse = Invoke-RestMethod -Method Post -Uri $deviceCodeUrl -Body @{
-    client_id = $clientId
-    scope     = $scope
+# Ensure coordinator dir exists
+if (-not (Test-Path $COORDINATOR_PATH)) {
+    New-Item -ItemType Directory -Path $COORDINATOR_PATH | Out-Null
 }
 
-Write-Host "`n========================================" -ForegroundColor Yellow
-Write-Host "  Go to: $($deviceCodeResponse.verification_uri)" -ForegroundColor Green
-Write-Host "  Enter: $($deviceCodeResponse.user_code)" -ForegroundColor Green
-Write-Host "========================================`n" -ForegroundColor Yellow
-Write-Host "Waiting for you to sign in..." -ForegroundColor Cyan
-
-# ---------------------------------------------------------------------------
-# Step 2: Poll for token
-# ---------------------------------------------------------------------------
-$interval  = $deviceCodeResponse.interval
-$expiresIn = $deviceCodeResponse.expires_in
-$waited    = 0
-$token     = $null
-
-while ($waited -lt $expiresIn) {
-    Start-Sleep -Seconds $interval
-    $waited += $interval
-
-    try {
-        $tokenResponse = Invoke-RestMethod -Method Post -Uri $tokenUrl -Body @{
-            client_id   = $clientId
-            grant_type  = "urn:ietf:params:oauth:grant-type:device_code"
-            device_code = $deviceCodeResponse.device_code
-        }
-
-        if ($tokenResponse.access_token) {
-            $token = $tokenResponse
-            break
-        }
-    } catch {
-        $errorBody = $_.ErrorDetails.Message | ConvertFrom-Json -ErrorAction SilentlyContinue
-        if ($errorBody.error -eq "authorization_pending") {
-            # Still waiting — continue polling
-            continue
-        } elseif ($errorBody.error -eq "authorization_declined") {
-            Write-Host "Authorization declined." -ForegroundColor Red
-            exit 1
-        } elseif ($errorBody.error -eq "expired_token") {
-            Write-Host "Device code expired. Please re-run this script." -ForegroundColor Red
-            exit 1
-        } else {
-            Write-Host "Unexpected error: $($_.Exception.Message)" -ForegroundColor Red
-            exit 1
-        }
-    }
+# Client ID
+if (-not $ClientId) {
+    Write-Host "`nNo Client ID supplied. Register an app in Azure first:" -ForegroundColor Yellow
+    Write-Host '  1. https://portal.azure.com -> App registrations -> New registration'
+    Write-Host '  2. Name: Productivity Tool  |  Accounts: any org + personal'
+    Write-Host '  3. Redirect URI: Public client/native'
+    Write-Host '     https://login.microsoftonline.com/common/oauth2/nativeclient'
+    Write-Host '  4. Authentication -> Enable Allow public client flows'
+    Write-Host ''
+    $ClientId = Read-Host 'Paste your Application (client) ID'
 }
 
-if (-not $token) {
-    Write-Host "Timed out waiting for sign-in. Please re-run this script." -ForegroundColor Red
+if ($ClientId -notmatch '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$') {
+    Write-Error 'Invalid client ID format (expected GUID).'
     exit 1
 }
 
-# ---------------------------------------------------------------------------
-# Step 3: Verify token — fetch user info
-# ---------------------------------------------------------------------------
+# Check existing token
+if (Test-Path $TOKEN_FILE) {
+    try {
+        $existing = Get-Content $TOKEN_FILE -Raw | ConvertFrom-Json
+        $expiresAt = [DateTimeOffset]::FromUnixTimeSeconds($existing.expires_at)
+        if ($expiresAt -gt [DateTimeOffset]::UtcNow.AddMinutes(5)) {
+            Write-OK "Valid token already exists (expires $($expiresAt.LocalDateTime.ToString('HH:mm dd/MM/yy')))"
+            Write-OK "Authenticated as: $($existing.user_email)"
+            $skip = Read-Host "`nRe-authenticate anyway? [y/N]"
+            if ($skip -ne 'y' -and $skip -ne 'Y') {
+                Write-Host 'Setup complete. Token is valid.' -ForegroundColor Green
+                exit 0
+            }
+        }
+    } catch { }
+}
+
+# Device code request
+Write-Step 'Requesting device code from Microsoft...'
+
+$deviceCodeBody = @{
+    client_id = $ClientId
+    scope     = $SCOPES
+}
+
 try {
-    $userInfo = Invoke-RestMethod -Uri "https://graph.microsoft.com/v1.0/me" -Headers @{
-        Authorization = "Bearer $($token.access_token)"
-    }
-    Write-Host "Signed in as: $($userInfo.displayName) ($($userInfo.mail))" -ForegroundColor Green
+    $dcResponse = Invoke-RestMethod `
+        -Method Post `
+        -Uri "https://login.microsoftonline.com/$TENANT/oauth2/v2.0/devicecode" `
+        -Body $deviceCodeBody `
+        -ContentType 'application/x-www-form-urlencoded'
 } catch {
-    Write-Host "Warning: Could not verify identity, but token was received." -ForegroundColor Yellow
+    Write-Error "Device code request failed: $($_.Exception.Message)"
+    exit 1
 }
 
-# ---------------------------------------------------------------------------
-# Step 4: Write token file
-# ---------------------------------------------------------------------------
-$expiry = (Get-Date).AddSeconds($token.expires_in).ToString("o")
+# Prompt user
+Write-Host ''
+Write-Host ('=' * 60) -ForegroundColor White
+Write-Host '  Open this URL in your browser:' -ForegroundColor Yellow
+Write-Host "  $($dcResponse.verification_uri)" -ForegroundColor Cyan
+Write-Host ''
+Write-Host '  Enter this code:' -ForegroundColor Yellow
+Write-Host "  $($dcResponse.user_code)" -ForegroundColor Green
+Write-Host ('=' * 60) -ForegroundColor White
+Write-Host ''
 
-$tokenData = @{
-    access_token  = $token.access_token
-    refresh_token = $token.refresh_token
-    expires_at    = $expiry
-    scope         = $token.scope
-    user          = $userInfo.mail
+try { Start-Process $dcResponse.verification_uri } catch { }
+
+# Poll for token
+Write-Step 'Waiting for you to sign in...'
+
+$pollBody = @{
+    grant_type  = 'urn:ietf:params:oauth:grant-type:device_code'
+    client_id   = $ClientId
+    device_code = $dcResponse.device_code
 }
 
-if (-not (Test-Path $configDir)) {
-    New-Item -ItemType Directory -Path $configDir | Out-Null
+$interval    = if ($dcResponse.interval)   { [int]$dcResponse.interval }   else { 5 }
+$expiresIn   = if ($dcResponse.expires_in) { [int]$dcResponse.expires_in } else { 900 }
+$deadline    = (Get-Date).AddSeconds($expiresIn)
+$tokenResult = $null
+
+while ((Get-Date) -lt $deadline) {
+    Start-Sleep -Seconds $interval
+    Write-Host '.' -NoNewline
+
+    try {
+        $tokenResult = Invoke-RestMethod `
+            -Method Post `
+            -Uri "https://login.microsoftonline.com/$TENANT/oauth2/v2.0/token" `
+            -Body $pollBody `
+            -ContentType 'application/x-www-form-urlencoded' `
+            -ErrorAction Stop
+        Write-Host ''
+        break
+    } catch {
+        $errBody = $null
+        try { $errBody = $_.ErrorDetails.Message | ConvertFrom-Json } catch { }
+        $errCode = if ($errBody) { $errBody.error } else { '' }
+
+        if     ($errCode -eq 'authorization_pending') { continue }
+        elseif ($errCode -eq 'slow_down')             { $interval += 5; continue }
+        elseif ($errCode -eq 'expired_token') {
+            Write-Host ''
+            Write-Error 'Code expired. Please run the script again.'
+            exit 1
+        } else {
+            Write-Host ''
+            Write-Error "Token poll failed: $($_.Exception.Message)"
+            exit 1
+        }
+    }
 }
 
-$tokenData | ConvertTo-Json | Set-Content -Path $tokenFile -Encoding UTF8
+if (-not $tokenResult) {
+    Write-Error 'Authentication timed out. Please run the script again.'
+    exit 1
+}
 
-Write-Host "`nToken saved to: $tokenFile" -ForegroundColor Green
-Write-Host "You can now use /focus to create calendar focus blocks." -ForegroundColor Cyan
+# Verify with Graph
+Write-Step 'Verifying token with Microsoft Graph...'
+
+try {
+    $me = Invoke-RestMethod `
+        -Method Get `
+        -Uri 'https://graph.microsoft.com/v1.0/me' `
+        -Headers @{ Authorization = "Bearer $($tokenResult.access_token)" }
+} catch {
+    Write-Error "Graph verification failed: $($_.Exception.Message)"
+    exit 1
+}
+
+# Save token
+Write-Step 'Saving token...'
+
+$expiresAt = [DateTimeOffset]::UtcNow.AddSeconds([int]$tokenResult.expires_in).ToUnixTimeSeconds()
+
+$tokenData = [ordered]@{
+    access_token  = $tokenResult.access_token
+    refresh_token = $tokenResult.refresh_token
+    expires_at    = $expiresAt
+    token_type    = $tokenResult.token_type
+    scope         = $tokenResult.scope
+    client_id     = $ClientId
+    tenant_id     = $TENANT
+    user_name     = $me.displayName
+    user_email    = if ($me.mail) { $me.mail } else { $me.userPrincipalName }
+    saved_at      = (Get-Date -Format 'o')
+}
+
+$tokenData | ConvertTo-Json | Set-Content $TOKEN_FILE -Encoding UTF8
+
+Write-OK "Token saved to: $TOKEN_FILE"
+Write-OK "Authenticated as: $($tokenData.user_email)"
+Write-OK "Expires: $([DateTimeOffset]::FromUnixTimeSeconds($expiresAt).LocalDateTime.ToString('HH:mm dd/MM/yy'))"
+Write-Host "`nSetup complete. The dashboard calendar panel and /focus command are ready to use." -ForegroundColor Green

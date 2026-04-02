@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-04-02 (Microsoft Graph OAuth2 setup script)
+
+### Added
+
+- `scripts/setup-graph-token.ps1` — one-time device code flow OAuth2 setup for Microsoft Graph; requests `Calendars.ReadWrite offline_access User.Read` scopes; polls for auth completion with `authorization_pending`/`slow_down`/`expired_token` handling; verifies token against `GET /me`; saves `access_token`, `refresh_token`, `expires_at`, `user_email`, etc. to `workspace/coordinator/graph-token.json`; enables the dashboard calendar panel and `/focus` command
+
+---
+
 ## 2026-04-02 (Jira automation status sync script)
 
 ### Added
