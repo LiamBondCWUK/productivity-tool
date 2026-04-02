@@ -1,0 +1,77 @@
+[
+  {
+    "id": "command-center",
+    "name": "Command Center",
+    "description": "Personal AI command center — dashboard, priority inbox, time tracker",
+    "phase": "Building",
+    "completionPercent": 95,
+    "dir": "C:/Users/liam.bond/Documents/Productivity Tool",
+    "gitDir": "C:/Users/liam.bond/Documents/Productivity Tool",
+    "devDocsDir": "dev/active/command-center",
+    "tags": [
+      "ai",
+      "dashboard",
+      "productivity"
+    ]
+  },
+  {
+    "id": "productivity-tool",
+    "name": "Productivity Tool",
+    "description": "Claude CLI commands for Jira, morning brief, EOD capture, IBP",
+    "phase": "Building",
+    "completionPercent": 60,
+    "dir": "C:/Users/liam.bond/Documents/Productivity Tool",
+    "gitDir": "C:/Users/liam.bond/Documents/Productivity Tool",
+    "devDocsDir": null,
+    "tags": [
+      "cli",
+      "jira",
+      "automation"
+    ]
+  },
+  {
+    "id": "ukjpd-workflows",
+    "name": "UKJPD Workflows",
+    "description": "Automation for UK Product Discovery — Rovo enrichers, Jira rules, clone presets",
+    "phase": "Done",
+    "completionPercent": 90,
+    "dir": null,
+    "gitDir": null,
+    "devDocsDir": null,
+    "tags": [
+      "jira",
+      "automation",
+      "ukjpd"
+    ]
+  },
+  {
+    "id": "lead-schedules",
+    "name": "Lead Schedule Specifications",
+    "description": "Angular frontend for lead schedule spec generation and comparison",
+    "phase": "Done",
+    "completionPercent": 95,
+    "dir": "C:/Users/liam.bond/Documents/CW Lead Schedule Specifications",
+    "gitDir": "C:/Users/liam.bond/Documents/CW Lead Schedule Specifications",
+    "devDocsDir": null,
+    "tags": [
+      "angular",
+      "frontend",
+      "caseware"
+    ]
+  },
+  {
+    "id": "morning-scan",
+    "name": "Morning AI Signal Scan",
+    "description": "Automated morning scan of AI news, Hacker News, research papers",
+    "phase": "Done",
+    "completionPercent": 85,
+    "dir": null,
+    "gitDir": null,
+    "devDocsDir": null,
+    "tags": [
+      "ai",
+      "automation",
+      "news"
+    ]
+  }
+]

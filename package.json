@@ -1,0 +1,27 @@
+{
+  "name": "productivity-tool",
+  "version": "1.0.0",
+  "description": "This is a collection of 12 structured prompt files (referred to as \"skills\") designed to drive a **personal productivity system for a technical product manager**. The original author manages multiple software initiatives using Jira, Confluence, and GitHub, and built these prompts to automate the repetitive coordination work that connects daily execution to weekly reporting and long-term planning.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bondlw/Bondlw-productivity-tool.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Bondlw/Bondlw-productivity-tool/issues"
+  },
+  "homepage": "https://github.com/Bondlw/Bondlw-productivity-tool#readme",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.82.0"
+  }
+}

@@ -1,251 +1,261 @@
-# Morning Briefing
+# Good Morning — AI Priority Inbox
 
 ## Description
 
-Start-of-day orientation: pulls data from Jira, Teams/Calendar (via Playwright), local workspace, Confluence milestones, and Atlassian Goals. Synthesizes into a unified daily brief with ranked priorities, blockers, meeting prep, and commitment tracking.
+Start-of-day command that pulls all incoming work from Jira, Teams, and calendar, merges it with overnight AI suggestions, and writes a curated priority inbox to `dashboard-data.json`. Opens the dashboard at `localhost:3000` when complete.
 
-**Idempotent:** If a daily brief already exists for today, updates it rather than creating a duplicate.
+**Output:** Updates `dashboard-data.json` → dashboard reflects within 5 seconds.
 
-**Graceful degradation:** If any data source is unavailable, continues with available sources and flags what was skipped.
-
-Tone: **Brief, conversational** — quick grounding, not a status meeting.
+**Graceful degradation:** Any source failure is skipped and flagged; the inbox still populates from available sources.
 
 ## Trigger
 
 Run when user says:
+
 - `/gm`
-- "good morning" / "start of day" / "morning briefing"
+- "good morning" / "start of day"
 - "what's on my plate today"
+
+---
 
 ## Workflow
 
-### Step 0: Load Config
+### Step 0: Load Config and Context
 
 Read `workspace/config/system.json` and `workspace/config/projects.json`.
 
-Extract: project keys, workspace paths, meeting name, commitment check day, Atlassian domain.
-
 Determine today's date (`YYYY-MM-DD`) and day of week.
 
-Check if `workspace/coordinator/daily-brief-{today}.md` already exists. If yes, set `isUpdate = true`.
+Read `workspace/coordinator/dashboard-data.json` — extract:
+
+- `overnightAnalysis.projects` — AI suggestions from last night's run
+- `overnightAnalysis.topPriorityAction` — the top recommended action
+- `priorityInbox.standingBacklog` — persistent items that never go away until done
+
+Read `workspace/config/personal-projects.json` — the personal AI projects list.
+
+---
 
 ### Step 1: Parallel Data Pulls
 
-Run these 5 pulls in parallel. Each pull is independent. If any fails, capture the error and continue with remaining pulls.
+Run all pulls in parallel. Capture errors gracefully.
 
-#### 1a. Jira Pull (via Atlassian MCP)
+#### 1a. Jira Inbox (via Atlassian MCP)
 
-For each project in `projects.json`:
-
-**UKCAUD** (type: delivery):
-```
-JQL: project = UKCAUD AND assignee = currentUser() AND sprint in openSprints()
-     ORDER BY priority DESC, status ASC
-```
-Categorize results by status: To Do, In Progress, Done, Blocked.
+**Primary inbox JQL** — everything assigned to, reported by, or commented on by Liam today:
 
 ```
-JQL: project = UKCAUD AND assignee = currentUser() AND due <= endOfWeek()
-     AND status != Done ORDER BY due ASC
-```
-Flag tickets due this week not yet started.
-
-**DIST** (type: escalation):
-```
-JQL: project = DIST AND (reporter = currentUser() OR reporter in membersOf("uk-audit"))
-     AND status != Closed ORDER BY priority DESC
+(assignee = currentUser() OR reporter = currentUser() OR comment ~ "Liam Bond")
+AND updated >= startOfDay()
+ORDER BY priority DESC, updated DESC
 ```
 
-**UKCAS** (type: support):
+**Open sprint work:**
+
 ```
-JQL: project = UKCAS AND status != Closed ORDER BY priority DESC
-```
-Group by escalation label (L1/L2/L3). Flag L3 items needing triage.
-
-**SLA/Aging alerts:**
-- DIST escalations open >10 days: `project = DIST AND status != Closed AND created <= -10d`
-- UKCAS L3 bugs without UKCAUD link: `project = UKCAS AND labels = "L3-Product/Dev" AND issueFunction not in linkedIssuesOf("project = UKCAUD")`
-
-#### 1b. Local Workspace Pull
-
-Read in parallel:
-- `workspace/coordinator/weekly-plan.md` → extract "This Week: Top Priorities" and "Looking Ahead"
-- `workspace/initiatives/ukcaud/weekly-todos.md` → current priorities + blocked items
-- `workspace/initiatives/dist/weekly-todos.md` → current priorities
-- `workspace/initiatives/ukcas/weekly-todos.md` → current priorities
-- `workspace/coordinator/daily-log.md` → yesterday's evening entry (carryover items)
-
-**Drift detection:** Compare local weekly-todos "In Progress" items against Jira ticket statuses. If a ticket is marked Done in Jira but listed as "In Progress" locally, flag it:
-```
-DRIFT: UKCAUD-456 is Done in Jira but still listed as In Progress in weekly-todos
+project = UKCAUD AND assignee = currentUser() AND sprint in openSprints()
+AND status != Done ORDER BY priority DESC
 ```
 
-#### 1c. Teams/Calendar Pull (via Playwright MCP — best effort)
+**Escalations:**
 
-Attempt to navigate to Teams/Outlook calendar for today's meetings:
-
-1. Navigate to Outlook calendar (today's view)
-2. Extract: meeting name, time, attendees (if visible), agenda (if present)
-3. For each meeting, check if context exists in workspace:
-   - Meeting name matches something in `workspace/coordinator/notes/`
-   - Meeting relates to an initiative (keyword match against project names)
-   - Extract 1-2 relevant context bullets from initiative context files
-
-**If Playwright unavailable or fails:**
 ```
-SKIPPED: Teams/Calendar data unavailable (Playwright not connected). Add meetings manually if needed.
+project = DIST AND (reporter = currentUser() OR reporter in membersOf("uk-audit"))
+AND status != Closed ORDER BY priority DESC
 ```
 
-#### 1d. Confluence Pull (via Atlassian MCP)
+**Support:**
 
-Search for milestones due within 4 weeks:
-- Read `workspace/initiatives/*/milestones.md` for dates within next 28 days
-- If Confluence page IDs are referenced, fetch page titles for context
+```
+project = UKCAS AND status != Closed ORDER BY priority DESC
+```
 
-#### 1e. Atlassian Goals Pull (via GraphQL — best effort)
+**SLA breach alerts:**
 
-```graphql
-query {
-  goals_search(filter: { ownerAri: "{userAri}" }, first: 20) {
-    edges {
-      node {
-        name
-        state
-        score
-        phase { value }
-      }
+- DIST open >10 days: `project = DIST AND status != Closed AND created <= -10d`
+- UKCAS L3 without UKCAUD link: `project = UKCAS AND labels = "L3-Product/Dev" AND issueFunction not in linkedIssuesOf("project = UKCAUD")`
+
+For each ticket, capture: key, summary, priority, status, due date, project, age in days.
+
+#### 1b. Teams Unread (via Playwright MCP — best effort)
+
+Navigate to Microsoft Teams. Extract unread messages and @mentions from:
+
+- Direct messages
+- `#uk-team` channel (or any channels with @mentions)
+- Any messages requiring a reply
+
+Capture: sender, channel, message preview, timestamp.
+
+**If Playwright unavailable:** flag as SKIPPED.
+
+#### 1c. Calendar (via Microsoft Graph API or Playwright)
+
+If `workspace/coordinator/graph-token.json` exists:
+
+- Call `GET /me/calendarView?startDateTime={today}T00:00:00&endDateTime={today}T23:59:59`
+- Extract: meeting name, start time, duration, attendees, online link
+
+Else fall back to Playwright on Outlook Web Calendar.
+
+Extract today's meetings and next 5 upcoming days for "week ahead".
+
+For each meeting: check if it matches an initiative name or ticket (context linking).
+
+**If both unavailable:** flag as SKIPPED.
+
+---
+
+### Step 2: AI Curation — Build Priority Inbox
+
+With all gathered data, use AI reasoning to classify every item into one of four buckets:
+
+**URGENT** — needs action today, SLA risk, or escalation:
+
+- Any SLA breach (DIST >10d, UKCAS L3 without ticket)
+- Tickets overdue or due today
+- Teams @mentions requiring a reply within the day
+- Items with `priority = Highest` or `Blocker`
+
+**AI SUGGESTED** — recommendations from overnight analysis:
+
+- Extract items from `overnightAnalysis.topPriorityAction`
+- Extract HIGH priority suggestions from `overnightAnalysis.projects.*`
+- Format as actionable cards with effort estimate and rationale
+
+**TODAY** — planned work for today:
+
+- Open sprint tickets In Progress
+- Meetings scheduled today
+- Teams messages needing same-day response (non-urgent)
+- Tickets due end of week not yet started
+
+**BACKLOG** — not today, but on radar:
+
+- Open sprint tickets To Do
+- Teams messages that can wait
+- Standing backlog items (from `standingBacklog` in current dashboard-data.json):
+  1. UKJPD triage — 56 UPFR items
+  2. UKPFR crossover — 82 ideas
+  3. Teams channel config
+  4. Jira Rules 1 + 2 deployment
+
+For each item, include:
+
+- `id` — unique identifier (ticket key, or generated slug)
+- `type` — "jira" | "teams" | "ai-suggestion" | "standing-backlog" | "meeting"
+- `label` — short display text (ticket key + summary, or meeting name)
+- `detail` — one sentence of context
+- `source` — where it came from
+- `priority` — "URGENT" | "HIGH" | "MED" | "LOW"
+- `effort` (AI suggestions only) — "S" | "M" | "L"
+- `dueText` (optional) — "Due today", "SLA breach 2h", "Due Friday"
+- `countdownMs` (URGENT only) — milliseconds until SLA deadline (for timer display)
+
+---
+
+### Step 3: Write to dashboard-data.json
+
+Read the current `workspace/coordinator/dashboard-data.json`.
+
+Update the `priorityInbox` section:
+
+```json
+{
+  "priorityInbox": {
+    "generatedAt": "<ISO timestamp>",
+    "urgent": [ ...items ],
+    "aiSuggested": [ ...items ],
+    "today": [ ...items ],
+    "backlog": [ ...items ],
+    "standingBacklog": [
+      { "id": "ukjpd-triage", "label": "UKJPD triage — 56 UPFR items", "type": "standing-backlog", "priority": "MED" },
+      { "id": "ukpfr-crossover", "label": "UKPFR crossover — 82 ideas", "type": "standing-backlog", "priority": "MED" },
+      { "id": "teams-config", "label": "Teams channel config (stubbed TODOs)", "type": "standing-backlog", "priority": "LOW" },
+      { "id": "jira-rules", "label": "Jira Rules 1 + 2 — ready to deploy", "type": "standing-backlog", "priority": "HIGH" }
+    ],
+    "calendar": {
+      "todayEvents": [ ...meetings ],
+      "weekAhead": [ ...events ]
+    },
+    "dataSources": {
+      "jira": "ok | failed | partial",
+      "teams": "ok | skipped | failed",
+      "calendar": "ok | skipped | failed"
     }
   }
 }
 ```
 
-**If Goals API unavailable:**
-```
-SKIPPED: Goals API unavailable. Goal progress not included.
-```
-
-### Step 2: Commitment Progress Check (Wednesday+)
-
-**Only run if today is Wednesday, Thursday, or Friday** (configurable via `system.json` → sprintCadence.commitmentCheckDay).
-
-1. Parse each item from weekly plan "This Week: Top Priorities" as a tracked commitment
-2. Scan `workspace/coordinator/daily-log.md` for progress evidence
-3. Cross-reference with Jira ticket statuses from Step 1a
-4. Assign status per commitment:
-   - ✅ Done — evidence of completion in log + Jira status Done
-   - 🟢 On track — progress noted, no blockers
-   - 🟡 In progress — some work done but not complete
-   - 🔴 Not started — no mentions in daily log, Jira status unchanged
-   - ⚠️ At risk — started but blocked, or deadline approaching with insufficient progress
-
-### Step 3: Synthesize Daily Brief
-
-Build `workspace/coordinator/daily-brief-{today}.md`:
-
-```markdown
-# Daily Brief — {today} ({day of week})
-
-## Top 3 Priorities
-
-1. [Highest impact/urgency item from all sources]
-2. [Second priority]
-3. [Third priority]
-
-## Sprint Status (UKCAUD)
-
-| Status | Count | Tickets |
-|--------|-------|---------|
-| To Do | N | UKCAUD-xxx, ... |
-| In Progress | N | UKCAUD-xxx, ... |
-| Done | N | ... |
-| Blocked | N | ... |
-
-## Escalations (DIST)
-
-- [Open escalations with age]
-
-## Support (UKCAS)
-
-- L3 items needing triage: N
-- [High priority items]
-
-## SLA Alerts
-
-- [DIST escalations >10 days]
-- [UKCAS L3 without UKCAUD ticket]
-
-## Meetings Today
-
-| Time | Meeting | Context |
-|------|---------|---------|
-| HH:MM | Meeting Name | [relevant context bullets] |
-
-## Commitment Check (Wed+)
-
-[Only if Wednesday or later]
-- **[Commitment]**: [status emoji] [brief explanation]
-
-## Drift Detected
-
-[Only if drift found between local files and Jira]
-
-## Data Sources
-
-- Jira: [PASS/FAIL per project]
-- Teams/Calendar: [PASS/SKIPPED]
-- Goals: [PASS/SKIPPED]
-- Confluence: [PASS/SKIP]
+Write the updated JSON back to `workspace/coordinator/dashboard-data.json`.
 
 ---
 
-*Generated by /gm at {timestamp}*
-```
+### Step 4: Inline Summary
 
-### Step 4: Inline Output
-
-Print a condensed version to the conversation:
+Print a concise summary to the conversation:
 
 ```
-Good morning! Here's your brief for {today}:
+Good morning! {day}, {date}
 
-🔥 Top 3:
-1. [Priority 1]
-2. [Priority 2]
-3. [Priority 3]
+🔴 URGENT ({n} items)
+  - [DIST-xxx] SLA breach: 2h remaining
+  - [UKCAS-xxx] L3 without UKCAUD ticket (3 items)
 
-📊 Sprint: X to do, Y in progress, Z done, W blocked
-🔺 DIST: N open escalations (N aging >10d)
-🐛 UKCAS: N open (N L3 needing triage)
+🤖 AI SUGGESTED ({n} actions)
+  - [HIGH/S] Deploy Jira Rule 1 — unblocked, 10min
+  - [MED/M] Enhance /ticket epic sub-command
 
-📅 Meetings: [list or "none scheduled"]
+🟡 TODAY ({n} items)
+  - [UKCAUD-xxx] [ticket summary] — In Progress
+  - 09:30 Sprint standup (15min)
+  - [UKCAUD-xxx] Due Friday, not started
 
-{commitment check if Wed+}
-{drift warnings if any}
-{SLA alerts if any}
+🔵 BACKLOG ({n} items)
+  + 4 standing backlog items
 
-Full brief: workspace/coordinator/daily-brief-{today}.md
+📅 Meetings today: [count] | Week ahead: [count]
+
+Dashboard updated → opening localhost:3000
 ```
 
-### Step 5: Log to Metrics
+---
+
+### Step 5: Open Dashboard
+
+Execute in a background process:
+
+```
+start http://localhost:3000
+```
+
+If pm2 shows the dashboard is not running, notify:
+
+```
+⚠️ Dashboard not running. Start with: pm2 start "C:\Users\liam.bond\Documents\Productivity Tool\dashboard\ecosystem.config.js"
+```
+
+---
+
+### Step 6: Append to Daily Log
+
+Append morning entry to `workspace/coordinator/daily-log.md`:
+
+```markdown
+## {today} ({day of week}) — Morning
+
+**Inbox snapshot:** {n} urgent, {n} today, {n} backlog
+**Top AI suggestion:** {topPriorityAction}
+**Meetings today:** {list or "none"}
+**Sprint:** {x} to do, {y} in progress, {z} done
+```
+
+---
+
+### Step 7: Log Metrics
 
 Append to `workspace/coordinator/system-metrics.md`:
 
 ```
-| {date} | /gm | {sources used} | {fallbacks triggered} | — |
-```
-
-### Step 6: Append Morning Entry to Daily Log
-
-Append to `workspace/coordinator/daily-log.md`:
-
-```markdown
-## {today} — Morning
-
-**Focus areas:**
-- [Top 3 priorities listed]
-
-**Carryover from yesterday:**
-- [Items carried forward, if any]
-
-**Sprint status:** X to do, Y in progress, Z done, W blocked
+| {date} | /gm | jira:{ok/fail} teams:{ok/skip} cal:{ok/skip} | {n urgent} {n today} | — |
 ```

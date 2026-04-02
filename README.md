@@ -1,5 +1,56 @@
 # Liam's Product Management System
 
+## Dashboard (Command Center)
+
+The dashboard is a Next.js 14 app at `localhost:3000`, managed by pm2. It provides a live view of the priority inbox, personal projects Kanban, vibe-kanban task board, calendar, and time tracker.
+
+### Prerequisites
+
+- Node.js 18+
+- pm2 (`npm install -g pm2`)
+- Claude CLI installed and authenticated (used by the overnight analysis agent — no separate API key needed)
+
+### First-time setup
+
+```powershell
+# 1. Install dashboard dependencies
+cd "C:\Users\liam.bond\Documents\Productivity Tool\dashboard"
+npm install
+
+# 2. Build
+npm run build
+
+# 3. Start with pm2 (auto-restarts, survives reboots)
+pm2 start ecosystem.config.js
+pm2 save
+pm2 startup   # run the output command to enable autostart on login
+
+# 4. Register overnight analysis (02:00 Mon–Fri) — requires admin PowerShell
+& "$HOME\Documents\Productivity Tool\scripts\register-overnight-task.ps1"
+
+# 5. Register morning /gm (08:45 Mon–Fri) — requires admin PowerShell
+& "$HOME\Documents\Productivity Tool\scripts\register-gm-task.ps1"
+
+# 6. Optional: Microsoft Graph auth for /focus calendar integration
+powershell -File "scripts\setup-graph-token.ps1"
+```
+
+The `dashboard/ecosystem.config.js` configures:
+
+- **App name:** `command-center`
+- **Port:** 3000
+- **`DASHBOARD_DATA_PATH`:** points to `workspace/coordinator/dashboard-data.json`
+- Auto-restart on crash, max 10 restarts
+
+### Development mode
+
+```powershell
+cd dashboard
+npm run dev   # hot-reload at localhost:3000
+```
+
+---
+
 ## Overview
 
 This is a collection of 12 structured prompt files (referred to as "skills") designed to drive a **personal productivity system for a technical product manager**. The original author manages multiple software initiatives using Jira, Confluence, and GitHub, and built these prompts to automate the repetitive coordination work that connects daily execution to weekly reporting and long-term planning.
@@ -249,9 +300,9 @@ Then start with `morning-checkin.md` and iterate from there. Each prompt is self
 
 ## Related Projects
 
-| Project | Relationship |
-|---------|-------------|
-| [AI Breaking News Tool](../AI%20Breaking%20News%20Tool/) | AI ecosystem research feeds into daily briefings |
-| [Property Search Tool](../Property%20Search%20Tool/) | Property reports feed into daily briefing context |
-| [CW UKCAUD Project Tracker](../CW%20UKCAUD%20Project%20Tracker/) | Jira automation and delivery tracking |
-| [CW UKJPD Workflows](../CW%20UKJPD%20Workflows/) | JPD feature request delivery prompts |
+| Project                                                          | Relationship                                      |
+| ---------------------------------------------------------------- | ------------------------------------------------- |
+| [AI Breaking News Tool](../AI%20Breaking%20News%20Tool/)         | AI ecosystem research feeds into daily briefings  |
+| [Property Search Tool](../Property%20Search%20Tool/)             | Property reports feed into daily briefing context |
+| [CW UKCAUD Project Tracker](../CW%20UKCAUD%20Project%20Tracker/) | Jira automation and delivery tracking             |
+| [CW UKJPD Workflows](../CW%20UKJPD%20Workflows/)                 | JPD feature request delivery prompts              |

@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-04-02T01:42:57.000Z",
+    "lastUpdatedBy": "bootstrap"
+  },
+  "priorityInbox": {
+    "urgent": [],
+    "aiSuggested": [],
+    "today": [],
+    "backlog": [
+      {
+        "id": "standing-ukjpd-review",
+        "title": "UKJPD review — 56 UPFR items need triage",
+        "type": "standing",
+        "source": "manual",
+        "link": null,
+        "addedAt": "2026-04-02T00:00:00.000Z"
+      },
+      {
+        "id": "standing-ukpfr-crossover",
+        "title": "UKPFR crossover — 82 ideas in crossover view",
+        "type": "standing",
+        "source": "manual",
+        "link": null,
+        "addedAt": "2026-04-02T00:00:00.000Z"
+      },
+      {
+        "id": "standing-teams-config",
+        "title": "Teams channel config — teams-channels.json has stubbed TODOs",
+        "type": "standing",
+        "source": "manual",
+        "link": null,
+        "addedAt": "2026-04-02T00:00:00.000Z"
+      },
+      {
+        "id": "standing-jira-rules",
+        "title": "Jira Rules 1 + 2 ready to deploy (UKCAS→UKJPD, UKCAUD→UKJPD)",
+        "type": "standing",
+        "source": "manual",
+        "link": null,
+        "addedAt": "2026-04-02T00:00:00.000Z"
+      }
+    ]
+  },
+  "personalProjects": {
+    "lastRefreshed": "2026-04-02T02:36:34.212Z",
+    "projects": [
+      {
+        "id": "command-center",
+        "name": "Command Center",
+        "description": "Personal AI command center — dashboard, priority inbox, time tracker",
+        "phase": "Building",
+        "completionPercent": 95,
+        "dir": "C:/Users/liam.bond/Documents/Productivity Tool",
+        "gitDir": "C:/Users/liam.bond/Documents/Productivity Tool",
+        "devDocsDir": "dev/active/command-center",
+        "tags": [
+          "ai",
+          "dashboard",
+          "productivity"
+        ],
+        "lastActivity": "2026-04-02T01:42:57.000Z",
+        "lastCommitSubject": "feat: complete command center phases 4-7 — CLI consolidation, EOD pipeline, focus blocks, IBP update",
+        "suggestions": [],
+        "state": "All 7 phases built and committed. Dashboard live at localhost:3000.",
+        "crossProjectDeps": [],
+        "neglected": []
+      },
+      {
+        "id": "productivity-tool",
+        "name": "Productivity Tool",
+        "description": "Claude CLI commands for Jira, morning brief, EOD capture, IBP",
+        "phase": "Building",
+        "completionPercent": 60,
+        "dir": "C:/Users/liam.bond/Documents/Productivity Tool",
+        "gitDir": "C:/Users/liam.bond/Documents/Productivity Tool",
+        "devDocsDir": null,
+        "tags": [
+          "cli",
+          "jira",
+          "automation"
+        ],
+        "lastActivity": "2026-04-02T01:42:57.000Z",
+        "lastCommitSubject": "feat: complete command center phases 4-7 — CLI consolidation, EOD pipeline, focus blocks, IBP update",
+        "suggestions": [
+          {
+            "priority": "HIGH",
+            "action": "Create .env with ANTHROPIC_API_KEY to enable overnight analysis",
+            "effort": "S"
+          },
+          {
+            "priority": "HIGH",
+            "action": "Deploy Jira Rule 1 (UKCAS→UKJPD) — unblocked, ~10min",
+            "effort": "S"
+          },
+          {
+            "priority": "MED",
+            "action": "Run setup-graph-token.ps1 to enable /focus command",
+            "effort": "S"
+          }
+        ],
+        "state": "CLI commands complete. Setup steps pending: .env, Graph token, Jira rules.",
+        "crossProjectDeps": [],
+        "neglected": []
+      },
+      {
+        "id": "ukjpd-workflows",
+        "name": "UKJPD Workflows",
+        "description": "Automation for UK Product Discovery — Rovo enrichers, Jira rules, clone presets",
+        "phase": "Done",
+        "completionPercent": 90,
+        "dir": null,
+        "gitDir": null,
+        "devDocsDir": null,
+        "tags": [
+          "jira",
+          "automation",
+          "ukjpd"
+        ],
+        "lastActivity": null,
+        "lastCommitSubject": null,
+        "suggestions": [],
+        "state": null,
+        "crossProjectDeps": [],
+        "neglected": []
+      },
+      {
+        "id": "lead-schedules",
+        "name": "Lead Schedule Specifications",
+        "description": "Angular frontend for lead schedule spec generation and comparison",
+        "phase": "Done",
+        "completionPercent": 95,
+        "dir": "C:/Users/liam.bond/Documents/CW Lead Schedule Specifications",
+        "gitDir": "C:/Users/liam.bond/Documents/CW Lead Schedule Specifications",
+        "devDocsDir": null,
+        "tags": [
+          "angular",
+          "frontend",
+          "caseware"
+        ],
+        "lastActivity": "2026-03-23T15:01:02.000Z",
+        "lastCommitSubject": "docs: add USER-GUIDE.md",
+        "suggestions": [],
+        "state": null,
+        "crossProjectDeps": [],
+        "neglected": []
+      },
+      {
+        "id": "morning-scan",
+        "name": "Morning AI Signal Scan",
+        "description": "Automated morning scan of AI news, Hacker News, research papers",
+        "phase": "Done",
+        "completionPercent": 85,
+        "dir": null,
+        "gitDir": null,
+        "devDocsDir": null,
+        "tags": [
+          "ai",
+          "automation",
+          "news"
+        ],
+        "lastActivity": null,
+        "lastCommitSubject": null,
+        "suggestions": [],
+        "state": null,
+        "crossProjectDeps": [],
+        "neglected": []
+      }
+    ]
+  },
+  "calendar": {
+    "lastRefreshed": null,
+    "hasToken": false,
+    "today": [],
+    "weekAhead": []
+  },
+  "timeTracker": {
+    "activeSession": null,
+    "todaySessions": [],
+    "todayTotalMinutes": 0,
+    "weekTotalMinutes": 0
+  },
+  "overnightAnalysis": {
+    "generatedAt": null,
+    "projects": {},
+    "globalInsights": [],
+    "topPriorityAction": null
+  },
+  "tasks": {
+    "items": []
+  }
+}
