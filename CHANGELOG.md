@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-04-02 (Replit deployment + test data population)
+
+### Added
+
+- `dashboard/.replit` — Replit deployment config (run `npm start`, port 3000 → 80)
+- `dashboard/data/dashboard-data.json` — bundled test data file for portable deployment (fallback when `DASHBOARD_DATA_PATH` not set)
+- `scripts/populate-test-data.mjs` — script to fill all dashboard panels with realistic test data (2 urgent, 3 AI suggested, 5 projects, 6 calendar events, 3 time tracker sessions, 5 overnight analysis entries)
+
+### Changed
+
+- `dashboard/lib/dashboardData.ts` — replaced hardcoded Windows path fallback with portable `path.join(process.cwd(), "data", "dashboard-data.json")` so the app works on Replit and any environment
+
+---
+
 ## 2026-04-02 (Dashboard + Vibe-kanban + Overnight analysis CLI migration)
 
 ### Added (Dashboard phase 1-2: command center UI + overnight analysis agent)

@@ -4,7 +4,7 @@ import type { DashboardData } from "../types/dashboard";
 
 const DATA_FILE = path.resolve(
   process.env.DASHBOARD_DATA_PATH ||
-    "C:/Users/liam.bond/Documents/Productivity Tool/workspace/coordinator/dashboard-data.json",
+    path.join(process.cwd(), "data", "dashboard-data.json"),
 );
 
 export function readDashboardData(): DashboardData {
