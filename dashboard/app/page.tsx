@@ -7,6 +7,7 @@ import { ProjectsBoard } from '../components/ProjectsBoard'
 import { CalendarPanel } from '../components/CalendarPanel'
 import { TimeTracker } from '../components/TimeTracker'
 import { TasksPanel } from '../components/TasksPanel'
+import { AutomationStatus } from '../components/AutomationStatus'
 import type { ProjectPhase, ProjectSuggestion } from '../types/dashboard'
 
 function formatCurrentTime(): string {
@@ -112,13 +113,20 @@ export default function Dashboard() {
           <TasksPanel tasks={data.tasks?.items ?? []} onRefetch={refetch} />
         </div>
 
-        {/* Calendar + Time tracker */}
+        {/* Calendar + Time tracker + Automation */}
         <div className="flex flex-col overflow-hidden">
-          <div className="flex-1 p-4 border-b border-gray-700/50 flex flex-col min-h-0 overflow-hidden">
+          <div className="flex-1 p-4 border-b border-gray-700/50 flex flex-col min-h-0 overflow-hidden" style={{ maxHeight: '35vh' }}>
             <CalendarPanel today={data.calendar.today} weekAhead={data.calendar.weekAhead} hasToken={data.calendar.hasToken} />
           </div>
-          <div className="p-4 flex flex-col overflow-hidden" style={{ maxHeight: '45vh' }}>
+          <div className="p-4 flex flex-col overflow-hidden border-b border-gray-700/50" style={{ maxHeight: '30vh' }}>
             <TimeTracker tracker={data.timeTracker} onRefetch={refetch} />
+          </div>
+          <div className="p-4 flex flex-col overflow-hidden flex-1 min-h-0">
+            <AutomationStatus
+              rules={data.automationRules?.rules ?? []}
+              lastChecked={data.automationRules?.lastChecked ?? null}
+              onRefetch={refetch}
+            />
           </div>
         </div>
       </main>

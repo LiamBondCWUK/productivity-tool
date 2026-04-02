@@ -133,6 +133,25 @@ export interface OvernightProjectAnalysis {
   crossProjectDeps: string[];
 }
 
+export type AutomationRuleStatus =
+  | "pending"
+  | "deployed"
+  | "blocked"
+  | "disabled";
+
+export interface AutomationRule {
+  id: string;
+  name: string;
+  description: string;
+  project: string;
+  phase: string;
+  status: AutomationRuleStatus;
+  blockedReason?: string;
+  deployedAt?: string;
+  jiraLink?: string;
+  verificationCheck?: string;
+}
+
 export interface DashboardData {
   meta: {
     version: string;
@@ -156,4 +175,8 @@ export interface DashboardData {
     projects: Record<string, OvernightProjectAnalysis>;
   };
   tasks: TasksState;
+  automationRules: {
+    lastChecked: string | null;
+    rules: AutomationRule[];
+  };
 }

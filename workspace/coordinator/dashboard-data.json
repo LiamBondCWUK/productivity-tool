@@ -615,5 +615,70 @@
       "source": "manual",
       "addedAt": "2026-04-01T05:04:51.500Z"
     }
-  ]
+  ],
+  "automationRules": {
+    "lastChecked": null,
+    "rules": [
+      {
+        "id": "retro-enrichment",
+        "name": "UKCAUD Retro Enrichment",
+        "description": "Auto-enriches retro stories via Rovo agent when UKCAUD_RETRO_ENRICH label is applied",
+        "project": "UKCAUD",
+        "phase": "1.1",
+        "status": "pending",
+        "jiraLink": "https://caseware.atlassian.net/jira/software/projects/UKCAUD/settings/automation",
+        "verificationCheck": "Create test retro story with UKCAUD_RETRO + UKCAUD_RETRO_TEAMS_FORM + UKCAUD_RETRO_ENRICH labels under UKCAUD-15913 → agent fires, label swaps to UKCAUD_RETRO_ENRICHED within 2 min"
+      },
+      {
+        "id": "enhancement-routing",
+        "name": "UKCAS → UKJPD Enhancement Routing",
+        "description": "Routes UKCAS bugs to UKJPD Ideas when enhancement-request label is added",
+        "project": "UKCAS",
+        "phase": "1.2",
+        "status": "pending",
+        "jiraLink": "https://caseware.atlassian.net/jira/software/projects/UKCAS/settings/automation",
+        "verificationCheck": "Apply enhancement-request to a test UKCAS bug → UKJPD Idea auto-created, linked, UKCAS resolved"
+      },
+      {
+        "id": "epic-done-sync",
+        "name": "UKCAUD Epic Done → UKJPD Status Sync",
+        "description": "Posts delivery-complete comment to linked UKJPD items when UKCAUD Epic transitions to Done",
+        "project": "UKCAUD",
+        "phase": "1.3",
+        "status": "pending",
+        "jiraLink": "https://caseware.atlassian.net/jira/software/projects/UKCAUD/settings/automation",
+        "verificationCheck": "Transition a test UKCAUD Epic to Done with UKJPD link → auto-comment on UKJPD item"
+      },
+      {
+        "id": "disable-resolution-recommender",
+        "name": "Disable Stale Resolution Recommender (019d1f89)",
+        "description": "Disable UKCAS rule 019d1f89 — merged into Triage Agent 1592e332 on 2026-03-26",
+        "project": "UKCAS",
+        "phase": "1.4",
+        "status": "pending",
+        "jiraLink": "https://caseware.atlassian.net/jira/software/projects/UKCAS/settings/automation",
+        "verificationCheck": "Rule 019d1f89 status = disabled in UKCAS automation list"
+      },
+      {
+        "id": "readiness-checker",
+        "name": "Enable Readiness Checker on UKCAUD",
+        "description": "Rovo ambient quality gate — flags thin tickets missing AC, estimate, or DoR criteria on creation",
+        "project": "UKCAUD",
+        "phase": "2.1",
+        "status": "pending",
+        "jiraLink": "https://caseware.atlassian.net/rovo",
+        "verificationCheck": "Create a thin UKCAUD ticket (no AC, no estimate) → Readiness Checker flags it"
+      },
+      {
+        "id": "theme-analyzer",
+        "name": "Enable Jira Theme Analyzer on UKJPD",
+        "description": "Run Theme Analyzer on migrated UKJPD backlog (45 UPFR ideas) to identify clustering opportunities",
+        "project": "UKJPD",
+        "phase": "2.2",
+        "status": "pending",
+        "jiraLink": "https://caseware.atlassian.net/rovo",
+        "verificationCheck": "Theme Analyzer returns clustered themes from migrated UKJPD backlog"
+      }
+    ]
+  }
 }

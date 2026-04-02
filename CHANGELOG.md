@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-04-02 (AutomationStatus dashboard panel + Jira rule tracking API)
+
+### Added
+
+- `dashboard/components/AutomationStatus.tsx` — new dashboard panel showing all 6 Jira automation rules (phases 1.1–2.2) with color-coded status badges (pending/deployed/blocked/disabled), phase labels, Jira deep-links, and one-click "Done" buttons to mark rules deployed
+- `dashboard/app/api/automation/route.ts` — REST API for automation rule status: GET returns current rules from dashboard-data.json; PATCH updates individual rule status (sets `deployedAt` on deploy, clears it on block, stores `blockedReason`)
+
+### Changed
+
+- `dashboard/app/page.tsx` — added AutomationStatus as a 3rd panel in column 4 (below Calendar and TimeTracker), with flex-1 to fill remaining height
+- `dashboard/types/dashboard.ts` — added `AutomationRule`, `AutomationRuleStatus` types and `automationRules` field on `DashboardData`
+- `dashboard/data/dashboard-data.json` + `workspace/coordinator/dashboard-data.json` — populated `automationRules` section with 6 rules covering phases 1.1 (retro enrichment), 1.2 (enhancement routing), 1.3 (epic done sync), 1.4 (disable stale rule), 2.1 (readiness checker), 2.2 (theme analyzer); all start as `pending`
+
 ## 2026-04-02 (UK prompt customisation + PRD cascade skill)
 
 ### Changed (Phase 1.6 — all 12 prompts personalised for Liam Bond / UK Caseware team)
