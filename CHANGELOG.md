@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-04-02 (Playwright automation scripts for Jira rules + Rovo Studio)
+
+### Added
+
+- `scripts/jira-automation-deploy.mjs` — Playwright script to automatically deploy Jira automation rules 1.1–1.4; uses Edge persistent profile (falls back to fresh Chromium); navigates to UKCAUD/UKCAS automation settings pages; finds rules by name pattern; enables rules 1.1/1.2/1.3, disables rule 1.4 (resolution recommender); calls `PATCH /api/automation` on localhost:3000 to update dashboard tracking; supports `--dry-run` flag
+- `scripts/rovo-studio-enable.mjs` — Playwright script to enable Rovo Studio agents 2.1 (Readiness Checker) and 2.2 (Theme Analyzer); tries multiple known Rovo Studio URLs automatically; finds agents by name pattern; clicks Enable button; updates dashboard via `PATCH /api/automation`; supports `--dry-run` flag
+
+---
+
 ## 2026-04-02 (Microsoft Graph OAuth2 setup script)
 
 ### Added
