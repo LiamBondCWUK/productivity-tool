@@ -15,7 +15,22 @@ try {
     Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] fetch-notifications ERROR: $($_.Exception.Message)"
 }
 
-# Step 2: Generate AI day plan
+# Step 2: Fetch Teams + Email via m365 CLI
+try {
+    $teamsResult = & node "$ProjectDir\scripts\graph-teams-fetch.mjs" 2>&1
+    Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] graph-teams-fetch: $teamsResult"
+} catch {
+    Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] graph-teams-fetch ERROR: $($_.Exception.Message)"
+}
+
+try {
+    $emailResult = & node "$ProjectDir\scripts\graph-email-fetch.mjs" 2>&1
+    Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] graph-email-fetch: $emailResult"
+} catch {
+    Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] graph-email-fetch ERROR: $($_.Exception.Message)"
+}
+
+# Step 3: Generate AI day plan
 try {
     $planResult = & node "$ProjectDir\scripts\generate-day-plan.mjs" 2>&1
     Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] generate-day-plan: $planResult"
@@ -23,7 +38,7 @@ try {
     Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] generate-day-plan ERROR: $($_.Exception.Message)"
 }
 
-# Step 3: Run /gm via Claude CLI
+# Step 4: Run /gm via Claude CLI
 try {
     $result = & claude "/gm" 2>&1
     Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] /gm completed"

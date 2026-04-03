@@ -5,6 +5,7 @@ import { CalendarPanel } from "./CalendarPanel";
 import { TimeTracker } from "./TimeTracker";
 import { ActiveWindow } from "./ActiveWindow";
 import { AISchedule } from "./AISchedule";
+import { TeamMessages } from "./TeamMessages";
 import type {
   PriorityInbox as PriorityInboxType,
   CalendarEvent,
@@ -42,10 +43,13 @@ export function TodayTab({
         <AISchedule onRefetch={onRefetch} />
       </div>
 
-      {/* Right - Calendar + Active Window + Manual Time Tracker */}
+      {/* Right - Calendar + Active Window + Teams/Email + Manual Time Tracker */}
       <div className="flex flex-col overflow-hidden divide-y divide-gray-700/50">
         {/* Calendar */}
-        <div className="p-4 flex flex-col overflow-hidden" style={{ maxHeight: "40vh" }}>
+        <div
+          className="p-4 flex flex-col overflow-hidden"
+          style={{ maxHeight: "35vh" }}
+        >
           <CalendarPanel
             today={calendarToday}
             weekAhead={calendarWeekAhead}
@@ -54,8 +58,13 @@ export function TodayTab({
         </div>
 
         {/* Active Window Tracker (auto) */}
-        <div className="p-4 flex-1 overflow-y-auto min-h-0">
+        <div className="p-4 overflow-y-auto shrink-0" style={{ maxHeight: "18vh" }}>
           <ActiveWindow />
+        </div>
+
+        {/* Teams + Email Messages */}
+        <div className="p-4 flex-1 overflow-y-auto min-h-0">
+          <TeamMessages />
         </div>
 
         {/* Manual Time Tracker (legacy) */}

@@ -103,9 +103,24 @@ export function TaskDetail({ jiraKey }: TaskDetailProps) {
   }
 
   if (error || !detail) {
+    const isCredsMissing = error?.includes("503");
     return (
-      <div className="h-full flex items-center justify-center text-red-400 text-sm">
-        {error ?? "Unknown error"}
+      <div className="h-full flex flex-col items-center justify-center gap-2 text-sm px-8 text-center">
+        {isCredsMissing ? (
+          <>
+            <span className="text-yellow-400 font-medium">
+              Jira credentials not configured
+            </span>
+            <span className="text-gray-500 text-xs">
+              Add <code className="text-gray-400">JIRA_EMAIL</code> and{" "}
+              <code className="text-gray-400">JIRA_API_TOKEN</code> to{" "}
+              <code className="text-gray-400">.env.local</code>, then restart
+              the dashboard
+            </span>
+          </>
+        ) : (
+          <span className="text-red-400">{error ?? "Unknown error"}</span>
+        )}
       </div>
     );
   }

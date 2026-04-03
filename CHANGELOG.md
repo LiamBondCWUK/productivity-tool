@@ -1,5 +1,38 @@
 # Changelog
 
+## 2026-04-03 (generate-day-plan.mjs: Claude CLI OAuth + Jira graceful error)
+
+### Changed
+
+- `scripts/generate-day-plan.mjs` — removed Anthropic SDK dependency; now calls `claude` CLI via `spawnSync` using existing OAuth login (no separate `ANTHROPIC_API_KEY` needed); tested with 9 blocks written live
+- `dashboard/components/TaskDetail.tsx` — HTTP 503 from Jira API shows friendly "credentials not configured" message instead of raw error
+
+---
+
+## 2026-04-03 (Phase 6: Teams + Email messages in Today tab via m365 CLI)
+
+### Added
+
+- `scripts/graph-teams-fetch.mjs` — fetches unread Teams chats via `m365 teams chat list`; checks login status first (graceful no-op if not logged in); filters to unread or last-24h chats, max 10; writes `teamMessages` + `teamMessagesFetchedAt` to `dashboard-data.json`
+- `scripts/graph-email-fetch.mjs` — fetches flagged/high-importance emails via `m365 outlook message list`; filters to `followUpFlag.flagStatus === 'flagged'` or `importance === 'high'`; writes `flaggedEmails` + `flaggedEmailsFetchedAt` to `dashboard-data.json`
+- `dashboard/app/api/teams/route.ts` — Next.js API route: reads `teamMessages` from `dashboard-data.json`, returns JSON
+- `dashboard/app/api/email/route.ts` — Next.js API route: reads `flaggedEmails` from `dashboard-data.json`, returns JSON
+- `dashboard/components/TeamMessages.tsx` — client component fetching both endpoints; renders Teams unread chats (blue, with unread badge) and flagged emails (amber); shows relative timestamps; links directly to Teams chat URL / Outlook webLink; shows `m365 login` prompt when no data yet
+
+### Changed
+
+- `dashboard/components/TodayTab.tsx` — added `<TeamMessages />` in right column between ActiveWindow and TimeTracker
+- `scripts/gm-auto.ps1` — added Steps 2a/2b to call `graph-teams-fetch.mjs` and `graph-email-fetch.mjs` at morning run before day plan generation
+- `dotfiles/setup.ps1` — added `@pnp/cli-microsoft365` to npm global tools for cross-machine sync
+
+### Notes
+
+- No Azure App Registration required — `m365` uses Microsoft's own PnP app internally
+- User prerequisite: run `m365 login` once (browser device code flow) to authenticate
+- Scripts degrade gracefully (return empty arrays) until logged in
+
+---
+
 ## 2026-04-02 (Full-deploy script + .gitignore + playwright devDep)
 
 ### Added
@@ -197,7 +230,7 @@
 
 ### Added (Phase 7: Unified Activity Log + IBP Pipeline)
 
-- `scripts/extract-claude-sessions.mjs` — Parse ~/.claude/projects/**/*.jsonl → claude-sessions-today.json
+- `scripts/extract-claude-sessions.mjs` — Parse ~/.claude/projects/\*_/_.jsonl → claude-sessions-today.json
 - `scripts/merge-activity-log.mjs` — Merge window + Claude sessions + Jira worklog → daily-unified-log.json
 - `scripts/generate-ibp.mjs` — Read unified log → IBP markdown (Claude Haiku narrative or plain fallback)
 - `workspace/coordinator/claude-sessions-today.json` — Today's Claude coding sessions
@@ -217,4 +250,3 @@
 
 - `scripts/fetch-notifications.mjs` — Jira @mentions + doc comment notifications
 - `scripts/launch-chrome-debug.ps1` — Chrome remote debugging launcher
-

@@ -1,11 +1,21 @@
-import { NextRequest, NextResponse } from "next/server";
-import {
-  readDashboardData,
-  writeDashboardData,
-} from "../../../lib/dashboardData";
-import type { ProjectPhase } from "../../../types/dashboard";
+import { NextRequest, NextResponse } from 'next/server';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import { readDashboardData, writeDashboardData } from '../../../lib/dashboardData';
+import type { ProjectPhase, ProjectEntry } from '../../../types/dashboard';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
+
+export async function GET() {
+  const registryPath = join(process.cwd(), '..', 'workspace', 'coordinator', 'project-registry.json');
+  try {
+    const raw = readFileSync(registryPath, 'utf-8');
+    const registry = JSON.parse(raw) as { updatedAt: string; projects: ProjectEntry[] };
+    return NextResponse.json(registry);
+  } catch {
+    return NextResponse.json({ updatedAt: null, projects: [] });
+  }
+}
 
 export async function PATCH(request: NextRequest) {
   const body = (await request.json()) as {

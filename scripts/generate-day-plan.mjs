@@ -2,14 +2,15 @@
 /**
  * generate-day-plan.mjs
  * Reads calendar + priority inbox + overnight suggestions from dashboard-data.json,
- * calls Claude Haiku to produce a prioritised day plan, and writes it back.
+ * calls Claude (via CLI, uses existing OAuth login) to produce a prioritised day plan,
+ * and writes it back.
  *
  * Usage:
  *   node scripts/generate-day-plan.mjs
  *   node scripts/generate-day-plan.mjs --dry-run   (prints plan, no write)
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import { spawnSync } from "child_process";
 import { readFileSync, writeFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
@@ -115,15 +116,18 @@ Rules:
 - Label must be a short (< 50 chars) human-readable description
 - rationale must explain why this block is prioritised now (1 sentence)`;
 
-  const client = new Anthropic();
+  // Use claude CLI with existing OAuth login — no API key required
+  const result = spawnSync(
+    "claude",
+    ["-p", prompt, "--model", "claude-haiku-4-5-20251001"],
+    { encoding: "utf8", maxBuffer: 10 * 1024 * 1024 }
+  );
 
-  const message = await client.messages.create({
-    model: "claude-haiku-4-5-20251001",
-    max_tokens: 1024,
-    messages: [{ role: "user", content: prompt }],
-  });
+  if (result.error || result.status !== 0) {
+    throw new Error(result.stderr || result.error?.message || "claude CLI failed");
+  }
 
-  const rawText = message.content[0].type === "text" ? message.content[0].text : "";
+  const rawText = result.stdout.trim();
 
   let blocks;
   try {

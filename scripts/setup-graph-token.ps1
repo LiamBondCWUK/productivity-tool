@@ -7,7 +7,7 @@ $ErrorActionPreference = 'Stop'
 $COORDINATOR_PATH = Join-Path $PSScriptRoot '..' 'workspace' 'coordinator'
 $TOKEN_FILE = Join-Path $COORDINATOR_PATH 'graph-token.json'
 $TENANT = 'common'
-$SCOPES = 'Calendars.ReadWrite offline_access User.Read'
+$SCOPES = 'Calendars.ReadWrite offline_access User.Read Teams.ReadBasic.All Chat.Read Mail.Read'
 
 function Write-Step { param([string]$msg) Write-Host "`n[*] $msg" -ForegroundColor Cyan }
 function Write-OK   { param([string]$msg) Write-Host '[+] ' -ForegroundColor Green -NoNewline; Write-Host $msg }
