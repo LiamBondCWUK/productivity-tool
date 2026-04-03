@@ -9,25 +9,27 @@
 
 ---
 
-## 2026-04-03 (Phase 6: Teams + Email messages in Today tab via m365 CLI)
+## 2026-04-03 (Phase 6: Teams + Email messages in Today tab via Microsoft Graph REST API)
 
 ### Added
 
-- `scripts/graph-teams-fetch.mjs` — fetches unread Teams chats via `m365 teams chat list`; checks login status first (graceful no-op if not logged in); filters to unread or last-24h chats, max 10; writes `teamMessages` + `teamMessagesFetchedAt` to `dashboard-data.json`
-- `scripts/graph-email-fetch.mjs` — fetches flagged/high-importance emails via `m365 outlook message list`; filters to `followUpFlag.flagStatus === 'flagged'` or `importance === 'high'`; writes `flaggedEmails` + `flaggedEmailsFetchedAt` to `dashboard-data.json`
+- `scripts/graph-teams-fetch.mjs` — fetches unread Teams chats directly via Microsoft Graph REST API (`GET /me/chats?$expand=members,lastMessagePreview`); uses `graph-token.json` (same token as calendar panel); auto-refreshes expired tokens via refresh_token; filters to unread or last-24h chats, max 10; writes `teamMessages` + `teamMessagesFetchedAt` to `dashboard-data.json`
+- `scripts/graph-email-fetch.mjs` — fetches flagged/high-importance emails directly via Microsoft Graph REST API (`GET /me/messages?$filter=flag/flagStatus eq 'flagged' or importance eq 'high'`); same token auth pattern; max 10 from last 7 days; writes `flaggedEmails` + `flaggedEmailsFetchedAt` to `dashboard-data.json`
 - `dashboard/app/api/teams/route.ts` — Next.js API route: reads `teamMessages` from `dashboard-data.json`, returns JSON
 - `dashboard/app/api/email/route.ts` — Next.js API route: reads `flaggedEmails` from `dashboard-data.json`, returns JSON
-- `dashboard/components/TeamMessages.tsx` — client component fetching both endpoints; renders Teams unread chats (blue, with unread badge) and flagged emails (amber); shows relative timestamps; links directly to Teams chat URL / Outlook webLink; shows `m365 login` prompt when no data yet
+- `dashboard/components/TeamMessages.tsx` — client component fetching both endpoints; renders Teams unread chats (blue, with unread badge) and flagged emails (amber); shows relative timestamps; links directly to Teams chat URL / Outlook webLink; shows setup prompt when no data yet
 
 ### Changed
 
 - `dashboard/components/TodayTab.tsx` — added `<TeamMessages />` in right column between ActiveWindow and TimeTracker
 - `scripts/gm-auto.ps1` — added Steps 2a/2b to call `graph-teams-fetch.mjs` and `graph-email-fetch.mjs` at morning run before day plan generation
-- `dotfiles/setup.ps1` — added `@pnp/cli-microsoft365` to npm global tools for cross-machine sync
+- `scripts/graph-teams-fetch.mjs` — rewritten from `m365` CLI to direct Graph REST API (eliminates `m365 login` requirement)
+- `scripts/graph-email-fetch.mjs` — rewritten from `m365` CLI to direct Graph REST API (eliminates `m365 login` requirement)
 
 ### Notes
 
-- No Azure App Registration required — `m365` uses Microsoft's own PnP app internally
+- Single auth covers everything: run `.\scripts\setup-graph-token.ps1 -ClientId 31359c7f-bd7e-475c-86db-fdb8c937548e` once; `graph-token.json` handles Calendar + Teams + Email
+- Required scopes already in `setup-graph-token.ps1`: `Teams.ReadBasic.All Chat.Read Mail.Read`
 - User prerequisite: run `m365 login` once (browser device code flow) to authenticate
 - Scripts degrade gracefully (return empty arrays) until logged in
 
