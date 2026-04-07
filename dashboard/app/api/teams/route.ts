@@ -8,7 +8,7 @@ export async function GET() {
     const data = readDashboardData();
     return NextResponse.json({
       teamMessages: data.teamMessages ?? [],
-      fetchedAt: data.teamMessagesFetchedAt ?? null,
+      fetchedAt: null,
     });
   } catch {
     return NextResponse.json(

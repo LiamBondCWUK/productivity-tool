@@ -7,7 +7,7 @@ module.exports = {
       cwd: __dirname,
       env: {
         NODE_ENV: "production",
-        PORT: 3000,
+        PORT: 3002,
         DASHBOARD_DATA_PATH:
           "C:/Users/liam.bond/Documents/Productivity Tool/workspace/coordinator/dashboard-data.json",
       },

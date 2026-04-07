@@ -1,0 +1,31 @@
+{
+    "collectedAt":  "2026-04-06T02:42:40.2088711+01:00",
+    "scheduledTasks":  [
+                           {
+                               "name":  "ClaudeMorningScan",
+                               "state":  "Ready",
+                               "lastRun":  "2026-04-05T23:33:11.0000000+01:00",
+                               "nextRun":  "2026-04-06T06:30:00.0000000+01:00",
+                               "lastResult":  0,
+                               "status":  "ok"
+                           }
+                       ],
+    "pm2Processes":  [
+
+                     ],
+    "claudeSpeed":  {
+                        "latestMs":  841,
+                        "avg7dMs":  null,
+                        "trend":  "normal",
+                        "flag":  false
+                    },
+    "portMismatches":  [
+
+                       ],
+    "ecosystemConflicts":  [
+
+                           ],
+    "issues":  [
+
+               ]
+}

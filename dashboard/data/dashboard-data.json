@@ -15,10 +15,7 @@
         "priority": "urgent",
         "addedAt": "2026-04-02T03:04:51.499Z",
         "dueAt": "2026-04-02T05:49:51.499Z",
-        "labels": [
-          "L3-Escalation",
-          "UKCAUD_BUGS_DEV/QA"
-        ],
+        "labels": ["L3-Escalation", "UKCAUD_BUGS_DEV/QA"],
         "project": "UKCAS"
       },
       {
@@ -29,9 +26,7 @@
         "link": "https://caseware.atlassian.net/browse/UKCAUD-1024",
         "priority": "urgent",
         "addedAt": "2026-04-02T04:04:51.499Z",
-        "labels": [
-          "UKCAUD_CONTENT/PEERREVIEW"
-        ],
+        "labels": ["UKCAUD_CONTENT/PEERREVIEW"],
         "project": "UKCAUD"
       }
     ],
@@ -76,9 +71,7 @@
         "link": "https://caseware.atlassian.net/browse/UKCAUD-989",
         "priority": "today",
         "addedAt": "2026-04-01T22:04:51.499Z",
-        "labels": [
-          "UKCAUD_CONTENT/QA"
-        ],
+        "labels": ["UKCAUD_CONTENT/QA"],
         "project": "UKCAUD"
       },
       {
@@ -154,11 +147,7 @@
         "dir": "C:/Users/liam.bond/Documents/Productivity Tool",
         "gitDir": "C:/Users/liam.bond/Documents/Productivity Tool",
         "devDocsDir": "dev/active/command-center",
-        "tags": [
-          "ai",
-          "dashboard",
-          "productivity"
-        ],
+        "tags": ["ai", "dashboard", "productivity"],
         "lastActivity": "2026-04-02T03:04:51.500Z",
         "lastCommitSubject": "feat: complete command center phases 4-7 — CLI consolidation, EOD pipeline, focus blocks",
         "suggestions": [
@@ -196,11 +185,7 @@
         "dir": "C:/Users/liam.bond/Documents/Productivity Tool",
         "gitDir": "C:/Users/liam.bond/Documents/Productivity Tool",
         "devDocsDir": null,
-        "tags": [
-          "cli",
-          "jira",
-          "productivity"
-        ],
+        "tags": ["cli", "jira", "productivity"],
         "lastActivity": "2026-04-02T02:04:51.500Z",
         "lastCommitSubject": "feat: add /ticket epic, /clone --preset, /focus, /log commands",
         "suggestions": [
@@ -232,11 +217,7 @@
         "dir": "C:/Users/liam.bond/Documents/AI Breaking News Tool",
         "gitDir": "C:/Users/liam.bond/Documents/AI Breaking News Tool",
         "devDocsDir": null,
-        "tags": [
-          "ai",
-          "email",
-          "automation"
-        ],
+        "tags": ["ai", "email", "automation"],
         "lastActivity": "2026-03-30T05:04:51.500Z",
         "lastCommitSubject": "fix: handle rate limiting in scraper",
         "suggestions": [
@@ -260,11 +241,7 @@
         "dir": "C:/Users/liam.bond/Documents/CW UKJPD Workflows",
         "gitDir": null,
         "devDocsDir": null,
-        "tags": [
-          "caseware",
-          "jira",
-          "automation"
-        ],
+        "tags": ["caseware", "jira", "automation"],
         "lastActivity": "2026-03-28T05:04:51.500Z",
         "lastCommitSubject": null,
         "suggestions": [
@@ -296,10 +273,7 @@
         "dir": null,
         "gitDir": null,
         "devDocsDir": null,
-        "tags": [
-          "caseware",
-          "ukcaud"
-        ],
+        "tags": ["caseware", "ukcaud"],
         "lastActivity": "2026-04-01T05:04:51.500Z",
         "lastCommitSubject": null,
         "suggestions": [
@@ -485,9 +459,7 @@
           }
         ],
         "neglected": [],
-        "crossProjectDeps": [
-          "Productivity Tool CLI commands must stay in sync"
-        ]
+        "crossProjectDeps": ["Productivity Tool CLI commands must stay in sync"]
       },
       "productivity-tool": {
         "state": "Core commands complete. /focus needs Graph token.",
@@ -520,12 +492,8 @@
             "effort": "L"
           }
         ],
-        "neglected": [
-          "teams-channels.json has been stubbed for 8 days"
-        ],
-        "crossProjectDeps": [
-          "Rule 1 deployment unblocks /discover command"
-        ]
+        "neglected": ["teams-channels.json has been stubbed for 8 days"],
+        "crossProjectDeps": ["Rule 1 deployment unblocks /discover command"]
       },
       "lead-schedules": {
         "state": "3 stories in progress. 2 subtasks blocked on QA.",
@@ -551,12 +519,8 @@
             "effort": "XS"
           }
         ],
-        "neglected": [
-          "context.md not updated in 6 days"
-        ],
-        "crossProjectDeps": [
-          "Blocked on DIST admin for Rule 3"
-        ]
+        "neglected": ["context.md not updated in 6 days"],
+        "crossProjectDeps": ["Blocked on DIST admin for Rule 3"]
       },
       "ai-breaking-news": {
         "state": "Running daily. Last issue sent 3 days ago.",
@@ -678,6 +642,55 @@
         "status": "pending",
         "jiraLink": "https://caseware.atlassian.net/rovo",
         "verificationCheck": "Theme Analyzer returns clustered themes from migrated UKJPD backlog"
+      }
+    ]
+  },
+  "recommendedInstalls": {
+    "lastUpdated": null,
+    "items": [
+      {
+        "id": "opera-mcp-server-2026-04-06",
+        "name": "Opera MCP Server",
+        "category": "MCP",
+        "priority": "HIGH",
+        "description": "Browser control via MCP — org-policy-safe alternative to the blocked Chrome/Edge extension",
+        "signal": "Google News Apr 6 — XDA: 'Opera now has an MCP server that lets Claude control your browser'",
+        "installCommand": "Install Opera browser, then enable MCP server from Opera Settings > Advanced > MCP",
+        "integratesWith": ["Playwright MCP"],
+        "status": "PENDING",
+        "addedAt": "2026-04-06T06:30:00.000Z"
+      },
+      {
+        "id": "anthropic-harness-design-2026-04-06",
+        "name": "Anthropic Harness Design Guide",
+        "category": "Architecture",
+        "priority": "HIGH",
+        "description": "Official Anthropic guidance on structuring Claude Code harnesses for long-running tasks — validates or improves RALPH/hook setup",
+        "signal": "Google News Apr 6 — Anthropic blog: 'Harness design for long-running application development'",
+        "status": "PENDING",
+        "addedAt": "2026-04-06T06:30:00.000Z"
+      },
+      {
+        "id": "everything-claude-code-2026-04-06",
+        "name": "Everything Claude Code",
+        "category": "Plugin",
+        "priority": "HIGH",
+        "description": "118K-star config layer for AI coding agents — may replace or complement parts of your hook stack",
+        "signal": "Google News Apr 6 — Augment Code: 'Everything Claude Code hits 118K stars'",
+        "installCommand": "Search GitHub for 'everything-claude-code' and compare against current setup",
+        "status": "PENDING",
+        "addedAt": "2026-04-06T06:30:00.000Z"
+      },
+      {
+        "id": "claude-code-25-features-2026-04-06",
+        "name": "Claude Code 2.5 Features",
+        "category": "App",
+        "priority": "MED",
+        "description": "Version bump with web developer focus — review new features not yet in current setup",
+        "signal": "Google News Apr 6 — SitePoint: 'Claude Code 2.5: New Features for Web Developers'",
+        "installCommand": "npm update -g @anthropic-ai/claude-code",
+        "status": "PENDING",
+        "addedAt": "2026-04-06T06:30:00.000Z"
       }
     ]
   }

@@ -8,6 +8,7 @@ import { TasksTab } from "../components/TasksTab";
 import { ProjectsTab } from "../components/ProjectsTab";
 import { LearningTab } from "../components/LearningTab";
 import { NewsTab } from "../components/NewsTab";
+import { SystemTab } from "../components/tabs/SystemTab";
 import type { ProjectPhase, ProjectSuggestion } from "../types/dashboard";
 
 function formatCurrentTime(): string {
@@ -134,7 +135,9 @@ export default function Dashboard() {
             onRefetch={refetch}
           />
         }
-        tasksContent={<TasksTab inbox={data.priorityInbox} />}
+        tasksContent={
+          <TasksTab inbox={data.priorityInbox} tasks={data.tasks.items} />
+        }
         projectsContent={
           <ProjectsTab
             projects={data.personalProjects.projects}
@@ -146,7 +149,10 @@ export default function Dashboard() {
           />
         }
         learningContent={
-          <LearningTab overnightAnalysis={data.overnightAnalysis} />
+          <LearningTab
+            overnightAnalysis={data.overnightAnalysis}
+            recommendedInstalls={data.recommendedInstalls}
+          />
         }
         newsContent={
           <NewsTab
@@ -155,6 +161,7 @@ export default function Dashboard() {
             suggestions={data.aiNewsResults?.suggestions ?? []}
           />
         }
+        systemContent={<SystemTab />}
       />
     </div>
   );

@@ -1,0 +1,160 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1775551789682,
+  "projectRoot": "C:\\Users\\liam.bond\\Documents\\Productivity Tool",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "playwright",
+        "version": "1.59.1",
+        "category": "testing"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": "npm test",
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "docs",
+      "scripts"
+    ],
+    "gitBranches": {
+      "defaultBranch": "master",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "commands": {
+      "path": "commands",
+      "purpose": null,
+      "fileCount": 17,
+      "lastAccessed": 1775551789581,
+      "keyFiles": [
+        "clone.md",
+        "deck.md",
+        "discover.md",
+        "eod.md",
+        "escalate.md"
+      ]
+    },
+    "dashboard": {
+      "path": "dashboard",
+      "purpose": null,
+      "fileCount": 13,
+      "lastAccessed": 1775551789583,
+      "keyFiles": [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "ecosystem.config.js",
+        "next-env.d.ts",
+        "next.config.ts"
+      ]
+    },
+    "dev": {
+      "path": "dev",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1775551789605,
+      "keyFiles": []
+    },
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 0,
+      "lastAccessed": 1775551789607,
+      "keyFiles": []
+    },
+    "scripts": {
+      "path": "scripts",
+      "purpose": "Build/utility scripts",
+      "fileCount": 30,
+      "lastAccessed": 1775551789607,
+      "keyFiles": [
+        "activity-tracker.mjs",
+        "append-ticket-subcmds.ps1",
+        "check-jira-automation-status.mjs",
+        "error-screenshot.png",
+        "extract-claude-sessions.mjs"
+      ]
+    },
+    "workspace": {
+      "path": "workspace",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1775551789608,
+      "keyFiles": []
+    },
+    "dashboard\\app": {
+      "path": "dashboard\\app",
+      "purpose": "Application code",
+      "fileCount": 4,
+      "lastAccessed": 1775551789612,
+      "keyFiles": [
+        "favicon.ico",
+        "globals.css",
+        "layout.tsx"
+      ]
+    },
+    "dashboard\\components": {
+      "path": "dashboard\\components",
+      "purpose": "UI components",
+      "fileCount": 16,
+      "lastAccessed": 1775551789612,
+      "keyFiles": [
+        "ActiveWindow.tsx",
+        "AISchedule.tsx",
+        "AutomationStatus.tsx"
+      ]
+    },
+    "dashboard\\data": {
+      "path": "dashboard\\data",
+      "purpose": "Data files",
+      "fileCount": 1,
+      "lastAccessed": 1775551789613,
+      "keyFiles": [
+        "dashboard-data.json"
+      ]
+    },
+    "workspace\\config": {
+      "path": "workspace\\config",
+      "purpose": "Configuration files",
+      "fileCount": 5,
+      "lastAccessed": 1775551789615,
+      "keyFiles": [
+        "clone-presets.json",
+        "personal-projects.json",
+        "projects.json"
+      ]
+    }
+  },
+  "hotPaths": [],
+  "userDirectives": []
+}

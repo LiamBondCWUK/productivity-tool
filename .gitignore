@@ -3,3 +3,5 @@ scripts/deploy-screenshots/
 scripts/*.png
 *.png
 .env
+.env.local
+.env*.local

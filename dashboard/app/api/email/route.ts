@@ -8,7 +8,7 @@ export async function GET() {
     const data = readDashboardData();
     return NextResponse.json({
       flaggedEmails: data.flaggedEmails ?? [],
-      fetchedAt: data.flaggedEmailsFetchedAt ?? null,
+      fetchedAt: null,
     });
   } catch {
     return NextResponse.json(

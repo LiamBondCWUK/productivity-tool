@@ -2,16 +2,25 @@
 
 import { useState } from "react";
 import { TaskDetail } from "./TaskDetail";
-import type { PriorityInbox, InboxItem } from "../types/dashboard";
+import type { PriorityInbox, InboxItem, Task } from "../types/dashboard";
 
 interface TasksTabProps {
   inbox: PriorityInbox;
+  tasks?: Task[];
 }
 
 const PRIORITY_BADGE: Record<string, string> = {
   urgent: "bg-red-500/20 text-red-300",
   today: "bg-yellow-500/20 text-yellow-300",
   backlog: "bg-gray-600/40 text-gray-400",
+};
+
+const STATUS_BADGE: Record<string, string> = {
+  planned: "bg-gray-600/40 text-gray-400",
+  confirmed: "bg-blue-500/20 text-blue-300",
+  executing: "bg-yellow-500/20 text-yellow-300",
+  completed: "bg-green-500/20 text-green-300",
+  failed: "bg-red-500/20 text-red-300",
 };
 
 function TaskRow({
@@ -60,7 +69,7 @@ function TaskRow({
   );
 }
 
-export function TasksTab({ inbox }: TasksTabProps) {
+export function TasksTab({ inbox, tasks = [] }: TasksTabProps) {
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
 
   // Flatten inbox into a single list, prioritised order
@@ -119,6 +128,36 @@ export function TasksTab({ inbox }: TasksTabProps) {
                   selected={false}
                   onClick={() => {}}
                 />
+              ))}
+            </>
+          )}
+          {tasks.length > 0 && (
+            <>
+              <div className="text-xs text-gray-600 px-2 pt-3 pb-1 border-t border-gray-700/50 mt-2">
+                Task Log ({tasks.length})
+              </div>
+              {tasks.map((task) => (
+                <div
+                  key={task.id}
+                  className="w-full px-3 py-2 rounded border border-transparent"
+                >
+                  <div className="flex items-start gap-2">
+                    <span
+                      className={[
+                        "text-xs px-1.5 py-0.5 rounded shrink-0",
+                        STATUS_BADGE[task.status] ?? "bg-gray-600/40 text-gray-400",
+                      ].join(" ")}
+                    >
+                      {task.status}
+                    </span>
+                    <p className="text-xs text-gray-300 leading-snug min-w-0">
+                      {task.title}
+                      {task.projectName && (
+                        <span className="text-gray-600 ml-1">{task.projectName}</span>
+                      )}
+                    </p>
+                  </div>
+                </div>
               ))}
             </>
           )}

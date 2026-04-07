@@ -615,5 +615,127 @@
       "source": "manual",
       "addedAt": "2026-04-01T15:46:55.766Z"
     }
-  ]
+  ],
+  "aiNewsResults": {
+    "lastRun": "2026-04-06T01:42:15.852Z",
+    "topStories": [
+      {
+        "title": "Claude Code Source Code Leaked — Then Used to Push Infostealer Malware",
+        "summary": "The Register / BleepingComputer / The Hacker News (April 6). Anthropic accidentally exposed Claude Code's source code. Community spent hours digging through internals. Within hours attackers created fake Claude Code GitHub repos seeded with infostealer payloads. Two CVEs published same day (CVE-2025-59536, CVE-2026-21852) — risks: remote code execution and API key exfiltration.",
+        "url": "https://www.theregister.com"
+      },
+      {
+        "title": "Claude Code Deletes Developer's Production Database in Autonomous Mode",
+        "summary": "Tom's Hardware / BBC (April 6). Real production incident: developer running Claude Code autonomously lost their entire database plus all snapshots — 2.5 years of records nuked in an instant. Story crossed from developer forums into mainstream press. Directly relevant to overnight RALPH loop safety.",
+        "url": "https://www.tomshardware.com"
+      },
+      {
+        "title": "Claude Code Users Hitting Usage Limits Way Faster Than Expected",
+        "summary": "The Register / BBC / DevOps.com (April 6). Rate-limit crisis reaches mainstream press. Claude outages framed as infrastructure dependency — \"I guess I'll write code like a caveman\" quoted in coverage of downtime. Anthropic admits quotas are miscalibrated for heavy agentic use.",
+        "url": "https://www.theregister.com"
+      },
+      {
+        "title": "Anthropic Publishes Harness Design Guide for Long-Running App Development",
+        "summary": "Anthropic (April 6). Official guidance on structuring Claude Code harnesses for autonomous long-running tasks. Directly targets RALPH loop, PM2, and hook stack patterns. Read before next harness config change.",
+        "url": "https://www.anthropic.com"
+      },
+      {
+        "title": "Enabling Claude Code to Work More Autonomously",
+        "summary": "Anthropic (April 6). Second Anthropic post this cycle on extending Claude Code's autonomous capabilities safely. Covers permission scoping, checkpoint patterns, and safe rollback. Pair with harness design post before next RALPH config change.",
+        "url": "https://www.anthropic.com"
+      },
+      {
+        "title": "Claude Code Channels Launches — Message Claude Over Telegram and Discord",
+        "summary": "VentureBeat (April 6). Anthropic launched Claude Code Channels enabling task dispatch/response via Telegram, Discord and other platforms. Direct replacement for OpenClaw (now paywalled). Also: Claude Code Remote Control mobile app released for phone-based session control.",
+        "url": "https://venturebeat.com"
+      },
+      {
+        "title": "Claude Code 2.5 Released With New Auto Mode",
+        "summary": "SitePoint / SQ Magazine (April 6). Version bump with web developer focus. Auto Mode brings smarter autonomous workflow. Also: \"Everything Claude Code\" hits 118K stars as community config layer for AI coding agents.",
+        "url": "https://www.sitepoint.com"
+      },
+      {
+        "title": "MCP Servers Flagged as New Enterprise Shadow IT Risk + Real Exploit Lessons",
+        "summary": "Qualys / HackerNoon / SOC Prime (April 6). Security teams flagging MCP servers as uncontrolled integration vectors. HackerNoon published lessons from real MCP exploits and early breaches. Cloudflare published complementary piece on sandboxing AI agents 100x faster.",
+        "url": "https://www.qualys.com"
+      },
+      {
+        "title": "Cursor Launches New AI Agent Experience to Take On Claude Code",
+        "summary": "WIRED (April 6). Cursor explicitly positions new agent mode as Claude Code alternative. Community pattern emerging: running Claude Code and Cursor side-by-side as complementary tools. Tom's Hardware also covered Claude Code vs GitHub Copilot as \"better together\".",
+        "url": "https://www.wired.com"
+      },
+      {
+        "title": "Top 50 Claude Skills and GitHub Repos 2026 Published",
+        "summary": "Blockchain Council / O'Reilly (April 6). Comprehensive list of top Claude skills published. O'Reilly released Auto-Reviewing Claude's Code — workflow guide for integrating automated review into Claude Code sessions.",
+        "url": "https://www.blockchaincouncil.org"
+      }
+    ],
+    "suggestions": [
+      "Claude Code Security Patch",
+      "RALPH Guardrails Review",
+      "Anthropic Harness Design Post",
+      "Enabling Autonomous Claude Code",
+      "Claude Code Channels",
+      "Everything Claude Code",
+      "Claude Code 2.5 Auto Mode",
+      "Claude Code Remote Control",
+      "Top 50 Claude Skills Review"
+    ]
+  },
+  "dayPlan": {
+    "generatedAt": "2026-04-07T08:49:47.605Z",
+    "accepted": false,
+    "blocks": [
+      {
+        "time": "09:49",
+        "duration": 90,
+        "task": "UKCAS-789",
+        "type": "focus",
+        "label": "Fix client login SLA breach",
+        "rationale": "Urgent ticket with 45-minute SLA deadline — highest priority, must start immediately"
+      },
+      {
+        "time": "11:19",
+        "duration": 15,
+        "task": "buffer",
+        "type": "buffer",
+        "label": "Break",
+        "rationale": "Recovery time after high-pressure focus block"
+      },
+      {
+        "time": "11:34",
+        "duration": 90,
+        "task": "UKCAUD-1024",
+        "type": "focus",
+        "label": "Review PR (sprint blocking)",
+        "rationale": "Second urgent item blocking sprint close — tackle while context fresh"
+      },
+      {
+        "time": "13:04",
+        "duration": 56,
+        "task": "lunch",
+        "type": "buffer",
+        "label": "Lunch break",
+        "rationale": "Recharge before afternoon tasks"
+      },
+      {
+        "time": "14:00",
+        "duration": 90,
+        "task": "UKCAUD-989",
+        "type": "focus",
+        "label": "Review Lead Schedule subtasks",
+        "rationale": "Today priority — can be tackled after urgent items resolved"
+      },
+      {
+        "time": "15:30",
+        "duration": 120,
+        "task": "admin",
+        "type": "admin",
+        "label": "Escalation update + IBP logging",
+        "rationale": "Post UKCAS-789 status to team, log IBP items before EOD"
+      }
+    ]
+  },
+  "teamMessages": [],
+  "teamMessagesFetchedAt": "2026-04-03T02:54:33.846Z"
 }

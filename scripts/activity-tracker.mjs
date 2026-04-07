@@ -26,6 +26,7 @@ function getActiveWindowTitle() {
   try {
     return execSync(`powershell -NoProfile -Command "${PS_GET_TITLE}"`, {
       timeout: 5000,
+      windowsHide: true,
     })
       .toString()
       .trim();

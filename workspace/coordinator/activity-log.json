@@ -1,1 +1,2200 @@
-[]
+[
+  {
+    "start": "2026-04-03T01:55:40.180Z",
+    "end": "2026-04-03T02:03:44.003Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 8
+  },
+  {
+    "start": "2026-04-03T02:04:42.272Z",
+    "end": "2026-04-03T02:05:14.052Z",
+    "windowTitle": "? personal-ai-command-center",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-03T02:05:14.052Z",
+    "end": "2026-04-03T02:06:15.537Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-03T02:07:12.589Z",
+    "end": "2026-04-03T02:08:45.374Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-03T02:09:13.878Z",
+    "end": "2026-04-03T02:15:45.627Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-03T02:16:12.411Z",
+    "end": "2026-04-03T02:33:14.483Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 17
+  },
+  {
+    "start": "2026-04-03T02:33:43.202Z",
+    "end": "2026-04-03T02:34:15.893Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-03T02:34:43.013Z",
+    "end": "2026-04-03T02:53:13.107Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 19
+  },
+  {
+    "start": "2026-04-03T02:53:43.100Z",
+    "end": "2026-04-03T02:54:16.290Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-03T02:54:44.298Z",
+    "end": "2026-04-03T02:55:16.293Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-03T02:55:43.967Z",
+    "end": "2026-04-03T02:56:16.315Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-03T02:57:13.953Z",
+    "end": "2026-04-03T03:00:13.614Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-03T03:00:43.587Z",
+    "end": "2026-04-03T03:03:16.446Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-03T03:07:15.034Z",
+    "end": "2026-04-03T03:07:46.514Z",
+    "windowTitle": "C:\\WINDOWS\\system32\\cmd.exe",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-05T22:34:34.113Z",
+    "end": "2026-04-05T22:36:04.736Z",
+    "windowTitle": "Calendar | Calendar | Microsoft Teams",
+    "inferredTask": "teams",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-05T22:36:04.736Z",
+    "end": "2026-04-05T22:37:04.426Z",
+    "windowTitle": "Maven | Unlock your career growth and 1 more page - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-05T22:37:04.426Z",
+    "end": "2026-04-05T22:39:03.491Z",
+    "windowTitle": "Maven | Unlock your career growth - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-05T22:39:03.491Z",
+    "end": "2026-04-05T22:39:34.103Z",
+    "windowTitle": "Customer Login - Help Center - Jira Service Management and 4 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-05T22:39:34.103Z",
+    "end": "2026-04-05T22:41:05.007Z",
+    "windowTitle": "Microsoft Online Password Reset - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-05T22:41:05.007Z",
+    "end": "2026-04-05T22:41:35.178Z",
+    "windowTitle": "Sign in to your account and 1 more page - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-05T22:42:02.912Z",
+    "end": "2026-04-05T22:43:33.006Z",
+    "windowTitle": "Atlassian account and 5 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-05T23:05:47.574Z",
+    "end": "2026-04-05T23:38:23.147Z",
+    "windowTitle": "Customer Login - Help Center - Jira Service Management and 4 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 33
+  },
+  {
+    "start": "2026-04-05T23:39:20.929Z",
+    "end": "2026-04-06T00:07:53.147Z",
+    "windowTitle": "Customer Login - Help Center - Jira Service Management and 4 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 29
+  },
+  {
+    "start": "2026-04-06T00:07:53.147Z",
+    "end": "2026-04-06T00:14:21.418Z",
+    "windowTitle": "? Investigate Claude crash and resume work",
+    "inferredTask": "ai-coding",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-06T00:14:49.961Z",
+    "end": "2026-04-06T00:18:52.608Z",
+    "windowTitle": "? Investigate Claude crash and resume work",
+    "inferredTask": "ai-coding",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-06T00:18:52.608Z",
+    "end": "2026-04-06T00:20:19.891Z",
+    "windowTitle": "? Investigate Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T00:20:19.891Z",
+    "end": "2026-04-06T00:27:53.929Z",
+    "windowTitle": "? Investigate Claude crash and resume work",
+    "inferredTask": "ai-coding",
+    "durationMin": 8
+  },
+  {
+    "start": "2026-04-06T00:28:21.714Z",
+    "end": "2026-04-06T00:31:20.657Z",
+    "windowTitle": "? Investigate Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-06T00:31:20.657Z",
+    "end": "2026-04-06T00:31:53.978Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T00:32:50.611Z",
+    "end": "2026-04-06T00:34:21.981Z",
+    "windowTitle": "? Investigate Claude crash and resume work",
+    "inferredTask": "ai-coding",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T00:34:21.981Z",
+    "end": "2026-04-06T00:37:24.136Z",
+    "windowTitle": "? Investigate Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-06T00:37:51.636Z",
+    "end": "2026-04-06T00:38:24.245Z",
+    "windowTitle": "? Investigate Claude crash and resume work",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T00:38:52.951Z",
+    "end": "2026-04-06T00:53:51.090Z",
+    "windowTitle": "? Investigate Claude crash and resume work",
+    "inferredTask": "ai-coding",
+    "durationMin": 15
+  },
+  {
+    "start": "2026-04-06T00:54:20.670Z",
+    "end": "2026-04-06T00:58:51.537Z",
+    "windowTitle": "? Investigate Claude crash and resume work",
+    "inferredTask": "ai-coding",
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-06T00:58:51.537Z",
+    "end": "2026-04-06T01:09:21.568Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-06T01:09:21.568Z",
+    "end": "2026-04-06T01:30:51.655Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 22
+  },
+  {
+    "start": "2026-04-06T01:30:51.655Z",
+    "end": "2026-04-06T01:31:21.907Z",
+    "windowTitle": "claude",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T01:31:51.530Z",
+    "end": "2026-04-06T01:32:21.691Z",
+    "windowTitle": "? Investigate Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T01:32:51.553Z",
+    "end": "2026-04-06T01:37:51.383Z",
+    "windowTitle": "? Analyze and optimize slow compacting process",
+    "inferredTask": null,
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-06T01:37:51.383Z",
+    "end": "2026-04-06T01:42:51.549Z",
+    "windowTitle": "? Investigate Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-06T01:42:51.549Z",
+    "end": "2026-04-06T01:44:22.296Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T01:44:22.296Z",
+    "end": "2026-04-06T01:54:25.026Z",
+    "windowTitle": "? Investigate Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 10
+  },
+  {
+    "start": "2026-04-06T01:54:52.277Z",
+    "end": "2026-04-06T01:56:51.535Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T01:56:51.535Z",
+    "end": "2026-04-06T01:57:52.070Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T01:57:52.070Z",
+    "end": "2026-04-06T01:58:51.552Z",
+    "windowTitle": "? Investigate Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T01:58:51.552Z",
+    "end": "2026-04-06T02:00:21.945Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T02:00:21.945Z",
+    "end": "2026-04-06T02:01:51.979Z",
+    "windowTitle": "? Analyze and optimize slow compacting process",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T02:01:51.979Z",
+    "end": "2026-04-06T02:02:23.592Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:02:23.592Z",
+    "end": "2026-04-06T02:02:54.739Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:02:54.739Z",
+    "end": "2026-04-06T02:03:54.121Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:03:54.121Z",
+    "end": "2026-04-06T02:04:25.788Z",
+    "windowTitle": "? Analyze and optimize slow compacting process",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:05:23.961Z",
+    "end": "2026-04-06T02:06:53.443Z",
+    "windowTitle": "? Analyze and optimize slow compacting process",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:06:53.443Z",
+    "end": "2026-04-06T02:23:24.587Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 17
+  },
+  {
+    "start": "2026-04-06T02:23:24.587Z",
+    "end": "2026-04-06T02:23:56.045Z",
+    "windowTitle": "? Analyze and optimize slow compacting process",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:24:23.402Z",
+    "end": "2026-04-06T02:25:22.450Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:25:22.450Z",
+    "end": "2026-04-06T02:27:23.016Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T02:27:23.016Z",
+    "end": "2026-04-06T02:30:56.012Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-06T02:32:55.755Z",
+    "end": "2026-04-06T02:33:26.050Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:35:55.009Z",
+    "end": "2026-04-06T02:38:52.904Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-06T02:38:52.904Z",
+    "end": "2026-04-06T02:40:23.066Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T02:40:23.066Z",
+    "end": "2026-04-06T02:40:53.503Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:40:53.503Z",
+    "end": "2026-04-06T02:41:55.009Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:41:55.009Z",
+    "end": "2026-04-06T02:42:26.202Z",
+    "windowTitle": "? Analyze and optimize slow compacting process",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:42:54.191Z",
+    "end": "2026-04-06T02:44:53.713Z",
+    "windowTitle": "? Analyze and optimize slow compacting process",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T02:44:53.713Z",
+    "end": "2026-04-06T02:47:52.570Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-06T02:47:52.570Z",
+    "end": "2026-04-06T02:48:22.748Z",
+    "windowTitle": "? Analyze and optimize slow compacting process",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:48:22.748Z",
+    "end": "2026-04-06T02:50:24.303Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T02:50:24.303Z",
+    "end": "2026-04-06T02:52:22.454Z",
+    "windowTitle": "? Analyze and optimize slow compacting process",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T02:52:22.454Z",
+    "end": "2026-04-06T02:52:53.146Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:52:53.146Z",
+    "end": "2026-04-06T02:56:52.684Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-06T02:56:52.684Z",
+    "end": "2026-04-06T02:58:22.624Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T02:58:22.624Z",
+    "end": "2026-04-06T03:04:52.830Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-06T03:04:52.830Z",
+    "end": "2026-04-06T03:13:23.072Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 9
+  },
+  {
+    "start": "2026-04-06T03:13:23.072Z",
+    "end": "2026-04-06T03:19:23.013Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-06T03:19:23.013Z",
+    "end": "2026-04-06T03:22:23.942Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-06T03:22:23.942Z",
+    "end": "2026-04-06T03:26:23.435Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-06T03:26:23.435Z",
+    "end": "2026-04-06T03:30:22.891Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-06T03:30:22.891Z",
+    "end": "2026-04-06T03:32:22.977Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T03:32:22.977Z",
+    "end": "2026-04-06T03:58:53.551Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 27
+  },
+  {
+    "start": "2026-04-06T03:59:23.501Z",
+    "end": "2026-04-06T05:27:25.374Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 88
+  },
+  {
+    "start": "2026-04-06T05:27:25.374Z",
+    "end": "2026-04-06T05:30:28.768Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-06T05:30:57.403Z",
+    "end": "2026-04-06T05:34:55.268Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-06T05:34:55.268Z",
+    "end": "2026-04-06T05:35:25.886Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T05:36:25.172Z",
+    "end": "2026-04-06T05:44:56.154Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 9
+  },
+  {
+    "start": "2026-04-06T05:44:56.154Z",
+    "end": "2026-04-06T05:49:25.763Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-06T05:49:25.763Z",
+    "end": "2026-04-06T06:02:56.201Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 14
+  },
+  {
+    "start": "2026-04-06T06:02:56.201Z",
+    "end": "2026-04-06T06:04:55.415Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T06:04:55.415Z",
+    "end": "2026-04-06T06:08:58.079Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-06T06:08:58.079Z",
+    "end": "2026-04-06T06:19:55.877Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-06T06:19:55.877Z",
+    "end": "2026-04-06T06:30:25.953Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-06T06:30:25.953Z",
+    "end": "2026-04-06T06:36:25.838Z",
+    "windowTitle": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+    "inferredTask": null,
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-06T06:36:25.838Z",
+    "end": "2026-04-06T07:00:26.330Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 24
+  },
+  {
+    "start": "2026-04-06T07:00:26.330Z",
+    "end": "2026-04-06T07:13:26.320Z",
+    "windowTitle": "C:\\Users\\liam.bond\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "inferredTask": null,
+    "durationMin": 13
+  },
+  {
+    "start": "2026-04-06T07:13:26.320Z",
+    "end": "2026-04-06T09:47:29.036Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 154
+  },
+  {
+    "start": "2026-04-06T09:47:29.036Z",
+    "end": "2026-04-06T09:50:28.644Z",
+    "windowTitle": "? system-health-dashboard-consolidation",
+    "inferredTask": null,
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-06T09:50:28.644Z",
+    "end": "2026-04-06T10:31:29.585Z",
+    "windowTitle": "? Debug Claude crash and resume session",
+    "inferredTask": "ai-coding",
+    "durationMin": 41
+  },
+  {
+    "start": "2026-04-06T10:31:29.585Z",
+    "end": "2026-04-06T11:20:01.105Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 49
+  },
+  {
+    "start": "2026-04-06T11:20:01.105Z",
+    "end": "2026-04-06T11:21:31.050Z",
+    "windowTitle": "npm root",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T11:22:00.961Z",
+    "end": "2026-04-06T11:27:01.331Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-06T11:27:30.595Z",
+    "end": "2026-04-06T11:44:32.155Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 17
+  },
+  {
+    "start": "2026-04-06T11:44:32.155Z",
+    "end": "2026-04-06T11:45:02.337Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T11:45:02.337Z",
+    "end": "2026-04-06T11:46:03.176Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T11:46:03.176Z",
+    "end": "2026-04-06T11:53:31.940Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-06T11:53:31.940Z",
+    "end": "2026-04-06T12:58:04.452Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 65
+  },
+  {
+    "start": "2026-04-06T12:58:04.452Z",
+    "end": "2026-04-06T13:00:02.967Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T13:00:02.967Z",
+    "end": "2026-04-06T13:23:02.448Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 23
+  },
+  {
+    "start": "2026-04-06T13:23:02.448Z",
+    "end": "2026-04-06T13:23:33.090Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T13:23:33.090Z",
+    "end": "2026-04-06T13:32:02.803Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 8
+  },
+  {
+    "start": "2026-04-06T13:32:02.803Z",
+    "end": "2026-04-06T13:36:02.817Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-06T13:36:02.817Z",
+    "end": "2026-04-06T13:41:32.733Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-06T13:41:32.733Z",
+    "end": "2026-04-06T13:43:32.950Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T13:43:32.950Z",
+    "end": "2026-04-06T14:02:33.584Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 19
+  },
+  {
+    "start": "2026-04-06T14:02:33.584Z",
+    "end": "2026-04-06T14:03:33.161Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T14:03:33.161Z",
+    "end": "2026-04-06T14:09:03.277Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-06T14:09:03.277Z",
+    "end": "2026-04-06T14:10:35.192Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T14:10:35.192Z",
+    "end": "2026-04-06T14:11:06.665Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T14:11:34.541Z",
+    "end": "2026-04-06T14:12:34.315Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T14:12:34.315Z",
+    "end": "2026-04-06T14:22:03.445Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 9
+  },
+  {
+    "start": "2026-04-06T14:22:33.276Z",
+    "end": "2026-04-06T14:25:07.047Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-06T14:25:35.119Z",
+    "end": "2026-04-06T14:32:34.270Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-06T14:32:34.270Z",
+    "end": "2026-04-06T14:33:33.832Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T14:33:33.832Z",
+    "end": "2026-04-06T14:39:04.167Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-06T14:39:04.167Z",
+    "end": "2026-04-06T14:49:36.314Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-06T14:49:36.314Z",
+    "end": "2026-04-06T14:52:07.652Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-06T14:53:03.891Z",
+    "end": "2026-04-06T14:55:04.050Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T14:55:04.050Z",
+    "end": "2026-04-06T15:09:34.605Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 15
+  },
+  {
+    "start": "2026-04-06T15:09:34.605Z",
+    "end": "2026-04-06T15:11:04.702Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T15:11:04.702Z",
+    "end": "2026-04-06T15:19:34.975Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 9
+  },
+  {
+    "start": "2026-04-06T15:19:34.975Z",
+    "end": "2026-04-06T15:26:34.421Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-06T15:29:08.084Z",
+    "end": "2026-04-06T16:31:44.827Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 63
+  },
+  {
+    "start": "2026-04-06T15:26:34.421Z",
+    "end": "2026-04-06T16:52:36.096Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 86
+  },
+  {
+    "start": "2026-04-06T16:32:09.851Z",
+    "end": "2026-04-06T16:52:40.531Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 21
+  },
+  {
+    "start": "2026-04-06T16:52:40.531Z",
+    "end": "2026-04-06T17:28:11.128Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 36
+  },
+  {
+    "start": "2026-04-06T16:52:36.096Z",
+    "end": "2026-04-06T17:28:36.446Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 36
+  },
+  {
+    "start": "2026-04-06T17:28:36.446Z",
+    "end": "2026-04-06T17:30:40.179Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T17:31:07.399Z",
+    "end": "2026-04-06T17:32:10.292Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T17:32:38.901Z",
+    "end": "2026-04-06T17:33:40.291Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T17:34:07.460Z",
+    "end": "2026-04-06T18:05:08.025Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 31
+  },
+  {
+    "start": "2026-04-06T17:28:11.128Z",
+    "end": "2026-04-06T18:05:12.390Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 37
+  },
+  {
+    "start": "2026-04-06T18:05:37.573Z",
+    "end": "2026-04-06T21:28:40.796Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 203
+  },
+  {
+    "start": "2026-04-06T18:05:42.282Z",
+    "end": "2026-04-06T21:28:44.981Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 203
+  },
+  {
+    "start": "2026-04-06T21:28:40.796Z",
+    "end": "2026-04-06T21:29:14.112Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T21:28:44.981Z",
+    "end": "2026-04-06T21:29:19.317Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T21:29:41.103Z",
+    "end": "2026-04-06T21:30:12.945Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T21:30:12.945Z",
+    "end": "2026-04-06T21:31:14.158Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T21:29:45.925Z",
+    "end": "2026-04-06T21:33:19.453Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-06T21:31:41.476Z",
+    "end": "2026-04-06T21:33:44.283Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T21:33:49.232Z",
+    "end": "2026-04-06T21:34:19.442Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T21:34:13.673Z",
+    "end": "2026-04-06T21:35:14.453Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T21:36:12.306Z",
+    "end": "2026-04-06T21:39:10.864Z",
+    "windowTitle": "? Research token optimization techniques",
+    "inferredTask": null,
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-06T21:39:10.864Z",
+    "end": "2026-04-06T21:43:14.374Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-06T21:43:40.688Z",
+    "end": "2026-04-06T23:25:16.210Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 102
+  },
+  {
+    "start": "2026-04-06T23:25:45.732Z",
+    "end": "2026-04-06T23:26:16.153Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T23:27:45.413Z",
+    "end": "2026-04-06T23:28:16.184Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-06T23:29:15.408Z",
+    "end": "2026-04-06T23:30:46.223Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-06T23:31:15.051Z",
+    "end": "2026-04-07T00:11:16.992Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 40
+  },
+  {
+    "start": "2026-04-07T00:12:46.945Z",
+    "end": "2026-04-07T00:14:17.057Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T00:15:15.446Z",
+    "end": "2026-04-07T00:15:47.080Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T00:16:14.536Z",
+    "end": "2026-04-07T00:16:47.100Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T00:17:46.016Z",
+    "end": "2026-04-07T00:18:17.140Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T00:19:46.901Z",
+    "end": "2026-04-07T00:27:47.402Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 8
+  },
+  {
+    "start": "2026-04-07T00:31:45.576Z",
+    "end": "2026-04-07T00:34:17.443Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T00:39:17.458Z",
+    "end": "2026-04-07T00:40:47.513Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T00:41:16.861Z",
+    "end": "2026-04-07T00:56:17.740Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 15
+  },
+  {
+    "start": "2026-04-07T00:56:47.377Z",
+    "end": "2026-04-07T01:18:18.246Z",
+    "windowTitle": "? session-resume-cookie-extraction",
+    "inferredTask": null,
+    "durationMin": 22
+  },
+  {
+    "start": "2026-04-07T08:20:55.093Z",
+    "end": "2026-04-07T08:23:26.129Z",
+    "windowTitle": "New tab - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T08:23:26.129Z",
+    "end": "2026-04-07T08:23:56.362Z",
+    "windowTitle": "Checking link and 1 more page - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T08:24:26.027Z",
+    "end": "2026-04-07T08:32:26.091Z",
+    "windowTitle": "[DIST-69095] Locked down engagements still run calcs which reassign values which can save to the Reference Copy - Caseware Jira and 7 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-69095",
+    "durationMin": 8
+  },
+  {
+    "start": "2026-04-07T08:33:25.942Z",
+    "end": "2026-04-07T08:33:55.973Z",
+    "windowTitle": "Teams and Channels | Jira Alerts Bugs | Microsoft Teams",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T08:33:55.973Z",
+    "end": "2026-04-07T08:34:25.991Z",
+    "windowTitle": "Rules - Automation - UK Cloud Audit - Jira and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T08:34:25.991Z",
+    "end": "2026-04-07T08:34:56.102Z",
+    "windowTitle": "[UKCAUD-14001] Audit HAT UK Company - Failing Download Reference Copy - Caseware Jira and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-14001",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T08:34:56.102Z",
+    "end": "2026-04-07T08:39:56.979Z",
+    "windowTitle": "Rules - Automation - UK Cloud Audit - Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-07T08:39:56.979Z",
+    "end": "2026-04-07T08:41:26.460Z",
+    "windowTitle": "Command Center and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T08:41:26.460Z",
+    "end": "2026-04-07T08:42:26.451Z",
+    "windowTitle": "Sign In with Auth0 and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T08:42:26.451Z",
+    "end": "2026-04-07T08:45:26.791Z",
+    "windowTitle": "Plandek and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T08:45:56.387Z",
+    "end": "2026-04-07T08:46:26.702Z",
+    "windowTitle": "Workspace Settings | Loom and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T08:46:56.552Z",
+    "end": "2026-04-07T08:49:26.653Z",
+    "windowTitle": "CaseWare Cloud and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T08:49:26.653Z",
+    "end": "2026-04-07T08:51:27.010Z",
+    "windowTitle": "CaseWare Cloud and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T08:51:56.828Z",
+    "end": "2026-04-07T08:52:26.919Z",
+    "windowTitle": "Untitled and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T08:52:56.844Z",
+    "end": "2026-04-07T08:53:56.986Z",
+    "windowTitle": "Audit HAT UK Company and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T08:53:56.986Z",
+    "end": "2026-04-07T08:56:27.031Z",
+    "windowTitle": "Alice Maghie and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T08:56:27.031Z",
+    "end": "2026-04-07T08:56:58.607Z",
+    "windowTitle": "Standup and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T08:56:58.607Z",
+    "end": "2026-04-07T08:57:56.934Z",
+    "windowTitle": "Standup and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T08:57:56.934Z",
+    "end": "2026-04-07T08:58:30.705Z",
+    "windowTitle": "CaseWare Cloud and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T08:58:56.898Z",
+    "end": "2026-04-07T09:01:56.817Z",
+    "windowTitle": "CaseWare Cloud and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T09:02:26.676Z",
+    "end": "2026-04-07T09:13:57.412Z",
+    "windowTitle": "liam-bond / Repositories and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 12
+  },
+  {
+    "start": "2026-04-07T09:13:57.412Z",
+    "end": "2026-04-07T09:16:01.013Z",
+    "windowTitle": "Customer Login - Help Center - Jira Service Management and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T09:16:57.486Z",
+    "end": "2026-04-07T09:17:27.516Z",
+    "windowTitle": "Timeline - SE Roadmap - Solution Teams - Plans - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T09:17:57.339Z",
+    "end": "2026-04-07T09:18:27.951Z",
+    "windowTitle": "SE Platform: 2026-04 - Caseware Jira and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T09:18:57.602Z",
+    "end": "2026-04-07T09:19:27.774Z",
+    "windowTitle": "SE Platform: 2026-04 - Caseware Jira and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T09:19:27.774Z",
+    "end": "2026-04-07T09:19:58.279Z",
+    "windowTitle": "SE Platform: 2026-04 - Caseware Jira and 25 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T09:19:58.279Z",
+    "end": "2026-04-07T09:20:58.866Z",
+    "windowTitle": "Timeline - SE Roadmap - Solution Teams - Plans - Caseware Jira and 25 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T09:20:58.866Z",
+    "end": "2026-04-07T09:21:58.193Z",
+    "windowTitle": "[SE-57502] Frontend - Template Variants for enterprise authors - Caseware Jira and 24 more pages - Work - Microsoft? Edge",
+    "inferredTask": "SE-57502",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T09:21:58.193Z",
+    "end": "2026-04-07T09:22:28.243Z",
+    "windowTitle": "[SE-55873] FY26 Q4 Financial Statements Formatting Baseline [Carpathian] - Caseware Jira and 25 more pages - Work - Microsoft? Edge",
+    "inferredTask": "SE-55873",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T09:22:28.243Z",
+    "end": "2026-04-07T09:23:28.013Z",
+    "windowTitle": "[SE-42380] Cleanup Options - Caseware Jira and 23 more pages - Work - Microsoft? Edge",
+    "inferredTask": "SE-42380",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T09:23:28.013Z",
+    "end": "2026-04-07T09:23:58.510Z",
+    "windowTitle": "New tab and 24 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T09:24:27.674Z",
+    "end": "2026-04-07T09:27:29.245Z",
+    "windowTitle": "Sign up for an account - Jira Service Management and 6 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T09:28:27.395Z",
+    "end": "2026-04-07T09:29:27.501Z",
+    "windowTitle": "Clone UK Product For Ai prototyping and testing - Enterprise Systems Service Management - Jira Service Management and 6 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T09:29:57.184Z",
+    "end": "2026-04-07T09:39:57.890Z",
+    "windowTitle": "Rules - Automation - UK Cloud Audit - Jira and 5 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 10
+  },
+  {
+    "start": "2026-04-07T09:40:27.743Z",
+    "end": "2026-04-07T09:45:27.873Z",
+    "windowTitle": "Sprint Operations - UKCAUD Ceremony Dashboard and 6 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-07T09:45:57.629Z",
+    "end": "2026-04-07T09:46:57.795Z",
+    "windowTitle": "Business Systems Distributor's Issues Board - Kanban Board - Caseware Jira and 7 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T09:47:27.668Z",
+    "end": "2026-04-07T09:47:57.747Z",
+    "windowTitle": "[UKCAUD-15935] ART Checkbox warning - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15935",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T09:47:57.747Z",
+    "end": "2026-04-07T09:56:27.930Z",
+    "windowTitle": "[UKCAUD-10900] ART Checkbox warning - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-10900",
+    "durationMin": 9
+  },
+  {
+    "start": "2026-04-07T09:56:27.930Z",
+    "end": "2026-04-07T10:00:27.959Z",
+    "windowTitle": "Jira and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-07T10:00:27.959Z",
+    "end": "2026-04-07T10:00:59.014Z",
+    "windowTitle": "? Add screenshot pasting and plan-to-auto mode workflow",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T10:00:59.014Z",
+    "end": "2026-04-07T10:08:28.782Z",
+    "windowTitle": "? Create work log table and message for Jon about holiday time",
+    "inferredTask": null,
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-07T10:08:28.782Z",
+    "end": "2026-04-07T10:09:28.725Z",
+    "windowTitle": "[UKCAUD-15609] 1. Audit HAT UK Company - SS - Details, Navigation, Guidance - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15609",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T10:09:28.725Z",
+    "end": "2026-04-07T10:13:28.642Z",
+    "windowTitle": "Entity Details and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-07T10:13:28.642Z",
+    "end": "2026-04-07T10:25:29.786Z",
+    "windowTitle": "Holiday Work Audit - Liam Bond and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 12
+  },
+  {
+    "start": "2026-04-07T10:25:58.862Z",
+    "end": "2026-04-07T10:27:29.560Z",
+    "windowTitle": "Pull requests - Review requests and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T10:27:58.519Z",
+    "end": "2026-04-07T10:30:28.759Z",
+    "windowTitle": "[UKCAUD-15956] Add uk-audit-company-mercia-ai-testing-1 test product by LiamBondCWUK � Pull Request #77365 � caseware/code and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15956",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T10:30:28.759Z",
+    "end": "2026-04-07T10:32:58.854Z",
+    "windowTitle": "Holiday Work Audit - Liam Bond and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T10:32:58.854Z",
+    "end": "2026-04-07T10:33:29.388Z",
+    "windowTitle": "Sprint Operations - UKCAUD Ceremony Dashboard and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T10:34:29.123Z",
+    "end": "2026-04-07T10:34:59.401Z",
+    "windowTitle": "Sprint Demo - UKCAUD Ceremony Dashboard and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T10:35:58.902Z",
+    "end": "2026-04-07T10:36:59.156Z",
+    "windowTitle": "Sprint Operations - UKCAUD Ceremony Dashboard and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T10:36:59.156Z",
+    "end": "2026-04-07T10:37:59.409Z",
+    "windowTitle": "[UKCAUD-15956] Add uk-audit-company-mercia-ai-testing-1 test product by LiamBondCWUK � Pull Request #77365 � caseware/code and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15956",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T10:37:59.409Z",
+    "end": "2026-04-07T10:38:29.656Z",
+    "windowTitle": "New tab and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T10:38:59.008Z",
+    "end": "2026-04-07T10:42:59.307Z",
+    "windowTitle": "Holiday Work Audit - Liam Bond and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-07T10:42:59.307Z",
+    "end": "2026-04-07T10:53:30.647Z",
+    "windowTitle": "Sprint Operations - UKCAUD Ceremony Dashboard and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-07T10:54:00.227Z",
+    "end": "2026-04-07T11:01:02.924Z",
+    "windowTitle": "Business Systems Distributor's Issues Board - Kanban Board - Caseware Jira and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-07T11:01:29.495Z",
+    "end": "2026-04-07T11:02:29.444Z",
+    "windowTitle": "Business Systems Distributor's Issues Board - Kanban Board - Caseware Jira and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T11:02:29.444Z",
+    "end": "2026-04-07T11:03:01.184Z",
+    "windowTitle": "CaseWare Cloud and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T11:03:29.216Z",
+    "end": "2026-04-07T11:04:59.664Z",
+    "windowTitle": "MCP Client Setup and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T11:05:59.393Z",
+    "end": "2026-04-07T11:06:59.289Z",
+    "windowTitle": "Business Systems Distributor's Issues Board - Kanban Board - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T11:06:59.289Z",
+    "end": "2026-04-07T11:14:30.098Z",
+    "windowTitle": "MCP Client Setup and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 8
+  },
+  {
+    "start": "2026-04-07T11:14:59.529Z",
+    "end": "2026-04-07T11:25:29.621Z",
+    "windowTitle": "Business Systems Distributor's Issues Board - Kanban Board - Caseware Jira and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-07T11:25:29.621Z",
+    "end": "2026-04-07T11:27:29.778Z",
+    "windowTitle": "[UKCAUD-15956] Add uk-audit-company-mercia-ai-testing-1 test product by LiamBondCWUK � Pull Request #77365 � caseware/code and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15956",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T11:27:29.778Z",
+    "end": "2026-04-07T11:29:29.504Z",
+    "windowTitle": "[DIST-69107] Clone UK Product For Ai prototyping and testing - Caseware Jira and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-69107",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T11:29:29.504Z",
+    "end": "2026-04-07T11:32:29.523Z",
+    "windowTitle": "Clone UK Product For Ai prototyping and testing - Enterprise Systems Service Management - Jira Service Management and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T11:32:29.523Z",
+    "end": "2026-04-07T11:39:29.715Z",
+    "windowTitle": "[UKCAUD-15956] Add uk-audit-company-mercia-ai-testing-1 test product by LiamBondCWUK � Pull Request #77365 � caseware/code and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15956",
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-07T11:39:29.715Z",
+    "end": "2026-04-07T11:46:29.812Z",
+    "windowTitle": "[Reported by me] Work item search - Caseware Jira and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-07T11:46:29.812Z",
+    "end": "2026-04-07T11:47:00.201Z",
+    "windowTitle": "[DIST-42975] Request New Cloud Solution - Spain Financials - Caseware Jira and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-42975",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T11:47:00.201Z",
+    "end": "2026-04-07T11:49:59.846Z",
+    "windowTitle": "Work item search - Caseware Jira and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T11:50:29.734Z",
+    "end": "2026-04-07T12:06:10.526Z",
+    "windowTitle": "Work item search - Caseware Jira and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 16
+  },
+  {
+    "start": "2026-04-07T12:07:00.190Z",
+    "end": "2026-04-07T12:09:29.987Z",
+    "windowTitle": "Work item search - Caseware Jira and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T12:09:59.966Z",
+    "end": "2026-04-07T12:10:29.978Z",
+    "windowTitle": "[DIST-1925] Draft: Request New Cloud Solution - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-1925",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T12:10:59.886Z",
+    "end": "2026-04-07T12:13:00.061Z",
+    "windowTitle": "[DIST-69215] AI Testing Audit Mercia UK Company - Request New Cloud Solution - Caseware Jira and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-69215",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T12:13:00.061Z",
+    "end": "2026-04-07T12:13:30.365Z",
+    "windowTitle": "[DIST-69215] AI Testing Audit Mercia UK Company - Request New Cloud Solution - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-69215",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T12:13:59.955Z",
+    "end": "2026-04-07T12:15:00.202Z",
+    "windowTitle": "Manage Template and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T12:15:30.142Z",
+    "end": "2026-04-07T12:31:00.321Z",
+    "windowTitle": "[DIST-69215] AI Testing Audit Mercia UK Company - Request New Cloud Solution - Caseware Jira and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-69215",
+    "durationMin": 16
+  },
+  {
+    "start": "2026-04-07T12:31:00.321Z",
+    "end": "2026-04-07T12:32:00.166Z",
+    "windowTitle": "caseware/agent-workflow-playground and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T12:32:00.166Z",
+    "end": "2026-04-07T12:35:00.515Z",
+    "windowTitle": "[DIST-69215] AI Testing Audit Mercia UK Company - Request New Cloud Solution - Caseware Jira and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-69215",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T12:35:00.515Z",
+    "end": "2026-04-07T12:38:00.823Z",
+    "windowTitle": "[DIST-69095] Locked down engagements still run calcs which reassign values which can save to the Reference Copy - Caseware Jira and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-69095",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T12:38:00.823Z",
+    "end": "2026-04-07T12:39:01.765Z",
+    "windowTitle": "Solution Engineering AI Enablement-20260313_140059-Meeting Recording.mp4 and 7 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T12:40:30.909Z",
+    "end": "2026-04-07T12:42:30.956Z",
+    "windowTitle": "Solution Engineering AI Enablement-20260313_140059-Meeting Recording.mp4 and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T12:42:30.956Z",
+    "end": "2026-04-07T12:43:01.389Z",
+    "windowTitle": "Solution Engineering AI Enablement-20260313_140059-Meeting Recording.mp4 and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T12:43:30.242Z",
+    "end": "2026-04-07T12:46:30.468Z",
+    "windowTitle": "Solution Engineering AI Enablement-20260313_140059-Meeting Recording.mp4 and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T12:46:30.468Z",
+    "end": "2026-04-07T12:48:00.625Z",
+    "windowTitle": "Test Company (2026) - Transactional Sampling and 1 more page - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T12:48:00.625Z",
+    "end": "2026-04-07T13:24:31.910Z",
+    "windowTitle": "Solution Engineering AI Enablement-20260313_140059-Meeting Recording.mp4 and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 37
+  },
+  {
+    "start": "2026-04-07T13:24:31.910Z",
+    "end": "2026-04-07T13:26:05.007Z",
+    "windowTitle": "Test Company (2026) - Transactional Sampling and 1 more page - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T13:26:31.492Z",
+    "end": "2026-04-07T13:37:32.014Z",
+    "windowTitle": "Test Company (2026) - Transactional Sampling and 1 more page - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-07T13:37:32.014Z",
+    "end": "2026-04-07T13:43:32.693Z",
+    "windowTitle": "Owloops/claude-powerline: Beautiful vim-style powerline statusline for Claude Code and 2 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-07T13:43:32.693Z",
+    "end": "2026-04-07T13:45:01.898Z",
+    "windowTitle": "Solution Engineering AI Enablement-20260313_140059-Meeting Recording.mp4 and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T13:45:01.898Z",
+    "end": "2026-04-07T13:45:32.126Z",
+    "windowTitle": "[DIST-68231] DEVELOP - Audit HAT UK Corporate - Request Dist. Solution Release (Production Deployment) - Caseware Jira and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-68231",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T13:45:32.126Z",
+    "end": "2026-04-07T14:03:32.664Z",
+    "windowTitle": "Solution Engineering AI Enablement-20260313_140059-Meeting Recording.mp4 and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 18
+  },
+  {
+    "start": "2026-04-07T14:03:32.664Z",
+    "end": "2026-04-07T14:05:32.974Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T14:06:02.232Z",
+    "end": "2026-04-07T14:06:32.942Z",
+    "windowTitle": "11.15 et in uk time - Google Search and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:06:32.942Z",
+    "end": "2026-04-07T14:07:32.639Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:07:32.639Z",
+    "end": "2026-04-07T14:08:05.262Z",
+    "windowTitle": "People - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:08:32.478Z",
+    "end": "2026-04-07T14:09:35.799Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:10:04.350Z",
+    "end": "2026-04-07T14:10:35.824Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:11:03.112Z",
+    "end": "2026-04-07T14:14:32.650Z",
+    "windowTitle": "Sprint Operations - UKCAUD Ceremony Dashboard and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T14:14:32.650Z",
+    "end": "2026-04-07T14:15:47.477Z",
+    "windowTitle": "Command Center and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:16:02.198Z",
+    "end": "2026-04-07T14:17:32.941Z",
+    "windowTitle": "Command Center and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T14:17:32.941Z",
+    "end": "2026-04-07T14:23:33.803Z",
+    "windowTitle": "Sprint Operations - UKCAUD Ceremony Dashboard and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-07T14:23:33.803Z",
+    "end": "2026-04-07T14:24:44.555Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:26:02.947Z",
+    "end": "2026-04-07T14:27:32.405Z",
+    "windowTitle": "[UKCAUD-15946] AQA - UK ROI -ART - 3b. Summary of proposed audit responses and warning messages (Test of Controls 'yes' or 'no' warning message) - T565 - Caseware Jira and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15946",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:27:32.405Z",
+    "end": "2026-04-07T14:33:03.127Z",
+    "windowTitle": "[DIST-68231] DEVELOP - Audit HAT UK Corporate - Request Dist. Solution Release (Production Deployment) - Caseware Jira and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-68231",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-07T14:33:03.127Z",
+    "end": "2026-04-07T14:33:33.240Z",
+    "windowTitle": "Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:33:33.240Z",
+    "end": "2026-04-07T14:42:32.620Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 9
+  },
+  {
+    "start": "2026-04-07T14:42:32.620Z",
+    "end": "2026-04-07T14:43:02.841Z",
+    "windowTitle": "Sprint Operations - UKCAUD Ceremony Dashboard and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:43:02.841Z",
+    "end": "2026-04-07T14:44:06.301Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:45:02.875Z",
+    "end": "2026-04-07T14:46:33.091Z",
+    "windowTitle": "Audit - Agile Board - Caseware Jira and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T14:46:33.091Z",
+    "end": "2026-04-07T14:47:03.115Z",
+    "windowTitle": "Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:47:03.115Z",
+    "end": "2026-04-07T14:50:03.322Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T14:50:03.322Z",
+    "end": "2026-04-07T14:50:33.459Z",
+    "windowTitle": "[UKCAUD-15539] 3. Audit HAT UK Company TS - Tailoring, TB, Materiality, Sample selection 3. HAT - TS - Auditor judgement, Control risk, Justification - Caseware Jira and 7 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15539",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:50:33.459Z",
+    "end": "2026-04-07T14:51:04.188Z",
+    "windowTitle": "Entity Details and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:51:32.950Z",
+    "end": "2026-04-07T14:55:33.733Z",
+    "windowTitle": "Manage Template and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-07T14:56:03.238Z",
+    "end": "2026-04-07T14:56:36.497Z",
+    "windowTitle": "MCP Client Setup and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:57:03.206Z",
+    "end": "2026-04-07T14:57:33.494Z",
+    "windowTitle": "MCP Client Setup and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:58:03.070Z",
+    "end": "2026-04-07T14:58:33.207Z",
+    "windowTitle": "[UKCAUD-15520] 2. Audit HAT UK Company - SS - Tailoring, TB, Materiality, Sample size, - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15520",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T14:58:33.207Z",
+    "end": "2026-04-07T15:19:03.782Z",
+    "windowTitle": "[UKCAUD-15539] 3. Audit HAT UK Company TS - Tailoring, TB, Materiality, Sample selection 3. HAT - TS - Auditor judgement, Control risk, Justification - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15539",
+    "durationMin": 21
+  },
+  {
+    "start": "2026-04-07T15:19:33.617Z",
+    "end": "2026-04-07T15:20:36.822Z",
+    "windowTitle": "[UKCAUD-15539] 3. Audit HAT UK Company TS - Tailoring, TB, Materiality, Sample selection 3. HAT - TS - Auditor judgement, Control risk, Justification - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15539",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T15:21:03.885Z",
+    "end": "2026-04-07T15:21:34.043Z",
+    "windowTitle": "[UKCAUD-15539] 3. Audit HAT UK Company TS - Tailoring, TB, Materiality, Sample selection 3. HAT - TS - Auditor judgement, Control risk, Justification - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15539",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T15:21:34.043Z",
+    "end": "2026-04-07T15:22:06.840Z",
+    "windowTitle": "Sprint Operations - UKCAUD Ceremony Dashboard and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T15:22:33.277Z",
+    "end": "2026-04-07T15:26:03.247Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T15:26:03.247Z",
+    "end": "2026-04-07T15:28:07.097Z",
+    "windowTitle": "Sprint Planning - UKCAUD Ceremony Dashboard and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T15:29:03.268Z",
+    "end": "2026-04-07T15:35:04.336Z",
+    "windowTitle": "Sprint Planning - UKCAUD Ceremony Dashboard and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-07T15:35:04.336Z",
+    "end": "2026-04-07T15:39:04.138Z",
+    "windowTitle": "[Reported by me] Work item search - Caseware Jira and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-07T15:39:04.138Z",
+    "end": "2026-04-07T15:49:34.238Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-07T15:49:34.238Z",
+    "end": "2026-04-07T15:50:04.332Z",
+    "windowTitle": "Drag",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T15:50:04.332Z",
+    "end": "2026-04-07T15:52:04.161Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T15:52:34.004Z",
+    "end": "2026-04-07T15:54:03.955Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T15:54:03.955Z",
+    "end": "2026-04-07T15:55:07.521Z",
+    "windowTitle": "Sprint Planning - UKCAUD Ceremony Dashboard and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T15:55:34.488Z",
+    "end": "2026-04-07T15:56:04.500Z",
+    "windowTitle": "Sprint Planning - UKCAUD Ceremony Dashboard and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T15:56:04.500Z",
+    "end": "2026-04-07T15:58:34.075Z",
+    "windowTitle": "Sprint Operations - UKCAUD Ceremony Dashboard and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T15:58:34.075Z",
+    "end": "2026-04-07T16:01:34.712Z",
+    "windowTitle": "Sprint Planning - UKCAUD Ceremony Dashboard and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T16:02:04.225Z",
+    "end": "2026-04-07T16:03:04.496Z",
+    "windowTitle": "Sprint Operations - UKCAUD Ceremony Dashboard and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:04:03.846Z",
+    "end": "2026-04-07T16:04:33.921Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:04:33.921Z",
+    "end": "2026-04-07T16:05:34.205Z",
+    "windowTitle": "Sprint Operations - UKCAUD Ceremony Dashboard and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:06:04.017Z",
+    "end": "2026-04-07T16:07:04.725Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:07:04.725Z",
+    "end": "2026-04-07T16:08:05.319Z",
+    "windowTitle": "Priorities - CaseWare UK Cloud Audit Squad - Caseware Confluence and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:08:34.068Z",
+    "end": "2026-04-07T16:09:05.145Z",
+    "windowTitle": "Priorities - CaseWare UK Cloud Audit Squad - Caseware Confluence and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:09:05.145Z",
+    "end": "2026-04-07T16:10:34.493Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:10:34.493Z",
+    "end": "2026-04-07T16:11:34.736Z",
+    "windowTitle": "[DIST-67314] Shaw Gibbs Limited - 01361658 - Poor performance in CW Cloud, & 'failed to save' messages - | Type: | Affected Feature: Lead schedule | Severity:Minor| Reported by: Shaw Gibbs Limited - Caseware Jira and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-67314",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:12:04.233Z",
+    "end": "2026-04-07T16:16:04.325Z",
+    "windowTitle": "Priorities - CaseWare UK Cloud Audit Squad - Caseware Confluence and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-07T16:16:04.325Z",
+    "end": "2026-04-07T16:16:34.471Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:17:34.168Z",
+    "end": "2026-04-07T16:19:04.414Z",
+    "windowTitle": "Priorities - CaseWare UK Cloud Audit Squad - Caseware Confluence and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T16:19:34.051Z",
+    "end": "2026-04-07T16:21:04.159Z",
+    "windowTitle": "Retrospective - UKCAUD Ceremony Dashboard and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T16:21:04.159Z",
+    "end": "2026-04-07T16:24:05.317Z",
+    "windowTitle": "Sprint Retrospective [Q1 2026 Sprint 6] & Planning [Q1 2026 Sprint 7] - CaseWare UK Cloud Audit Squad - Caseware Confluence and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T16:24:05.317Z",
+    "end": "2026-04-07T16:27:04.317Z",
+    "windowTitle": "Edit - Sprint Retrospective [Q1 2026 Sprint 6] & Planning [Q1 2026 Sprint 7] - CaseWare UK Cloud Audit Squad - Caseware Confluence and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T16:27:04.317Z",
+    "end": "2026-04-07T16:28:04.686Z",
+    "windowTitle": "Refinement - UKCAUD Ceremony Dashboard and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:28:34.258Z",
+    "end": "2026-04-07T16:29:35.223Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:29:35.223Z",
+    "end": "2026-04-07T16:31:04.408Z",
+    "windowTitle": "Edit - Sprint Retrospective [Q1 2026 Sprint 6] & Planning [Q1 2026 Sprint 7] - CaseWare UK Cloud Audit Squad - Caseware Confluence and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  }
+]

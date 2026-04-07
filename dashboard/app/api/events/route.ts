@@ -6,19 +6,23 @@ export const dynamic = "force-dynamic";
 
 export async function GET(_request: NextRequest) {
   const encoder = new TextEncoder();
+  let keepAlive: ReturnType<typeof setInterval> | undefined;
+  let watcher: fs.FSWatcher | null = null;
 
   const stream = new ReadableStream({
     start(controller) {
       const sendEvent = (data: string) => {
-        controller.enqueue(encoder.encode(`data: ${data}\n\n`));
+        try {
+          controller.enqueue(encoder.encode(`data: ${data}\n\n`));
+        } catch {
+          // Controller already closed — ignore
+        }
       };
 
       // Send initial ping
       sendEvent(JSON.stringify({ type: "connected" }));
 
       // Watch the data file for changes
-      let watcher: fs.FSWatcher | null = null;
-
       try {
         watcher = fs.watch(DATA_FILE, () => {
           sendEvent(
@@ -33,14 +37,14 @@ export async function GET(_request: NextRequest) {
       }
 
       // Keep-alive every 30s
-      const keepAlive = setInterval(() => {
+      keepAlive = setInterval(() => {
         sendEvent(JSON.stringify({ type: "ping" }));
       }, 30000);
-
-      return () => {
-        clearInterval(keepAlive);
-        watcher?.close();
-      };
+    },
+    cancel() {
+      // Called when the browser disconnects — clean up to stop writes to closed controller
+      clearInterval(keepAlive);
+      watcher?.close();
     },
   });
 

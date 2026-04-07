@@ -1,6 +1,28 @@
 {
-  "updatedAt": "2026-04-02T21:34:19.326Z",
+  "updatedAt": "2026-04-03T01:55:01.248Z",
   "projects": [
+    {
+      "name": "claude-mobile",
+      "path": "C:/Users/liam.bond/Documents/claude-mobile",
+      "phase": "Building",
+      "lastCommit": "2026-04-03T00:37:21+01:00",
+      "lastCommitMsg": "feat: replace SAPI voice with Groq Whisper + faster-whisper fallback",
+      "hasGit": true,
+      "hasPkg": true,
+      "hasClaude": false,
+      "description": null
+    },
+    {
+      "name": "Productivity Tool",
+      "path": "C:/Users/liam.bond/Documents/Productivity Tool",
+      "phase": "Building",
+      "lastCommit": "2026-04-02T23:49:29+01:00",
+      "lastCommitMsg": "feat: Personal Command Center redesign — Phases 1-7 complete",
+      "hasGit": true,
+      "hasPkg": true,
+      "hasClaude": false,
+      "description": "The dashboard is a Next.js 14 app at `localhost:3000`, managed by pm2. It provides a live view of the priority inbox, pe"
+    },
     {
       "name": "CW UKJPD Workflows",
       "path": "C:/Users/liam.bond/Documents/CW UKJPD Workflows",
@@ -66,28 +88,6 @@
       "hasPkg": false,
       "hasClaude": false,
       "description": "A curated research collection tracking AI tool developments, integrations, and ecosystem updates relevant to daily workf"
-    },
-    {
-      "name": "claude-mobile",
-      "path": "C:/Users/liam.bond/Documents/claude-mobile",
-      "phase": "Building",
-      "lastCommit": "2026-04-02T16:25:36+01:00",
-      "lastCommitMsg": "feat: multi-session dashboard with TUI + CLI dispatch",
-      "hasGit": true,
-      "hasPkg": true,
-      "hasClaude": false,
-      "description": null
-    },
-    {
-      "name": "Productivity Tool",
-      "path": "C:/Users/liam.bond/Documents/Productivity Tool",
-      "phase": "Building",
-      "lastCommit": "2026-04-02T16:22:21+01:00",
-      "lastCommitMsg": "feat: add full-deploy script + .gitignore + playwright devDep",
-      "hasGit": true,
-      "hasPkg": true,
-      "hasClaude": false,
-      "description": "The dashboard is a Next.js 14 app at `localhost:3000`, managed by pm2. It provides a live view of the priority inbox, pe"
     },
     {
       "name": "UKCAUD AI Project",

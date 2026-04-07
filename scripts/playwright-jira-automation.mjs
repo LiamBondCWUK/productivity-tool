@@ -68,7 +68,10 @@ async function waitForLogin(page) {
     console.log('   Log in in the browser window, then press Enter...');
     await prompt('   [Press Enter when logged in]');
     await page.waitForURL(
-      url => !url.includes('atlassian.com/login') && !url.includes('id.atlassian.com') && !url.includes('signin'),
+      url => {
+        const href = url.toString();
+        return !href.includes('atlassian.com/login') && !href.includes('id.atlassian.com') && !href.includes('signin');
+      },
       { timeout: 120000 }
     );
     await page.waitForTimeout(2000);

@@ -1,5 +1,9 @@
 /**
- * ecosystem.config.js — pm2 process definitions for Productivity Tool
+ * ecosystem.config.js — pm2 process definitions for Productivity Tool (DEV MODE)
+ *
+ * ⚠️  DEV MODE CONFIG — runs `npm run dev` (hot-reload, no build required)
+ *     For production, use dashboard/ecosystem.config.js which runs `next start`
+ *     on port 3002 with NODE_ENV=production.
  *
  * Usage:
  *   pm2 start workspace/coordinator/ecosystem.config.js

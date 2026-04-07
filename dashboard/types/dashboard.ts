@@ -145,6 +145,24 @@ export interface OvernightProjectAnalysis {
   crossProjectDeps: string[];
 }
 
+export interface RecommendedInstall {
+  id: string;
+  name: string;
+  category: "MCP" | "Plugin" | "VSCode" | "npm" | "App" | "Architecture";
+  priority: "HIGH" | "MED" | "LOW";
+  description: string;
+  signal: string;
+  installCommand?: string;
+  integratesWith?: string[];
+  status: "PENDING" | "INSTALLED" | "SKIPPED";
+  addedAt: string;
+}
+
+export interface RecommendedInstalls {
+  lastUpdated: string | null;
+  items: RecommendedInstall[];
+}
+
 export type AutomationRuleStatus =
   | "pending"
   | "deployed"
@@ -220,7 +238,12 @@ export interface ActivitySession {
 
 export interface AiNewsResults {
   lastRun: string | null;
-  topStories: Array<{ title: string; summary: string; url?: string }>;
+  topStories: Array<{
+    title: string;
+    summary: string;
+    url?: string;
+    publishedAt?: string;
+  }>;
   suggestions: string[];
 }
 
@@ -258,4 +281,5 @@ export interface DashboardData {
   activityLog: ActivitySession[];
   aiNewsResults: AiNewsResults | null;
   lastActivitySync: string | null;
+  recommendedInstalls: RecommendedInstalls;
 }

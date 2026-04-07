@@ -4,6 +4,7 @@ interface TopStory {
   title: string;
   summary: string;
   url?: string;
+  publishedAt?: string;
 }
 
 interface NewsTabProps {
@@ -12,7 +13,11 @@ interface NewsTabProps {
   suggestions?: string[];
 }
 
-export function NewsTab({ lastRun, topStories = [], suggestions = [] }: NewsTabProps) {
+export function NewsTab({
+  lastRun,
+  topStories = [],
+  suggestions = [],
+}: NewsTabProps) {
   const hasStories = topStories.length > 0;
 
   return (
@@ -94,6 +99,17 @@ export function NewsTab({ lastRun, topStories = [], suggestions = [] }: NewsTabP
                 {story.summary && (
                   <p className="text-xs text-gray-400 mt-1.5 leading-relaxed line-clamp-3">
                     {story.summary}
+                  </p>
+                )}
+                {story.publishedAt && (
+                  <p className="text-xs text-gray-600 mt-1">
+                    <time dateTime={story.publishedAt}>
+                      {new Date(story.publishedAt).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </time>
                   </p>
                 )}
               </div>

@@ -3,14 +3,15 @@
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Suspense } from "react";
 
-type TabId = "today" | "tasks" | "projects" | "learning" | "news";
+type TabId = "today" | "tasks" | "projects" | "learning" | "news" | "system";
 
 const TABS: { id: TabId; label: string }[] = [
   { id: "today", label: "Today" },
   { id: "tasks", label: "Tasks" },
   { id: "projects", label: "Projects" },
-  { id: "learning", label: "Learning" },
+  { id: "learning", label: "Analysis" },
   { id: "news", label: "News" },
+  { id: "system", label: "System" },
 ];
 
 interface TabWorkspaceProps {
@@ -19,6 +20,7 @@ interface TabWorkspaceProps {
   projectsContent: React.ReactNode;
   learningContent: React.ReactNode;
   newsContent: React.ReactNode;
+  systemContent: React.ReactNode;
 }
 
 function TabBar({ activeTab }: { activeTab: TabId }) {
@@ -57,6 +59,7 @@ function TabWorkspaceInner({
   projectsContent,
   learningContent,
   newsContent,
+  systemContent,
 }: TabWorkspaceProps) {
   const searchParams = useSearchParams();
   const rawTab = searchParams.get("tab") ?? "today";
@@ -70,6 +73,7 @@ function TabWorkspaceInner({
     projects: projectsContent,
     learning: learningContent,
     news: newsContent,
+    system: systemContent,
   };
 
   return (
