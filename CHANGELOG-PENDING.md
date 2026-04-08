@@ -146,3 +146,4 @@
 - 2026-04-07 16:40:16 [config] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\data\dashboard-data.json`
 - 2026-04-07 16:40:54 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\LearningTab.tsx`
 - 2026-04-07 16:41:24 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\page.tsx`
+- 2026-04-07 21:34:30 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\.gitignore`

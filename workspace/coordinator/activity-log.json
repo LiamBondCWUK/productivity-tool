@@ -2196,5 +2196,159 @@
     "windowTitle": "Edit - Sprint Retrospective [Q1 2026 Sprint 6] & Planning [Q1 2026 Sprint 7] - CaseWare UK Cloud Audit Squad - Caseware Confluence and 9 more pages - Work - Microsoft? Edge",
     "inferredTask": "browser",
     "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:31:04.408Z",
+    "end": "2026-04-07T16:37:04.390Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-07T16:37:04.390Z",
+    "end": "2026-04-07T16:37:34.869Z",
+    "windowTitle": "Sprint Operations - UKCAUD Ceremony Dashboard and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T16:37:34.869Z",
+    "end": "2026-04-07T17:10:35.270Z",
+    "windowTitle": "[UKCAUD-15609] 1. Audit HAT UK Company - SS - Details, Navigation, Guidance - Caseware Jira and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15609",
+    "durationMin": 33
+  },
+  {
+    "start": "2026-04-07T17:11:04.856Z",
+    "end": "2026-04-07T17:15:38.887Z",
+    "windowTitle": "[UKCAUD-15609] 1. Audit HAT UK Company - SS - Details, Navigation, Guidance - Caseware Jira and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15609",
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-07T17:16:36.425Z",
+    "end": "2026-04-07T17:31:08.988Z",
+    "windowTitle": "[UKCAUD-15609] 1. Audit HAT UK Company - SS - Details, Navigation, Guidance - Caseware Jira and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15609",
+    "durationMin": 15
+  },
+  {
+    "start": "2026-04-07T17:31:35.549Z",
+    "end": "2026-04-07T17:34:08.060Z",
+    "windowTitle": "[UKCAUD-15609] 1. Audit HAT UK Company - SS - Details, Navigation, Guidance - Caseware Jira and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15609",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-07T17:34:35.649Z",
+    "end": "2026-04-07T17:35:35.660Z",
+    "windowTitle": "Claude and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T17:35:35.660Z",
+    "end": "2026-04-07T20:15:07.875Z",
+    "windowTitle": "[UKCAUD-15609] 1. Audit HAT UK Company - SS - Details, Navigation, Guidance - Caseware Jira and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15609",
+    "durationMin": 160
+  },
+  {
+    "start": "2026-04-07T20:15:07.875Z",
+    "end": "2026-04-07T20:29:41.905Z",
+    "windowTitle": "GitGuardian and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 15
+  },
+  {
+    "start": "2026-04-07T20:30:11.048Z",
+    "end": "2026-04-07T20:30:41.910Z",
+    "windowTitle": "GitGuardian and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T20:31:10.184Z",
+    "end": "2026-04-07T20:31:41.903Z",
+    "windowTitle": "GitGuardian and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T20:32:08.424Z",
+    "end": "2026-04-07T20:36:12.006Z",
+    "windowTitle": "Atlassian account | security | api tokens and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-07T20:36:40.124Z",
+    "end": "2026-04-07T20:48:42.149Z",
+    "windowTitle": "Atlassian account | security | api tokens and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 12
+  },
+  {
+    "start": "2026-04-07T20:49:11.372Z",
+    "end": "2026-04-07T20:50:42.335Z",
+    "windowTitle": "Atlassian account | security | api tokens and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T20:51:09.491Z",
+    "end": "2026-04-07T21:04:38.977Z",
+    "windowTitle": "Atlassian account | security | api tokens and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 13
+  },
+  {
+    "start": "2026-04-07T21:04:38.977Z",
+    "end": "2026-04-07T21:06:12.501Z",
+    "windowTitle": "GitGuardian and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T21:06:41.578Z",
+    "end": "2026-04-07T21:07:12.523Z",
+    "windowTitle": "Untitled and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T21:07:41.992Z",
+    "end": "2026-04-07T22:05:39.638Z",
+    "windowTitle": "Atlassian account | security | api tokens and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 58
+  },
+  {
+    "start": "2026-04-07T22:06:09.419Z",
+    "end": "2026-04-07T22:07:39.537Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T22:07:39.537Z",
+    "end": "2026-04-07T22:08:43.760Z",
+    "windowTitle": "Settings and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-07T22:09:10.574Z",
+    "end": "2026-04-07T22:10:43.621Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-07T22:11:10.480Z",
+    "end": "2026-04-07T22:29:14.255Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 18
   }
 ]

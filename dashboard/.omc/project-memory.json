@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775487954481,
+  "lastScanned": 1775584861419,
   "projectRoot": "C:\\Users\\liam.bond\\Documents\\Productivity Tool\\dashboard",
   "techStack": {
     "languages": [
@@ -78,7 +78,7 @@
       "path": "app",
       "purpose": "Application code",
       "fileCount": 4,
-      "lastAccessed": 1775487954042,
+      "lastAccessed": 1775584861068,
       "keyFiles": [
         "favicon.ico",
         "globals.css",
@@ -90,7 +90,7 @@
       "path": "components",
       "purpose": "UI components",
       "fileCount": 16,
-      "lastAccessed": 1775487954043,
+      "lastAccessed": 1775584861069,
       "keyFiles": [
         "ActiveWindow.tsx",
         "AISchedule.tsx",
@@ -103,7 +103,7 @@
       "path": "data",
       "purpose": "Data files",
       "fileCount": 1,
-      "lastAccessed": 1775487954445,
+      "lastAccessed": 1775584861211,
       "keyFiles": [
         "dashboard-data.json"
       ]
@@ -112,7 +112,7 @@
       "path": "hooks",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1775487954446,
+      "lastAccessed": 1775584861213,
       "keyFiles": [
         "useDashboardData.ts"
       ]
@@ -121,7 +121,7 @@
       "path": "lib",
       "purpose": "Library code",
       "fileCount": 1,
-      "lastAccessed": 1775487954446,
+      "lastAccessed": 1775584861214,
       "keyFiles": [
         "dashboardData.ts"
       ]
@@ -130,7 +130,7 @@
       "path": "public",
       "purpose": "Public files",
       "fileCount": 5,
-      "lastAccessed": 1775487954447,
+      "lastAccessed": 1775584861215,
       "keyFiles": [
         "file.svg",
         "globe.svg",
@@ -143,7 +143,7 @@
       "path": "types",
       "purpose": "Type definitions",
       "fileCount": 1,
-      "lastAccessed": 1775487954448,
+      "lastAccessed": 1775584861216,
       "keyFiles": [
         "dashboard.ts"
       ]
@@ -152,7 +152,7 @@
       "path": "app\\api",
       "purpose": "API routes",
       "fileCount": 0,
-      "lastAccessed": 1775487954449,
+      "lastAccessed": 1775584861218,
       "keyFiles": []
     }
   },

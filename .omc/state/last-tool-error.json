@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"cd ~/Documents/\\\"CW UKCAUD Project Tracker\\\" && cat package.json 2>/dev/null | python3 -c \\\"import sys,json; d=json.load(sys.stdin); print(json.dumps(d.get('scripts',{}), indent=2))\\\"\",\"de...",
-  "error": "Exit code 49\nPython was not found; run without arguments to install from the Microsoft Store, or disable this shortcut from Settings > Apps > Advanced app settings > App execution aliases.\n[rerun: b29]",
-  "timestamp": "2026-04-07T09:32:55.841Z",
-  "retry_count": 1
-}
