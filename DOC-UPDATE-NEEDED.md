@@ -5,3 +5,4 @@
 - `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\ecosystem.config.js` → update: Setup/installation docs, README prerequisites
 - `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ecosystem.config.js` → update: Setup/installation docs, README prerequisites
 - `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\next.config.ts` → update: Setup/installation docs, README prerequisites
+- `C:\Users\liam.bond\Documents\Productivity Tool\ecosystem.config.js` → update: Setup/installation docs, README prerequisites

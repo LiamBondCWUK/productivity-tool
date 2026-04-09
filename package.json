@@ -7,7 +7,11 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "vibe-kanban": "npx vibe-kanban",
+    "vibe-kanban:discover": "node scripts/create-kanban-issue.mjs --discover",
+    "create-issue": "node scripts/create-kanban-issue.mjs",
+    "sync-feedback": "node scripts/sync-feedback.mjs"
   },
   "repository": {
     "type": "git",

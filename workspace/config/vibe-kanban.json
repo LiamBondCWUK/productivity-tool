@@ -1,0 +1,15 @@
+{
+  "_comment": "vibe-kanban runtime config. baseUrl is resolved at startup via portFile. Run `npm run vibe-kanban` once, note the port logged to console, then update baseUrl here if auto-detection fails.",
+  "portFile": "C:/Users/liam.bond/AppData/Roaming/vibe-kanban/backend.port",
+  "portFileFallbacks": [
+    "C:/Users/liam.bond/AppData/Local/vibe-kanban/backend.port",
+    "C:/Users/liam.bond/AppData/Roaming/vibe-kanban/port",
+    "C:/Users/liam.bond/.vibe-kanban/backend.port"
+  ],
+  "defaultPort": 3001,
+  "baseUrl": "http://localhost:3001",
+  "issuesEndpoint": "/api/remote/issues",
+  "projectId": null,
+  "defaultStatusId": null,
+  "_setup_note": "After first `npx vibe-kanban` run: (1) create a project via the UI, (2) run `npm run vibe-kanban:discover` to auto-populate projectId and defaultStatusId."
+}

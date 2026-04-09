@@ -8,6 +8,7 @@ channel = "stable-24_05"
 PORT = "3000"
 
 [deployment]
+visibility = "private"
 run = ["sh", "-c", "npm start"]
 build = ["sh", "-c", "npm install && npm run build"]
 
