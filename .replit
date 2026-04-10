@@ -1,4 +1,4 @@
-run = "cd dashboard && npm install && npm run build && npm start"
+run = "cd dashboard && node .next/standalone/server.js"
 
 [deployment]
 visibility = "private"
