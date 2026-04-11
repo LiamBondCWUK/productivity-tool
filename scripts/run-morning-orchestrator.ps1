@@ -58,6 +58,35 @@ if (Test-Path $healthScript) {
     Log "  system-health-collect.ps1 not found — skipping" "Yellow"
 }
 
+# ── Step 2b: Dashboard mail/calendar refresh (Outlook fallback) ─────────────
+Log "[2b/5] Refreshing dashboard mail/calendar data..."
+
+$outlookMailScript = "$ProdToolDir\scripts\outlook-mail-fetch.ps1"
+if (Test-Path $outlookMailScript) {
+    try {
+        $mailOutput = & powershell -NonInteractive -ExecutionPolicy Bypass -File $outlookMailScript 2>&1 | Out-String
+        Add-Content -Path $LogFile -Value $mailOutput
+        Log "  Outlook mail refresh complete" "Green"
+    } catch {
+        Log "  Outlook mail refresh failed: $_" "Yellow"
+    }
+} else {
+    Log "  outlook-mail-fetch.ps1 not found — skipping" "Yellow"
+}
+
+$outlookCalendarScript = "$ProdToolDir\scripts\outlook-calendar-fetch.ps1"
+if (Test-Path $outlookCalendarScript) {
+    try {
+        $calendarOutput = & powershell -NonInteractive -ExecutionPolicy Bypass -File $outlookCalendarScript 2>&1 | Out-String
+        Add-Content -Path $LogFile -Value $calendarOutput
+        Log "  Outlook calendar refresh complete" "Green"
+    } catch {
+        Log "  Outlook calendar refresh failed: $_" "Yellow"
+    }
+} else {
+    Log "  outlook-calendar-fetch.ps1 not found — skipping" "Yellow"
+}
+
 # ── Step 3: Read overnight results ───────────────────────────────────────────
 Log "[3/5] Reading overnight results..."
 $overnightSummary = "(no overnight report found)"

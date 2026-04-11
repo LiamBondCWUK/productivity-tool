@@ -47,6 +47,13 @@ export function TimeTracker({ tracker, onRefetch }: Props) {
   const [showStartForm, setShowStartForm] = useState(false);
 
   const { activeSession, todayTotalMinutes, weekTotalMinutes } = tracker;
+  const plannedSessions = tracker.plannedSessions ?? [];
+  const plannedTodayMinutes =
+    tracker.plannedTodayMinutes ??
+    plannedSessions.reduce(
+      (sum, session) => sum + (session.durationMinutes ?? 0),
+      0,
+    );
 
   // Live timer tick
   useEffect(() => {
@@ -187,12 +194,46 @@ export function TimeTracker({ tracker, onRefetch }: Props) {
             </span>
           </div>
           <div className="flex justify-between text-xs">
+            <span className="text-gray-500">Planned</span>
+            <span className="text-blue-300 font-mono">
+              {formatMinutes(plannedTodayMinutes)}
+            </span>
+          </div>
+          <div className="flex justify-between text-xs">
             <span className="text-gray-500">This week</span>
             <span className="text-gray-300 font-mono">
               {formatMinutes(weekTotalMinutes)}
             </span>
           </div>
         </div>
+
+        {plannedSessions.length > 0 && (
+          <div>
+            <p className="text-gray-500 text-xs font-semibold mb-1">
+              Planned focus blocks
+            </p>
+            <div className="space-y-0.5 max-h-24 overflow-y-auto">
+              {plannedSessions.map((session) => (
+                <div
+                  key={session.id}
+                  className="flex items-center gap-2 text-xs"
+                >
+                  {session.jiraKey && (
+                    <span className="text-blue-400 font-mono shrink-0">
+                      {session.jiraKey}
+                    </span>
+                  )}
+                  <span className="text-gray-400 truncate flex-1">
+                    {session.label}
+                  </span>
+                  <span className="text-blue-300 font-mono shrink-0">
+                    {formatMinutes(session.durationMinutes ?? 0)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Recent sessions */}
         {tracker.todaySessions.length > 0 && (

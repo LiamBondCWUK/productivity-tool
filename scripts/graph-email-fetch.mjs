@@ -13,11 +13,13 @@
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
+import { spawnSync } from "child_process";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const DASHBOARD_DATA_PATH = resolve(ROOT, "workspace/coordinator/dashboard-data.json");
 const TOKEN_FILE = resolve(ROOT, "workspace/coordinator/graph-token.json");
+const OUTLOOK_FALLBACK_SCRIPT = resolve(ROOT, "scripts/outlook-mail-fetch.ps1");
 
 function readJson(filePath, fallback) {
   try {
@@ -114,8 +116,37 @@ async function fetchFlaggedEmails() {
   }
 }
 
+function runOutlookFallback() {
+  if (!existsSync(OUTLOOK_FALLBACK_SCRIPT)) {
+    console.warn("[graph-email-fetch] Outlook fallback script not found");
+    return false;
+  }
+
+  const fallbackRun = spawnSync(
+    "powershell",
+    ["-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", OUTLOOK_FALLBACK_SCRIPT],
+    { encoding: "utf8" }
+  );
+
+  if (fallbackRun.status === 0) {
+    const output = (fallbackRun.stdout ?? "").trim();
+    if (output) {
+      console.log(`[graph-email-fetch] Outlook fallback: ${output}`);
+    }
+    return true;
+  }
+
+  const errorOutput = (fallbackRun.stderr ?? fallbackRun.stdout ?? "").trim();
+  console.warn(`[graph-email-fetch] Outlook fallback failed: ${errorOutput}`);
+  return false;
+}
+
 async function run() {
   const flaggedEmails = await fetchFlaggedEmails();
+
+  if (flaggedEmails.length === 0 && runOutlookFallback()) {
+    return;
+  }
 
   const dashboardData = readJson(DASHBOARD_DATA_PATH, {});
   dashboardData.flaggedEmails = flaggedEmails;

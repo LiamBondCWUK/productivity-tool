@@ -7,6 +7,11 @@ $ProjectDir = "C:\Users\liam.bond\Documents\Productivity Tool"
 
 Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] Starting /gm auto-trigger"
 
+function Write-Log {
+    param([string]$Message)
+    Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] $Message"
+}
+
 # Step 1: Fetch Jira @mention + doc comment notifications
 try {
     $notifResult = & node "$ProjectDir\scripts\fetch-notifications.mjs" 2>&1
@@ -18,16 +23,32 @@ try {
 # Step 2: Fetch Teams + Email via m365 CLI
 try {
     $teamsResult = & node "$ProjectDir\scripts\graph-teams-fetch.mjs" 2>&1
-    Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] graph-teams-fetch: $teamsResult"
+    Write-Log "graph-teams-fetch: $teamsResult"
 } catch {
-    Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] graph-teams-fetch ERROR: $($_.Exception.Message)"
+    Write-Log "graph-teams-fetch ERROR: $($_.Exception.Message)"
+}
+
+# Step 2a: Fetch email with Graph first, then Outlook fallback
+try {
+    $emailResult = & node "$ProjectDir\scripts\graph-email-fetch.mjs" 2>&1
+    Write-Log "graph-email-fetch: $emailResult"
+} catch {
+    Write-Log "graph-email-fetch ERROR: $($_.Exception.Message)"
 }
 
 try {
-    $emailResult = & node "$ProjectDir\scripts\graph-email-fetch.mjs" 2>&1
-    Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] graph-email-fetch: $emailResult"
+    $outlookMailResult = & powershell -NonInteractive -ExecutionPolicy Bypass -File "$ProjectDir\scripts\outlook-mail-fetch.ps1" 2>&1
+    Write-Log "outlook-mail-fetch: $outlookMailResult"
 } catch {
-    Add-Content -Path $LogFile -Value "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] graph-email-fetch ERROR: $($_.Exception.Message)"
+    Write-Log "outlook-mail-fetch ERROR: $($_.Exception.Message)"
+}
+
+# Step 2b: Refresh calendar from Outlook fallback
+try {
+    $outlookCalendarResult = & powershell -NonInteractive -ExecutionPolicy Bypass -File "$ProjectDir\scripts\outlook-calendar-fetch.ps1" 2>&1
+    Write-Log "outlook-calendar-fetch: $outlookCalendarResult"
+} catch {
+    Write-Log "outlook-calendar-fetch ERROR: $($_.Exception.Message)"
 }
 
 # Step 3: Generate AI day plan

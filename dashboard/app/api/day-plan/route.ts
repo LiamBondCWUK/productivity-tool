@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readFileSync, writeFileSync } from "fs";
 import { join } from "path";
-import { execSync } from "child_process";
+import { execSync, spawnSync } from "child_process";
 
 export const dynamic = "force-dynamic";
 
 const DASHBOARD_FILE = join(process.cwd(), "..", "workspace", "coordinator", "dashboard-data.json");
 const GRAPH_TOKEN_FILE = join(process.cwd(), "..", "workspace", "coordinator", "graph-token.json");
+const OUTLOOK_BOOK_SCRIPT = join(process.cwd(), "..", "scripts", "outlook-book-focus-blocks.ps1");
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function readData(): any {
@@ -48,6 +49,91 @@ interface AcceptBody {
   bookCalendar?: boolean;
 }
 
+interface FocusBlockInput {
+  type?: string;
+  time: string;
+  duration: number;
+  task?: string;
+  label?: string;
+  rationale?: string;
+  booked?: boolean;
+}
+
+interface OutlookBookingResult {
+  bookedTimes: string[];
+  count: number;
+  errors: string[];
+}
+
+function tryBookFocusBlocksOutlook(focusBlocks: FocusBlockInput[]): OutlookBookingResult {
+  if (!focusBlocks.length) {
+    return { bookedTimes: [], count: 0, errors: [] };
+  }
+
+  const payload = JSON.stringify(focusBlocks);
+  const encodedPayload = Buffer.from(payload, "utf8").toString("base64");
+  const bookingRun = spawnSync(
+    "powershell",
+    [
+      "-NonInteractive",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      OUTLOOK_BOOK_SCRIPT,
+      "-BlocksBase64",
+      encodedPayload,
+    ],
+    { encoding: "utf8" },
+  );
+
+  if (bookingRun.status !== 0) {
+    const message = (bookingRun.stderr ?? bookingRun.stdout ?? "").trim();
+    return { bookedTimes: [], count: 0, errors: [message || "Outlook booking failed"] };
+  }
+
+  const output = (bookingRun.stdout ?? "").trim();
+  if (!output) {
+    return { bookedTimes: [], count: 0, errors: ["Outlook booking returned no output"] };
+  }
+
+  try {
+    const parsed = JSON.parse(output) as OutlookBookingResult;
+    return {
+      bookedTimes: parsed.bookedTimes ?? [],
+      count: parsed.count ?? 0,
+      errors: parsed.errors ?? [],
+    };
+  } catch {
+    return { bookedTimes: [], count: 0, errors: ["Could not parse Outlook booking output"] };
+  }
+}
+
+function buildPlannedSessions(blocks: FocusBlockInput[]) {
+  const today = new Date().toISOString().split("T")[0];
+
+  return blocks
+    .filter((block) => block.booked)
+    .map((block, index) => {
+      const [hour, minute] = (block.time as string).split(":").map(Number);
+      const startDt = new Date(`${today}T${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:00`);
+      const endDt = new Date(startDt.getTime() + (block.duration as number) * 60_000);
+      const label = block.task ?? block.label ?? "Focus block";
+      const jiraMatch = label.match(/[A-Z]+-\d+/);
+
+      return {
+        id: `planned-${today}-${String(index + 1).padStart(2, "0")}-${block.time}`,
+        label,
+        jiraKey: jiraMatch ? jiraMatch[0] : undefined,
+        startedAt: startDt.toISOString(),
+        endedAt: endDt.toISOString(),
+        durationMinutes: block.duration,
+        notes: block.rationale ?? "Planned focus block from AI Day Plan",
+        planned: true,
+        source: "day-plan",
+      };
+    });
+}
+
 // PUT — accept plan; optionally book Outlook focus blocks via Graph API
 export async function PUT(req: NextRequest) {
   try {
@@ -60,8 +146,9 @@ export async function PUT(req: NextRequest) {
 
     data.dayPlan.accepted = true;
 
-    const bookedCount = 0;
+    let bookedCount = 0;
     let graphError: string | null = null;
+    let outlookError: string | null = null;
 
     if (body.bookCalendar !== false) {
       try {
@@ -100,6 +187,7 @@ export async function PUT(req: NextRequest) {
 
             if (resp.ok) {
               block.booked = true;
+              bookedCount += 1;
             } else {
               graphError = `Graph API ${resp.status}: ${await resp.text()}`;
               break;
@@ -112,14 +200,56 @@ export async function PUT(req: NextRequest) {
       } catch {
         graphError = "Graph token unavailable — plan accepted but calendar not booked";
       }
+
+      const remainingFocusBlocks = data.dayPlan.blocks.filter(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (b: any) => b.type === "focus" && !b.booked,
+      );
+
+      if (remainingFocusBlocks.length > 0) {
+        const outlookResult = tryBookFocusBlocksOutlook(remainingFocusBlocks);
+        if (outlookResult.errors.length > 0) {
+          outlookError = outlookResult.errors[0];
+        }
+
+        if (outlookResult.bookedTimes.length > 0) {
+          data.dayPlan.blocks.forEach((block: FocusBlockInput) => {
+            if (
+              block.type === "focus" &&
+              !block.booked &&
+              outlookResult.bookedTimes.includes(block.time)
+            ) {
+              block.booked = true;
+            }
+          });
+          bookedCount += outlookResult.count;
+        }
+      }
     }
 
+    const bookedFocusBlocks = data.dayPlan.blocks.filter(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (b: any) => b.type === "focus" && b.booked,
+    );
+
+    const plannedSessions = buildPlannedSessions(bookedFocusBlocks);
+    data.timeTracker = {
+      ...data.timeTracker,
+      plannedSessions,
+      plannedTodayMinutes: plannedSessions.reduce(
+        (sum: number, session: { durationMinutes?: number }) => sum + (session.durationMinutes ?? 0),
+        0,
+      ),
+    };
+
     writeData(data);
+
+    const bookingError = outlookError ?? graphError;
 
     return NextResponse.json({
       dayPlan: data.dayPlan,
       bookedCount,
-      graphError,
+      graphError: bookingError,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);

@@ -81,7 +81,7 @@ async function generateDayPlan() {
 **Current time:** ${timeStr} on ${dateStr}
 
 **Calendar:**
-${formatCalendar(data.calendarToday)}
+${formatCalendar(data.calendar?.today)}
 
 **Priority inbox (work items needing attention):**
 ${formatInbox(data.priorityInbox)}

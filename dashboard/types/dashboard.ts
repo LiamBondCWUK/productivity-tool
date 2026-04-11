@@ -122,6 +122,8 @@ export interface TimeSession {
   endedAt?: string;
   durationMinutes?: number;
   notes?: string;
+  planned?: boolean;
+  source?: "manual" | "day-plan";
 }
 
 export interface ActiveSession {
@@ -134,6 +136,8 @@ export interface ActiveSession {
 export interface TimeTracker {
   activeSession: ActiveSession | null;
   todaySessions: TimeSession[];
+  plannedSessions?: TimeSession[];
+  plannedTodayMinutes?: number;
   todayTotalMinutes: number;
   weekTotalMinutes: number;
 }
