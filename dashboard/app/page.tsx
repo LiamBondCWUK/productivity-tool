@@ -6,6 +6,9 @@ import { TabWorkspace } from "../components/TabWorkspace";
 import { TodayTab } from "../components/TodayTab";
 import { TasksTab } from "../components/TasksTab";
 import { ProjectsTab } from "../components/ProjectsTab";
+import { NotesTab } from "../components/NotesTab";
+import { CeremoniesTab } from "../components/CeremoniesTab";
+import { DocHealthTab } from "../components/DocHealthTab";
 import { LearningTab } from "../components/LearningTab";
 import { NewsTab } from "../components/NewsTab";
 import { SystemTab } from "../components/tabs/SystemTab";
@@ -131,6 +134,7 @@ export default function Dashboard() {
             calendarWeekAhead={data.calendar.weekAhead}
             calendarHasToken={data.calendar.hasToken}
             timeTracker={data.timeTracker}
+            standupUrl="http://localhost:3850/ceremony/sprint-operations"
             onClearNotification={handleClearNotification}
             onRefetch={refetch}
           />
@@ -146,6 +150,16 @@ export default function Dashboard() {
             onPhaseChange={handlePhaseChange}
             onAddTask={handleAddTask}
             onRefetch={refetch}
+          />
+        }
+        notesContent={<NotesTab notes={data.notes?.items ?? []} onRefetch={refetch} />}
+        ceremoniesContent={
+          <CeremoniesTab embedUrl="http://localhost:3850/ceremony/sprint-operations" />
+        }
+        docsContent={
+          <DocHealthTab
+            lastRun={data.docHealth?.lastRun ?? null}
+            staleDocs={data.docHealth?.staleDocs ?? []}
           />
         }
         learningContent={

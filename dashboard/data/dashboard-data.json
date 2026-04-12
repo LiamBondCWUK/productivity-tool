@@ -1,697 +1,1154 @@
-{
-  "meta": {
-    "version": "1.0.0",
-    "lastUpdated": "2026-04-02T05:04:51.497Z",
-    "lastUpdatedBy": "populate-test-data"
-  },
-  "priorityInbox": {
-    "urgent": [
-      {
-        "id": "ukcas-789",
-        "title": "UKCAS-789 — SLA breach in 45 min: Client login failing after patch",
-        "type": "jira",
-        "source": "jira",
-        "link": "https://caseware.atlassian.net/browse/UKCAS-789",
-        "priority": "urgent",
-        "addedAt": "2026-04-02T03:04:51.499Z",
-        "dueAt": "2026-04-02T05:49:51.499Z",
-        "labels": ["L3-Escalation", "UKCAUD_BUGS_DEV/QA"],
-        "project": "UKCAS"
-      },
-      {
-        "id": "ukcaud-1024",
-        "title": "UKCAUD-1024 — PR review blocking sprint close (2 reviewers needed)",
-        "type": "jira",
-        "source": "jira",
-        "link": "https://caseware.atlassian.net/browse/UKCAUD-1024",
-        "priority": "urgent",
-        "addedAt": "2026-04-02T04:04:51.499Z",
-        "labels": ["UKCAUD_CONTENT/PEERREVIEW"],
-        "project": "UKCAUD"
-      }
-    ],
-    "aiSuggested": [
-      {
-        "id": "ai-jira-rule-1",
-        "title": "Deploy Jira Rule 1 — UKCAS→UKJPD routing (unblocked, ~10 min)",
-        "type": "ai-suggestion",
-        "source": "overnight",
-        "priority": "high",
-        "effort": "S",
-        "addedAt": "2026-04-01T23:04:51.499Z",
-        "reasoning": "Rule has been ready for 5 days. No dependencies. Directly unblocks 3 open UKJPD enhancements."
-      },
-      {
-        "id": "ai-ukjpd-triage",
-        "title": "UKJPD triage batch — 56 UPFR items, Product Area fields empty",
-        "type": "ai-suggestion",
-        "source": "overnight",
-        "priority": "medium",
-        "effort": "M",
-        "addedAt": "2026-04-01T23:04:51.499Z",
-        "reasoning": "38 items have been untriaged for >7 days. Triage window closes Thursday."
-      },
-      {
-        "id": "ai-ticket-enhance",
-        "title": "Enhance /ticket — merge create-epic.md logic into epic sub-command",
-        "type": "ai-suggestion",
-        "source": "overnight",
-        "priority": "medium",
-        "effort": "M",
-        "addedAt": "2026-04-01T23:04:51.499Z",
-        "reasoning": "Two overlapping code paths. Consolidation saves ~15min per epic creation."
-      }
-    ],
-    "today": [
-      {
-        "id": "ukcaud-989",
-        "title": "UKCAUD-989 — Review subtask completion for Lead Schedule story",
-        "type": "jira",
-        "source": "jira",
-        "link": "https://caseware.atlassian.net/browse/UKCAUD-989",
-        "priority": "today",
-        "addedAt": "2026-04-01T22:04:51.499Z",
-        "labels": ["UKCAUD_CONTENT/QA"],
-        "project": "UKCAUD"
-      },
-      {
-        "id": "teams-ukteam-post",
-        "title": "Post escalation update in #uk-team (UKCAS-789 status)",
-        "type": "teams",
-        "source": "manual",
-        "priority": "today",
-        "addedAt": "2026-04-02T04:04:51.499Z"
-      },
-      {
-        "id": "daily-ibp-notes",
-        "title": "Add IBP-notable items to daily log before EOD",
-        "type": "task",
-        "source": "manual",
-        "priority": "today",
-        "addedAt": "2026-04-01T21:04:51.499Z"
-      }
-    ],
-    "backlog": [
-      {
-        "id": "standing-ukjpd-review",
-        "title": "UKJPD review — 56 UPFR items need triage",
-        "type": "standing",
-        "source": "manual",
-        "link": null,
-        "addedAt": "2026-03-28T05:04:51.500Z"
-      },
-      {
-        "id": "standing-ukpfr-crossover",
-        "title": "UKPFR crossover — 82 ideas in crossover view",
-        "type": "standing",
-        "source": "manual",
-        "link": null,
-        "addedAt": "2026-03-28T05:04:51.500Z"
-      },
-      {
-        "id": "standing-teams-config",
-        "title": "Teams channel config — teams-channels.json has stubbed TODOs",
-        "type": "standing",
-        "source": "manual",
-        "link": null,
-        "addedAt": "2026-03-30T05:04:51.500Z"
-      },
-      {
-        "id": "standing-jira-rules",
-        "title": "Jira Rules 1 + 2 ready to deploy (UKCAS→UKJPD, UKCAUD→UKJPD)",
-        "type": "standing",
-        "source": "manual",
-        "link": null,
-        "addedAt": "2026-03-30T05:04:51.500Z"
-      },
-      {
-        "id": "ukjpd-55-review",
-        "title": "UKJPD-55 — Review Forecasting Enhancement request",
-        "type": "jira",
-        "source": "jira",
-        "link": "https://caseware.atlassian.net/browse/UKJPD-55",
-        "priority": "backlog",
-        "addedAt": "2026-04-01T05:04:51.500Z"
-      }
-    ]
-  },
-  "personalProjects": {
-    "lastRefreshed": "2026-04-02T05:04:51.497Z",
-    "projects": [
-      {
-        "id": "command-center",
-        "name": "Command Center",
-        "description": "Personal AI command center — dashboard, priority inbox, time tracker",
-        "phase": "Building",
-        "completionPercent": 95,
-        "dir": "C:/Users/liam.bond/Documents/Productivity Tool",
-        "gitDir": "C:/Users/liam.bond/Documents/Productivity Tool",
-        "devDocsDir": "dev/active/command-center",
-        "tags": ["ai", "dashboard", "productivity"],
-        "lastActivity": "2026-04-02T03:04:51.500Z",
-        "lastCommitSubject": "feat: complete command center phases 4-7 — CLI consolidation, EOD pipeline, focus blocks",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Add Replit deployment config (.replit + run command)",
-            "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
-          },
-          {
-            "priority": "MED",
-            "action": "Wire /eod command to write time-log.json entries",
-            "effort": "M",
-            "addedAt": "2026-04-01T23:04:51.500Z"
-          },
-          {
-            "priority": "LOW",
-            "action": "Add compact mode toggle to ProjectsBoard cards",
-            "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
-          }
-        ],
-        "state": "All 7 phases built. Dashboard live at localhost:3000. Replit deployment pending.",
-        "crossProjectDeps": [
-          "Productivity Tool CLI commands must stay in sync"
-        ],
-        "neglected": false
-      },
-      {
-        "id": "productivity-tool",
-        "name": "Productivity Tool",
-        "description": "Claude CLI commands for Jira, morning brief, EOD capture, IBP",
-        "phase": "Building",
-        "completionPercent": 82,
-        "dir": "C:/Users/liam.bond/Documents/Productivity Tool",
-        "gitDir": "C:/Users/liam.bond/Documents/Productivity Tool",
-        "devDocsDir": null,
-        "tags": ["cli", "jira", "productivity"],
-        "lastActivity": "2026-04-02T02:04:51.500Z",
-        "lastCommitSubject": "feat: add /ticket epic, /clone --preset, /focus, /log commands",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Deploy Jira Rule 1 (UKCAS→UKJPD routing) — unblocked, 10min",
-            "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
-          },
-          {
-            "priority": "MED",
-            "action": "Update /eod to pull Microsoft Graph calendar events",
-            "effort": "M",
-            "addedAt": "2026-04-01T23:04:51.500Z"
-          }
-        ],
-        "state": "Core commands complete. /focus command needs Graph token setup.",
-        "crossProjectDeps": [
-          "Command Center reads commands/*.md for suggestion analysis"
-        ],
-        "neglected": false
-      },
-      {
-        "id": "ai-breaking-news",
-        "name": "AI Breaking News Tool",
-        "description": "Daily AI news digest email — automated scraping and formatting",
-        "phase": "Done",
-        "completionPercent": 95,
-        "dir": "C:/Users/liam.bond/Documents/AI Breaking News Tool",
-        "gitDir": "C:/Users/liam.bond/Documents/AI Breaking News Tool",
-        "devDocsDir": null,
-        "tags": ["ai", "email", "automation"],
-        "lastActivity": "2026-03-30T05:04:51.500Z",
-        "lastCommitSubject": "fix: handle rate limiting in scraper",
-        "suggestions": [
-          {
-            "priority": "LOW",
-            "action": "Add Perplexity as backup source when primary APIs are down",
-            "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
-          }
-        ],
-        "state": "Running daily. Last issue sent successfully 3 days ago.",
-        "crossProjectDeps": [],
-        "neglected": false
-      },
-      {
-        "id": "ukjpd-workflows",
-        "name": "CW UKJPD Workflows",
-        "description": "Jira automation for UKJPD feature request delivery",
-        "phase": "Done",
-        "completionPercent": 90,
-        "dir": "C:/Users/liam.bond/Documents/CW UKJPD Workflows",
-        "gitDir": null,
-        "devDocsDir": null,
-        "tags": ["caseware", "jira", "automation"],
-        "lastActivity": "2026-03-28T05:04:51.500Z",
-        "lastCommitSubject": null,
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Deploy Jira Rule 2 (UKCAUD→UKJPD sync) — review before deploying",
-            "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
-          },
-          {
-            "priority": "MED",
-            "action": "Triage 56 UPFR items — Product Area/Line fields empty",
-            "effort": "L",
-            "addedAt": "2026-04-01T23:04:51.500Z"
-          }
-        ],
-        "state": "Rules 1 & 2 staged. Deployment blocked pending review.",
-        "crossProjectDeps": [
-          "Jira Rule 1 deployment unblocks /discover command"
-        ],
-        "neglected": true
-      },
-      {
-        "id": "lead-schedules",
-        "name": "Lead Schedules",
-        "description": "UKCAUD lead schedule ticket management and automation",
-        "phase": "Building",
-        "completionPercent": 30,
-        "dir": null,
-        "gitDir": null,
-        "devDocsDir": null,
-        "tags": ["caseware", "ukcaud"],
-        "lastActivity": "2026-04-01T05:04:51.500Z",
-        "lastCommitSubject": null,
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Create clone preset for lead schedule story variants",
-            "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
-          },
-          {
-            "priority": "HIGH",
-            "action": "UKCAUD-989 subtask completion — Content + QA subtasks pending",
-            "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
-          },
-          {
-            "priority": "MED",
-            "action": "Review UKCAUD-1012 acceptance criteria against spec",
-            "effort": "S",
-            "addedAt": "2026-04-01T23:04:51.500Z"
-          },
-          {
-            "priority": "LOW",
-            "action": "Update context.md with Q2 scope changes from last Monday",
-            "effort": "XS",
-            "addedAt": "2026-04-01T23:04:51.500Z"
-          }
-        ],
-        "state": "3 stories in progress. 2 subtasks blocked on QA resource.",
-        "crossProjectDeps": [
-          "Blocked on DIST admin access for Rule 3 deployment"
-        ],
-        "neglected": false
-      }
-    ]
-  },
-  "calendar": {
-    "lastRefreshed": "2026-04-02T05:04:51.497Z",
-    "source": "mock",
-    "events": [
-      {
-        "id": "cal-standup",
-        "title": "Sprint standup",
-        "start": "2026-04-02T08:30:00.000Z",
-        "end": "2026-04-02T08:45:00.000Z",
-        "isOnlineMeeting": true,
-        "isFocusBlock": false,
-        "organizer": "scrum-bot",
-        "status": "accepted",
-        "past": false
-      },
-      {
-        "id": "cal-focus-ukcaud",
-        "title": "[FOCUS] UKCAUD-989 — Lead Schedule review",
-        "start": "2026-04-02T09:00:00.000Z",
-        "end": "2026-04-02T10:30:00.000Z",
-        "isOnlineMeeting": false,
-        "isFocusBlock": true,
-        "organizer": "liam.bond",
-        "status": "accepted",
-        "past": false
-      },
-      {
-        "id": "cal-product-review",
-        "title": "Product review — Q2 roadmap alignment",
-        "start": "2026-04-02T13:00:00.000Z",
-        "end": "2026-04-02T14:00:00.000Z",
-        "isOnlineMeeting": true,
-        "isFocusBlock": false,
-        "organizer": "peter.smith",
-        "status": "accepted",
-        "past": false
-      },
-      {
-        "id": "cal-1on1",
-        "title": "1:1 with Kirsten",
-        "start": "2026-04-02T14:30:00.000Z",
-        "end": "2026-04-02T15:00:00.000Z",
-        "isOnlineMeeting": true,
-        "isFocusBlock": false,
-        "organizer": "kirsten.jones",
-        "status": "tentative",
-        "past": false
-      },
-      {
-        "id": "cal-tomorrow-release",
-        "title": "Release review — v2024.3",
-        "start": "2026-04-03T09:00:00.000Z",
-        "end": "2026-04-03T10:00:00.000Z",
-        "isOnlineMeeting": true,
-        "isFocusBlock": false,
-        "organizer": "andrew.blake",
-        "status": "accepted",
-        "past": false
-      },
-      {
-        "id": "cal-friday-retro",
-        "title": "Sprint retro",
-        "start": "2026-04-03T13:00:00.000Z",
-        "end": "2026-04-03T14:00:00.000Z",
-        "isOnlineMeeting": true,
-        "isFocusBlock": false,
-        "organizer": "scrum-bot",
-        "status": "accepted",
-        "past": false
-      }
-    ]
-  },
-  "timeTracker": {
-    "currentTask": null,
-    "currentTaskStart": null,
-    "todaySessions": [
-      {
-        "id": "sess-1",
-        "label": "UKCAUD-989",
-        "start": "2026-04-02T08:50:00.000Z",
-        "end": "2026-04-02T09:00:00.000Z",
-        "durationMs": 600000,
-        "note": "Review subtask status"
-      },
-      {
-        "id": "sess-2",
-        "label": "Sprint standup",
-        "start": "2026-04-02T08:30:00.000Z",
-        "end": "2026-04-02T08:45:00.000Z",
-        "durationMs": 900000,
-        "note": ""
-      },
-      {
-        "id": "sess-3",
-        "label": "UKJPD triage",
-        "start": "2026-04-02T07:30:00.000Z",
-        "end": "2026-04-02T08:15:00.000Z",
-        "durationMs": 2700000,
-        "note": "Reviewed 12 items, tagged 8"
-      }
-    ],
-    "weekSessions": [
-      {
-        "date": "2026-03-29",
-        "totalMs": 19200000
-      },
-      {
-        "date": "2026-03-30",
-        "totalMs": 24300000
-      },
-      {
-        "date": "2026-03-31",
-        "totalMs": 15000000
-      },
-      {
-        "date": "2026-04-01",
-        "totalMs": 25200000
-      },
-      {
-        "date": "2026-04-02",
-        "totalMs": 4200000
-      }
-    ]
-  },
-  "overnightAnalysis": {
-    "generatedAt": "2026-04-01T23:04:51.500Z",
-    "reportPath": "workspace/coordinator/overnight-report.md",
-    "summary": "5 projects analysed. 3 high-priority actions identified. Lead Schedules has 4 neglected tasks. Jira Rule 1 remains undeployed after 5 days.",
-    "projects": {
-      "command-center": {
-        "state": "All 7 phases built and committed. Dashboard live at localhost:3000.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Add Replit deployment config",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Wire /eod to time-log.json entries",
-            "effort": "M"
-          },
-          {
-            "priority": "LOW",
-            "action": "Add compact mode toggle to ProjectsBoard",
-            "effort": "S"
-          }
-        ],
-        "neglected": [],
-        "crossProjectDeps": ["Productivity Tool CLI commands must stay in sync"]
-      },
-      "productivity-tool": {
-        "state": "Core commands complete. /focus needs Graph token.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Deploy Jira Rule 1 — unblocked, 10min",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Update /eod to pull Graph calendar",
-            "effort": "M"
-          }
-        ],
-        "neglected": [],
-        "crossProjectDeps": []
-      },
-      "ukjpd-workflows": {
-        "state": "Rules staged. Deployment pending review.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Deploy Jira Rule 2 before Thursday sprint close",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Triage 56 UPFR items — Product Area fields empty",
-            "effort": "L"
-          }
-        ],
-        "neglected": ["teams-channels.json has been stubbed for 8 days"],
-        "crossProjectDeps": ["Rule 1 deployment unblocks /discover command"]
-      },
-      "lead-schedules": {
-        "state": "3 stories in progress. 2 subtasks blocked on QA.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Create clone preset for lead schedule variants",
-            "effort": "S"
-          },
-          {
-            "priority": "HIGH",
-            "action": "UKCAUD-989 subtask completion",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Review UKCAUD-1012 acceptance criteria",
-            "effort": "S"
-          },
-          {
-            "priority": "LOW",
-            "action": "Update context.md with Q2 scope changes",
-            "effort": "XS"
-          }
-        ],
-        "neglected": ["context.md not updated in 6 days"],
-        "crossProjectDeps": ["Blocked on DIST admin for Rule 3"]
-      },
-      "ai-breaking-news": {
-        "state": "Running daily. Last issue sent 3 days ago.",
-        "suggestions": [
-          {
-            "priority": "LOW",
-            "action": "Add Perplexity as backup source",
-            "effort": "S"
-          }
-        ],
-        "neglected": [],
-        "crossProjectDeps": []
-      }
-    }
-  },
-  "tasks": [
-    {
-      "id": "task-1",
-      "title": "Post escalation update for UKCAS-789 in #uk-team",
-      "status": "pending",
-      "priority": "urgent",
-      "source": "manual",
-      "addedAt": "2026-04-02T04:04:51.500Z",
-      "dueAt": "2026-04-02T05:34:51.500Z"
-    },
-    {
-      "id": "task-2",
-      "title": "Review UKCAUD-989 Content subtask — confirm QA assignment",
-      "status": "pending",
-      "priority": "today",
-      "source": "jira",
-      "addedAt": "2026-04-02T02:04:51.500Z"
-    },
-    {
-      "id": "task-3",
-      "title": "Triage 10 UKJPD items (batch from UPFR crossover)",
-      "status": "pending",
-      "priority": "today",
-      "source": "ai",
-      "addedAt": "2026-04-01T23:04:51.500Z"
-    },
-    {
-      "id": "task-4",
-      "title": "Run /eod after product review meeting",
-      "status": "pending",
-      "priority": "today",
-      "source": "recurring",
-      "addedAt": "2026-04-01T21:04:51.500Z",
-      "dueAt": "2026-04-02T16:00:00.000Z"
-    },
-    {
-      "id": "task-5",
-      "title": "Prepare sprint retro notes (retrospective items become tickets within 24h)",
-      "status": "pending",
-      "priority": "backlog",
-      "source": "manual",
-      "addedAt": "2026-04-01T05:04:51.500Z"
-    }
-  ],
-  "automationRules": {
-    "lastChecked": null,
-    "rules": [
-      {
-        "id": "retro-enrichment",
-        "name": "UKCAUD Retro Enrichment",
-        "description": "Auto-enriches retro stories via Rovo agent when UKCAUD_RETRO_ENRICH label is applied",
-        "project": "UKCAUD",
-        "phase": "1.1",
-        "status": "pending",
-        "jiraLink": "https://caseware.atlassian.net/jira/software/projects/UKCAUD/settings/automation",
-        "verificationCheck": "Create test retro story with UKCAUD_RETRO + UKCAUD_RETRO_TEAMS_FORM + UKCAUD_RETRO_ENRICH labels under UKCAUD-15913 → agent fires, label swaps to UKCAUD_RETRO_ENRICHED within 2 min"
-      },
-      {
-        "id": "enhancement-routing",
-        "name": "UKCAS → UKJPD Enhancement Routing",
-        "description": "Routes UKCAS bugs to UKJPD Ideas when enhancement-request label is added",
-        "project": "UKCAS",
-        "phase": "1.2",
-        "status": "pending",
-        "jiraLink": "https://caseware.atlassian.net/jira/software/projects/UKCAS/settings/automation",
-        "verificationCheck": "Apply enhancement-request to a test UKCAS bug → UKJPD Idea auto-created, linked, UKCAS resolved"
-      },
-      {
-        "id": "epic-done-sync",
-        "name": "UKCAUD Epic Done → UKJPD Status Sync",
-        "description": "Posts delivery-complete comment to linked UKJPD items when UKCAUD Epic transitions to Done",
-        "project": "UKCAUD",
-        "phase": "1.3",
-        "status": "pending",
-        "jiraLink": "https://caseware.atlassian.net/jira/software/projects/UKCAUD/settings/automation",
-        "verificationCheck": "Transition a test UKCAUD Epic to Done with UKJPD link → auto-comment on UKJPD item"
-      },
-      {
-        "id": "disable-resolution-recommender",
-        "name": "Disable Stale Resolution Recommender (019d1f89)",
-        "description": "Disable UKCAS rule 019d1f89 — merged into Triage Agent 1592e332 on 2026-03-26",
-        "project": "UKCAS",
-        "phase": "1.4",
-        "status": "pending",
-        "jiraLink": "https://caseware.atlassian.net/jira/software/projects/UKCAS/settings/automation",
-        "verificationCheck": "Rule 019d1f89 status = disabled in UKCAS automation list"
-      },
-      {
-        "id": "readiness-checker",
-        "name": "Enable Readiness Checker on UKCAUD",
-        "description": "Rovo ambient quality gate — flags thin tickets missing AC, estimate, or DoR criteria on creation",
-        "project": "UKCAUD",
-        "phase": "2.1",
-        "status": "pending",
-        "jiraLink": "https://caseware.atlassian.net/rovo",
-        "verificationCheck": "Create a thin UKCAUD ticket (no AC, no estimate) → Readiness Checker flags it"
-      },
-      {
-        "id": "theme-analyzer",
-        "name": "Enable Jira Theme Analyzer on UKJPD",
-        "description": "Run Theme Analyzer on migrated UKJPD backlog (45 UPFR ideas) to identify clustering opportunities",
-        "project": "UKJPD",
-        "phase": "2.2",
-        "status": "pending",
-        "jiraLink": "https://caseware.atlassian.net/rovo",
-        "verificationCheck": "Theme Analyzer returns clustered themes from migrated UKJPD backlog"
-      }
-    ]
-  },
-  "recommendedInstalls": {
-    "lastUpdated": null,
-    "items": [
-      {
-        "id": "opera-mcp-server-2026-04-06",
-        "name": "Opera MCP Server",
-        "category": "MCP",
-        "priority": "HIGH",
-        "description": "Browser control via MCP — org-policy-safe alternative to the blocked Chrome/Edge extension",
-        "signal": "Google News Apr 6 — XDA: 'Opera now has an MCP server that lets Claude control your browser'",
-        "installCommand": "Install Opera browser, then enable MCP server from Opera Settings > Advanced > MCP",
-        "integratesWith": ["Playwright MCP"],
-        "status": "PENDING",
-        "addedAt": "2026-04-06T06:30:00.000Z"
-      },
-      {
-        "id": "anthropic-harness-design-2026-04-06",
-        "name": "Anthropic Harness Design Guide",
-        "category": "Architecture",
-        "priority": "HIGH",
-        "description": "Official Anthropic guidance on structuring Claude Code harnesses for long-running tasks — validates or improves RALPH/hook setup",
-        "signal": "Google News Apr 6 — Anthropic blog: 'Harness design for long-running application development'",
-        "status": "PENDING",
-        "addedAt": "2026-04-06T06:30:00.000Z"
-      },
-      {
-        "id": "everything-claude-code-2026-04-06",
-        "name": "Everything Claude Code",
-        "category": "Plugin",
-        "priority": "HIGH",
-        "description": "118K-star config layer for AI coding agents — may replace or complement parts of your hook stack",
-        "signal": "Google News Apr 6 — Augment Code: 'Everything Claude Code hits 118K stars'",
-        "installCommand": "Search GitHub for 'everything-claude-code' and compare against current setup",
-        "status": "PENDING",
-        "addedAt": "2026-04-06T06:30:00.000Z"
-      },
-      {
-        "id": "claude-code-25-features-2026-04-06",
-        "name": "Claude Code 2.5 Features",
-        "category": "App",
-        "priority": "MED",
-        "description": "Version bump with web developer focus — review new features not yet in current setup",
-        "signal": "Google News Apr 6 — SitePoint: 'Claude Code 2.5: New Features for Web Developers'",
-        "installCommand": "npm update -g @anthropic-ai/claude-code",
-        "status": "PENDING",
-        "addedAt": "2026-04-06T06:30:00.000Z"
-      }
-    ]
-  }
+﻿{
+    "meta":  {
+                 "version":  "1.0.0",
+                 "lastUpdated":  "2026-04-12T17:26:17.3602209+01:00",
+                 "lastUpdatedBy":  "populate-test-data"
+             },
+    "priorityInbox":  {
+                          "urgent":  [
+                                         {
+                                             "id":  "ukcas-789",
+                                             "title":  "UKCAS-789 â€” SLA breach in 45 min: Client login failing after patch",
+                                             "type":  "jira",
+                                             "source":  "jira",
+                                             "link":  "https://caseware.atlassian.net/browse/UKCAS-789",
+                                             "priority":  "urgent",
+                                             "addedAt":  "2026-04-02T03:04:51.499Z",
+                                             "dueAt":  "2026-04-02T05:49:51.499Z",
+                                             "labels":  [
+                                                            "L3-Escalation",
+                                                            "UKCAUD_BUGS_DEV/QA"
+                                                        ],
+                                             "project":  "UKCAS"
+                                         },
+                                         {
+                                             "id":  "ukcaud-1024",
+                                             "title":  "UKCAUD-1024 â€” PR review blocking sprint close (2 reviewers needed)",
+                                             "type":  "jira",
+                                             "source":  "jira",
+                                             "link":  "https://caseware.atlassian.net/browse/UKCAUD-1024",
+                                             "priority":  "urgent",
+                                             "addedAt":  "2026-04-02T04:04:51.499Z",
+                                             "labels":  [
+                                                            "UKCAUD_CONTENT/PEERREVIEW"
+                                                        ],
+                                             "project":  "UKCAUD"
+                                         }
+                                     ],
+                          "aiSuggested":  [
+                                              {
+                                                  "id":  "ai-jira-rule-1",
+                                                  "title":  "Deploy Jira Rule 1 â€” UKCASâ†’UKJPD routing (unblocked, ~10 min)",
+                                                  "type":  "ai-suggestion",
+                                                  "source":  "overnight",
+                                                  "priority":  "high",
+                                                  "effort":  "S",
+                                                  "addedAt":  "2026-04-01T23:04:51.499Z",
+                                                  "reasoning":  "Rule has been ready for 5 days. No dependencies. Directly unblocks 3 open UKJPD enhancements."
+                                              },
+                                              {
+                                                  "id":  "ai-ukjpd-triage",
+                                                  "title":  "UKJPD triage batch â€” 56 UPFR items, Product Area fields empty",
+                                                  "type":  "ai-suggestion",
+                                                  "source":  "overnight",
+                                                  "priority":  "medium",
+                                                  "effort":  "M",
+                                                  "addedAt":  "2026-04-01T23:04:51.499Z",
+                                                  "reasoning":  "38 items have been untriaged for \u003e7 days. Triage window closes Thursday."
+                                              },
+                                              {
+                                                  "id":  "ai-ticket-enhance",
+                                                  "title":  "Enhance /ticket â€” merge create-epic.md logic into epic sub-command",
+                                                  "type":  "ai-suggestion",
+                                                  "source":  "overnight",
+                                                  "priority":  "medium",
+                                                  "effort":  "M",
+                                                  "addedAt":  "2026-04-01T23:04:51.499Z",
+                                                  "reasoning":  "Two overlapping code paths. Consolidation saves ~15min per epic creation."
+                                              }
+                                          ],
+                          "today":  [
+                                        {
+                                            "id":  "ukcaud-989",
+                                            "title":  "UKCAUD-989 â€” Review subtask completion for Lead Schedule story",
+                                            "type":  "jira",
+                                            "source":  "jira",
+                                            "link":  "https://caseware.atlassian.net/browse/UKCAUD-989",
+                                            "priority":  "today",
+                                            "addedAt":  "2026-04-01T22:04:51.499Z",
+                                            "labels":  [
+                                                           "UKCAUD_CONTENT/QA"
+                                                       ],
+                                            "project":  "UKCAUD"
+                                        },
+                                        {
+                                            "id":  "teams-ukteam-post",
+                                            "title":  "Post escalation update in #uk-team (UKCAS-789 status)",
+                                            "type":  "teams",
+                                            "source":  "manual",
+                                            "priority":  "today",
+                                            "addedAt":  "2026-04-02T04:04:51.499Z"
+                                        },
+                                        {
+                                            "id":  "daily-ibp-notes",
+                                            "title":  "Add IBP-notable items to daily log before EOD",
+                                            "type":  "task",
+                                            "source":  "manual",
+                                            "priority":  "today",
+                                            "addedAt":  "2026-04-01T21:04:51.499Z"
+                                        }
+                                    ],
+                          "backlog":  [
+                                          {
+                                              "id":  "standing-ukjpd-review",
+                                              "title":  "UKJPD review â€” 56 UPFR items need triage",
+                                              "type":  "standing",
+                                              "source":  "manual",
+                                              "link":  null,
+                                              "addedAt":  "2026-03-28T05:04:51.500Z"
+                                          },
+                                          {
+                                              "id":  "standing-ukpfr-crossover",
+                                              "title":  "UKPFR crossover â€” 82 ideas in crossover view",
+                                              "type":  "standing",
+                                              "source":  "manual",
+                                              "link":  null,
+                                              "addedAt":  "2026-03-28T05:04:51.500Z"
+                                          },
+                                          {
+                                              "id":  "standing-teams-config",
+                                              "title":  "Teams channel config â€” teams-channels.json has stubbed TODOs",
+                                              "type":  "standing",
+                                              "source":  "manual",
+                                              "link":  null,
+                                              "addedAt":  "2026-03-30T05:04:51.500Z"
+                                          },
+                                          {
+                                              "id":  "standing-jira-rules",
+                                              "title":  "Jira Rules 1 + 2 ready to deploy (UKCASâ†’UKJPD, UKCAUDâ†’UKJPD)",
+                                              "type":  "standing",
+                                              "source":  "manual",
+                                              "link":  null,
+                                              "addedAt":  "2026-03-30T05:04:51.500Z"
+                                          },
+                                          {
+                                              "id":  "ukjpd-55-review",
+                                              "title":  "UKJPD-55 â€” Review Forecasting Enhancement request",
+                                              "type":  "jira",
+                                              "source":  "jira",
+                                              "link":  "https://caseware.atlassian.net/browse/UKJPD-55",
+                                              "priority":  "backlog",
+                                              "addedAt":  "2026-04-01T05:04:51.500Z"
+                                          }
+                                      ]
+                      },
+    "personalProjects":  {
+                             "lastRefreshed":  "2026-04-02T05:04:51.497Z",
+                             "projects":  [
+                                              {
+                                                  "id":  "command-center",
+                                                  "name":  "Command Center",
+                                                  "description":  "Personal AI command center â€” dashboard, priority inbox, time tracker",
+                                                  "phase":  "Building",
+                                                  "completionPercent":  95,
+                                                  "dir":  "C:/Users/liam.bond/Documents/Productivity Tool",
+                                                  "gitDir":  "C:/Users/liam.bond/Documents/Productivity Tool",
+                                                  "devDocsDir":  "dev/active/command-center",
+                                                  "tags":  [
+                                                               "ai",
+                                                               "dashboard",
+                                                               "productivity"
+                                                           ],
+                                                  "lastActivity":  "2026-04-02T03:04:51.500Z",
+                                                  "lastCommitSubject":  "feat: complete command center phases 4-7 â€” CLI consolidation, EOD pipeline, focus blocks",
+                                                  "suggestions":  [
+                                                                      {
+                                                                          "priority":  "HIGH",
+                                                                          "action":  "Add Replit deployment config (.replit + run command)",
+                                                                          "effort":  "S",
+                                                                          "addedAt":  "2026-04-01T23:04:51.500Z"
+                                                                      },
+                                                                      {
+                                                                          "priority":  "MED",
+                                                                          "action":  "Wire /eod command to write time-log.json entries",
+                                                                          "effort":  "M",
+                                                                          "addedAt":  "2026-04-01T23:04:51.500Z"
+                                                                      },
+                                                                      {
+                                                                          "priority":  "LOW",
+                                                                          "action":  "Add compact mode toggle to ProjectsBoard cards",
+                                                                          "effort":  "S",
+                                                                          "addedAt":  "2026-04-01T23:04:51.500Z"
+                                                                      }
+                                                                  ],
+                                                  "state":  "All 7 phases built. Dashboard live at localhost:3000. Replit deployment pending.",
+                                                  "crossProjectDeps":  [
+                                                                           "Productivity Tool CLI commands must stay in sync"
+                                                                       ],
+                                                  "neglected":  false
+                                              },
+                                              {
+                                                  "id":  "productivity-tool",
+                                                  "name":  "Productivity Tool",
+                                                  "description":  "Claude CLI commands for Jira, morning brief, EOD capture, IBP",
+                                                  "phase":  "Building",
+                                                  "completionPercent":  82,
+                                                  "dir":  "C:/Users/liam.bond/Documents/Productivity Tool",
+                                                  "gitDir":  "C:/Users/liam.bond/Documents/Productivity Tool",
+                                                  "devDocsDir":  null,
+                                                  "tags":  [
+                                                               "cli",
+                                                               "jira",
+                                                               "productivity"
+                                                           ],
+                                                  "lastActivity":  "2026-04-02T02:04:51.500Z",
+                                                  "lastCommitSubject":  "feat: add /ticket epic, /clone --preset, /focus, /log commands",
+                                                  "suggestions":  [
+                                                                      {
+                                                                          "priority":  "HIGH",
+                                                                          "action":  "Deploy Jira Rule 1 (UKCASâ†’UKJPD routing) â€” unblocked, 10min",
+                                                                          "effort":  "S",
+                                                                          "addedAt":  "2026-04-01T23:04:51.500Z"
+                                                                      },
+                                                                      {
+                                                                          "priority":  "MED",
+                                                                          "action":  "Update /eod to pull Microsoft Graph calendar events",
+                                                                          "effort":  "M",
+                                                                          "addedAt":  "2026-04-01T23:04:51.500Z"
+                                                                      }
+                                                                  ],
+                                                  "state":  "Core commands complete. /focus command needs Graph token setup.",
+                                                  "crossProjectDeps":  [
+                                                                           "Command Center reads commands/*.md for suggestion analysis"
+                                                                       ],
+                                                  "neglected":  false
+                                              },
+                                              {
+                                                  "id":  "ai-breaking-news",
+                                                  "name":  "AI Breaking News Tool",
+                                                  "description":  "Daily AI news digest email â€” automated scraping and formatting",
+                                                  "phase":  "Done",
+                                                  "completionPercent":  95,
+                                                  "dir":  "C:/Users/liam.bond/Documents/AI Breaking News Tool",
+                                                  "gitDir":  "C:/Users/liam.bond/Documents/AI Breaking News Tool",
+                                                  "devDocsDir":  null,
+                                                  "tags":  [
+                                                               "ai",
+                                                               "email",
+                                                               "automation"
+                                                           ],
+                                                  "lastActivity":  "2026-03-30T05:04:51.500Z",
+                                                  "lastCommitSubject":  "fix: handle rate limiting in scraper",
+                                                  "suggestions":  [
+                                                                      {
+                                                                          "priority":  "LOW",
+                                                                          "action":  "Add Perplexity as backup source when primary APIs are down",
+                                                                          "effort":  "S",
+                                                                          "addedAt":  "2026-04-01T23:04:51.500Z"
+                                                                      }
+                                                                  ],
+                                                  "state":  "Running daily. Last issue sent successfully 3 days ago.",
+                                                  "crossProjectDeps":  [
+
+                                                                       ],
+                                                  "neglected":  false
+                                              },
+                                              {
+                                                  "id":  "ukjpd-workflows",
+                                                  "name":  "CW UKJPD Workflows",
+                                                  "description":  "Jira automation for UKJPD feature request delivery",
+                                                  "phase":  "Done",
+                                                  "completionPercent":  90,
+                                                  "dir":  "C:/Users/liam.bond/Documents/CW UKJPD Workflows",
+                                                  "gitDir":  null,
+                                                  "devDocsDir":  null,
+                                                  "tags":  [
+                                                               "caseware",
+                                                               "jira",
+                                                               "automation"
+                                                           ],
+                                                  "lastActivity":  "2026-03-28T05:04:51.500Z",
+                                                  "lastCommitSubject":  null,
+                                                  "suggestions":  [
+                                                                      {
+                                                                          "priority":  "HIGH",
+                                                                          "action":  "Deploy Jira Rule 2 (UKCAUDâ†’UKJPD sync) â€” review before deploying",
+                                                                          "effort":  "S",
+                                                                          "addedAt":  "2026-04-01T23:04:51.500Z"
+                                                                      },
+                                                                      {
+                                                                          "priority":  "MED",
+                                                                          "action":  "Triage 56 UPFR items â€” Product Area/Line fields empty",
+                                                                          "effort":  "L",
+                                                                          "addedAt":  "2026-04-01T23:04:51.500Z"
+                                                                      }
+                                                                  ],
+                                                  "state":  "Rules 1 \u0026 2 staged. Deployment blocked pending review.",
+                                                  "crossProjectDeps":  [
+                                                                           "Jira Rule 1 deployment unblocks /discover command"
+                                                                       ],
+                                                  "neglected":  true
+                                              },
+                                              {
+                                                  "id":  "lead-schedules",
+                                                  "name":  "Lead Schedules",
+                                                  "description":  "UKCAUD lead schedule ticket management and automation",
+                                                  "phase":  "Building",
+                                                  "completionPercent":  30,
+                                                  "dir":  null,
+                                                  "gitDir":  null,
+                                                  "devDocsDir":  null,
+                                                  "tags":  [
+                                                               "caseware",
+                                                               "ukcaud"
+                                                           ],
+                                                  "lastActivity":  "2026-04-01T05:04:51.500Z",
+                                                  "lastCommitSubject":  null,
+                                                  "suggestions":  [
+                                                                      {
+                                                                          "priority":  "HIGH",
+                                                                          "action":  "Create clone preset for lead schedule story variants",
+                                                                          "effort":  "S",
+                                                                          "addedAt":  "2026-04-01T23:04:51.500Z"
+                                                                      },
+                                                                      {
+                                                                          "priority":  "HIGH",
+                                                                          "action":  "UKCAUD-989 subtask completion â€” Content + QA subtasks pending",
+                                                                          "effort":  "S",
+                                                                          "addedAt":  "2026-04-01T23:04:51.500Z"
+                                                                      },
+                                                                      {
+                                                                          "priority":  "MED",
+                                                                          "action":  "Review UKCAUD-1012 acceptance criteria against spec",
+                                                                          "effort":  "S",
+                                                                          "addedAt":  "2026-04-01T23:04:51.500Z"
+                                                                      },
+                                                                      {
+                                                                          "priority":  "LOW",
+                                                                          "action":  "Update context.md with Q2 scope changes from last Monday",
+                                                                          "effort":  "XS",
+                                                                          "addedAt":  "2026-04-01T23:04:51.500Z"
+                                                                      }
+                                                                  ],
+                                                  "state":  "3 stories in progress. 2 subtasks blocked on QA resource.",
+                                                  "crossProjectDeps":  [
+                                                                           "Blocked on DIST admin access for Rule 3 deployment"
+                                                                       ],
+                                                  "neglected":  false
+                                              }
+                                          ]
+                         },
+    "calendar":  {
+                     "lastRefreshed":  "2026-04-02T05:04:51.497Z",
+                     "source":  "mock",
+                     "events":  [
+                                    {
+                                        "id":  "cal-standup",
+                                        "title":  "Sprint standup",
+                                        "start":  "2026-04-02T08:30:00.000Z",
+                                        "end":  "2026-04-02T08:45:00.000Z",
+                                        "isOnlineMeeting":  true,
+                                        "isFocusBlock":  false,
+                                        "organizer":  "scrum-bot",
+                                        "status":  "accepted",
+                                        "past":  false
+                                    },
+                                    {
+                                        "id":  "cal-focus-ukcaud",
+                                        "title":  "[FOCUS] UKCAUD-989 â€” Lead Schedule review",
+                                        "start":  "2026-04-02T09:00:00.000Z",
+                                        "end":  "2026-04-02T10:30:00.000Z",
+                                        "isOnlineMeeting":  false,
+                                        "isFocusBlock":  true,
+                                        "organizer":  "liam.bond",
+                                        "status":  "accepted",
+                                        "past":  false
+                                    },
+                                    {
+                                        "id":  "cal-product-review",
+                                        "title":  "Product review â€” Q2 roadmap alignment",
+                                        "start":  "2026-04-02T13:00:00.000Z",
+                                        "end":  "2026-04-02T14:00:00.000Z",
+                                        "isOnlineMeeting":  true,
+                                        "isFocusBlock":  false,
+                                        "organizer":  "peter.smith",
+                                        "status":  "accepted",
+                                        "past":  false
+                                    },
+                                    {
+                                        "id":  "cal-1on1",
+                                        "title":  "1:1 with Kirsten",
+                                        "start":  "2026-04-02T14:30:00.000Z",
+                                        "end":  "2026-04-02T15:00:00.000Z",
+                                        "isOnlineMeeting":  true,
+                                        "isFocusBlock":  false,
+                                        "organizer":  "kirsten.jones",
+                                        "status":  "tentative",
+                                        "past":  false
+                                    },
+                                    {
+                                        "id":  "cal-tomorrow-release",
+                                        "title":  "Release review â€” v2024.3",
+                                        "start":  "2026-04-03T09:00:00.000Z",
+                                        "end":  "2026-04-03T10:00:00.000Z",
+                                        "isOnlineMeeting":  true,
+                                        "isFocusBlock":  false,
+                                        "organizer":  "andrew.blake",
+                                        "status":  "accepted",
+                                        "past":  false
+                                    },
+                                    {
+                                        "id":  "cal-friday-retro",
+                                        "title":  "Sprint retro",
+                                        "start":  "2026-04-03T13:00:00.000Z",
+                                        "end":  "2026-04-03T14:00:00.000Z",
+                                        "isOnlineMeeting":  true,
+                                        "isFocusBlock":  false,
+                                        "organizer":  "scrum-bot",
+                                        "status":  "accepted",
+                                        "past":  false
+                                    }
+                                ]
+                 },
+    "timeTracker":  {
+                        "currentTask":  null,
+                        "currentTaskStart":  null,
+                        "todaySessions":  [
+                                              {
+                                                  "id":  "sess-1",
+                                                  "label":  "UKCAUD-989",
+                                                  "start":  "2026-04-02T08:50:00.000Z",
+                                                  "end":  "2026-04-02T09:00:00.000Z",
+                                                  "durationMs":  600000,
+                                                  "note":  "Review subtask status"
+                                              },
+                                              {
+                                                  "id":  "sess-2",
+                                                  "label":  "Sprint standup",
+                                                  "start":  "2026-04-02T08:30:00.000Z",
+                                                  "end":  "2026-04-02T08:45:00.000Z",
+                                                  "durationMs":  900000,
+                                                  "note":  ""
+                                              },
+                                              {
+                                                  "id":  "sess-3",
+                                                  "label":  "UKJPD triage",
+                                                  "start":  "2026-04-02T07:30:00.000Z",
+                                                  "end":  "2026-04-02T08:15:00.000Z",
+                                                  "durationMs":  2700000,
+                                                  "note":  "Reviewed 12 items, tagged 8"
+                                              }
+                                          ],
+                        "weekSessions":  [
+                                             {
+                                                 "date":  "2026-03-29",
+                                                 "totalMs":  19200000
+                                             },
+                                             {
+                                                 "date":  "2026-03-30",
+                                                 "totalMs":  24300000
+                                             },
+                                             {
+                                                 "date":  "2026-03-31",
+                                                 "totalMs":  15000000
+                                             },
+                                             {
+                                                 "date":  "2026-04-01",
+                                                 "totalMs":  25200000
+                                             },
+                                             {
+                                                 "date":  "2026-04-02",
+                                                 "totalMs":  4200000
+                                             }
+                                         ]
+                    },
+    "overnightAnalysis":  {
+                              "generatedAt":  "2026-04-01T23:04:51.500Z",
+                              "reportPath":  "workspace/coordinator/overnight-report.md",
+                              "summary":  "5 projects analysed. 3 high-priority actions identified. Lead Schedules has 4 neglected tasks. Jira Rule 1 remains undeployed after 5 days.",
+                              "projects":  {
+                                               "command-center":  {
+                                                                      "state":  "All 7 phases built and committed. Dashboard live at localhost:3000.",
+                                                                      "suggestions":  [
+                                                                                          {
+                                                                                              "priority":  "HIGH",
+                                                                                              "action":  "Add Replit deployment config",
+                                                                                              "effort":  "S"
+                                                                                          },
+                                                                                          {
+                                                                                              "priority":  "MED",
+                                                                                              "action":  "Wire /eod to time-log.json entries",
+                                                                                              "effort":  "M"
+                                                                                          },
+                                                                                          {
+                                                                                              "priority":  "LOW",
+                                                                                              "action":  "Add compact mode toggle to ProjectsBoard",
+                                                                                              "effort":  "S"
+                                                                                          }
+                                                                                      ],
+                                                                      "neglected":  [
+
+                                                                                    ],
+                                                                      "crossProjectDeps":  [
+                                                                                               "Productivity Tool CLI commands must stay in sync"
+                                                                                           ]
+                                                                  },
+                                               "productivity-tool":  {
+                                                                         "state":  "Core commands complete. /focus needs Graph token.",
+                                                                         "suggestions":  [
+                                                                                             {
+                                                                                                 "priority":  "HIGH",
+                                                                                                 "action":  "Deploy Jira Rule 1 â€” unblocked, 10min",
+                                                                                                 "effort":  "S"
+                                                                                             },
+                                                                                             {
+                                                                                                 "priority":  "MED",
+                                                                                                 "action":  "Update /eod to pull Graph calendar",
+                                                                                                 "effort":  "M"
+                                                                                             }
+                                                                                         ],
+                                                                         "neglected":  [
+
+                                                                                       ],
+                                                                         "crossProjectDeps":  [
+
+                                                                                              ]
+                                                                     },
+                                               "ukjpd-workflows":  {
+                                                                       "state":  "Rules staged. Deployment pending review.",
+                                                                       "suggestions":  [
+                                                                                           {
+                                                                                               "priority":  "HIGH",
+                                                                                               "action":  "Deploy Jira Rule 2 before Thursday sprint close",
+                                                                                               "effort":  "S"
+                                                                                           },
+                                                                                           {
+                                                                                               "priority":  "MED",
+                                                                                               "action":  "Triage 56 UPFR items â€” Product Area fields empty",
+                                                                                               "effort":  "L"
+                                                                                           }
+                                                                                       ],
+                                                                       "neglected":  [
+                                                                                         "teams-channels.json has been stubbed for 8 days"
+                                                                                     ],
+                                                                       "crossProjectDeps":  [
+                                                                                                "Rule 1 deployment unblocks /discover command"
+                                                                                            ]
+                                                                   },
+                                               "lead-schedules":  {
+                                                                      "state":  "3 stories in progress. 2 subtasks blocked on QA.",
+                                                                      "suggestions":  [
+                                                                                          {
+                                                                                              "priority":  "HIGH",
+                                                                                              "action":  "Create clone preset for lead schedule variants",
+                                                                                              "effort":  "S"
+                                                                                          },
+                                                                                          {
+                                                                                              "priority":  "HIGH",
+                                                                                              "action":  "UKCAUD-989 subtask completion",
+                                                                                              "effort":  "S"
+                                                                                          },
+                                                                                          {
+                                                                                              "priority":  "MED",
+                                                                                              "action":  "Review UKCAUD-1012 acceptance criteria",
+                                                                                              "effort":  "S"
+                                                                                          },
+                                                                                          {
+                                                                                              "priority":  "LOW",
+                                                                                              "action":  "Update context.md with Q2 scope changes",
+                                                                                              "effort":  "XS"
+                                                                                          }
+                                                                                      ],
+                                                                      "neglected":  [
+                                                                                        "context.md not updated in 6 days"
+                                                                                    ],
+                                                                      "crossProjectDeps":  [
+                                                                                               "Blocked on DIST admin for Rule 3"
+                                                                                           ]
+                                                                  },
+                                               "ai-breaking-news":  {
+                                                                        "state":  "Running daily. Last issue sent 3 days ago.",
+                                                                        "suggestions":  [
+                                                                                            {
+                                                                                                "priority":  "LOW",
+                                                                                                "action":  "Add Perplexity as backup source",
+                                                                                                "effort":  "S"
+                                                                                            }
+                                                                                        ],
+                                                                        "neglected":  [
+
+                                                                                      ],
+                                                                        "crossProjectDeps":  [
+
+                                                                                             ]
+                                                                    }
+                                           }
+                          },
+    "tasks":  [
+                  {
+                      "id":  "task-1",
+                      "title":  "Post escalation update for UKCAS-789 in #uk-team",
+                      "status":  "pending",
+                      "priority":  "urgent",
+                      "source":  "manual",
+                      "addedAt":  "2026-04-02T04:04:51.500Z",
+                      "dueAt":  "2026-04-02T05:34:51.500Z"
+                  },
+                  {
+                      "id":  "task-2",
+                      "title":  "Review UKCAUD-989 Content subtask â€” confirm QA assignment",
+                      "status":  "pending",
+                      "priority":  "today",
+                      "source":  "jira",
+                      "addedAt":  "2026-04-02T02:04:51.500Z"
+                  },
+                  {
+                      "id":  "task-3",
+                      "title":  "Triage 10 UKJPD items (batch from UPFR crossover)",
+                      "status":  "pending",
+                      "priority":  "today",
+                      "source":  "ai",
+                      "addedAt":  "2026-04-01T23:04:51.500Z"
+                  },
+                  {
+                      "id":  "task-4",
+                      "title":  "Run /eod after product review meeting",
+                      "status":  "pending",
+                      "priority":  "today",
+                      "source":  "recurring",
+                      "addedAt":  "2026-04-01T21:04:51.500Z",
+                      "dueAt":  "2026-04-02T16:00:00.000Z"
+                  },
+                  {
+                      "id":  "task-5",
+                      "title":  "Prepare sprint retro notes (retrospective items become tickets within 24h)",
+                      "status":  "pending",
+                      "priority":  "backlog",
+                      "source":  "manual",
+                      "addedAt":  "2026-04-01T05:04:51.500Z"
+                  }
+              ],
+    "automationRules":  {
+                            "lastChecked":  null,
+                            "rules":  [
+                                          {
+                                              "id":  "retro-enrichment",
+                                              "name":  "UKCAUD Retro Enrichment",
+                                              "description":  "Auto-enriches retro stories via Rovo agent when UKCAUD_RETRO_ENRICH label is applied",
+                                              "project":  "UKCAUD",
+                                              "phase":  "1.1",
+                                              "status":  "pending",
+                                              "jiraLink":  "https://caseware.atlassian.net/jira/software/projects/UKCAUD/settings/automation",
+                                              "verificationCheck":  "Create test retro story with UKCAUD_RETRO + UKCAUD_RETRO_TEAMS_FORM + UKCAUD_RETRO_ENRICH labels under UKCAUD-15913 â†’ agent fires, label swaps to UKCAUD_RETRO_ENRICHED within 2 min"
+                                          },
+                                          {
+                                              "id":  "enhancement-routing",
+                                              "name":  "UKCAS â†’ UKJPD Enhancement Routing",
+                                              "description":  "Routes UKCAS bugs to UKJPD Ideas when enhancement-request label is added",
+                                              "project":  "UKCAS",
+                                              "phase":  "1.2",
+                                              "status":  "pending",
+                                              "jiraLink":  "https://caseware.atlassian.net/jira/software/projects/UKCAS/settings/automation",
+                                              "verificationCheck":  "Apply enhancement-request to a test UKCAS bug â†’ UKJPD Idea auto-created, linked, UKCAS resolved"
+                                          },
+                                          {
+                                              "id":  "epic-done-sync",
+                                              "name":  "UKCAUD Epic Done â†’ UKJPD Status Sync",
+                                              "description":  "Posts delivery-complete comment to linked UKJPD items when UKCAUD Epic transitions to Done",
+                                              "project":  "UKCAUD",
+                                              "phase":  "1.3",
+                                              "status":  "pending",
+                                              "jiraLink":  "https://caseware.atlassian.net/jira/software/projects/UKCAUD/settings/automation",
+                                              "verificationCheck":  "Transition a test UKCAUD Epic to Done with UKJPD link â†’ auto-comment on UKJPD item"
+                                          },
+                                          {
+                                              "id":  "disable-resolution-recommender",
+                                              "name":  "Disable Stale Resolution Recommender (019d1f89)",
+                                              "description":  "Disable UKCAS rule 019d1f89 â€” merged into Triage Agent 1592e332 on 2026-03-26",
+                                              "project":  "UKCAS",
+                                              "phase":  "1.4",
+                                              "status":  "pending",
+                                              "jiraLink":  "https://caseware.atlassian.net/jira/software/projects/UKCAS/settings/automation",
+                                              "verificationCheck":  "Rule 019d1f89 status = disabled in UKCAS automation list"
+                                          },
+                                          {
+                                              "id":  "readiness-checker",
+                                              "name":  "Enable Readiness Checker on UKCAUD",
+                                              "description":  "Rovo ambient quality gate â€” flags thin tickets missing AC, estimate, or DoR criteria on creation",
+                                              "project":  "UKCAUD",
+                                              "phase":  "2.1",
+                                              "status":  "pending",
+                                              "jiraLink":  "https://caseware.atlassian.net/rovo",
+                                              "verificationCheck":  "Create a thin UKCAUD ticket (no AC, no estimate) â†’ Readiness Checker flags it"
+                                          },
+                                          {
+                                              "id":  "theme-analyzer",
+                                              "name":  "Enable Jira Theme Analyzer on UKJPD",
+                                              "description":  "Run Theme Analyzer on migrated UKJPD backlog (45 UPFR ideas) to identify clustering opportunities",
+                                              "project":  "UKJPD",
+                                              "phase":  "2.2",
+                                              "status":  "pending",
+                                              "jiraLink":  "https://caseware.atlassian.net/rovo",
+                                              "verificationCheck":  "Theme Analyzer returns clustered themes from migrated UKJPD backlog"
+                                          }
+                                      ]
+                        },
+    "recommendedInstalls":  {
+                                "lastUpdated":  null,
+                                "items":  [
+                                              {
+                                                  "id":  "opera-mcp-server-2026-04-06",
+                                                  "name":  "Opera MCP Server",
+                                                  "category":  "MCP",
+                                                  "priority":  "HIGH",
+                                                  "description":  "Browser control via MCP â€” org-policy-safe alternative to the blocked Chrome/Edge extension",
+                                                  "signal":  "Google News Apr 6 â€” XDA: \u0027Opera now has an MCP server that lets Claude control your browser\u0027",
+                                                  "installCommand":  "Install Opera browser, then enable MCP server from Opera Settings \u003e Advanced \u003e MCP",
+                                                  "integratesWith":  [
+                                                                         "Playwright MCP"
+                                                                     ],
+                                                  "status":  "PENDING",
+                                                  "addedAt":  "2026-04-06T06:30:00.000Z"
+                                              },
+                                              {
+                                                  "id":  "anthropic-harness-design-2026-04-06",
+                                                  "name":  "Anthropic Harness Design Guide",
+                                                  "category":  "Architecture",
+                                                  "priority":  "HIGH",
+                                                  "description":  "Official Anthropic guidance on structuring Claude Code harnesses for long-running tasks â€” validates or improves RALPH/hook setup",
+                                                  "signal":  "Google News Apr 6 â€” Anthropic blog: \u0027Harness design for long-running application development\u0027",
+                                                  "status":  "PENDING",
+                                                  "addedAt":  "2026-04-06T06:30:00.000Z"
+                                              },
+                                              {
+                                                  "id":  "everything-claude-code-2026-04-06",
+                                                  "name":  "Everything Claude Code",
+                                                  "category":  "Plugin",
+                                                  "priority":  "HIGH",
+                                                  "description":  "118K-star config layer for AI coding agents â€” may replace or complement parts of your hook stack",
+                                                  "signal":  "Google News Apr 6 â€” Augment Code: \u0027Everything Claude Code hits 118K stars\u0027",
+                                                  "installCommand":  "Search GitHub for \u0027everything-claude-code\u0027 and compare against current setup",
+                                                  "status":  "PENDING",
+                                                  "addedAt":  "2026-04-06T06:30:00.000Z"
+                                              },
+                                              {
+                                                  "id":  "claude-code-25-features-2026-04-06",
+                                                  "name":  "Claude Code 2.5 Features",
+                                                  "category":  "App",
+                                                  "priority":  "MED",
+                                                  "description":  "Version bump with web developer focus â€” review new features not yet in current setup",
+                                                  "signal":  "Google News Apr 6 â€” SitePoint: \u0027Claude Code 2.5: New Features for Web Developers\u0027",
+                                                  "installCommand":  "npm update -g @anthropic-ai/claude-code",
+                                                  "status":  "PENDING",
+                                                  "addedAt":  "2026-04-06T06:30:00.000Z"
+                                              }
+                                          ]
+                            },
+    "notes":  {
+                  "items":  [
+
+                            ],
+                  "lastUpdated":  null
+              },
+    "docHealth":  {
+                      "lastRun":  "2026-04-12T17:26:17.1504273+01:00",
+                      "staleDocs":  [
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xkb3RmaWxlc1xjbGF1ZGVcc2tpbGxzXHBtLXNraWxsc1xSRUFETUUubWQ",
+                                            "project":  "dotfiles\\claude\\skills\\pm-skills\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\dotfiles\\claude\\skills\\pm-skills\\README.md",
+                                            "reason":  "No documentation update in 32 days",
+                                            "daysSinceUpdate":  32,
+                                            "lastModified":  "2026-03-11",
+                                            "priority":  "MED"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1wuY2xhdWRlXHBhcnJ5XFJFQURNRS5tZA",
+                                            "project":  "Obsidian Vault\\Projects\\.claude\\parry\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\.claude\\parry\\README.md",
+                                            "reason":  "No documentation update in 32 days",
+                                            "daysSinceUpdate":  32,
+                                            "lastModified":  "2026-03-11",
+                                            "priority":  "MED"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1wuY2xhdWRlXGRpcHB5XFJFQURNRS5tZA",
+                                            "project":  "Obsidian Vault\\Projects\\.claude\\dippy\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\.claude\\dippy\\README.md",
+                                            "reason":  "No documentation update in 32 days",
+                                            "daysSinceUpdate":  32,
+                                            "lastModified":  "2026-03-11",
+                                            "priority":  "MED"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xDVyBUZW1wbGF0ZSBDb21wYXJpc29uIFRvb2xcY3ctYXBpLXNjcmFwZXJcUkVBRE1FLm1k",
+                                            "project":  "CW Template Comparison Tool\\cw-api-scraper\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\CW Template Comparison Tool\\cw-api-scraper\\README.md",
+                                            "reason":  "No documentation update in 28 days",
+                                            "daysSinceUpdate":  28,
+                                            "lastModified":  "2026-03-15",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xDVyBVQVQgVGVzdGluZyBUb29sXFJFQURNRS5tZA",
+                                            "project":  "CW UAT Testing Tool\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\CW UAT Testing Tool\\README.md",
+                                            "reason":  "No documentation update in 27 days",
+                                            "daysSinceUpdate":  27,
+                                            "lastModified":  "2026-03-16",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1wuY2xhdWRlXC5vcGVuY29kZVxSRUFETUUubWQ",
+                                            "project":  "Obsidian Vault\\Projects\\.claude\\.opencode\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\.claude\\.opencode\\README.md",
+                                            "reason":  "No documentation update in 27 days",
+                                            "daysSinceUpdate":  27,
+                                            "lastModified":  "2026-03-16",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xDVyBVQVQgVGVzdGluZyBUb29sXHJvdm8tYWdlbnRcY2hhbmdlbG9nLm1k",
+                                            "project":  "CW UAT Testing Tool\\rovo-agent\\changelog.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\CW UAT Testing Tool\\rovo-agent\\changelog.md",
+                                            "reason":  "No documentation update in 27 days",
+                                            "daysSinceUpdate":  27,
+                                            "lastModified":  "2026-03-16",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1wuY2xhdWRlXFJFQURNRS5tZA",
+                                            "project":  "Obsidian Vault\\Projects\\.claude\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\.claude\\README.md",
+                                            "reason":  "No documentation update in 27 days",
+                                            "daysSinceUpdate":  27,
+                                            "lastModified":  "2026-03-16",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1wuY2xhdWRlXGhvb2tzLmJhY2t1cC0yMDI2MDMyMS0wNTI5MzFcUkVBRE1FLm1k",
+                                            "project":  "Obsidian Vault\\Projects\\.claude\\hooks.backup-20260321-052931\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\.claude\\hooks.backup-20260321-052931\\README.md",
+                                            "reason":  "No documentation update in 27 days",
+                                            "daysSinceUpdate":  27,
+                                            "lastModified":  "2026-03-16",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1wyLjAuN1xSRUFETUUubWQ",
+                                            "project":  "Obsidian Vault\\Projects\\2.0.7\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\2.0.7\\README.md",
+                                            "reason":  "No documentation update in 24 days",
+                                            "daysSinceUpdate":  24,
+                                            "lastModified":  "2026-03-19",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xjbGF1ZGVccnVsZXNcUkVBRE1FLm1k",
+                                            "project":  "Obsidian Vault\\Projects\\claude\\rules\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\claude\\rules\\README.md",
+                                            "reason":  "No documentation update in 24 days",
+                                            "daysSinceUpdate":  24,
+                                            "lastModified":  "2026-03-20",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1wuY2xhdWRlXHJ1bGVzXFJFQURNRS5tZA",
+                                            "project":  "Obsidian Vault\\Projects\\.claude\\rules\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\.claude\\rules\\README.md",
+                                            "reason":  "No documentation update in 24 days",
+                                            "daysSinceUpdate":  24,
+                                            "lastModified":  "2026-03-20",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1wyLjAuN1xDSEFOR0VMT0cubWQ",
+                                            "project":  "Obsidian Vault\\Projects\\2.0.7\\CHANGELOG.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\2.0.7\\CHANGELOG.md",
+                                            "reason":  "No documentation update in 24 days",
+                                            "daysSinceUpdate":  24,
+                                            "lastModified":  "2026-03-19",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xkb3RmaWxlc1xjbGF1ZGVccnVsZXNcUkVBRE1FLm1k",
+                                            "project":  "dotfiles\\claude\\rules\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\dotfiles\\claude\\rules\\README.md",
+                                            "reason":  "No documentation update in 24 days",
+                                            "daysSinceUpdate":  24,
+                                            "lastModified":  "2026-03-20",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xDVyBMZWFkIFNjaGVkdWxlIFNwZWNpZmljYXRpb25zXGZyb250ZW5kXFJFQURNRS5tZA",
+                                            "project":  "CW Lead Schedule Specifications\\frontend\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\CW Lead Schedule Specifications\\frontend\\README.md",
+                                            "reason":  "No documentation update in 23 days",
+                                            "daysSinceUpdate":  23,
+                                            "lastModified":  "2026-03-20",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xjaHJvbWUtY2RwLXNraWxsLXJlcG9cUkVBRE1FLm1k",
+                                            "project":  "chrome-cdp-skill-repo\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\chrome-cdp-skill-repo\\README.md",
+                                            "reason":  "No documentation update in 23 days",
+                                            "daysSinceUpdate":  23,
+                                            "lastModified":  "2026-03-21",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xkb3RmaWxlc1xSRUFETUUubWQ",
+                                            "project":  "Obsidian Vault\\Projects\\dotfiles\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\dotfiles\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xDVyBUZW1wbGF0ZSBDb21wYXJpc29uIFRvb2xcY3ctYXBpLXNjcmFwZXJcUkVBRE1FLm1k",
+                                            "project":  "Obsidian Vault\\Projects\\CW Template Comparison Tool\\cw-api-scraper\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\CW Template Comparison Tool\\cw-api-scraper\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xkb3RmaWxlc1xkb2NzXENIQU5HRUxPRy5tZA",
+                                            "project":  "Obsidian Vault\\Projects\\dotfiles\\docs\\CHANGELOG.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\dotfiles\\docs\\CHANGELOG.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xDVyBVQVQgVGVzdGluZyBUb29sXHJvdm8tYWdlbnRcY2hhbmdlbG9nLm1k",
+                                            "project":  "Obsidian Vault\\Projects\\CW UAT Testing Tool\\rovo-agent\\changelog.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\CW UAT Testing Tool\\rovo-agent\\changelog.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xDVyBVS0pQRCBXb3JrZmxvd3NcUkVBRE1FLm1k",
+                                            "project":  "Obsidian Vault\\Projects\\CW UKJPD Workflows\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\CW UKJPD Workflows\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xDVyBVQVQgVGVzdGluZyBUb29sXFJFQURNRS5tZA",
+                                            "project":  "Obsidian Vault\\Projects\\CW UAT Testing Tool\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\CW UAT Testing Tool\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xQcm9wZXJ0eSBTZWFyY2ggVG9vbFxDSEFOR0VMT0ctUEVORElORy5tZA",
+                                            "project":  "Property Search Tool\\CHANGELOG-PENDING.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Property Search Tool\\CHANGELOG-PENDING.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xQcm9wZXJ0eSBTZWFyY2ggVG9vbFxDSEFOR0VMT0cubWQ",
+                                            "project":  "Property Search Tool\\CHANGELOG.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Property Search Tool\\CHANGELOG.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xQcm9wZXJ0eSBTZWFyY2ggVG9vbFxSRUFETUUubWQ",
+                                            "project":  "Property Search Tool\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Property Search Tool\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xQcm9wZXJ0eSBTZWFyY2ggVG9vbFxSRUFETUUubWQ",
+                                            "project":  "Obsidian Vault\\Projects\\Property Search Tool\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\Property Search Tool\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xQcm9kdWN0aXZpdHkgVG9vbFxDSEFOR0VMT0ctUEVORElORy5tZA",
+                                            "project":  "Obsidian Vault\\Projects\\Productivity Tool\\CHANGELOG-PENDING.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\Productivity Tool\\CHANGELOG-PENDING.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xQcm9wZXJ0eSBTZWFyY2ggVG9vbFxDSEFOR0VMT0ctUEVORElORy5tZA",
+                                            "project":  "Obsidian Vault\\Projects\\Property Search Tool\\CHANGELOG-PENDING.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\Property Search Tool\\CHANGELOG-PENDING.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xQcm9wZXJ0eSBTZWFyY2ggVG9vbFwucHl0ZXN0X2NhY2hlXFJFQURNRS5tZA",
+                                            "project":  "Property Search Tool\\.pytest_cache\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Property Search Tool\\.pytest_cache\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-21",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xDVyBUZW1wbGF0ZSBDb21wYXJpc29uIFRvb2xcUkVBRE1FLm1k",
+                                            "project":  "Obsidian Vault\\Projects\\CW Template Comparison Tool\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\CW Template Comparison Tool\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xCb25kbHcgUHJvZ3JhbW1pbmcgQXJjaGl0ZWN0dXJlXFJFQURNRS5tZA",
+                                            "project":  "Obsidian Vault\\Projects\\Bondlw Programming Architecture\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\Bondlw Programming Architecture\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xjaHJvbWUtY2RwLXNraWxsLXJlcG9cUkVBRE1FLm1k",
+                                            "project":  "Obsidian Vault\\Projects\\chrome-cdp-skill-repo\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\chrome-cdp-skill-repo\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xBSSBCcmVha2luZyBOZXdzIFRvb2xcUkVBRE1FLm1k",
+                                            "project":  "Obsidian Vault\\Projects\\AI Breaking News Tool\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\AI Breaking News Tool\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xBY3RpdmVwaWVjZXNcUkVBRE1FLm1k",
+                                            "project":  "Activepieces\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Activepieces\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-21",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xDVyBUZW1wbGF0ZSBDb21wYXJpc29uIFRvb2xcUkVBRE1FLm1k",
+                                            "project":  "CW Template Comparison Tool\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\CW Template Comparison Tool\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xDVyBSZWxlYXNlIE5vdGVzIFRvb2xcUkVBRE1FLm1k",
+                                            "project":  "Obsidian Vault\\Projects\\CW Release Notes Tool\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\CW Release Notes Tool\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xDVyBUZW1wbGF0ZSBDb21wYXJpc29uIFRvb2xcQ0hBTkdFTE9HLVBFTkRJTkcubWQ",
+                                            "project":  "Obsidian Vault\\Projects\\CW Template Comparison Tool\\CHANGELOG-PENDING.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\CW Template Comparison Tool\\CHANGELOG-PENDING.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xDVyBMZWFkIFNjaGVkdWxlIFNwZWNpZmljYXRpb25zXGZyb250ZW5kXFJFQURNRS5tZA",
+                                            "project":  "Obsidian Vault\\Projects\\CW Lead Schedule Specifications\\frontend\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\CW Lead Schedule Specifications\\frontend\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xDbG91ZCBTREsgQVBJIFJlZmVyZW5jZVxSRUFETUUubWQ",
+                                            "project":  "Obsidian Vault\\Projects\\Cloud SDK API Reference\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\Cloud SDK API Reference\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xDVyBMZWFkIFNjaGVkdWxlIFNwZWNpZmljYXRpb25zXFJFQURNRS5tZA",
+                                            "project":  "Obsidian Vault\\Projects\\CW Lead Schedule Specifications\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\CW Lead Schedule Specifications\\README.md",
+                                            "reason":  "No documentation update in 22 days",
+                                            "daysSinceUpdate":  22,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xCb25kbHcgUHJvZ3JhbW1pbmcgQXJjaGl0ZWN0dXJlXFJFQURNRS5tZA",
+                                            "project":  "Bondlw Programming Architecture\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Bondlw Programming Architecture\\README.md",
+                                            "reason":  "No documentation update in 21 days",
+                                            "daysSinceUpdate":  21,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xPYnNpZGlhbiBWYXVsdFxQcm9qZWN0c1xVS0NBVUQgQUkgUHJvamVjdFxSRUFETUUubWQ",
+                                            "project":  "Obsidian Vault\\Projects\\UKCAUD AI Project\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\Obsidian Vault\\Projects\\UKCAUD AI Project\\README.md",
+                                            "reason":  "No documentation update in 21 days",
+                                            "daysSinceUpdate":  21,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xDVyBSZWxlYXNlIE5vdGVzIFRvb2xcUkVBRE1FLm1k",
+                                            "project":  "CW Release Notes Tool\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\CW Release Notes Tool\\README.md",
+                                            "reason":  "No documentation update in 21 days",
+                                            "daysSinceUpdate":  21,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        },
+                                        {
+                                            "id":  "doc-QzpcVXNlcnNcbGlhbS5ib25kXERvY3VtZW50c1xDVyBMZWFkIFNjaGVkdWxlIFNwZWNpZmljYXRpb25zXFJFQURNRS5tZA",
+                                            "project":  "CW Lead Schedule Specifications\\README.md",
+                                            "filePath":  "C:\\Users\\liam.bond\\Documents\\CW Lead Schedule Specifications\\README.md",
+                                            "reason":  "No documentation update in 21 days",
+                                            "daysSinceUpdate":  21,
+                                            "lastModified":  "2026-03-22",
+                                            "priority":  "LOW"
+                                        }
+                                    ]
+                  }
 }

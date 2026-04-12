@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775551789682,
+  "lastScanned": 1775934341838,
   "projectRoot": "C:\\Users\\liam.bond\\Documents\\Productivity Tool",
   "techStack": {
     "languages": [
@@ -29,7 +29,11 @@
     "lintCommand": null,
     "devCommand": null,
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "vibe-kanban": "npx vibe-kanban",
+      "vibe-kanban:discover": "node scripts/create-kanban-issue.mjs --discover",
+      "create-issue": "node scripts/create-kanban-issue.mjs",
+      "sync-feedback": "node scripts/sync-feedback.mjs"
     }
   },
   "conventions": {
@@ -56,7 +60,7 @@
       "path": "commands",
       "purpose": null,
       "fileCount": 17,
-      "lastAccessed": 1775551789581,
+      "lastAccessed": 1775934341746,
       "keyFiles": [
         "clone.md",
         "deck.md",
@@ -69,7 +73,7 @@
       "path": "dashboard",
       "purpose": null,
       "fileCount": 13,
-      "lastAccessed": 1775551789583,
+      "lastAccessed": 1775934341749,
       "keyFiles": [
         "AGENTS.md",
         "CLAUDE.md",
@@ -82,41 +86,41 @@
       "path": "dev",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1775551789605,
+      "lastAccessed": 1775934341767,
       "keyFiles": []
     },
     "docs": {
       "path": "docs",
       "purpose": "Documentation",
       "fileCount": 0,
-      "lastAccessed": 1775551789607,
+      "lastAccessed": 1775934341769,
       "keyFiles": []
     },
     "scripts": {
       "path": "scripts",
       "purpose": "Build/utility scripts",
-      "fileCount": 30,
-      "lastAccessed": 1775551789607,
+      "fileCount": 36,
+      "lastAccessed": 1775934341770,
       "keyFiles": [
         "activity-tracker.mjs",
         "append-ticket-subcmds.ps1",
         "check-jira-automation-status.mjs",
-        "error-screenshot.png",
-        "extract-claude-sessions.mjs"
+        "create-kanban-issue.mjs",
+        "error-screenshot.png"
       ]
     },
     "workspace": {
       "path": "workspace",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1775551789608,
+      "lastAccessed": 1775934341771,
       "keyFiles": []
     },
     "dashboard\\app": {
       "path": "dashboard\\app",
       "purpose": "Application code",
       "fileCount": 4,
-      "lastAccessed": 1775551789612,
+      "lastAccessed": 1775934341772,
       "keyFiles": [
         "favicon.ico",
         "globals.css",
@@ -127,7 +131,7 @@
       "path": "dashboard\\components",
       "purpose": "UI components",
       "fileCount": 16,
-      "lastAccessed": 1775551789612,
+      "lastAccessed": 1775934341773,
       "keyFiles": [
         "ActiveWindow.tsx",
         "AISchedule.tsx",
@@ -138,7 +142,7 @@
       "path": "dashboard\\data",
       "purpose": "Data files",
       "fileCount": 1,
-      "lastAccessed": 1775551789613,
+      "lastAccessed": 1775934341774,
       "keyFiles": [
         "dashboard-data.json"
       ]
@@ -146,8 +150,8 @@
     "workspace\\config": {
       "path": "workspace\\config",
       "purpose": "Configuration files",
-      "fileCount": 5,
-      "lastAccessed": 1775551789615,
+      "fileCount": 6,
+      "lastAccessed": 1775934341777,
       "keyFiles": [
         "clone-presets.json",
         "personal-projects.json",

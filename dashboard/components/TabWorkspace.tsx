@@ -3,12 +3,24 @@
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Suspense } from "react";
 
-type TabId = "today" | "tasks" | "projects" | "learning" | "news" | "system";
+type TabId =
+  | "today"
+  | "tasks"
+  | "projects"
+  | "notes"
+  | "ceremonies"
+  | "docs"
+  | "learning"
+  | "news"
+  | "system";
 
 const TABS: { id: TabId; label: string }[] = [
   { id: "today", label: "Today" },
   { id: "tasks", label: "Tasks" },
   { id: "projects", label: "Projects" },
+  { id: "notes", label: "Notes" },
+  { id: "ceremonies", label: "Ceremonies" },
+  { id: "docs", label: "Doc Health" },
   { id: "learning", label: "Analysis" },
   { id: "news", label: "News" },
   { id: "system", label: "System" },
@@ -18,6 +30,9 @@ interface TabWorkspaceProps {
   todayContent: React.ReactNode;
   tasksContent: React.ReactNode;
   projectsContent: React.ReactNode;
+  notesContent: React.ReactNode;
+  ceremoniesContent: React.ReactNode;
+  docsContent: React.ReactNode;
   learningContent: React.ReactNode;
   newsContent: React.ReactNode;
   systemContent: React.ReactNode;
@@ -57,6 +72,9 @@ function TabWorkspaceInner({
   todayContent,
   tasksContent,
   projectsContent,
+  notesContent,
+  ceremoniesContent,
+  docsContent,
   learningContent,
   newsContent,
   systemContent,
@@ -71,6 +89,9 @@ function TabWorkspaceInner({
     today: todayContent,
     tasks: tasksContent,
     projects: projectsContent,
+    notes: notesContent,
+    ceremonies: ceremoniesContent,
+    docs: docsContent,
     learning: learningContent,
     news: newsContent,
     system: systemContent,

@@ -10,8 +10,8 @@
  * Writes:
  *   - workspace/coordinator/ibp-YYYY-MM-DD.md
  *
- * Optionally calls Claude Haiku to synthesise a narrative summary.
- * If ANTHROPIC_API_KEY is absent, writes a plain data-only summary instead.
+ * Optionally calls Claude via OAuth (Claude CLI) to synthesise a narrative summary.
+ * If OAuth isn't available, writes a plain data-only summary.
  *
  * Usage:
  *   node scripts/generate-ibp.mjs [--date YYYY-MM-DD] [--skip-ai]
@@ -20,7 +20,7 @@
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
-import { execSync } from "child_process";
+import { execSync, spawnSync } from "child_process";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
@@ -56,6 +56,16 @@ function fmtMin(minutes) {
   return m > 0 ? `${h}h ${m}m` : `${h}h`;
 }
 
+function cleanText(input, maxLen = 240) {
+  if (!input) return "";
+  const normalized = String(input)
+    .replace(/[\r\n\t]+/g, " ")
+    .replace(/[<>]/g, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+  return normalized.slice(0, maxLen);
+}
+
 // --- Build context for the AI prompt / plain summary -----------------------
 
 function buildContext(unifiedLog, dashboardData) {
@@ -74,7 +84,12 @@ function buildContext(unifiedLog, dashboardData) {
   // Claude sessions narrative
   const claudeSessions = entries.filter((e) => e.source === "claude");
   const claudeSummary = claudeSessions
-    .map((s) => `  - ${s.label} (${fmtMin(s.durationMin)})${s.detail ? ": " + s.detail.slice(0, 80) : ""}`)
+    .slice(0, 8)
+    .map((s) => {
+      const label = cleanText(s.label, 80) || "(session)";
+      const detail = cleanText(s.detail, 80);
+      return `  - ${label} (${fmtMin(s.durationMin)})${detail ? ": " + detail : ""}`;
+    })
     .join("\n");
 
   // Window sessions by task
@@ -117,7 +132,7 @@ function buildContext(unifiedLog, dashboardData) {
       const timeStr = m.receivedAt
         ? new Date(m.receivedAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })
         : "?";
-      return `  - [${timeStr}] ${m.from}: ${(m.preview ?? "(no preview)").slice(0, 80)}`;
+      return `  - [${timeStr}] ${cleanText(m.from, 40)}: ${cleanText(m.preview ?? "(no preview)", 80)}`;
     })
     .join("\n");
 
@@ -129,7 +144,7 @@ function buildContext(unifiedLog, dashboardData) {
       const timeStr = e.receivedAt
         ? new Date(e.receivedAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })
         : "?";
-      return `  - [${timeStr}] From: ${e.from} — ${e.subject}`;
+      return `  - [${timeStr}] From: ${cleanText(e.from, 50)} — ${cleanText(e.subject, 100)}`;
     })
     .join("\n");
 
@@ -151,7 +166,7 @@ function buildContext(unifiedLog, dashboardData) {
       const endStr = m.endTime
         ? new Date(m.endTime).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })
         : "?";
-      return `  - ${startStr}–${endStr} ${m.title}${m.isCompleted ? " ✓" : ""}`;
+      return `  - ${startStr}–${endStr} ${cleanText(m.title, 100)}${m.isCompleted ? " ✓" : ""}`;
     })
     .join("\n");
 
@@ -162,7 +177,7 @@ function buildContext(unifiedLog, dashboardData) {
     ...(dashboardData?.priorityInbox?.thisWeek ?? []),
   ].filter((i) => i.source === "jira" || i.type === "jira");
   const jiraInboxSummary = allInboxJira
-    .map((i) => `  - [${(i.priority ?? "?").toUpperCase()}] ${i.title} (${i.project ?? "?"})`)
+    .map((i) => `  - [${(i.priority ?? "?").toUpperCase()}] ${cleanText(i.title, 110)} (${cleanText(i.project ?? "?", 20)})`)
     .join("\n");
 
   return {
@@ -289,98 +304,89 @@ function buildPlainSummary(ctx) {
   return lines.join("\n");
 }
 
-// --- Claude Haiku narrative -------------------------------------------------
+// --- Claude narrative -------------------------------------------------------
 
-async function callClaudeHaiku(ctx) {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    console.log("[generate-ibp] ANTHROPIC_API_KEY not set — using plain summary");
-    return null;
+function buildNarrativePrompt(ctx) {
+  const topItems = (block, limit = 3) => {
+    if (!block) return [];
+    return String(block)
+      .split("\n")
+      .map((line) => cleanText(line.replace(/^\s*[-*]\s*/, ""), 110))
+      .filter(Boolean)
+      .slice(0, limit);
+  };
+
+  const jiraProjectTop = (ctx.jiraProjectSnapshots ?? [])
+    .flatMap((s) => s.issues.slice(0, 2).map((i) => `${i.key} [${i.status}] ${cleanText(i.summary, 70)}`))
+    .slice(0, 4);
+
+  return `Write a concise markdown IBP summary for ${ctx.date}.
+
+Facts:
+- Total tracked: ${ctx.totalTracked}
+- Planned focus: ${fmtMin(ctx.plannedTodayMinutes)}${ctx.actualToPlannedPct !== null ? ` (${ctx.actualToPlannedPct}% execution)` : ""}
+- Meetings today: ${ctx.meetingCount} (${fmtMin(ctx.meetingsTotalMin)})
+- Teams messages: ${ctx.teamMessageCount}
+- Flagged emails: ${ctx.flaggedEmailCount}
+- Jira inbox items: ${ctx.jiraInboxCount}
+
+Top activity items:
+${topItems(ctx.claudeSummary, 4).map((x) => `- ${x}`).join("\n") || "- none"}
+
+Top inbox items:
+${ctx.inboxItems.slice(0, 4).map((i) => `- ${cleanText(i, 110)}`).join("\n") || "- none"}
+
+Top jira items:
+${topItems(ctx.jiraInboxSummary, 4).map((x) => `- ${x}`).join("\n") || "- none"}
+
+Top jira project updates:
+${jiraProjectTop.map((x) => `- ${x}`).join("\n") || "- none"}
+
+Output 120-180 words with sections:
+1) What I accomplished today (3-5 bullets)
+2) Time breakdown (short paragraph)
+3) Open threads (2-3 bullets)
+4) Tomorrow's priority (1 bullet)
+
+Keep it factual and actionable.`;
+}
+
+function callClaudeCliOAuth(ctx) {
+  const prompt = buildNarrativePrompt(ctx);
+
+  const attempts = [
+    // Most reliable path for larger prompts: pass prompt via stdin.
+    { cmd: "claude", args: ["--print"], useStdin: true },
+    // Fallback: inline prompt mode.
+    { cmd: "claude", args: ["-p", prompt, "--output-format", "text"], useStdin: false },
+    // Final fallback if global CLI isn't on PATH.
+    { cmd: "npx", args: ["-y", "@anthropic-ai/claude-code", "--print"], useStdin: true },
+  ];
+
+  for (const attempt of attempts) {
+    const cmd = process.platform === "win32" && attempt.cmd === "npx" ? "npx.cmd" : attempt.cmd;
+    const result = spawnSync(cmd, attempt.args, {
+      input: attempt.useStdin ? prompt : undefined,
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 60000,
+      env: process.env,
+      windowsHide: true,
+    });
+
+    if (!result.error && result.status === 0 && result.stdout?.trim()) {
+      return result.stdout.trim();
+    }
+
+    const errMsg = result.error?.message || result.stderr?.trim();
+    if (errMsg) {
+      const mode = attempt.useStdin ? "stdin" : "inline";
+      console.warn(`[generate-ibp] OAuth attempt failed (${attempt.cmd}, ${mode}): ${errMsg.slice(0, 200)}`);
+    }
   }
 
-  const prompt = `You are an end-of-day assistant. Write a concise IBP (Integrated Business Progress) summary for ${ctx.date}.
-
-DATA:
-- Total tracked time: ${ctx.totalTracked}
-- Planned focus time: ${fmtMin(ctx.plannedTodayMinutes)}${ctx.actualToPlannedPct !== null ? ` (${ctx.actualToPlannedPct}% execution)` : ""}
-- Window activity:
-${ctx.windowSummary || "  (none recorded)"}
-- Claude AI coding sessions:
-${ctx.claudeSummary || "  (none recorded)"}
-- Jira worklog:
-${ctx.jiraSummary || "  (none recorded)"}
-- Planned focus blocks:
-${ctx.plannedSummary || "  (none booked)"}
-- Meetings today (${ctx.meetingCount}, ${fmtMin(ctx.meetingsTotalMin)} total):
-${ctx.meetingsSummary || "  (none recorded)"}
-- Teams messages (${ctx.teamMessageCount}):
-${ctx.teamMessagesSummary || "  (none)"}
-- Flagged emails (${ctx.flaggedEmailCount}):
-${ctx.flaggedEmailsSummary || "  (none)"}
-- Jira items in inbox:
-${ctx.jiraInboxSummary || "  (none)"}
-${ctx.jiraProjectSnapshots?.length > 0 ? "- Jira project activity (updated today):\n" + ctx.jiraProjectSnapshots.map(s => s.issues.map(i => `  - ${i.key} [${i.status}] ${i.summary} (${s.project})`).join("\n")).join("\n") : ""}
-- Open inbox items:
-${ctx.inboxItems.slice(0, 5).map((i) => `  - ${i}`).join("\n") || "  (none)"}
-
-INSTRUCTIONS:
-Write a 200-300 word markdown EOD summary with these sections:
-1. **What I accomplished today** — 3-5 bullets, be specific about features/tasks completed
-2. **Time breakdown** — short paragraph on where time was spent and planned-vs-actual execution
-3. **Open threads** — 2-3 bullets of things in progress or outstanding
-4. **Tomorrow's priority** — 1 bullet on the most important next action
-
-Keep it crisp, factual, and useful for planning tomorrow.`;
-
-  const body = JSON.stringify({
-    model: "claude-haiku-4-5-20251001",
-    max_tokens: 600,
-    messages: [{ role: "user", content: prompt }],
-  });
-
-  const { default: https } = await import("https");
-
-  return new Promise((resolve, reject) => {
-    const req = https.request(
-      "https://api.anthropic.com/v1/messages",
-      {
-        method: "POST",
-        headers: {
-          "x-api-key": apiKey,
-          "anthropic-version": "2023-06-01",
-          "content-type": "application/json",
-          "content-length": Buffer.byteLength(body),
-        },
-      },
-      (res) => {
-        let data = "";
-        res.on("data", (chunk) => { data += chunk; });
-        res.on("end", () => {
-          try {
-            const parsed = JSON.parse(data);
-            if (parsed.content?.[0]?.text) {
-              resolve(parsed.content[0].text);
-            } else {
-              console.warn("[generate-ibp] unexpected Claude response:", data.slice(0, 200));
-              resolve(null);
-            }
-          } catch {
-            resolve(null);
-          }
-        });
-      }
-    );
-    req.on("error", (err) => {
-      console.warn("[generate-ibp] Claude API error:", err.message);
-      resolve(null);
-    });
-    req.setTimeout(20000, () => {
-      req.destroy();
-      resolve(null);
-    });
-    req.write(body);
-    req.end();
-  });
+  console.log("[generate-ibp] OAuth narrative unavailable (run 'claude login')");
+  return null;
 }
 
 // --- Jira project snapshot (optional) -------------------------------------
@@ -477,12 +483,13 @@ async function run() {
 
   let content;
 
-  if (SKIP_AI || !process.env.ANTHROPIC_API_KEY) {
+  if (SKIP_AI) {
     content = buildPlainSummary(ctx);
     console.log("[generate-ibp] using plain summary (no AI)");
   } else {
-    console.log("[generate-ibp] calling Claude Haiku for narrative...");
-    const narrative = await callClaudeHaiku(ctx);
+    console.log("[generate-ibp] calling Claude via OAuth for narrative...");
+    const narrative = callClaudeCliOAuth(ctx);
+
     if (narrative) {
       content = [
         `# IBP — ${ctx.date}`,
@@ -492,9 +499,10 @@ async function run() {
         narrative,
         ``,
         `---`,
-        `_Generated by generate-ibp.mjs with Claude Haiku at ${new Date().toLocaleTimeString("en-GB")}_`,
+        `_Generated by generate-ibp.mjs with Claude narrative at ${new Date().toLocaleTimeString("en-GB")}_`,
       ].join("\n");
     } else {
+      console.log("[generate-ibp] falling back to plain summary because OAuth narrative is unavailable");
       content = buildPlainSummary(ctx);
     }
   }

@@ -2350,5 +2350,453 @@
     "windowTitle": "Audit - Backlog - Caseware Jira and 8 more pages - Work - Microsoft? Edge",
     "inferredTask": "jira-browse",
     "durationMin": 18
+  },
+  {
+    "start": "2026-04-11T19:00:42.893Z",
+    "end": "2026-04-11T19:01:14.305Z",
+    "windowTitle": "HAT-Sampling-Execution-Plan-v2.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:01:44.147Z",
+    "end": "2026-04-11T19:02:46.001Z",
+    "windowTitle": "Command Center and 25 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:04:43.643Z",
+    "end": "2026-04-11T19:05:14.352Z",
+    "windowTitle": "AI at Work - Presentation Generator and 25 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:05:14.352Z",
+    "end": "2026-04-11T19:05:45.379Z",
+    "windowTitle": "CW Release Notes Generator and 25 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:06:14.466Z",
+    "end": "2026-04-11T19:06:44.683Z",
+    "windowTitle": "cw-uat-testing - Replit and 27 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:06:44.683Z",
+    "end": "2026-04-11T19:07:43.914Z",
+    "windowTitle": "ukcaud-ai-project - Replit and 27 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:07:43.914Z",
+    "end": "2026-04-11T19:08:48.102Z",
+    "windowTitle": "Command Center and 28 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:09:14.785Z",
+    "end": "2026-04-11T19:11:13.896Z",
+    "windowTitle": "Command Center and 28 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-11T19:11:13.896Z",
+    "end": "2026-04-11T19:12:49.463Z",
+    "windowTitle": "Claude and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-11T19:13:13.895Z",
+    "end": "2026-04-11T19:15:48.455Z",
+    "windowTitle": "Claude and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-11T19:16:15.888Z",
+    "end": "2026-04-11T19:17:18.322Z",
+    "windowTitle": "Claude and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:17:45.658Z",
+    "end": "2026-04-11T19:18:44.006Z",
+    "windowTitle": "Claude Platform and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:18:44.006Z",
+    "end": "2026-04-11T19:27:45.242Z",
+    "windowTitle": "Command Center and 28 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 9
+  },
+  {
+    "start": "2026-04-11T19:28:14.731Z",
+    "end": "2026-04-11T19:30:15.138Z",
+    "windowTitle": "HAT Sampling Forms Combined Spec WORKING .xlsx and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-11T19:30:15.138Z",
+    "end": "2026-04-11T19:32:14.685Z",
+    "windowTitle": "HAT Sampling Forms Combined Spec WORKING .xlsx and 31 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-11T19:32:14.685Z",
+    "end": "2026-04-11T19:33:15.812Z",
+    "windowTitle": "HAT Sampling Forms Combined Spec WORKING .xlsx and 32 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:33:15.812Z",
+    "end": "2026-04-11T19:39:15.043Z",
+    "windowTitle": "Rule builder - Automation - UK Cloud Audit - Jira and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-11T19:39:15.043Z",
+    "end": "2026-04-11T19:39:45.135Z",
+    "windowTitle": "cw-ukcaud-project-tracker - Replit and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:39:45.135Z",
+    "end": "2026-04-11T19:40:15.406Z",
+    "windowTitle": "(1) cw-template-comparison - Replit and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:40:15.406Z",
+    "end": "2026-04-11T19:41:45.037Z",
+    "windowTitle": "Rule builder - Automation - UK Cloud Audit - Jira and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:41:45.037Z",
+    "end": "2026-04-11T19:42:15.139Z",
+    "windowTitle": "ukcaud-ai-project - Replit and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:42:44.882Z",
+    "end": "2026-04-11T19:43:14.928Z",
+    "windowTitle": "cw-uat-testing - Replit and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T19:43:14.928Z",
+    "end": "2026-04-11T22:03:46.930Z",
+    "windowTitle": "ukcaud-ai-project - Replit and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 141
+  },
+  {
+    "start": "2026-04-11T22:03:46.930Z",
+    "end": "2026-04-11T22:05:49.840Z",
+    "windowTitle": "Rule builder - Automation - UK Cloud Audit - Jira and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-11T22:05:49.840Z",
+    "end": "2026-04-11T22:06:21.238Z",
+    "windowTitle": "Untitled and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T22:08:48.094Z",
+    "end": "2026-04-11T22:09:49.034Z",
+    "windowTitle": "Command Center and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T22:09:49.034Z",
+    "end": "2026-04-11T22:10:47.107Z",
+    "windowTitle": "Untitled and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T22:10:47.107Z",
+    "end": "2026-04-11T22:13:47.722Z",
+    "windowTitle": "localhost and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-11T22:13:47.722Z",
+    "end": "2026-04-11T22:16:51.342Z",
+    "windowTitle": "Command Center and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-11T22:17:17.396Z",
+    "end": "2026-04-11T22:20:47.681Z",
+    "windowTitle": "Command Center and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-11T22:20:47.681Z",
+    "end": "2026-04-11T23:03:18.011Z",
+    "windowTitle": "Command Center and 31 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 43
+  },
+  {
+    "start": "2026-04-11T23:03:18.011Z",
+    "end": "2026-04-11T23:03:48.193Z",
+    "windowTitle": "Command Center and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T23:03:48.193Z",
+    "end": "2026-04-11T23:04:18.247Z",
+    "windowTitle": "cw-ukcaud-project-tracker - Replit and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T23:04:18.247Z",
+    "end": "2026-04-11T23:04:48.345Z",
+    "windowTitle": "cw-lead-schedule-specs - Replit and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T23:05:48.225Z",
+    "end": "2026-04-11T23:06:18.409Z",
+    "windowTitle": "Run this app to see the results here. and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T23:06:18.409Z",
+    "end": "2026-04-11T23:07:18.342Z",
+    "windowTitle": "cw-release-notes - Replit and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-11T23:07:18.342Z",
+    "end": "2026-04-11T23:18:19.119Z",
+    "windowTitle": "(1) cw-release-notes - Replit and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-11T23:18:19.119Z",
+    "end": "2026-04-11T23:20:53.095Z",
+    "windowTitle": "Untitled and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-12T09:11:32.212Z",
+    "end": "2026-04-12T09:14:04.422Z",
+    "windowTitle": "HAT Sampling Forms Claude Reworked.xlsx - Excel",
+    "inferredTask": "ai-coding",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-12T09:14:04.422Z",
+    "end": "2026-04-12T09:15:03.835Z",
+    "windowTitle": "HAT Sampling Forms Combined Spec WORKING .xlsx and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-12T09:15:03.835Z",
+    "end": "2026-04-12T09:16:33.020Z",
+    "windowTitle": "HAT Sampling Forms Combined Spec WORKING and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-12T09:16:33.020Z",
+    "end": "2026-04-12T09:17:03.046Z",
+    "windowTitle": "Untitled and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-12T09:17:03.046Z",
+    "end": "2026-04-12T09:17:33.280Z",
+    "windowTitle": "HAT - OneDrive and 31 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-12T09:17:33.280Z",
+    "end": "2026-04-12T09:18:33.943Z",
+    "windowTitle": "HAT Sampling Forms Combined Spec WORKING.xlsx and 32 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-12T09:19:03.001Z",
+    "end": "2026-04-12T09:20:33.316Z",
+    "windowTitle": "[UKCAUD-15609] 1. Audit HAT UK Company - SS - Details, Navigation, Guidance - Caseware Jira and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15609",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-12T09:20:33.316Z",
+    "end": "2026-04-12T09:21:03.787Z",
+    "windowTitle": "[UKCAUD-15520] 2. Audit HAT UK Company - SS - Tailoring, TB, Materiality, Sample size, - Caseware Jira and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15520",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-12T09:21:03.787Z",
+    "end": "2026-04-12T09:22:03.826Z",
+    "windowTitle": "[UKCAUD-15523] 3. Audit HAT UK Company - SS - Auditor judgement, Control risk, Justification, Less key items - Caseware Jira and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15523",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-12T09:22:03.826Z",
+    "end": "2026-04-12T09:25:03.162Z",
+    "windowTitle": "HAT Sampling Forms Combined Spec WORKING.xlsx and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-12T09:25:03.162Z",
+    "end": "2026-04-12T09:32:03.509Z",
+    "windowTitle": "Rule builder - Automation - UK Cloud Audit - Jira and 28 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-12T09:32:03.509Z",
+    "end": "2026-04-12T10:22:04.097Z",
+    "windowTitle": "Command Center and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 50
+  },
+  {
+    "start": "2026-04-12T10:22:04.097Z",
+    "end": "2026-04-12T10:26:34.276Z",
+    "windowTitle": "[UKCAUD-15609] 1. Audit HAT UK Company - SS - Details, Navigation, Guidance - Caseware Jira and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15609",
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-12T10:26:34.276Z",
+    "end": "2026-04-12T10:27:04.473Z",
+    "windowTitle": "Command Center and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-12T10:27:04.473Z",
+    "end": "2026-04-12T10:38:34.340Z",
+    "windowTitle": "Rule builder - Automation - UK Cloud Audit - Jira and 28 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-12T10:38:34.340Z",
+    "end": "2026-04-12T12:05:35.647Z",
+    "windowTitle": "[UKCAUD-15609] 1. Audit HAT UK Company - SS - Details, Navigation, Guidance - Caseware Jira and 28 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15609",
+    "durationMin": 87
+  },
+  {
+    "start": "2026-04-12T12:06:35.538Z",
+    "end": "2026-04-12T12:07:35.554Z",
+    "windowTitle": "??New Video: Turn Claude Code Into Your Executive Assistant in 27 Mins � AI Automation Society and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-12T12:07:35.554Z",
+    "end": "2026-04-12T12:08:35.831Z",
+    "windowTitle": "Turn Claude Code Into Your Executive Assistant in 27 Mins - YouTube and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-12T12:08:35.831Z",
+    "end": "2026-04-12T12:16:35.931Z",
+    "windowTitle": "[UKCAUD-15609] 1. Audit HAT UK Company - SS - Details, Navigation, Guidance - Caseware Jira and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15609",
+    "durationMin": 8
+  },
+  {
+    "start": "2026-04-12T12:16:35.931Z",
+    "end": "2026-04-12T14:31:38.460Z",
+    "windowTitle": "[UKCAUD-16041] DEVELOP - Audit HAT UK Company - SS/TS - Account Period change should auto-update without page refresh - Caseware Jira and 29 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-16041",
+    "durationMin": 135
+  },
+  {
+    "start": "2026-04-12T14:32:07.750Z",
+    "end": "2026-04-12T14:34:12.151Z",
+    "windowTitle": "code/.claude at develop � caseware/code and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-12T14:34:37.780Z",
+    "end": "2026-04-12T14:51:08.059Z",
+    "windowTitle": "code/.claude at develop � caseware/code and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 17
+  },
+  {
+    "start": "2026-04-12T14:51:08.059Z",
+    "end": "2026-04-12T14:51:38.075Z",
+    "windowTitle": "[UKCAUD-16041] DEVELOP - Audit HAT UK Company - SS/TS - Account Period change should auto-update without page refresh - Caseware Jira and 30 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-16041",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-12T14:51:38.075Z",
+    "end": "2026-04-12T14:52:08.132Z",
+    "windowTitle": "HAT Sampling Forms Combined Spec WORKING.xlsx and 31 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-12T14:52:08.132Z",
+    "end": "2026-04-12T14:58:12.740Z",
+    "windowTitle": "HAT Sampling Forms Combined Spec (Sharepoint) and 31 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-12T14:58:38.335Z",
+    "end": "2026-04-12T15:55:09.090Z",
+    "windowTitle": "HAT Sampling Forms Combined Spec (Sharepoint) and 31 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 57
   }
 ]

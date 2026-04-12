@@ -11,7 +11,9 @@ const OUTLOOK_BOOK_SCRIPT = join(process.cwd(), "..", "scripts", "outlook-book-f
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function readData(): any {
-  return JSON.parse(readFileSync(DASHBOARD_FILE, "utf-8"));
+  let raw = readFileSync(DASHBOARD_FILE, "utf-8");
+  if (raw.charCodeAt(0) === 0xfeff) raw = raw.slice(1);
+  return JSON.parse(raw);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -256,3 +258,4 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
+

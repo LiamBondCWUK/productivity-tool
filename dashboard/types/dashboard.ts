@@ -167,6 +167,24 @@ export interface RecommendedInstalls {
   items: RecommendedInstall[];
 }
 
+export interface NoteEntry {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DocHealthItem {
+  id: string;
+  project: string;
+  filePath: string;
+  reason: string;
+  daysSinceUpdate: number;
+  lastModified: string;
+  priority: "HIGH" | "MED" | "LOW";
+}
+
 export type AutomationRuleStatus =
   | "pending"
   | "deployed"
@@ -286,4 +304,12 @@ export interface DashboardData {
   aiNewsResults: AiNewsResults | null;
   lastActivitySync: string | null;
   recommendedInstalls: RecommendedInstalls;
+  notes?: {
+    items: NoteEntry[];
+    lastUpdated: string | null;
+  };
+  docHealth?: {
+    lastRun: string | null;
+    staleDocs: DocHealthItem[];
+  };
 }

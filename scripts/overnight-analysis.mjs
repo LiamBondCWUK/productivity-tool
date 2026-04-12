@@ -13,6 +13,8 @@ const BASE_DIR = 'C:/Users/liam.bond/Documents/Productivity Tool';
 const REGISTRY_FILE = join(BASE_DIR, 'workspace/coordinator/project-registry.json');
 const DASHBOARD_DATA_FILE = join(BASE_DIR, 'workspace/coordinator/dashboard-data.json');
 const OVERNIGHT_REPORT_FILE = join(BASE_DIR, 'workspace/coordinator/overnight-report.md');
+const DOC_HEALTH_SCRIPT = join(BASE_DIR, 'scripts/doc-freshness-check.ps1');
+const DOC_HEALTH_REPORT_FILE = join(BASE_DIR, 'workspace/coordinator/doc-health-report.json');
 
 
 function slugify(name) {
@@ -33,6 +35,27 @@ function readTextFile(filePath, maxLines = 100) {
     const lines = content.split('\n');
     if (lines.length <= maxLines) return content;
     return lines.slice(0, maxLines).join('\n') + '\n[...truncated]';
+  } catch {
+    return null;
+  }
+}
+
+function runDocHealthCheck() {
+  if (!existsSync(DOC_HEALTH_SCRIPT)) {
+    return null;
+  }
+
+  try {
+    execSync(
+      `powershell -ExecutionPolicy Bypass -File "${DOC_HEALTH_SCRIPT}" -StaleDays 21 -WriteDashboard`,
+      { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
+    );
+
+    if (!existsSync(DOC_HEALTH_REPORT_FILE)) {
+      return null;
+    }
+
+    return readJson(DOC_HEALTH_REPORT_FILE);
   } catch {
     return null;
   }
@@ -184,12 +207,54 @@ ${projectContexts}`;
   }
 
   const dashboardData = readJson(DASHBOARD_DATA_FILE) || {};
+  const docHealth = runDocHealthCheck();
+
+  if (docHealth) {
+    dashboardData.docHealth = {
+      lastRun: docHealth.generatedAt,
+      staleDocs: docHealth.staleDocs || [],
+    };
+  }
+
   dashboardData.overnightAnalysis = {
     generatedAt: new Date().toISOString(),
     projects: analysisResult.projects || {},
     globalInsights: analysisResult.globalInsights || [],
     topPriorityAction: analysisResult.topPriorityAction || '',
   };
+
+  if (!dashboardData.priorityInbox) {
+    dashboardData.priorityInbox = {
+      urgent: [],
+      aiSuggested: [],
+      today: [],
+      backlog: [],
+    };
+  }
+
+  if (!Array.isArray(dashboardData.priorityInbox.aiSuggested)) {
+    dashboardData.priorityInbox.aiSuggested = [];
+  }
+
+  dashboardData.priorityInbox.aiSuggested = dashboardData.priorityInbox.aiSuggested.filter(
+    item => !(typeof item?.id === 'string' && item.id.startsWith('doc-health-'))
+  );
+
+  if (docHealth?.staleDocs?.length) {
+    const topDocs = docHealth.staleDocs.slice(0, 5);
+    const docSuggestions = topDocs.map((doc) => ({
+      id: `doc-health-${doc.id}`,
+      title: `Refresh stale doc: ${doc.filePath}`,
+      type: 'ai-suggestion',
+      source: 'doc-health-check',
+      priority: doc.priority === 'HIGH' ? 'urgent' : 'today',
+      addedAt: new Date().toISOString(),
+      reasoning: `${doc.daysSinceUpdate} days since last update (${doc.reason})`,
+      link: undefined,
+    }));
+
+    dashboardData.priorityInbox.aiSuggested.unshift(...docSuggestions);
+  }
 
   if (dashboardData.personalProjects?.projects) {
     dashboardData.personalProjects.projects = dashboardData.personalProjects.projects.map(project => {
@@ -221,6 +286,21 @@ ${projectContexts}`;
 
   if (analysisResult.globalInsights?.length) {
     report += `## Global Insights\n${analysisResult.globalInsights.map(i => `- ${i}`).join('\n')}\n\n`;
+  }
+
+  if (docHealth) {
+    report += `## Documentation Freshness\n`;
+    report += `- Last run: ${docHealth.generatedAt}\n`;
+    report += `- Stale docs: ${docHealth.summary?.staleCount ?? 0}\n`;
+    report += `- High priority stale docs: ${docHealth.summary?.highPriorityCount ?? 0}\n\n`;
+
+    if (Array.isArray(docHealth.staleDocs) && docHealth.staleDocs.length > 0) {
+      report += `### Top stale docs\n`;
+      for (const doc of docHealth.staleDocs.slice(0, 5)) {
+        report += `- [${doc.priority}] ${doc.filePath} (${doc.daysSinceUpdate} days)\n`;
+      }
+      report += '\n';
+    }
   }
 
   for (const entry of projects) {

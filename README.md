@@ -21,6 +21,7 @@ npm install
 npm run build
 
 # 3. Start with pm2 (auto-restarts, survives reboots)
+cd "C:\Users\liam.bond\Documents\Productivity Tool"
 pm2 start ecosystem.config.js
 pm2 save
 pm2 startup   # run the output command to enable autostart on login
@@ -35,12 +36,14 @@ pm2 startup   # run the output command to enable autostart on login
 powershell -File "scripts\setup-graph-token.ps1"
 ```
 
-The `dashboard/ecosystem.config.js` configures:
+The root `ecosystem.config.js` configures two pm2 processes:
 
-- **App name:** `command-center`
-- **Port:** 3000
-- **`DASHBOARD_DATA_PATH`:** points to `workspace/coordinator/dashboard-data.json`
-- Auto-restart on crash, max 10 restarts
+- **dashboard** — Next.js Command Center at port 3000 (`dashboard/` directory, `npm start`, auto-restart ×5)
+- **vibe-kanban** — BloopAI Kanban board (`npx vibe-kanban`, auto-discovers port from config)
+
+Logs are written to `logs/dashboard-out.log`, `logs/dashboard-err.log`, `logs/vibe-kanban-out.log`, `logs/vibe-kanban-err.log`.
+
+There is also a `dashboard/ecosystem.config.js` and `workspace/coordinator/ecosystem.config.js` — the **root-level config** is the canonical one used for `pm2 start`.
 
 ### Development mode
 

@@ -30,11 +30,10 @@ Register-ScheduledTask `
   -Action $Action `
   -Settings $Settings `
   -RunLevel Limited `
-  -Description "Nightly deep-dive analysis of personal AI projects via Claude API"
+  -Description "Nightly deep-dive analysis of personal AI projects via Claude CLI OAuth"
 
 Write-Host "Task '$TaskName' registered successfully." -ForegroundColor Green
 Write-Host "It will run Mon-Fri at 02:00." -ForegroundColor Green
 Write-Host ""
-Write-Host "IMPORTANT: Make sure ANTHROPIC_API_KEY is set in:" -ForegroundColor Yellow
-Write-Host "  C:\Users\liam.bond\Documents\Productivity Tool\.env" -ForegroundColor Yellow
-Write-Host "  Format: ANTHROPIC_API_KEY=sk-ant-..." -ForegroundColor Yellow
+Write-Host "IMPORTANT: ensure Claude CLI OAuth is logged in before the first run:" -ForegroundColor Yellow
+Write-Host "  claude login" -ForegroundColor Yellow
