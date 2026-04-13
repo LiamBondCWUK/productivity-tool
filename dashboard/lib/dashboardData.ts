@@ -7,9 +7,14 @@ const DATA_FILE = path.resolve(
     path.join(process.cwd(), "data", "dashboard-data.json"),
 );
 
+function removeUtf8Bom(content: string): string {
+  return content.charCodeAt(0) === 0xfeff ? content.slice(1) : content;
+}
+
 export function readDashboardData(): DashboardData {
   const raw = fs.readFileSync(DATA_FILE, "utf-8");
-  return JSON.parse(raw) as DashboardData;
+  const normalized = removeUtf8Bom(raw);
+  return JSON.parse(normalized) as DashboardData;
 }
 
 export function writeDashboardData(data: DashboardData): void {

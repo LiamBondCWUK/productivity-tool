@@ -19,7 +19,7 @@ function Get-ScheduledTasksHealth {
 
     foreach ($task in $tasks) {
         $info = Get-ScheduledTaskInfo -TaskName $task.TaskName -ErrorAction SilentlyContinue
-        $lastResult  = if ($info) { [int]$info.LastTaskResult } else { $null }
+        $lastResult  = if ($info) { [long]$info.LastTaskResult } else { $null }
         $lastRunRaw  = if ($info) { $info.LastRunTime } else { $null }
         $nextRunRaw  = if ($info) { $info.NextRunTime } else { $null }
 
@@ -49,19 +49,35 @@ function Get-ScheduledTasksHealth {
 # ── PM2 ───────────────────────────────────────────────────────────────────────
 function Get-PM2Health {
     try {
-        $raw = & pm2 jlist 2>$null
-        if (-not $raw) { return , @() }
-        $procs = $raw | ConvertFrom-Json
+        # pm2 jlist contains duplicate-cased env keys (USERNAME/username) that
+        # break PowerShell's ConvertFrom-Json. Use Node to extract just the
+        # fields we need — Node handles duplicate keys fine.
+        $nodeScript = @"
+try {
+  const cp = require('child_process');
+  const raw = cp.execSync('pm2 jlist', { encoding: 'utf8', timeout: 10000 });
+  const procs = JSON.parse(raw);
+  const out = procs.map(p => ({
+    name: p.name, id: p.pm_id, status: p.pm2_env?.status,
+    uptime: p.pm2_env?.pm_uptime, restarts: p.pm2_env?.restart_time ?? 0,
+    memBytes: p.monit?.memory ?? 0, cpu: p.monit?.cpu ?? 0, pid: p.pid
+  }));
+  process.stdout.write(JSON.stringify(out));
+} catch { process.stdout.write('[]'); }
+"@
+        $json = & node -e $nodeScript 2>$null
+        if (-not $json) { return , @() }
+        $procs = $json | ConvertFrom-Json
         $results = @()
         foreach ($p in $procs) {
             $results += [ordered]@{
                 name     = $p.name
-                id       = $p.pm_id
-                status   = $p.pm2_env.status
-                uptime   = $p.pm2_env.pm_uptime
-                restarts = [int]$p.pm2_env.restart_time
-                memBytes = $p.monit.memory
-                cpu      = $p.monit.cpu
+                id       = $p.id
+                status   = $p.status
+                uptime   = $p.uptime
+                restarts = [int]$p.restarts
+                memBytes = $p.memBytes
+                cpu      = $p.cpu
                 pid      = $p.pid
             }
         }

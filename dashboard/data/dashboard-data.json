@@ -1,4 +1,4 @@
-﻿{
+{
     "meta":  {
                  "version":  "1.0.0",
                  "lastUpdated":  "2026-04-12T17:26:17.3602209+01:00",
@@ -8,7 +8,7 @@
                           "urgent":  [
                                          {
                                              "id":  "ukcas-789",
-                                             "title":  "UKCAS-789 â€” SLA breach in 45 min: Client login failing after patch",
+                                             "title":  "UKCAS-789 — SLA breach in 45 min: Client login failing after patch",
                                              "type":  "jira",
                                              "source":  "jira",
                                              "link":  "https://caseware.atlassian.net/browse/UKCAS-789",
@@ -23,7 +23,7 @@
                                          },
                                          {
                                              "id":  "ukcaud-1024",
-                                             "title":  "UKCAUD-1024 â€” PR review blocking sprint close (2 reviewers needed)",
+                                             "title":  "UKCAUD-1024 — PR review blocking sprint close (2 reviewers needed)",
                                              "type":  "jira",
                                              "source":  "jira",
                                              "link":  "https://caseware.atlassian.net/browse/UKCAUD-1024",
@@ -38,7 +38,7 @@
                           "aiSuggested":  [
                                               {
                                                   "id":  "ai-jira-rule-1",
-                                                  "title":  "Deploy Jira Rule 1 â€” UKCASâ†’UKJPD routing (unblocked, ~10 min)",
+                                                  "title":  "Deploy Jira Rule 1 — UKCAS→UKJPD routing (unblocked, ~10 min)",
                                                   "type":  "ai-suggestion",
                                                   "source":  "overnight",
                                                   "priority":  "high",
@@ -48,7 +48,7 @@
                                               },
                                               {
                                                   "id":  "ai-ukjpd-triage",
-                                                  "title":  "UKJPD triage batch â€” 56 UPFR items, Product Area fields empty",
+                                                  "title":  "UKJPD triage batch — 56 UPFR items, Product Area fields empty",
                                                   "type":  "ai-suggestion",
                                                   "source":  "overnight",
                                                   "priority":  "medium",
@@ -58,7 +58,7 @@
                                               },
                                               {
                                                   "id":  "ai-ticket-enhance",
-                                                  "title":  "Enhance /ticket â€” merge create-epic.md logic into epic sub-command",
+                                                  "title":  "Enhance /ticket — merge create-epic.md logic into epic sub-command",
                                                   "type":  "ai-suggestion",
                                                   "source":  "overnight",
                                                   "priority":  "medium",
@@ -70,7 +70,7 @@
                           "today":  [
                                         {
                                             "id":  "ukcaud-989",
-                                            "title":  "UKCAUD-989 â€” Review subtask completion for Lead Schedule story",
+                                            "title":  "UKCAUD-989 — Review subtask completion for Lead Schedule story",
                                             "type":  "jira",
                                             "source":  "jira",
                                             "link":  "https://caseware.atlassian.net/browse/UKCAUD-989",
@@ -101,7 +101,7 @@
                           "backlog":  [
                                           {
                                               "id":  "standing-ukjpd-review",
-                                              "title":  "UKJPD review â€” 56 UPFR items need triage",
+                                              "title":  "UKJPD review — 56 UPFR items need triage",
                                               "type":  "standing",
                                               "source":  "manual",
                                               "link":  null,
@@ -109,7 +109,7 @@
                                           },
                                           {
                                               "id":  "standing-ukpfr-crossover",
-                                              "title":  "UKPFR crossover â€” 82 ideas in crossover view",
+                                              "title":  "UKPFR crossover — 82 ideas in crossover view",
                                               "type":  "standing",
                                               "source":  "manual",
                                               "link":  null,
@@ -117,7 +117,7 @@
                                           },
                                           {
                                               "id":  "standing-teams-config",
-                                              "title":  "Teams channel config â€” teams-channels.json has stubbed TODOs",
+                                              "title":  "Teams channel config — teams-channels.json has stubbed TODOs",
                                               "type":  "standing",
                                               "source":  "manual",
                                               "link":  null,
@@ -125,7 +125,7 @@
                                           },
                                           {
                                               "id":  "standing-jira-rules",
-                                              "title":  "Jira Rules 1 + 2 ready to deploy (UKCASâ†’UKJPD, UKCAUDâ†’UKJPD)",
+                                              "title":  "Jira Rules 1 + 2 ready to deploy (UKCAS→UKJPD, UKCAUD→UKJPD)",
                                               "type":  "standing",
                                               "source":  "manual",
                                               "link":  null,
@@ -133,7 +133,7 @@
                                           },
                                           {
                                               "id":  "ukjpd-55-review",
-                                              "title":  "UKJPD-55 â€” Review Forecasting Enhancement request",
+                                              "title":  "UKJPD-55 — Review Forecasting Enhancement request",
                                               "type":  "jira",
                                               "source":  "jira",
                                               "link":  "https://caseware.atlassian.net/browse/UKJPD-55",
@@ -148,7 +148,7 @@
                                               {
                                                   "id":  "command-center",
                                                   "name":  "Command Center",
-                                                  "description":  "Personal AI command center â€” dashboard, priority inbox, time tracker",
+                                                  "description":  "Personal AI command center — dashboard, priority inbox, time tracker",
                                                   "phase":  "Building",
                                                   "completionPercent":  95,
                                                   "dir":  "C:/Users/liam.bond/Documents/Productivity Tool",
@@ -160,7 +160,7 @@
                                                                "productivity"
                                                            ],
                                                   "lastActivity":  "2026-04-02T03:04:51.500Z",
-                                                  "lastCommitSubject":  "feat: complete command center phases 4-7 â€” CLI consolidation, EOD pipeline, focus blocks",
+                                                  "lastCommitSubject":  "feat: complete command center phases 4-7 — CLI consolidation, EOD pipeline, focus blocks",
                                                   "suggestions":  [
                                                                       {
                                                                           "priority":  "HIGH",
@@ -206,7 +206,7 @@
                                                   "suggestions":  [
                                                                       {
                                                                           "priority":  "HIGH",
-                                                                          "action":  "Deploy Jira Rule 1 (UKCASâ†’UKJPD routing) â€” unblocked, 10min",
+                                                                          "action":  "Deploy Jira Rule 1 (UKCAS→UKJPD routing) — unblocked, 10min",
                                                                           "effort":  "S",
                                                                           "addedAt":  "2026-04-01T23:04:51.500Z"
                                                                       },
@@ -226,7 +226,7 @@
                                               {
                                                   "id":  "ai-breaking-news",
                                                   "name":  "AI Breaking News Tool",
-                                                  "description":  "Daily AI news digest email â€” automated scraping and formatting",
+                                                  "description":  "Daily AI news digest email — automated scraping and formatting",
                                                   "phase":  "Done",
                                                   "completionPercent":  95,
                                                   "dir":  "C:/Users/liam.bond/Documents/AI Breaking News Tool",
@@ -272,13 +272,13 @@
                                                   "suggestions":  [
                                                                       {
                                                                           "priority":  "HIGH",
-                                                                          "action":  "Deploy Jira Rule 2 (UKCAUDâ†’UKJPD sync) â€” review before deploying",
+                                                                          "action":  "Deploy Jira Rule 2 (UKCAUD→UKJPD sync) — review before deploying",
                                                                           "effort":  "S",
                                                                           "addedAt":  "2026-04-01T23:04:51.500Z"
                                                                       },
                                                                       {
                                                                           "priority":  "MED",
-                                                                          "action":  "Triage 56 UPFR items â€” Product Area/Line fields empty",
+                                                                          "action":  "Triage 56 UPFR items — Product Area/Line fields empty",
                                                                           "effort":  "L",
                                                                           "addedAt":  "2026-04-01T23:04:51.500Z"
                                                                       }
@@ -313,7 +313,7 @@
                                                                       },
                                                                       {
                                                                           "priority":  "HIGH",
-                                                                          "action":  "UKCAUD-989 subtask completion â€” Content + QA subtasks pending",
+                                                                          "action":  "UKCAUD-989 subtask completion — Content + QA subtasks pending",
                                                                           "effort":  "S",
                                                                           "addedAt":  "2026-04-01T23:04:51.500Z"
                                                                       },
@@ -355,7 +355,7 @@
                                     },
                                     {
                                         "id":  "cal-focus-ukcaud",
-                                        "title":  "[FOCUS] UKCAUD-989 â€” Lead Schedule review",
+                                        "title":  "[FOCUS] UKCAUD-989 — Lead Schedule review",
                                         "start":  "2026-04-02T09:00:00.000Z",
                                         "end":  "2026-04-02T10:30:00.000Z",
                                         "isOnlineMeeting":  false,
@@ -366,7 +366,7 @@
                                     },
                                     {
                                         "id":  "cal-product-review",
-                                        "title":  "Product review â€” Q2 roadmap alignment",
+                                        "title":  "Product review — Q2 roadmap alignment",
                                         "start":  "2026-04-02T13:00:00.000Z",
                                         "end":  "2026-04-02T14:00:00.000Z",
                                         "isOnlineMeeting":  true,
@@ -388,7 +388,7 @@
                                     },
                                     {
                                         "id":  "cal-tomorrow-release",
-                                        "title":  "Release review â€” v2024.3",
+                                        "title":  "Release review — v2024.3",
                                         "start":  "2026-04-03T09:00:00.000Z",
                                         "end":  "2026-04-03T10:00:00.000Z",
                                         "isOnlineMeeting":  true,
@@ -498,7 +498,7 @@
                                                                          "suggestions":  [
                                                                                              {
                                                                                                  "priority":  "HIGH",
-                                                                                                 "action":  "Deploy Jira Rule 1 â€” unblocked, 10min",
+                                                                                                 "action":  "Deploy Jira Rule 1 — unblocked, 10min",
                                                                                                  "effort":  "S"
                                                                                              },
                                                                                              {
@@ -524,7 +524,7 @@
                                                                                            },
                                                                                            {
                                                                                                "priority":  "MED",
-                                                                                               "action":  "Triage 56 UPFR items â€” Product Area fields empty",
+                                                                                               "action":  "Triage 56 UPFR items — Product Area fields empty",
                                                                                                "effort":  "L"
                                                                                            }
                                                                                        ],
@@ -596,7 +596,7 @@
                   },
                   {
                       "id":  "task-2",
-                      "title":  "Review UKCAUD-989 Content subtask â€” confirm QA assignment",
+                      "title":  "Review UKCAUD-989 Content subtask — confirm QA assignment",
                       "status":  "pending",
                       "priority":  "today",
                       "source":  "jira",
@@ -639,32 +639,32 @@
                                               "phase":  "1.1",
                                               "status":  "pending",
                                               "jiraLink":  "https://caseware.atlassian.net/jira/software/projects/UKCAUD/settings/automation",
-                                              "verificationCheck":  "Create test retro story with UKCAUD_RETRO + UKCAUD_RETRO_TEAMS_FORM + UKCAUD_RETRO_ENRICH labels under UKCAUD-15913 â†’ agent fires, label swaps to UKCAUD_RETRO_ENRICHED within 2 min"
+                                              "verificationCheck":  "Create test retro story with UKCAUD_RETRO + UKCAUD_RETRO_TEAMS_FORM + UKCAUD_RETRO_ENRICH labels under UKCAUD-15913 → agent fires, label swaps to UKCAUD_RETRO_ENRICHED within 2 min"
                                           },
                                           {
                                               "id":  "enhancement-routing",
-                                              "name":  "UKCAS â†’ UKJPD Enhancement Routing",
+                                              "name":  "UKCAS → UKJPD Enhancement Routing",
                                               "description":  "Routes UKCAS bugs to UKJPD Ideas when enhancement-request label is added",
                                               "project":  "UKCAS",
                                               "phase":  "1.2",
                                               "status":  "pending",
                                               "jiraLink":  "https://caseware.atlassian.net/jira/software/projects/UKCAS/settings/automation",
-                                              "verificationCheck":  "Apply enhancement-request to a test UKCAS bug â†’ UKJPD Idea auto-created, linked, UKCAS resolved"
+                                              "verificationCheck":  "Apply enhancement-request to a test UKCAS bug → UKJPD Idea auto-created, linked, UKCAS resolved"
                                           },
                                           {
                                               "id":  "epic-done-sync",
-                                              "name":  "UKCAUD Epic Done â†’ UKJPD Status Sync",
+                                              "name":  "UKCAUD Epic Done → UKJPD Status Sync",
                                               "description":  "Posts delivery-complete comment to linked UKJPD items when UKCAUD Epic transitions to Done",
                                               "project":  "UKCAUD",
                                               "phase":  "1.3",
                                               "status":  "pending",
                                               "jiraLink":  "https://caseware.atlassian.net/jira/software/projects/UKCAUD/settings/automation",
-                                              "verificationCheck":  "Transition a test UKCAUD Epic to Done with UKJPD link â†’ auto-comment on UKJPD item"
+                                              "verificationCheck":  "Transition a test UKCAUD Epic to Done with UKJPD link → auto-comment on UKJPD item"
                                           },
                                           {
                                               "id":  "disable-resolution-recommender",
                                               "name":  "Disable Stale Resolution Recommender (019d1f89)",
-                                              "description":  "Disable UKCAS rule 019d1f89 â€” merged into Triage Agent 1592e332 on 2026-03-26",
+                                              "description":  "Disable UKCAS rule 019d1f89 — merged into Triage Agent 1592e332 on 2026-03-26",
                                               "project":  "UKCAS",
                                               "phase":  "1.4",
                                               "status":  "pending",
@@ -674,12 +674,12 @@
                                           {
                                               "id":  "readiness-checker",
                                               "name":  "Enable Readiness Checker on UKCAUD",
-                                              "description":  "Rovo ambient quality gate â€” flags thin tickets missing AC, estimate, or DoR criteria on creation",
+                                              "description":  "Rovo ambient quality gate — flags thin tickets missing AC, estimate, or DoR criteria on creation",
                                               "project":  "UKCAUD",
                                               "phase":  "2.1",
                                               "status":  "pending",
                                               "jiraLink":  "https://caseware.atlassian.net/rovo",
-                                              "verificationCheck":  "Create a thin UKCAUD ticket (no AC, no estimate) â†’ Readiness Checker flags it"
+                                              "verificationCheck":  "Create a thin UKCAUD ticket (no AC, no estimate) → Readiness Checker flags it"
                                           },
                                           {
                                               "id":  "theme-analyzer",
@@ -701,8 +701,8 @@
                                                   "name":  "Opera MCP Server",
                                                   "category":  "MCP",
                                                   "priority":  "HIGH",
-                                                  "description":  "Browser control via MCP â€” org-policy-safe alternative to the blocked Chrome/Edge extension",
-                                                  "signal":  "Google News Apr 6 â€” XDA: \u0027Opera now has an MCP server that lets Claude control your browser\u0027",
+                                                  "description":  "Browser control via MCP — org-policy-safe alternative to the blocked Chrome/Edge extension",
+                                                  "signal":  "Google News Apr 6 — XDA: \u0027Opera now has an MCP server that lets Claude control your browser\u0027",
                                                   "installCommand":  "Install Opera browser, then enable MCP server from Opera Settings \u003e Advanced \u003e MCP",
                                                   "integratesWith":  [
                                                                          "Playwright MCP"
@@ -715,8 +715,8 @@
                                                   "name":  "Anthropic Harness Design Guide",
                                                   "category":  "Architecture",
                                                   "priority":  "HIGH",
-                                                  "description":  "Official Anthropic guidance on structuring Claude Code harnesses for long-running tasks â€” validates or improves RALPH/hook setup",
-                                                  "signal":  "Google News Apr 6 â€” Anthropic blog: \u0027Harness design for long-running application development\u0027",
+                                                  "description":  "Official Anthropic guidance on structuring Claude Code harnesses for long-running tasks — validates or improves RALPH/hook setup",
+                                                  "signal":  "Google News Apr 6 — Anthropic blog: \u0027Harness design for long-running application development\u0027",
                                                   "status":  "PENDING",
                                                   "addedAt":  "2026-04-06T06:30:00.000Z"
                                               },
@@ -725,8 +725,8 @@
                                                   "name":  "Everything Claude Code",
                                                   "category":  "Plugin",
                                                   "priority":  "HIGH",
-                                                  "description":  "118K-star config layer for AI coding agents â€” may replace or complement parts of your hook stack",
-                                                  "signal":  "Google News Apr 6 â€” Augment Code: \u0027Everything Claude Code hits 118K stars\u0027",
+                                                  "description":  "118K-star config layer for AI coding agents — may replace or complement parts of your hook stack",
+                                                  "signal":  "Google News Apr 6 — Augment Code: \u0027Everything Claude Code hits 118K stars\u0027",
                                                   "installCommand":  "Search GitHub for \u0027everything-claude-code\u0027 and compare against current setup",
                                                   "status":  "PENDING",
                                                   "addedAt":  "2026-04-06T06:30:00.000Z"
@@ -736,8 +736,8 @@
                                                   "name":  "Claude Code 2.5 Features",
                                                   "category":  "App",
                                                   "priority":  "MED",
-                                                  "description":  "Version bump with web developer focus â€” review new features not yet in current setup",
-                                                  "signal":  "Google News Apr 6 â€” SitePoint: \u0027Claude Code 2.5: New Features for Web Developers\u0027",
+                                                  "description":  "Version bump with web developer focus — review new features not yet in current setup",
+                                                  "signal":  "Google News Apr 6 — SitePoint: \u0027Claude Code 2.5: New Features for Web Developers\u0027",
                                                   "installCommand":  "npm update -g @anthropic-ai/claude-code",
                                                   "status":  "PENDING",
                                                   "addedAt":  "2026-04-06T06:30:00.000Z"

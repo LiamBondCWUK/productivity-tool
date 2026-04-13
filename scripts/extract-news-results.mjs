@@ -72,7 +72,7 @@ function parseMorningBrief(content) {
 function parseSetupSuggestions(content) {
   const suggestions = [];
   const setupSection = content.match(
-    /## Setup Suggestions[\s\S]*?(?=^## |\Z)/m,
+    /## Setup Suggestions[\s\S]*?(?=^## |(?![\s\S]))/m,
   );
   if (!setupSection) return suggestions;
 
@@ -86,6 +86,89 @@ function parseSetupSuggestions(content) {
   return suggestions;
 }
 
+/**
+ * Parse the Internal Intelligence section from morning-brief.md
+ * Returns { teamsChannels[], confluencePages[], newsletterHighlights[] }
+ */
+function parseInternalIntelligence(content) {
+  const result = {
+    teamsChannels: [],
+    confluencePages: [],
+    newsletterHighlights: [],
+  };
+
+  // Extract the ## Internal Intelligence section
+  const intelSection = content.match(
+    /## Internal Intelligence[\s\S]*?(?=^## |(?![\s\S]))/m,
+  );
+  if (!intelSection) return result;
+
+  const sectionText = intelSection[0];
+
+  // Parse ### Teams Channels subsection
+  const teamsSection = sectionText.match(
+    /### Teams Channels[\s\S]*?(?=^### |^## |(?![\s\S]))/m,
+  );
+  if (teamsSection) {
+    const items = parseInternalItems(teamsSection[0], 'teams');
+    result.teamsChannels = items;
+  }
+
+  // Parse ### Confluence Updates subsection
+  const confluenceSection = sectionText.match(
+    /### Confluence Updates[\s\S]*?(?=^### |^## |(?![\s\S]))/m,
+  );
+  if (confluenceSection) {
+    const items = parseInternalItems(confluenceSection[0], 'confluence');
+    result.confluencePages = items;
+  }
+
+  // Parse ### Newsletter Highlights subsection
+  const newsletterSection = sectionText.match(
+    /### Newsletter Highlights[\s\S]*?(?=^### |^## |(?![\s\S]))/m,
+  );
+  if (newsletterSection) {
+    const items = parseInternalItems(newsletterSection[0], 'newsletter');
+    result.newsletterHighlights = items;
+  }
+
+  return result;
+}
+
+/**
+ * Parse bullet-point or numbered items from an internal intelligence subsection.
+ * Handles formats like:
+ *   - **Title** — Summary. [Link](url)
+ *   - [sourceType:Confluence] **Title** — Summary
+ *   1. **Title** — Summary
+ */
+function parseInternalItems(sectionContent, sourceType) {
+  const items = [];
+  const lines = sectionContent.split('\n');
+
+  for (const line of lines) {
+    // Match bullet or numbered item with bold title
+    const match = line.match(
+      /^(?:[-*]|\d+\.)\s+(?:\[sourceType:\w+\]\s*)?(?:\*\*(.+?)\*\*)\s*[—–-]\s*(.+)/,
+    );
+    if (!match) continue;
+
+    const title = match[1].trim();
+    let rest = match[2].trim();
+
+    // Extract URL if present
+    const urlMatch = rest.match(/\[(?:Link|Open|View)\]\(([^)]+)\)/);
+    const url = urlMatch ? urlMatch[1] : undefined;
+
+    // Strip link from summary
+    const summary = rest.replace(/\s*\[(?:Link|Open|View)\]\([^)]+\)\s*/g, '').trim();
+
+    items.push({ title, summary, sourceType, url });
+  }
+
+  return items;
+}
+
 function main() {
   const morningBriefPath = join(NEWS_TOOL_DIR, 'morning-brief.md');
   const reportPath = join(NEWS_TOOL_DIR, 'ai-breaking-news-report.md');
@@ -93,6 +176,7 @@ function main() {
   // Prefer morning-brief if it exists (more recent)
   let topStories = [];
   let suggestions = [];
+  let internalIntel = { teamsChannels: [], confluencePages: [], newsletterHighlights: [] };
   let lastRun = null;
 
   if (existsSync(morningBriefPath)) {
@@ -100,9 +184,11 @@ function main() {
     const { stories, date } = parseMorningBrief(content);
     topStories = stories;
     suggestions = parseSetupSuggestions(content);
+    internalIntel = parseInternalIntelligence(content);
     const mtime = fileModTime(morningBriefPath);
     lastRun = mtime ? mtime.toISOString() : date ? `${date}T07:30:00.000Z` : new Date().toISOString();
     console.log(`Parsed morning-brief.md: ${stories.length} stories, ${suggestions.length} suggestions`);
+    console.log(`Internal intel: ${internalIntel.teamsChannels.length} teams, ${internalIntel.confluencePages.length} confluence, ${internalIntel.newsletterHighlights.length} newsletters`);
   } else if (existsSync(reportPath)) {
     // Fall back to comprehensive report — extract H3 section headings as stories
     const content = readFileSync(reportPath, 'utf-8');
@@ -139,11 +225,12 @@ function main() {
     lastRun,
     topStories: topStories.slice(0, 10),
     suggestions,
+    internalIntel,
   };
 
   writeFileSync(DASHBOARD_DATA_FILE, JSON.stringify(dashboardData, null, 2));
   console.log(
-    `Wrote ${topStories.length} stories to dashboard-data.json aiNewsResults`,
+    `Wrote ${topStories.length} stories + internal intel to dashboard-data.json aiNewsResults`,
   );
 }
 

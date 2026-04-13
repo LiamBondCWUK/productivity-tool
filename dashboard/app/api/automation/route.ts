@@ -1,22 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { readFileSync, writeFileSync } from 'fs'
-import { join } from 'path'
+import { readDashboardData, writeDashboardData } from '../../../lib/dashboardData'
 import type { AutomationRule, AutomationRuleStatus } from '../../../types/dashboard'
 
-const DASHBOARD_FILE = join(process.cwd(), '..', 'workspace', 'coordinator', 'dashboard-data.json')
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function readData(): any {
-  return JSON.parse(readFileSync(DASHBOARD_FILE, 'utf-8'))
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function writeData(data: any): void {
-  writeFileSync(DASHBOARD_FILE, JSON.stringify(data, null, 2))
-}
-
 export async function GET() {
-  const data = readData()
+  const data = readDashboardData()
   return NextResponse.json(data.automationRules ?? { lastChecked: null, rules: [] })
 }
 
@@ -37,7 +24,7 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid status' }, { status: 400 })
   }
 
-  const data = readData()
+  const data = readDashboardData()
   if (!data.automationRules) {
     return NextResponse.json({ error: 'automationRules not found' }, { status: 404 })
   }
@@ -49,19 +36,27 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: 'Rule not found' }, { status: 404 })
   }
 
-  const rule: AutomationRule = data.automationRules.rules[idx]
-  rule.status = body.status
-
-  if (body.status === 'deployed') {
-    rule.deployedAt = body.deployedAt ?? new Date().toISOString()
-    delete rule.blockedReason
-  } else if (body.status === 'blocked') {
-    rule.blockedReason = body.blockedReason
+  const existingRule: AutomationRule = data.automationRules.rules[idx]
+  const updatedRule: AutomationRule = {
+    ...existingRule,
+    status: body.status,
+    ...(body.status === 'deployed'
+      ? { deployedAt: body.deployedAt ?? new Date().toISOString(), blockedReason: undefined }
+      : {}),
+    ...(body.status === 'blocked' ? { blockedReason: body.blockedReason } : {}),
   }
 
-  data.automationRules.rules[idx] = rule
-  data.automationRules.lastChecked = new Date().toISOString()
-  writeData(data)
+  const updatedRules = data.automationRules.rules.map((r: AutomationRule, i: number) =>
+    i === idx ? updatedRule : r,
+  )
 
-  return NextResponse.json(rule)
+  writeDashboardData({
+    ...data,
+    automationRules: {
+      lastChecked: new Date().toISOString(),
+      rules: updatedRules,
+    },
+  })
+
+  return NextResponse.json(updatedRule)
 }

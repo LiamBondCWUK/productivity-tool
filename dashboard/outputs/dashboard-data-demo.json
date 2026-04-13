@@ -1,0 +1,163 @@
+{
+  "lastUpdated": "2026-04-12T06:30:00.000Z",
+  "aiNewsResults": {
+    "topStories": [
+      {
+        "id": "github-trending-1",
+        "source": "GitHub Trending",
+        "title": "Claude 3.5 Sonnet Benchmark Suite",
+        "description": "New comprehensive benchmark showing 3.5 Sonnet outperforming GPT-4 on reasoning tasks (+23%).",
+        "link": "https://github.com",
+        "date": "2026-04-12T02:00:00Z"
+      },
+      {
+        "id": "hn-1",
+        "source": "Hacker News",
+        "title": "Show HN: Cursor IDE v0.25 Released",
+        "description": "Major productivity improvement for AI-assisted coding with inline refactoring. 487 points discussion on new Copilot integration patterns.",
+        "points": 487
+      }
+    ],
+    "internalIntel": {
+      "teamsChannels": [
+        {
+          "sourceType": "teams",
+          "channelName": "Caseware Advanced Tools",
+          "title": "Document Analysis Workflow Integration",
+          "excerpt": "Discussion on integrating Claude API for document analysis workflows. Message from Sarah Chen: 'We should evaluate Claude for automated compliance checking.'",
+          "sender": "Sarah Chen",
+          "date": "2026-04-12T04:15:00Z",
+          "link": "https://teams.microsoft.com/l/message"
+        },
+        {
+          "sourceType": "teams",
+          "channelName": "AI Innovation Lab",
+          "title": "Weekly Standup Recap",
+          "excerpt": "Prototyping agentic approach for data extraction. 5 new participants joined this week.",
+          "date": "2026-04-12T03:00:00Z"
+        },
+        {
+          "sourceType": "teams",
+          "channelName": "ML & Data Science",
+          "title": "Technical Deep Dive: Implementing RAG with Caseware knowledge base",
+          "excerpt": "Implementation patterns and best practices for knowledge base integration.",
+          "sender": "Jamie Rodriguez",
+          "date": "2026-04-12T02:30:00Z",
+          "engagement": "4 replies, 12 reactions"
+        }
+      ],
+      "confluencePages": [
+        {
+          "sourceType": "confluence",
+          "pageTitle": "AI Strategy 2026",
+          "space": "AI Innovation",
+          "excerpt": "Architecture decision: Moving to multi-agent orchestration for client workflows.",
+          "modifier": "Chief Architect",
+          "modified": "2026-04-12T04:30:00Z",
+          "flag": "NEW",
+          "link": "https://confluence.caseware.com/pages/viewpage.action?pageId=12345"
+        },
+        {
+          "sourceType": "confluence",
+          "pageTitle": "Claude SDK Integration Guide",
+          "space": "Documentation",
+          "excerpt": "New section: Error handling patterns for agentic workflows",
+          "modified": "2026-04-12T02:00:00Z",
+          "flag": "RECENT",
+          "link": "https://confluence.caseware.com/pages/viewpage.action?pageId=12346"
+        },
+        {
+          "sourceType": "confluence",
+          "pageTitle": "Copilot for Compliance",
+          "space": "Compliance",
+          "excerpt": "Initial feasibility study for AI-driven compliance checking integration",
+          "created": "2026-04-12T04:00:00Z",
+          "flag": "NEW",
+          "link": "https://confluence.caseware.com/pages/viewpage.action?pageId=12347"
+        }
+      ],
+      "newsletterHighlights": [
+        {
+          "sourceType": "newsletter",
+          "newsletter": "The Neuron Weekly",
+          "issue": "#127",
+          "title": "Frontier model evaluations: measuring real-world AI reliability",
+          "excerpt": "Focus on benchmarking methodologies",
+          "receivedAt": "2026-04-12T01:00:00Z"
+        },
+        {
+          "sourceType": "newsletter",
+          "newsletter": "Pragmatic Engineer",
+          "title": "Building scalable AI systems: lessons from production deployments",
+          "excerpt": "Best practices for team scaling",
+          "receivedAt": "2026-04-11T20:00:00Z"
+        },
+        {
+          "sourceType": "newsletter",
+          "newsletter": "deeplearning.ai",
+          "title": "Intro to Agents course announced with practical MCP examples",
+          "receivedAt": "2026-04-11T18:00:00Z"
+        },
+        {
+          "sourceType": "newsletter",
+          "newsletter": "Caseware Internal – Product Updates",
+          "title": "Q2 AI roadmap includes Copilot integration for client advisory modules",
+          "excerpt": "Strategic direction for AI product development",
+          "receivedAt": "2026-04-12T05:00:00Z"
+        }
+      ]
+    },
+    "suggestions": [
+      {
+        "id": "suggest-1",
+        "category": "high",
+        "title": "MCP Protocol SDK",
+        "description": "Your Teams channels discuss agent orchestration; deep learning.ai course + Pragmatic Engineer article confirm this is trending.",
+        "reasoning": "Supports the agentic direction your org is moving toward; critical for integrating Claude with your RAG + compliance workflows",
+        "installCommand": "npm install @anthropic-ai/sdk @modelcontextprotocol/sdk",
+        "sources": [
+          { "type": "teams", "ref": "Caseware Advanced Tools", "mention": "Evaluate Claude for automated compliance checking" },
+          { "type": "newsletter", "ref": "deeplearning.ai", "mention": "Agents course with MCP examples" },
+          { "type": "confluence", "ref": "AI Strategy 2026", "mention": "Multi-agent orchestration" }
+        ]
+      },
+      {
+        "id": "suggest-2",
+        "category": "medium",
+        "title": "Cursor IDE v0.25",
+        "description": "HN discussion + Reddit post show productivity gains for AI-assisted coding.",
+        "reasoning": "Watch how your teams react over next 2 weeks before installing org-wide",
+        "installCommand": "Download from https://cursor.sh (v0.25+)",
+        "sources": [
+          { "type": "external", "ref": "Hacker News", "points": 487 },
+          { "type": "external", "ref": "Reddit r/ClaudeCode" }
+        ]
+      }
+    ]
+  },
+  "priorityInbox": {
+    "aiSuggested": [
+      {
+        "id": "inst-1",
+        "type": "tool-install",
+        "title": "MCP Protocol SDK",
+        "reasoning": "Your org is moving toward multi-agent orchestration. Deep learning course + production article confirm priority.",
+        "installCommand": "npm install @anthropic-ai/sdk @modelcontextprotocol/sdk",
+        "priority": "high",
+        "suggestedAt": "2026-04-12T06:30:00Z",
+        "status": "PENDING"
+      }
+    ]
+  },
+  "recommendedInstalls": {
+    "items": [
+      {
+        "id": "inst-1",
+        "title": "MCP Protocol SDK",
+        "category": "high",
+        "status": "PENDING",
+        "suggestedAt": "2026-04-12T06:30:00Z"
+      }
+    ]
+  }
+}

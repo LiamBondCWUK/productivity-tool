@@ -1,0 +1,222 @@
+# Transcript: UKCAUD - Stand-up - MS Teams-20260316_101608UTC-Meeting Recording
+# Duration: 691s | Language: en
+# Transcribed: 2026-04-13T01:19:15.189888
+# Model: faster-whisper base
+# Segments: 216 | Processing time: 102s
+
+[00:15.76 -> 01:04.26] Good morning. Good morning. Morning. Morning. Morning.
+[01:04.26 -> 01:27.85] I think we did have everyone. John, I'm going to end this.
+[01:27.85 -> 01:34.85] How unlucky can you get John? That is as tight as it could possibly be on that spinner.
+[01:34.85 -> 01:37.85] On one out three as well. Anyway.
+[01:37.85 -> 01:48.72] Okay. Since I'm turning you started the day off, we'll go to Antonio first. Thank you.
+[01:48.72 -> 01:56.72] Thank you. Thank you very much. So for today, I'm working on tickets for UK audit, Marcia and for a mercy academy.
+[01:56.72 -> 02:06.72] Sorry. And been looking for new tickets because I have two more and I believe there are another unassigned.
+[02:06.72 -> 02:10.72] So I'll pick them up and look forward for new tickets.
+[02:10.72 -> 02:12.72] And that's everything on my side.
+[02:12.72 -> 02:16.72] Are we saying that there is a shortage of tickets?
+[02:16.72 -> 02:22.72] Oh, no. You're just picking up the next ones. Yeah, that's fine. Yeah, I got it. Okay.
+[02:22.72 -> 02:28.72] Right. I'm running out the original. Yeah. Yeah. I'm sure there's plenty of going on.
+[02:28.72 -> 02:33.72] So I'll go to Lee then as well, because he's obviously in the same section.
+[02:33.72 -> 02:34.72] Thank you.
+[02:34.72 -> 02:45.72] Hi. Yeah. Morning. I'm working through the B4T, adding the ADA procedures to each section.
+[02:46.72 -> 02:58.72] That's going to be quite a while and then I'll show where I should probably then pick up some peer review to get those ones that Antonio has done through.
+[02:58.72 -> 03:08.72] And then see what, see what's next. Yeah, on the B4T stuff at the ADA basic document.
+[03:08.72 -> 03:11.72] Have you got through that one yet?
+[03:11.72 -> 03:15.72] What is that? A couple of stages after the audit.
+[03:15.72 -> 03:19.72] This is the original B4T I'm doing now. Right.
+[03:19.72 -> 03:20.72] Yeah.
+[03:20.72 -> 03:26.72] We haven't put the B4T ADA documents on this sprint yet.
+[03:26.72 -> 03:30.72] We'll see how it goes, basically. I think that's what I spoke for.
+[03:30.72 -> 03:33.72] Yeah. Okay. Thank you.
+[03:33.72 -> 03:37.72] So I'll go to Patrick, please.
+[03:37.72 -> 03:40.72] Yep, so I'm just continuing to work through your spring cards.
+[03:40.72 -> 03:50.72] I'm currently going through the patch updates for the pension, mercy of stuff.
+[03:50.72 -> 03:55.29] Go through the B31 at the moment.
+[03:55.29 -> 03:57.29] Right. Okay. Thank you and will.
+[03:57.29 -> 04:00.24] Well, yeah, yesterday.
+[04:00.24 -> 04:03.24] Yes, it's Friday. I've said that the second time today.
+[04:03.24 -> 04:07.24] But on Friday, I was getting just some questions from a QA.
+[04:07.24 -> 04:15.24] Just questions about for product and what's expected per product and how things are meant to be working.
+[04:15.24 -> 04:18.24] And I've been doing a QA reviews.
+[04:18.24 -> 04:24.24] I haven't been doing anything big for all of it. That's me.
+[04:24.24 -> 04:28.24] Okay. So I'm just trying to scroll down.
+[04:28.24 -> 04:32.24] So the, that PMSD on opening issue.
+[04:32.24 -> 04:36.24] They're done for all the templates. I presume now.
+[04:36.24 -> 04:38.24] Well, what do you mean by done?
+[04:38.24 -> 04:41.24] As in, as in the development work has been done.
+[04:41.24 -> 04:42.24] So.
+[04:42.24 -> 04:44.24] And yourself.
+[04:44.24 -> 04:45.24] Okay. Yes.
+[04:45.24 -> 04:46.24] I understand it was.
+[04:46.24 -> 04:48.24] It's like a shot in the dark. But yeah.
+[04:48.24 -> 04:51.24] Anyway, as far as you're concerned, they're already for test.
+[04:51.24 -> 04:54.24] And so that's the next stage. So which case?
+[04:54.24 -> 04:56.24] I'll go to Alice.
+[04:56.24 -> 04:59.24] Welcome back, Alice. I hope you had a nice break.
+[04:59.24 -> 05:03.16] Thank you.
+[05:03.16 -> 05:04.16] Everyone.
+[05:04.16 -> 05:08.16] Yeah, obviously I don't have any updates.
+[05:08.16 -> 05:11.16] There's quite a lot of cards available on the cloud now.
+[05:11.16 -> 05:14.16] I've seen so I'll be pressing on with that.
+[05:14.16 -> 05:16.16] Okay, I'll let we'll come in.
+[05:16.16 -> 05:19.16] But then we'll do some quick word. Yeah, well.
+[05:19.16 -> 05:21.16] I've had a quick look and know they're not all done.
+[05:21.16 -> 05:22.16] Otherwise not done.
+[05:22.16 -> 05:25.16] Pensions is not done.
+[05:25.16 -> 05:28.16] Yeah, these are all for developers.
+[05:28.16 -> 05:30.16] Right. Can you get a Republic of Ireland done then?
+[05:30.16 -> 05:35.16] Because we're trying to release company LLP charity in Republic of Ireland
+[05:35.16 -> 05:38.16] as this previous whole fix.
+[05:38.16 -> 05:39.16] Okay.
+[05:39.16 -> 05:41.16] So get those done.
+[05:41.16 -> 05:43.16] Just a Republic of Ireland one.
+[05:43.16 -> 05:47.16] Okay. So Alice in terms of the preference for those.
+[05:47.16 -> 05:52.16] There should be a card which says develop audit mercy, whatever template.
+[05:52.16 -> 05:55.16] Ensure PMSD shows on opening.
+[05:55.16 -> 05:57.16] It's a bit of a.
+[05:57.16 -> 06:00.16] Question as to what that.
+[06:00.16 -> 06:04.16] Actually, what we can actually do to get it working basically does it open up?
+[06:04.16 -> 06:07.16] Can we go through those.
+[06:07.16 -> 06:11.16] Or templates I just mentioned as one card for each Republic of Ireland.
+[06:11.16 -> 06:15.16] When that's done UK company LLP and charity.
+[06:15.16 -> 06:18.16] Because those are the ones we're trying to release this week.
+[06:18.16 -> 06:22.16] And then we can get the push is going and everything's in place.
+[06:22.16 -> 06:23.16] All right.
+[06:23.16 -> 06:25.16] Thank you very much.
+[06:25.16 -> 06:26.16] Okay.
+[06:26.16 -> 06:28.16] So.
+[06:28.16 -> 06:31.16] I'd like to read yet, please.
+[06:31.16 -> 06:32.16] Yeah, hi, Jen.
+[06:32.16 -> 06:34.16] What a good morning.
+[06:34.16 -> 06:35.16] Yeah, from my last Friday.
+[06:35.16 -> 06:40.16] I have working on the day maintenance for the International Academy on the UK company.
+[06:40.16 -> 06:43.16] I have a resident here for the exhibition.
+[06:43.16 -> 06:46.16] And also, I have worked on the International U.A.D.
+[06:46.16 -> 06:47.16] Automotive.
+[06:47.16 -> 06:49.16] I have completed it.
+[06:49.16 -> 06:50.16] I'm coming to today.
+[06:50.16 -> 06:55.16] As I'm going to be working on the daily maintenance for international and the current difference.
+[06:55.16 -> 06:57.16] And I have already raised it.
+[06:57.16 -> 06:59.16] We have all the extra.
+[06:59.16 -> 07:04.16] And also there's a 20% pending promise that I have closer it by adding my references.
+[07:04.16 -> 07:09.16] Currently, I'm working on the UK company U.A.D. Automotive should test figures.
+[07:09.16 -> 07:10.16] That's it for myself.
+[07:10.16 -> 07:11.16] Thank you.
+[07:11.16 -> 07:12.16] Thank you.
+[07:12.16 -> 07:15.18] Yeah.
+[07:15.18 -> 07:16.18] Good morning, John.
+[07:16.18 -> 07:17.18] Good morning.
+[07:17.18 -> 07:22.18] So last Friday, I've worked on the maintenance and today's PR also completed working on EV2.
+[07:22.18 -> 07:23.18] I should.
+[07:23.18 -> 07:26.18] Apart from that, like also, I have a completed.
+[07:26.18 -> 07:28.18] The scientific is by will.
+[07:28.18 -> 07:31.18] So I have closed them and coming to today's object.
+[07:31.18 -> 07:35.18] So today, I'm going to meet the deliverance and I'm raised up here.
+[07:35.18 -> 07:39.18] And apart from that, like, I will be taking the ideal key with this footage.
+[07:39.18 -> 07:41.18] So that's all from me.
+[07:41.18 -> 07:42.18] Thank you.
+[07:42.18 -> 07:43.18] Thank you.
+[07:43.18 -> 07:44.18] Thank you.
+[07:44.18 -> 07:45.18] Hi, everyone.
+[07:45.18 -> 07:46.18] So coming to mind.
+[07:46.18 -> 07:47.18] I've been working on.
+[07:47.18 -> 07:48.18] I'll be checking back tomorrow.
+[07:48.18 -> 07:49.18] Right.
+[07:49.18 -> 07:50.18] Thank you very much.
+[07:50.18 -> 07:51.18] Okay.
+[07:51.18 -> 07:52.18] So let's have a look.
+[07:52.18 -> 07:53.18] Roy.
+[07:53.18 -> 07:54.18] Yeah.
+[07:54.18 -> 08:01.18] I'm still carrying on with these checklist specs.
+[08:01.18 -> 08:04.18] Currently looking through the tailor and documents still.
+[08:04.18 -> 08:05.18] That's me really.
+[08:05.18 -> 08:06.18] Yeah.
+[08:06.18 -> 08:07.18] Thank you.
+[08:07.18 -> 08:09.55] And Fed.
+[08:09.55 -> 08:11.55] Good morning, everyone.
+[08:11.55 -> 08:13.55] I'll be working on Friday through the JSSF.
+[08:13.55 -> 08:15.55] I'm basically at the bottom of the document.
+[08:15.55 -> 08:16.55] I'm going to be working on.
+[08:16.55 -> 08:17.55] Thank you.
+[08:17.55 -> 08:18.55] Thank you.
+[08:18.55 -> 08:19.55] And Fed.
+[08:19.55 -> 08:20.55] Good morning, everyone.
+[08:21.55 -> 08:23.55] I'll be working on Friday through the JSSF.
+[08:23.55 -> 08:25.55] I'm basically at the bottom of the document.
+[08:25.55 -> 08:31.55] But I don't need to do all the linkage between planning when it's revised or when it's material.
+[08:31.55 -> 08:32.55] Yeah.
+[08:32.55 -> 08:34.55] So I'm basically refining the form now.
+[08:34.55 -> 08:36.55] I'm going to do that the whole day today.
+[08:36.55 -> 08:37.55] And that's me.
+[08:37.55 -> 08:38.55] Right.
+[08:38.55 -> 08:40.55] Go to Adam.
+[08:40.55 -> 08:41.55] Morning.
+[08:41.55 -> 08:43.55] Meetings all day today.
+[08:43.55 -> 08:44.55] Catch-up stand-ups.
+[08:44.55 -> 08:46.55] Just the same thing every Monday, Alex.
+[08:46.55 -> 08:47.55] Basically working out.
+[08:47.55 -> 08:48.55] Yeah.
+[08:48.55 -> 08:49.55] And Josh.
+[08:49.55 -> 08:50.55] Similar.
+[08:50.55 -> 08:51.55] Yeah.
+[08:51.55 -> 08:52.55] Similar.
+[08:52.55 -> 08:57.55] I've now got to start work on last year's R&D claim as well for the financial year.
+[08:57.55 -> 08:59.55] So it's going to take a couple of weeks.
+[08:59.55 -> 09:02.55] So that'll probably be my update for the next two weeks as well.
+[09:02.55 -> 09:03.55] That's fun.
+[09:03.55 -> 09:04.55] Yeah.
+[09:04.55 -> 09:05.55] What a great luck.
+[09:05.55 -> 09:06.55] Joyce.
+[09:06.55 -> 09:08.99] Liam.
+[09:08.99 -> 09:09.99] Yeah.
+[09:09.99 -> 09:13.99] Just creating something to help me go through the release notes.
+[09:13.99 -> 09:18.99] Obviously, I made a new template and stuff like that for the release notes.
+[09:18.99 -> 09:23.99] But also one of the things was just getting that process of looking through
+[09:23.99 -> 09:24.99] the watch change.
+[09:24.99 -> 09:28.99] The previous set of release notes and then.
+[09:28.99 -> 09:31.99] Yeah, comparing those basically and putting something together.
+[09:31.99 -> 09:37.99] So I was trying to set up a bit of a workflow for that through Claude and stuff.
+[09:37.99 -> 09:42.99] And then because I was looking at the what's changed.
+[09:42.99 -> 09:47.99] I went down a bit of a rabbit hole for.
+[09:47.99 -> 09:52.99] Comparisons of things that I wanted to show the content guys if you guys want to stay
+[09:52.99 -> 09:57.40] around for a second afterwards.
+[09:57.40 -> 09:59.40] So yeah, that's it for the moment.
+[09:59.40 -> 10:01.40] For today, I'll be starting off the.
+[10:01.40 -> 10:09.40] Looking at the stuff that you said for sent over for the Excel sheets for the schedules and academies.
+[10:09.40 -> 10:10.40] Good.
+[10:10.40 -> 10:12.40] For me, it was.
+[10:12.40 -> 10:16.40] I did the first of the disclose checklist for FROS 102.
+[10:16.40 -> 10:20.40] That was the first one that's completed now.
+[10:20.40 -> 10:25.40] So I'm moving on to the second one, but I'll be looking at the release notes and doing those now and.
+[10:25.40 -> 10:28.40] Updating the ones I've already done because.
+[10:28.40 -> 10:30.40] Liam's asked me to.
+[10:30.40 -> 10:31.40] Well, we're going to.
+[10:31.40 -> 10:33.40] I'm going to put them into this new format because they are.
+[10:33.40 -> 10:36.40] They are the new branding and they look better in that sense.
+[10:36.40 -> 10:37.40] So we'll get on with that.
+[10:37.40 -> 10:39.40] And hopefully we'll get all these done.
+[10:39.40 -> 10:40.40] So.
+[10:40.40 -> 10:45.40] I say as soon as we've got the confirmation that that final PMS D card is done.
+[10:45.40 -> 10:47.40] Then we'll we'll.
+[10:47.40 -> 10:49.40] If you can action those.
+[10:49.40 -> 10:52.40] This is for willing for Patrick or mainly Patrick hopefully.
+[10:52.40 -> 10:55.40] Then we can action the push the PR push.
+[10:55.40 -> 10:57.40] For the.
+[10:57.40 -> 10:58.40] The templates.
+[10:58.40 -> 11:03.40] And those could all then hopefully go out this week on their cards.
+[11:03.40 -> 11:06.40] There are there are cards already set up for it.
+[11:06.40 -> 11:09.40] So just the action when we give the OK.
+[11:09.40 -> 11:11.40] And that's it then I think.
+[11:11.40 -> 11:12.40] Great.
+[11:12.40 -> 11:14.40] Well, have a good Monday everyone.
+[11:14.40 -> 11:15.40] Have a good.
+[11:15.40 -> 11:18.40] Liam, you want Fed and Roy to say on is it.
+[11:18.40 -> 11:19.40] And then you jump.
+[11:19.40 -> 11:20.40] Yeah.
+[11:20.40 -> 11:21.40] Yeah.
+[11:21.40 -> 11:22.40] All right.
+[11:22.40 -> 11:23.40] Thank you very much everyone.
+[11:23.40 -> 11:24.40] Cheers.
+[11:24.40 -> 11:25.40] Thank you.
+[11:25.40 -> 11:26.40] Later.
+[11:26.40 -> 11:30.26] Yeah, basic.

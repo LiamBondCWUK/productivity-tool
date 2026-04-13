@@ -1,0 +1,103 @@
+# Transcript: UKCAUD - Stand-up - MS Teams-20260407_091553UTC-Meeting Recording
+# Duration: 384s | Language: en
+# Transcribed: 2026-04-13T01:14:43.556899
+# Model: faster-whisper base
+# Segments: 97 | Processing time: 40s
+
+[00:18.48 -> 00:20.48] Morning and absolutely everyone.
+[00:20.48 -> 01:15.80] Yeah, I'll make a start I think everyone else can join in at the end if they if they turn up.
+[01:15.80 -> 01:24.80] So, yeah, for myself, I'm working through peer review cards.
+[01:24.80 -> 01:29.80] I've got the IADA to look at that.
+[01:29.80 -> 01:34.80] Tomorrow's did last week.
+[01:34.80 -> 01:36.80] So, that's, yeah, that's going to be quite a lot.
+[01:36.80 -> 01:44.80] I've also really got to crack on and finish some documentation for my goals.
+[01:44.80 -> 01:50.80] I should get that done, hopefully today and tomorrow.
+[01:50.80 -> 01:53.80] Josh, your next on my screen, please.
+[01:54.80 -> 01:58.80] Yeah, I've just got a load of stuff to start to improve bamboo,
+[01:58.80 -> 02:04.80] sitting reviews and online training and other bits and pieces that have just been put to one side.
+[02:04.80 -> 02:08.80] So, trying to do that while I wait to hear back from EY on the R&D stuff.
+[02:08.80 -> 02:12.80] That's that's going to be my focus outside of meetings today.
+[02:12.80 -> 02:13.80] Thank you.
+[02:13.80 -> 02:15.80] Great. Thank you.
+[02:15.80 -> 02:18.80] Patrick, your next please.
+[02:18.80 -> 02:21.80] Yeah, not much from me here.
+[02:21.80 -> 02:28.80] There's nothing on the audit side that needs to work at the moment as far as I can tell.
+[02:28.80 -> 02:32.80] So, I'm just working on the submission stuff at the moment.
+[02:32.80 -> 02:34.80] That's it for me.
+[02:34.80 -> 02:36.80] Great. Thank you very much.
+[02:36.80 -> 02:40.05] Lakshmi, your next please.
+[02:40.05 -> 02:43.05] Hi, I think so today I'm working on.
+[02:43.05 -> 02:47.05] Any middle center is to be here and after that I'm working on an in this case, that is.
+[02:47.05 -> 02:50.05] If I choose to be, which is a progress.
+[02:50.05 -> 02:51.05] That's my side.
+[02:51.05 -> 02:52.05] Thank you.
+[02:52.05 -> 02:54.05] Great. Thank you.
+[02:54.05 -> 02:57.05] Roger, please.
+[02:57.05 -> 02:59.05] Yeah, highly modern team.
+[02:59.05 -> 03:05.05] Yeah, from I said today, I'm working on the daily maintenance activity for the International Academy.
+[03:05.05 -> 03:09.05] And also, I have a repair for the already automated test cases.
+[03:09.05 -> 03:13.05] And I got some PSOs and some living and I'm going to do a human.
+[03:13.05 -> 03:17.05] Once it is done, we'll pick in the test case and we'll start our recording.
+[03:17.05 -> 03:20.05] That's it for me. Thank you.
+[03:20.05 -> 03:21.05] Great. Thank you very much.
+[03:21.05 -> 03:25.06] We'll place.
+[03:25.06 -> 03:27.06] Oh, my morning afternoon, everyone.
+[03:27.06 -> 03:29.06] On first day.
+[03:29.06 -> 03:34.06] There was that back look, I'm discussing where it looks like.
+[03:34.06 -> 03:40.06] The plan is for next print, dev wise, we'll be good plan to actually go ahead and look into what can be done.
+[03:40.06 -> 03:47.06] To improve the quality of our forms and the forms and everything because a lot of.
+[03:47.06 -> 03:54.06] We actually run across is case of multi multi year old vulnerabilities.
+[03:54.06 -> 03:59.06] All some turning up after just being neglected for so long.
+[03:59.06 -> 04:01.06] So yeah, there was that.
+[04:01.06 -> 04:06.06] And also we've got the confirmation bad confirmation from a client that.
+[04:06.06 -> 04:14.06] Even when you lock down engagements, it will continue one of the calcs and I will continue to override what you set at time block down.
+[04:14.06 -> 04:18.06] So one of the clients in question, their reference copy shows that they've.
+[04:18.06 -> 04:22.06] Those are the sampling form is cleared their selections.
+[04:22.06 -> 04:24.06] So there's that.
+[04:24.06 -> 04:25.06] I don't know.
+[04:25.06 -> 04:28.06] And they say it happens for a couple of engagements.
+[04:28.06 -> 04:30.06] So that.
+[04:30.06 -> 04:35.06] If you might be bumped up to an emergency, but I don't know about protocol of who gets to decide whether there's an emergency.
+[04:35.06 -> 04:40.06] That should be handled by.
+[04:40.06 -> 04:44.06] See why there's nothing we can do about it.
+[04:44.06 -> 04:48.40] And yeah, so that's me.
+[04:48.40 -> 04:52.40] Well, Roy, please.
+[04:52.40 -> 04:54.40] Yeah, well, happy Easter.
+[04:54.40 -> 04:58.40] The FS12 checklist run the way.
+[04:58.40 -> 05:05.40] Still working on those and I've gone through and I'm into the specs for the B40 X document as well.
+[05:05.40 -> 05:06.40] That's me really.
+[05:06.40 -> 05:08.71] Right.
+[05:08.71 -> 05:09.71] Thank you.
+[05:09.71 -> 05:10.71] David, please.
+[05:10.71 -> 05:11.71] Morning.
+[05:11.71 -> 05:12.71] Oh, yeah.
+[05:12.71 -> 05:13.71] I've been off for the last few days.
+[05:13.71 -> 05:17.71] So I'm just really catching up this morning and just going for my stuff outstanding.
+[05:17.71 -> 05:21.71] And I believe Monday, when I was off, I was working on hat.
+[05:21.71 -> 05:25.71] So I will obviously be continuing that today and then catching up with anything else.
+[05:25.71 -> 05:27.71] And that's it for me.
+[05:27.71 -> 05:28.71] Right.
+[05:28.71 -> 05:29.71] Thank you.
+[05:29.71 -> 05:30.71] Alice, please.
+[05:30.71 -> 05:37.14] Yeah, morning.
+[05:37.14 -> 05:41.14] This morning, I've come across a problem with the hat server.
+[05:41.14 -> 05:42.14] It's not letting me use it.
+[05:42.14 -> 05:47.14] So I'm currently trying to figure that out.
+[05:47.14 -> 05:57.45] And I've seen about retesting the B40, but I'm going to find out if it's fully ready to be tested yet.
+[05:57.45 -> 06:04.45] If I can't get on hat soon, I'll probably get started on the review stuff that's come through on bamboo.
+[06:04.45 -> 06:05.45] That's it for me.
+[06:05.45 -> 06:06.45] Thank you.
+[06:06.45 -> 06:07.45] All right.
+[06:07.45 -> 06:08.45] Thank you very much.
+[06:08.45 -> 06:09.45] But that's everyone.
+[06:09.45 -> 06:11.45] Unless there's anything else.
+[06:11.45 -> 06:12.45] Great.
+[06:12.45 -> 06:13.45] I'll see you tomorrow.
+[06:13.45 -> 06:14.45] All right.
+[06:14.45 -> 06:15.45] Thanks everyone.
+[06:15.45 -> 06:16.45] See you later.
+[06:16.45 -> 06:17.45] Bye.
+[06:17.45 -> 06:18.45] See you tomorrow.
+[06:18.45 -> 06:19.45] Bye.
+[06:19.45 -> 06:20.45] See you tomorrow.
+[06:20.45 -> 06:21.45] Bye.

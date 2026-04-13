@@ -1,0 +1,157 @@
+# Transcript: UKCAUD - Stand-up - MS Teams-20260408_091523UTC-Meeting Recording
+# Duration: 635s | Language: en
+# Transcribed: 2026-04-13T01:16:10.548657
+# Model: faster-whisper base
+# Segments: 151 | Processing time: 81s
+
+[00:08.85 -> 00:12.85] Morning Fed. I will. Morning.
+[00:12.85 -> 00:26.71] Morning. Does the vegetable doc exist firstly? Can I just ask for it?
+[00:26.71 -> 00:31.54] I think I've seen it this morning. Yes.
+[00:31.54 -> 00:34.54] The top of the list. Okay.
+[00:34.54 -> 00:38.82] It's been way too busy to even think about it.
+[00:38.82 -> 00:42.82] Here we are. 50 minutes away from doing it.
+[00:42.82 -> 00:54.14] Morning. Morning.
+[00:54.14 -> 01:04.12] Let me.
+[01:04.12 -> 01:19.82] Okay.
+[01:19.82 -> 01:25.48] Let's see.
+[01:25.48 -> 01:28.48] It looks like that's it. I think maybe national crests.
+[01:28.48 -> 01:37.24] Doesn't matter what they hear.
+[01:37.24 -> 01:40.24] Tomorrow, I see if you don't mind going this morning.
+[01:40.24 -> 01:43.24] Okay. Hi guys.
+[01:43.24 -> 01:45.24] So.
+[01:45.24 -> 01:50.24] Okay. So she starts with me.
+[01:50.24 -> 01:53.24] Today I just got back from my time off.
+[01:53.24 -> 01:57.24] So I didn't start on anything to be honest yet.
+[01:57.24 -> 02:02.24] But I had some I looked at some review notes that.
+[02:02.24 -> 02:10.24] The road on my the cards that I did for peer review.
+[02:10.24 -> 02:16.24] And yeah, so that's what I did today and.
+[02:16.24 -> 02:19.24] So we are still waiting on the.
+[02:19.24 -> 02:22.24] Review for the C card.
+[02:22.24 -> 02:29.74] So yeah, next it's fed.
+[02:29.74 -> 02:34.74] I'm morning morning everyone afternoon everyone yesterday.
+[02:34.74 -> 02:37.74] The last time I've been working on the was it Wednesday Wednesday?
+[02:37.74 -> 02:42.74] I think I've been working on the JSSF and I dedicated to that only.
+[02:42.74 -> 02:46.74] This morning I was looking at basically what I missed my emails.
+[02:46.74 -> 02:51.74] And the bamboo HR because I need to do my goals.
+[02:51.74 -> 02:54.74] And I'm going to work on that a little bit today because I haven't touched them yet.
+[02:54.74 -> 02:57.74] I'll keep saying I'm doing them, but I never done it.
+[02:57.74 -> 02:59.74] So I'm going to do that today.
+[02:59.74 -> 03:04.74] And I'm carrying on with the JSSF also obviously we have all the planning retrospective.
+[03:04.74 -> 03:07.74] And I'll be in the in them.
+[03:07.74 -> 03:10.74] But yeah, that is me.
+[03:10.74 -> 03:12.74] Okay. Thank you.
+[03:12.74 -> 03:14.74] Patrick.
+[03:14.74 -> 03:18.74] Yeah, so there's nothing all it related for me at the moment.
+[03:18.74 -> 03:24.74] I'm still working on the submissions stuff.
+[03:24.74 -> 03:28.74] Just continuing to look into that side.
+[03:28.74 -> 03:30.74] Yeah, that's really it for me.
+[03:30.74 -> 03:34.74] Just working on submissions.
+[03:34.74 -> 03:38.74] Thank you next is the young.
+[03:38.74 -> 03:43.04] Hey, I'm running.
+[03:43.04 -> 03:47.04] Yeah, I was just catching up mostly yesterday with the morning meetings in the morning.
+[03:47.04 -> 03:52.04] And then same just going through emails, teams, messages, etc.
+[03:52.04 -> 03:55.04] I've started off looking at the HAT stuff.
+[03:55.04 -> 03:57.04] I'm just getting all the questions together.
+[03:57.04 -> 04:05.04] So I can go through them from like all in one place and then started editing the.
+[04:05.04 -> 04:08.04] Spectre stuff based on that.
+[04:08.04 -> 04:13.04] And I had a chat with Roy yesterday as well about the sprint stuff.
+[04:13.04 -> 04:19.04] And then I was going back and forth with Will and Patrick as well because.
+[04:19.04 -> 04:29.04] I I'm looking to get set up a product on develop so I can do the stuff with Jason Bradley's code.
+[04:29.04 -> 04:33.04] And start looking at that for the spec building stuff.
+[04:33.04 -> 04:38.04] The specification layer in between the authoring agent rather.
+[04:38.04 -> 04:46.04] And then I had the my like Claude code partner guy asking me about some questions.
+[04:46.04 -> 04:52.04] And Andrew drop me some messages and think that's about it.
+[04:52.04 -> 04:55.04] And this morning I'm just.
+[04:55.04 -> 05:02.04] And I'm also don't need just really filling out that retrospective stuff with a couple points from the stuff that I've been working on as well.
+[05:02.04 -> 05:05.04] And that's it for me for the moment. Thank you.
+[05:05.04 -> 05:08.04] Thank you. Will.
+[05:08.04 -> 05:13.04] Morning. Yesterday I did some.
+[05:13.04 -> 05:14.04] Yeah. Yeah.
+[05:14.04 -> 05:22.04] This morning I went ahead and picked up an item that was failing on the workflow because there's some.
+[05:22.04 -> 05:25.04] Something like that. Then he added in so the first step.
+[05:25.04 -> 05:29.04] Currently. And yes, had discussion on just.
+[05:29.04 -> 05:34.04] We affirming that standard procedures should be kept whenever we want anything.
+[05:34.04 -> 05:40.35] And for people not to go ahead and do some of the own. And yes, so that's me.
+[05:40.35 -> 05:42.70] Thank you. Roy.
+[05:42.70 -> 05:43.70] Next.
+[05:43.70 -> 05:45.70] Good morning all.
+[05:45.70 -> 05:50.70] I've worked for a while to checklist was just to the setting up the sprint news.
+[05:50.70 -> 05:51.70] And the retro.
+[05:51.70 -> 05:55.70] It's morning. I've been investigating some missing between one links that Alice has raised.
+[05:55.70 -> 06:03.70] I've gone through the company insurance and planning it's not consistent there either so I'm going to go back through and just add those in.
+[06:03.70 -> 06:08.17] But yeah, that's what's me for the moment.
+[06:08.17 -> 06:11.17] Okay, Jonathan.
+[06:11.17 -> 06:20.17] So yesterday, a few meetings in the morning, then tackling chords, trying to get Claude Cote to look at the MCP server could find it.
+[06:20.17 -> 06:25.17] The case where one bar couldn't get it to authenticate some reason, so I've thought that out eventually.
+[06:25.17 -> 06:34.17] But I then used it to create my visibility specs for the audit exempt and the assurance for us 102, which it did yesterday.
+[06:34.17 -> 06:42.17] So that was good. That was 16 cards listed, although I still have to go through and get some screenshots, which it couldn't do.
+[06:42.17 -> 06:49.17] But I will be continuing with with the assurance and the audit exempt disclosures.
+[06:50.17 -> 06:52.17] Thank you.
+[06:52.17 -> 06:55.80] How are you?
+[06:55.80 -> 07:05.80] Hi, morning. Yeah, good. I was I was peer reviewing yesterday and finished off those that we could on that on that sprint.
+[07:05.80 -> 07:16.80] And I've been focusing on my goals actually since then and this morning I've got some document I need to write finish writing up.
+[07:17.80 -> 07:22.80] And then whatever happens after after the sprint.
+[07:22.80 -> 07:26.80] I think the CADA looks like it's nearly nearly there.
+[07:26.80 -> 07:37.80] So we should be able to focus on that later on today and tomorrow to get to once we want to know that's that's okay.
+[07:37.80 -> 07:44.80] It's obviously if that gets clear as soon as quickly we can then Patrick can move on and just replicate them for years as well.
+[07:44.80 -> 07:49.80] Yeah, there's a conversation between Roy and Alice at the moment.
+[07:49.80 -> 07:53.80] So once that's all cleared, then we should be right.
+[07:53.80 -> 07:56.80] Thank you. Thank you.
+[07:56.80 -> 07:58.80] Adam.
+[07:58.80 -> 08:05.80] Morning. Today is is back to back retro's and planning between accounts and audit.
+[08:05.80 -> 08:07.80] Nice to meet you. Thanks all day.
+[08:07.80 -> 08:10.80] Thank you. David, you're next.
+[08:10.80 -> 08:15.80] Morning. Yeah, I've just been continuing working through the hat from last week.
+[08:15.80 -> 08:19.80] I also spent the morning catching up with some old test cases from Zephy.
+[08:19.80 -> 08:23.80] I need to do some updates for some stuff the AQA guys and I did that in the morning as well.
+[08:23.80 -> 08:27.80] So that's it for me because we've got meetings today.
+[08:27.80 -> 08:32.65] Thank you. Alice.
+[08:32.65 -> 08:34.65] Morning.
+[08:34.65 -> 08:39.65] As mentioned yesterday, I can't do hat right now because I can't get I can't use the server.
+[08:39.65 -> 08:42.65] I had to check this morning and it's still the same.
+[08:43.65 -> 08:54.65] So I did a couple of the pension cards for the removal of group and the academy engagement workflow update.
+[08:54.65 -> 08:59.65] I'm and made a start on the all the bamboo stuff that I've got to do.
+[08:59.65 -> 09:01.65] That's it for me. Thank you.
+[09:01.65 -> 09:03.65] Thank you.
+[09:04.65 -> 09:06.65] Yeah, fighting morning.
+[09:06.65 -> 09:07.65] Yeah, coming to my updates.
+[09:07.65 -> 09:12.65] I'm currently working on the element and activity for the academy international uncertainty.
+[09:12.65 -> 09:14.65] And I'll fix up the problems.
+[09:14.65 -> 09:15.65] And I need to raise it.
+[09:15.65 -> 09:16.65] You are for it.
+[09:16.65 -> 09:20.65] And as I have taken one new test case and I'll start with the ultimate.
+[09:20.65 -> 09:21.65] That's it.
+[09:21.65 -> 09:22.65] Thank you.
+[09:22.65 -> 09:23.65] Thank you.
+[09:23.65 -> 09:24.65] And lastly,
+[09:24.65 -> 09:26.65] Lex me.
+[09:26.65 -> 09:29.57] Hi team.
+[09:29.57 -> 09:31.57] I'm so excited about all done.
+[09:31.57 -> 09:33.57] The maintenance and raised up here.
+[09:33.57 -> 09:35.57] After that, I got some issue in my laptop.
+[09:35.57 -> 09:37.57] Like it got and for three hours.
+[09:37.57 -> 09:38.57] I couldn't able to work.
+[09:38.57 -> 09:40.57] After that, I connected to the IT team.
+[09:40.57 -> 09:45.57] So after that, I have continued working on my new test case tickets.
+[09:45.57 -> 09:47.57] And today also similar for me.
+[09:47.57 -> 09:50.57] So currently working on the element and then we'll be raising up here.
+[09:50.57 -> 09:52.57] After that, we'll be working on the new test case.
+[09:52.57 -> 09:53.57] That's all from me said.
+[09:53.57 -> 09:55.57] Thank you.
+[09:55.57 -> 09:56.57] Thank you.
+[09:56.57 -> 10:01.57] Maris, do you have Romanian bank holders this weekend?
+[10:01.57 -> 10:02.57] Yes.
+[10:02.57 -> 10:03.57] Yes.
+[10:03.57 -> 10:06.57] It's the holiday for the Orthodox and I think this week.
+[10:06.57 -> 10:09.57] Yeah, we are free from Friday to Monday.
+[10:09.57 -> 10:10.57] Yeah.
+[10:10.57 -> 10:11.57] Yeah.
+[10:11.57 -> 10:14.57] So just need to bear that in mind as well.
+[10:14.57 -> 10:21.57] Thinking about what work the Maris gets to be given over the next couple of days as well.
+[10:21.57 -> 10:24.57] OK, so we've got five minutes break.
+[10:24.57 -> 10:27.57] Come back for the retro.
+[10:27.57 -> 10:28.57] OK.
+[10:28.57 -> 10:29.57] Cheers.
+[10:29.57 -> 10:30.57] Bye-bye.
+[10:30.57 -> 10:33.57] See you shortly.
+[10:33.57 -> 10:34.57] Thanks.

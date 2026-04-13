@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import { useExecuteCommand } from "../hooks/useExecuteCommand";
+import { RunButton, StatusBanner } from "./RunButton";
 import type {
   OvernightProjectAnalysis,
   RecommendedInstalls,
@@ -8,6 +11,11 @@ import type {
 interface LearningTabProps {
   overnightAnalysis: {
     generatedAt: string | null;
+    durationMs?: number;
+    model?: string;
+    estimatedCostUsd?: number;
+    estimatedInputTokens?: number;
+    estimatedOutputTokens?: number;
     projects: Record<string, OvernightProjectAnalysis>;
   };
   recommendedInstalls: RecommendedInstalls;
@@ -17,11 +25,28 @@ export function LearningTab({
   overnightAnalysis,
   recommendedInstalls,
 }: LearningTabProps) {
-  const { generatedAt, projects } = overnightAnalysis;
+  const { generatedAt, projects, durationMs, model, estimatedCostUsd } = overnightAnalysis;
   const projectEntries = Object.entries(projects);
   const visibleInstalls = recommendedInstalls.items.filter(
     (item) => item.priority === "HIGH" || item.priority === "MED",
   );
+  const { execute, running, lastResult } = useExecuteCommand();
+  const [showResult, setShowResult] = useState(false);
+  const [completedSuggestions, setCompletedSuggestions] = useState<Set<string>>(new Set());
+
+  const handleRunAnalysis = async () => {
+    setShowResult(true);
+    await execute("overnight-analysis");
+  };
+
+  const toggleSuggestionDone = (key: string) => {
+    setCompletedSuggestions((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  };
 
   return (
     <div className="h-full flex flex-col overflow-hidden">
@@ -31,16 +56,51 @@ export function LearningTab({
           <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
             Overnight Analysis
           </h2>
-          {generatedAt && (
-            <span className="text-xs text-purple-400">
-              Generated{" "}
-              {new Date(generatedAt).toLocaleTimeString("en-GB", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </span>
-          )}
+          <div className="flex items-center gap-3">
+            {generatedAt && (
+              <span className="text-xs text-purple-400">
+                Last ran{" "}
+                {new Date(generatedAt).toLocaleString("en-GB", {
+                  day: "numeric",
+                  month: "short",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+            )}
+            {durationMs != null && (
+              <span className="text-xs text-gray-600">
+                {Math.round(durationMs / 1000)}s
+              </span>
+            )}
+            {model && (
+              <span className="text-xs text-gray-600">
+                {model.includes("haiku") ? "haiku" : model.includes("sonnet") ? "sonnet" : model.split("-").slice(0, 2).join("-")}
+              </span>
+            )}
+            {estimatedCostUsd != null && (
+              <span className="text-xs text-green-500">
+                ~${estimatedCostUsd.toFixed(4)}
+              </span>
+            )}
+            <RunButton
+              label="↻ Re-run Analysis"
+              runningLabel="Analysing…"
+              running={running === "overnight-analysis"}
+              onClick={handleRunAnalysis}
+            />
+          </div>
         </div>
+        {showResult && lastResult && (
+          <div className="mt-2">
+            <StatusBanner
+              success={lastResult.success}
+              error={lastResult.error}
+              durationMs={lastResult.durationMs}
+              onDismiss={() => setShowResult(false)}
+            />
+          </div>
+        )}
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
@@ -71,6 +131,8 @@ export function LearningTab({
             {analysis.suggestions.length > 0 && (
               <ul className="space-y-1.5">
                 {analysis.suggestions.map((suggestion, idx) => {
+                  const key = `${projectName}-${idx}`;
+                  const isDone = completedSuggestions.has(key);
                   const priorityColour =
                     suggestion.priority === "HIGH"
                       ? "text-red-400"
@@ -79,12 +141,23 @@ export function LearningTab({
                         : "text-gray-500";
                   return (
                     <li key={idx} className="flex items-start gap-2 text-xs">
+                      <button
+                        onClick={() => toggleSuggestionDone(key)}
+                        className={`shrink-0 mt-0.5 w-3.5 h-3.5 rounded border transition-colors ${
+                          isDone
+                            ? "bg-green-600 border-green-500 text-white"
+                            : "border-gray-600 hover:border-gray-400"
+                        }`}
+                        title={isDone ? "Mark undone" : "Mark done"}
+                      >
+                        {isDone && <span className="text-[8px] leading-none">✓</span>}
+                      </button>
                       <span
                         className={`shrink-0 font-semibold ${priorityColour}`}
                       >
                         {suggestion.priority}
                       </span>
-                      <span className="text-gray-300 leading-relaxed">
+                      <span className={`leading-relaxed ${isDone ? "text-gray-500 line-through" : "text-gray-300"}`}>
                         {suggestion.action}
                       </span>
                     </li>

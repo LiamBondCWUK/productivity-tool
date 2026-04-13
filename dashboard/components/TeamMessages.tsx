@@ -34,24 +34,40 @@ export function TeamMessages() {
     fetchedAt: null,
   });
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const fetchAll = async () => {
+    try {
+      const [teamsRes, emailRes] = await Promise.all([
+        fetch("/api/teams"),
+        fetch("/api/email"),
+      ]);
+      if (teamsRes.ok) setTeams(await teamsRes.json());
+      if (emailRes.ok) setEmail(await emailRes.json());
+    } catch {
+      // network error — leave empty
+    }
+  };
 
   useEffect(() => {
-    async function fetchAll() {
-      try {
-        const [teamsRes, emailRes] = await Promise.all([
-          fetch("/api/teams"),
-          fetch("/api/email"),
-        ]);
-        if (teamsRes.ok) setTeams(await teamsRes.json());
-        if (emailRes.ok) setEmail(await emailRes.json());
-      } catch {
-        // network error — leave empty
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchAll();
+    fetchAll().finally(() => setLoading(false));
   }, []);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await fetch("/api/execute", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ command: "refresh-email" }),
+      });
+      await fetchAll();
+    } catch {
+      // silent
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   const hasTeams = teams.teamMessages.length > 0;
   const hasEmail = email.flaggedEmails.length > 0;
@@ -71,9 +87,19 @@ export function TeamMessages() {
   if (!hasAny) {
     return (
       <div className="space-y-1">
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-          Messages
-        </p>
+        <div className="flex items-center justify-between">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+            Messages
+          </p>
+          <button
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="text-xs px-1.5 py-0.5 text-gray-500 hover:text-gray-300 disabled:opacity-40 transition-colors"
+            title="Refresh emails"
+          >
+            {refreshing ? "…" : "↻"}
+          </button>
+        </div>
         <p className="text-xs text-gray-500 italic">
           No unread Teams or flagged emails
           {!teams.fetchedAt && !email.fetchedAt && (
@@ -89,9 +115,19 @@ export function TeamMessages() {
 
   return (
     <div className="space-y-3">
-      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
-        Messages
-      </p>
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+          Messages
+        </p>
+        <button
+          onClick={handleRefresh}
+          disabled={refreshing}
+          className="text-xs px-1.5 py-0.5 text-gray-500 hover:text-gray-300 disabled:opacity-40 transition-colors"
+          title="Refresh emails"
+        >
+          {refreshing ? "…" : "↻"}
+        </button>
+      </div>
 
       {hasTeams && (
         <div>

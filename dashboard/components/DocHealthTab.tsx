@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { useExecuteCommand } from "../hooks/useExecuteCommand";
+import { RunButton, StatusBanner } from "./RunButton";
 import type { DocHealthItem } from "../types/dashboard";
 
 interface DocHealthTabProps {
@@ -6,19 +11,48 @@ interface DocHealthTabProps {
 }
 
 export function DocHealthTab({ lastRun, staleDocs }: DocHealthTabProps) {
+  const { execute, running, lastResult } = useExecuteCommand();
+  const [showResult, setShowResult] = useState(false);
   const ordered = [...staleDocs].sort((a, b) => b.daysSinceUpdate - a.daysSinceUpdate);
+
+  const handleUpdateAll = async () => {
+    setShowResult(true);
+    await execute("doc-health-update");
+  };
 
   return (
     <div className="h-full p-4 overflow-y-auto">
-      <div className="mb-4">
-        <h2 className="text-sm font-semibold text-gray-100">Documentation Freshness</h2>
-        <p className="text-xs text-gray-400 mt-1">
-          Stale docs are flagged from overnight analysis when unchanged for more than 21 days.
-        </p>
-        <p className="text-xs text-gray-500 mt-1">
-          Last run: {lastRun ? new Date(lastRun).toLocaleString("en-GB") : "No run yet"}
-        </p>
+      <div className="mb-4 flex items-start justify-between">
+        <div>
+          <h2 className="text-sm font-semibold text-gray-100">Documentation Freshness</h2>
+          <p className="text-xs text-gray-400 mt-1">
+            Stale docs are flagged from overnight analysis when unchanged for more than 21 days.
+          </p>
+          <p className="text-xs text-gray-500 mt-1">
+            Last run: {lastRun ? new Date(lastRun).toLocaleString("en-GB") : "No run yet"}
+          </p>
+        </div>
+        {ordered.length > 0 && (
+          <RunButton
+            label="🤖 Update Stale Docs"
+            runningLabel="Updating…"
+            running={running === "doc-health-update"}
+            onClick={handleUpdateAll}
+            variant="primary"
+          />
+        )}
       </div>
+
+      {showResult && lastResult && (
+        <div className="mb-3">
+          <StatusBanner
+            success={lastResult.success}
+            error={lastResult.error}
+            durationMs={lastResult.durationMs}
+            onDismiss={() => setShowResult(false)}
+          />
+        </div>
+      )}
 
       {ordered.length === 0 ? (
         <div className="rounded border border-green-700/40 bg-green-900/20 p-3 text-xs text-green-300">
@@ -34,7 +68,7 @@ export function DocHealthTab({ lastRun, staleDocs }: DocHealthTabProps) {
                   {item.priority}
                 </span>
               </div>
-              <p className="text-xs text-gray-300 mt-1">{item.filePath}</p>
+              <p className="text-xs text-gray-300 mt-1 font-mono">{item.filePath}</p>
               <p className="text-xs text-gray-400 mt-1">{item.reason}</p>
               <p className="text-xs text-gray-500 mt-1">
                 {item.daysSinceUpdate} days since update · last modified {item.lastModified}

@@ -6,12 +6,14 @@ import { TabWorkspace } from "../components/TabWorkspace";
 import { TodayTab } from "../components/TodayTab";
 import { TasksTab } from "../components/TasksTab";
 import { ProjectsTab } from "../components/ProjectsTab";
+import { AutomationTab } from "../components/AutomationTab";
 import { NotesTab } from "../components/NotesTab";
 import { CeremoniesTab } from "../components/CeremoniesTab";
 import { DocHealthTab } from "../components/DocHealthTab";
 import { LearningTab } from "../components/LearningTab";
 import { NewsTab } from "../components/NewsTab";
 import { SystemTab } from "../components/tabs/SystemTab";
+import { IBPTab } from "../components/IBPTab";
 import type { ProjectPhase, ProjectSuggestion } from "../types/dashboard";
 
 function formatCurrentTime(): string {
@@ -145,14 +147,29 @@ export default function Dashboard() {
         projectsContent={
           <ProjectsTab
             projects={data.personalProjects.projects}
-            automationRules={data.automationRules?.rules ?? []}
-            automationLastChecked={data.automationRules?.lastChecked ?? null}
             onPhaseChange={handlePhaseChange}
             onAddTask={handleAddTask}
             onRefetch={refetch}
           />
         }
-        notesContent={<NotesTab notes={data.notes?.items ?? []} onRefetch={refetch} />}
+        automationContent={
+          <AutomationTab
+            rules={data.automationRules?.rules ?? []}
+            lastChecked={data.automationRules?.lastChecked ?? null}
+            onRefetch={refetch}
+          />
+        }
+        notesContent={
+          <NotesTab
+            notes={data.notes?.items ?? []}
+            recentTaskTitles={[
+              ...data.priorityInbox.urgent,
+              ...data.priorityInbox.today,
+            ].map((i) => i.jiraKey ?? i.title).slice(0, 10)}
+            recentProjectNames={data.personalProjects.projects.map((p) => p.name)}
+            onRefetch={refetch}
+          />
+        }
         ceremoniesContent={
           <CeremoniesTab embedUrl="http://localhost:3850/ceremony/sprint-operations" />
         }
@@ -173,9 +190,42 @@ export default function Dashboard() {
             lastRun={data.aiNewsResults?.lastRun ?? null}
             topStories={data.aiNewsResults?.topStories ?? []}
             suggestions={data.aiNewsResults?.suggestions ?? []}
+            internalIntel={data.aiNewsResults?.internalIntel}
+            recommendedInstalls={data.recommendedInstalls?.items ?? []}
+            onRefetch={refetch}
+            onMarkInstalled={async (id) => {
+              try {
+                await fetch("/api/installs/mark", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ id }),
+                });
+              } catch {
+                // silent fail — dashboard will refresh on next data poll
+              }
+            }}
           />
         }
-        systemContent={<SystemTab />}
+        ibpContent={
+          <IBPTab ibpMeta={data.ibp ?? undefined} />
+        }
+        systemContent={
+          <SystemTab
+            suggestions={data.aiNewsResults?.suggestions ?? []}
+            recommendedInstalls={data.recommendedInstalls?.items ?? []}
+            onMarkInstalled={async (id) => {
+              try {
+                await fetch("/api/installs/mark", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ id }),
+                });
+              } catch {
+                // silent fail
+              }
+            }}
+          />
+        }
       />
     </div>
   );

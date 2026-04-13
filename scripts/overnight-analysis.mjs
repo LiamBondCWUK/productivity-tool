@@ -133,7 +133,9 @@ function collectProjectContext(entry) {
 
 function callClaudeViaCLI(systemPrompt, userPrompt) {
   const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
-  const result = spawnSync('claude', ['--print'], {
+  // Use haiku model for cost-effective overnight runs
+  const model = process.env.OVERNIGHT_MODEL ?? 'claude-haiku-4-5-20251001';
+  const result = spawnSync('claude', ['--print', '--model', model], {
     input: fullPrompt,
     encoding: 'utf-8',
     timeout: 180000,
@@ -188,10 +190,17 @@ PROJECT DATA:
 ${projectContexts}`;
 
   console.log('Calling Claude CLI for overnight analysis...');
+  const startTime = Date.now();
+
+  // Estimate input token cost (rough: ~4 chars per token)
+  const inputChars = projectContexts.length + 500; // context + prompt overhead
+  const estimatedInputTokens = Math.ceil(inputChars / 4);
 
   let analysisResult;
+  let outputTokenEstimate = 0;
   try {
     const responseText = callClaudeViaCLI(systemPrompt, userPrompt);
+    outputTokenEstimate = Math.ceil(responseText.length / 4);
 
     const jsonMatch = responseText.match(/```json\n?([\s\S]*?)\n?```/) ||
                       responseText.match(/(\{[\s\S]*\})/);
@@ -206,6 +215,19 @@ ${projectContexts}`;
     };
   }
 
+  const durationMs = Date.now() - startTime;
+  const model = process.env.OVERNIGHT_MODEL ?? 'claude-haiku-4-5-20251001';
+  // Haiku pricing: $0.80/MTok input, $4.00/MTok output (as of 2025)
+  const isHaiku = model.includes('haiku');
+  const inputCostPer1k = isHaiku ? 0.0008 : 0.003;
+  const outputCostPer1k = isHaiku ? 0.004 : 0.015;
+  const estimatedCostUsd = (estimatedInputTokens * inputCostPer1k / 1000) +
+    (outputTokenEstimate * outputCostPer1k / 1000);
+
+  console.log(`Analysis complete in ${Math.round(durationMs / 1000)}s`);
+  console.log(`Est. tokens: ${estimatedInputTokens} in / ${outputTokenEstimate} out`);
+  console.log(`Est. cost: $${estimatedCostUsd.toFixed(4)} (${model})`);
+
   const dashboardData = readJson(DASHBOARD_DATA_FILE) || {};
   const docHealth = runDocHealthCheck();
 
@@ -218,6 +240,11 @@ ${projectContexts}`;
 
   dashboardData.overnightAnalysis = {
     generatedAt: new Date().toISOString(),
+    durationMs,
+    model,
+    estimatedCostUsd: Math.round(estimatedCostUsd * 10000) / 10000,
+    estimatedInputTokens,
+    estimatedOutputTokens: outputTokenEstimate,
     projects: analysisResult.projects || {},
     globalInsights: analysisResult.globalInsights || [],
     topPriorityAction: analysisResult.topPriorityAction || '',

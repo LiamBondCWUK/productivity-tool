@@ -64,6 +64,62 @@ function formatSuggestions(overnightAnalysis) {
   return suggestions.slice(0, 5).join("\n");
 }
 
+function formatTasks(tasks) {
+  const items = tasks?.items ?? [];
+  const active = items.filter((t) => t.status !== "completed" && t.status !== "failed");
+  if (!active.length) return "No active tasks in the task log.";
+  return active
+    .slice(0, 8)
+    .map((t) => `  [${t.status}] ${t.title}${t.projectName ? ` (${t.projectName})` : ""}`)
+    .join("\n");
+}
+
+function formatNotes(notes) {
+  const items = notes?.items ?? [];
+  if (!items.length) return "No recent notes.";
+  const recent = [...items]
+    .sort((a, b) => (b.updatedAt ?? "").localeCompare(a.updatedAt ?? ""))
+    .slice(0, 3);
+  return recent.map((n) => `  ${n.title}: ${(n.content ?? "").slice(0, 100)}`).join("\n");
+}
+
+function formatAutomationRules(automationRules) {
+  const rules = automationRules?.rules ?? [];
+  const pending = rules.filter((r) => r.status === "pending");
+  if (!pending.length) return "No pending automation rules.";
+  return pending
+    .slice(0, 5)
+    .map((r) => `  [${r.phase}] ${r.name}`)
+    .join("\n");
+}
+
+function formatDocHealth(docHealth) {
+  const stale = docHealth?.staleDocs ?? [];
+  if (!stale.length) return "All documentation is up to date.";
+  return stale
+    .slice(0, 3)
+    .map((d) => `  [${d.priority}] ${d.filePath} (${d.daysSinceUpdate}d stale)`)
+    .join("\n");
+}
+
+function formatTeamsMessages(teamMessages) {
+  const msgs = teamMessages?.messages ?? teamMessages ?? [];
+  if (!Array.isArray(msgs) || !msgs.length) return "No unread Teams messages.";
+  return msgs
+    .slice(0, 5)
+    .map((m) => `  ${m.from ?? "?"}: ${m.preview ?? m.subject ?? ""}`)
+    .join("\n");
+}
+
+function formatFlaggedEmails(emails) {
+  const items = Array.isArray(emails) ? emails : emails?.items ?? [];
+  if (!items.length) return "No flagged emails.";
+  return items
+    .slice(0, 5)
+    .map((e) => `  ${e.from ?? "?"}: ${e.subject ?? ""}`)
+    .join("\n");
+}
+
 async function generateDayPlan() {
   const data = readData();
   const now = new Date();
@@ -88,6 +144,24 @@ ${formatInbox(data.priorityInbox)}
 
 **Overnight AI suggestions (high priority only):**
 ${formatSuggestions(data.overnightAnalysis)}
+
+**Active tasks:**
+${formatTasks(data.tasks)}
+
+**Recent notes (context for ongoing work):**
+${formatNotes(data.notes)}
+
+**Pending automation rules to deploy:**
+${formatAutomationRules(data.automationRules)}
+
+**Stale documentation:**
+${formatDocHealth(data.docHealth)}
+
+**Unread Teams messages:**
+${formatTeamsMessages(data.teamMessages)}
+
+**Flagged emails:**
+${formatFlaggedEmails(data.flaggedEmails)}
 
 ## Instructions
 

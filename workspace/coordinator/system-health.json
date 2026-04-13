@@ -1,23 +1,52 @@
 {
-    "collectedAt":  "2026-04-06T02:42:40.2088711+01:00",
+    "collectedAt":  "2026-04-13T12:53:58.5628215+01:00",
     "scheduledTasks":  [
                            {
                                "name":  "ClaudeMorningScan",
                                "state":  "Ready",
-                               "lastRun":  "2026-04-05T23:33:11.0000000+01:00",
-                               "nextRun":  "2026-04-06T06:30:00.0000000+01:00",
-                               "lastResult":  0,
-                               "status":  "ok"
+                               "lastRun":  "2026-04-13T06:30:01.0000000+01:00",
+                               "nextRun":  "2026-04-14T06:30:00.0000000+01:00",
+                               "lastResult":  1,
+                               "status":  "error"
+                           },
+                           {
+                               "name":  "ClaudeWeeklyInsight",
+                               "state":  "Ready",
+                               "lastRun":  "2026-04-12T10:12:07.0000000+01:00",
+                               "nextRun":  "2026-04-19T08:00:00.0000000+01:00",
+                               "lastResult":  {
+
+                                              },
+                               "status":  "unknown"
                            }
                        ],
     "pm2Processes":  [
-
+                         {
+                             "name":  "activity-tracker",
+                             "id":  1,
+                             "status":  "online",
+                             "uptime":  1775985088517,
+                             "restarts":  0,
+                             "memBytes":  42708992,
+                             "cpu":  0.5,
+                             "pid":  11520
+                         },
+                         {
+                             "name":  "command-center",
+                             "id":  3,
+                             "status":  "online",
+                             "uptime":  1776079632819,
+                             "restarts":  0,
+                             "memBytes":  75132928,
+                             "cpu":  0.1,
+                             "pid":  31072
+                         }
                      ],
     "claudeSpeed":  {
-                        "latestMs":  841,
-                        "avg7dMs":  null,
-                        "trend":  "normal",
-                        "flag":  false
+                        "latestMs":  5692,
+                        "avg7dMs":  841,
+                        "trend":  "degraded",
+                        "flag":  true
                     },
     "portMismatches":  [
 
@@ -26,6 +55,17 @@
 
                            ],
     "issues":  [
-
+                   {
+                       "severity":  "error",
+                       "category":  "scheduler",
+                       "message":  "Task \u0027ClaudeMorningScan\u0027 last run failed (exit 1)",
+                       "resolution":  "Check Event Viewer \u003e Task Scheduler for details"
+                   },
+                   {
+                       "severity":  "warn",
+                       "category":  "performance",
+                       "message":  "Claude 577% slower than 7-day avg (5692ms vs avg 841ms)",
+                       "resolution":  "Check network, status.anthropic.com, or local CPU/memory pressure"
+                   }
                ]
 }

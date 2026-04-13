@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775934341838,
+  "lastScanned": 1776081810438,
   "projectRoot": "C:\\Users\\liam.bond\\Documents\\Productivity Tool",
   "techStack": {
     "languages": [
@@ -60,7 +60,7 @@
       "path": "commands",
       "purpose": null,
       "fileCount": 17,
-      "lastAccessed": 1775934341746,
+      "lastAccessed": 1776081810351,
       "keyFiles": [
         "clone.md",
         "deck.md",
@@ -69,58 +69,76 @@
         "escalate.md"
       ]
     },
+    "context": {
+      "path": "context",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1776081810353,
+      "keyFiles": [
+        "decisions.md",
+        "goals.md",
+        "team.md"
+      ]
+    },
     "dashboard": {
       "path": "dashboard",
       "purpose": null,
-      "fileCount": 13,
-      "lastAccessed": 1775934341749,
+      "fileCount": 15,
+      "lastAccessed": 1776081810374,
       "keyFiles": [
         "AGENTS.md",
         "CLAUDE.md",
         "ecosystem.config.js",
-        "next-env.d.ts",
-        "next.config.ts"
+        "fix-encoding.cjs",
+        "fix-encoding.mjs"
       ]
     },
     "dev": {
       "path": "dev",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1775934341767,
+      "lastAccessed": 1776081810375,
       "keyFiles": []
     },
     "docs": {
       "path": "docs",
       "purpose": "Documentation",
       "fileCount": 0,
-      "lastAccessed": 1775934341769,
+      "lastAccessed": 1776081810378,
+      "keyFiles": []
+    },
+    "outputs": {
+      "path": "outputs",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1776081810378,
       "keyFiles": []
     },
     "scripts": {
       "path": "scripts",
       "purpose": "Build/utility scripts",
-      "fileCount": 36,
-      "lastAccessed": 1775934341770,
+      "fileCount": 42,
+      "lastAccessed": 1776081810380,
       "keyFiles": [
         "activity-tracker.mjs",
         "append-ticket-subcmds.ps1",
         "check-jira-automation-status.mjs",
-        "create-kanban-issue.mjs",
-        "error-screenshot.png"
+        "collect-internal-intel.mjs",
+        "create-kanban-issue.mjs"
       ]
     },
     "workspace": {
       "path": "workspace",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1775934341771,
+      "lastAccessed": 1776081810384,
       "keyFiles": []
     },
     "dashboard\\app": {
       "path": "dashboard\\app",
       "purpose": "Application code",
       "fileCount": 4,
-      "lastAccessed": 1775934341772,
+      "lastAccessed": 1776081810394,
       "keyFiles": [
         "favicon.ico",
         "globals.css",
@@ -130,8 +148,8 @@
     "dashboard\\components": {
       "path": "dashboard\\components",
       "purpose": "UI components",
-      "fileCount": 16,
-      "lastAccessed": 1775934341773,
+      "fileCount": 22,
+      "lastAccessed": 1776081810395,
       "keyFiles": [
         "ActiveWindow.tsx",
         "AISchedule.tsx",
@@ -142,7 +160,7 @@
       "path": "dashboard\\data",
       "purpose": "Data files",
       "fileCount": 1,
-      "lastAccessed": 1775934341774,
+      "lastAccessed": 1776081810397,
       "keyFiles": [
         "dashboard-data.json"
       ]
@@ -151,7 +169,7 @@
       "path": "workspace\\config",
       "purpose": "Configuration files",
       "fileCount": 6,
-      "lastAccessed": 1775934341777,
+      "lastAccessed": 1776081810404,
       "keyFiles": [
         "clone-presets.json",
         "personal-projects.json",

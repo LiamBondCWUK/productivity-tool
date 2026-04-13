@@ -6,10 +6,14 @@ import type { ProjectPhase, ProjectEntry } from '../../../types/dashboard';
 
 export const dynamic = 'force-dynamic';
 
+function removeUtf8Bom(content: string): string {
+  return content.charCodeAt(0) === 0xfeff ? content.slice(1) : content;
+}
+
 export async function GET() {
   const registryPath = join(process.cwd(), '..', 'workspace', 'coordinator', 'project-registry.json');
   try {
-    const raw = readFileSync(registryPath, 'utf-8');
+    const raw = removeUtf8Bom(readFileSync(registryPath, 'utf-8'));
     const registry = JSON.parse(raw) as { updatedAt: string; projects: ProjectEntry[] };
     return NextResponse.json(registry);
   } catch {

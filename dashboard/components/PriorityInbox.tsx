@@ -77,6 +77,16 @@ function InboxItemRow({
             {item.commentSnippet}
           </p>
         )}
+        {item.reasoning && (
+          <p className="text-gray-500 text-xs truncate mt-0.5 italic">
+            {item.reasoning}
+          </p>
+        )}
+        {item.installCommand && (
+          <code className="text-[10px] text-green-400 bg-gray-900/60 rounded px-1.5 py-0.5 mt-0.5 inline-block font-mono">
+            {item.installCommand}
+          </code>
+        )}
         {item.filePath && (
           <p className="text-gray-500 text-xs truncate mt-0.5">
             {item.filePath}

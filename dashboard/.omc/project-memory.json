@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775584861419,
+  "lastScanned": 1776076220590,
   "projectRoot": "C:\\Users\\liam.bond\\Documents\\Productivity Tool\\dashboard",
   "techStack": {
     "languages": [
@@ -78,7 +78,7 @@
       "path": "app",
       "purpose": "Application code",
       "fileCount": 4,
-      "lastAccessed": 1775584861068,
+      "lastAccessed": 1776076220511,
       "keyFiles": [
         "favicon.ico",
         "globals.css",
@@ -89,21 +89,21 @@
     "components": {
       "path": "components",
       "purpose": "UI components",
-      "fileCount": 16,
-      "lastAccessed": 1775584861069,
+      "fileCount": 19,
+      "lastAccessed": 1776076220512,
       "keyFiles": [
         "ActiveWindow.tsx",
         "AISchedule.tsx",
         "AutomationStatus.tsx",
         "CalendarPanel.tsx",
-        "LearningTab.tsx"
+        "CeremoniesTab.tsx"
       ]
     },
     "data": {
       "path": "data",
       "purpose": "Data files",
       "fileCount": 1,
-      "lastAccessed": 1775584861211,
+      "lastAccessed": 1776076220513,
       "keyFiles": [
         "dashboard-data.json"
       ]
@@ -112,7 +112,7 @@
       "path": "hooks",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1775584861213,
+      "lastAccessed": 1776076220529,
       "keyFiles": [
         "useDashboardData.ts"
       ]
@@ -121,16 +121,25 @@
       "path": "lib",
       "purpose": "Library code",
       "fileCount": 1,
-      "lastAccessed": 1775584861214,
+      "lastAccessed": 1776076220530,
       "keyFiles": [
         "dashboardData.ts"
+      ]
+    },
+    "outputs": {
+      "path": "outputs",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1776076220530,
+      "keyFiles": [
+        "dashboard-data-demo.json"
       ]
     },
     "public": {
       "path": "public",
       "purpose": "Public files",
       "fileCount": 5,
-      "lastAccessed": 1775584861215,
+      "lastAccessed": 1776076220531,
       "keyFiles": [
         "file.svg",
         "globe.svg",
@@ -143,7 +152,7 @@
       "path": "types",
       "purpose": "Type definitions",
       "fileCount": 1,
-      "lastAccessed": 1775584861216,
+      "lastAccessed": 1776076220531,
       "keyFiles": [
         "dashboard.ts"
       ]
@@ -152,7 +161,7 @@
       "path": "app\\api",
       "purpose": "API routes",
       "fileCount": 0,
-      "lastAccessed": 1775584861218,
+      "lastAccessed": 1776076220532,
       "keyFiles": []
     }
   },

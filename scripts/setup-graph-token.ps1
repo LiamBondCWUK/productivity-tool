@@ -1,13 +1,14 @@
 param(
-    [string]$ClientId = $env:GRAPH_CLIENT_ID
+    [string]$ClientId = $env:GRAPH_CLIENT_ID,
+    [string]$TenantId = $(if ($env:GRAPH_TENANT_ID) { $env:GRAPH_TENANT_ID } else { 'organizations' })
 )
 
 $ErrorActionPreference = 'Stop'
 
 $COORDINATOR_PATH = Join-Path $PSScriptRoot '..' 'workspace' 'coordinator'
 $TOKEN_FILE = Join-Path $COORDINATOR_PATH 'graph-token.json'
-$TENANT = 'common'
-$SCOPES = 'Calendars.ReadWrite offline_access User.Read Teams.ReadBasic.All Chat.Read Mail.Read'
+$TENANT = $TenantId
+$SCOPES = 'offline_access User.Read Chat.Read Mail.Read Calendars.Read'
 
 function Write-Step { param([string]$msg) Write-Host "`n[*] $msg" -ForegroundColor Cyan }
 function Write-OK   { param([string]$msg) Write-Host '[+] ' -ForegroundColor Green -NoNewline; Write-Host $msg }
@@ -67,7 +68,12 @@ try {
         -Body $deviceCodeBody `
         -ContentType 'application/x-www-form-urlencoded'
 } catch {
-    Write-Error "Device code request failed: $($_.Exception.Message)"
+    $errorDetails = $_.ErrorDetails.Message
+    if ($errorDetails) {
+        Write-Error "Device code request failed: $($_.Exception.Message)`n$errorDetails"
+    } else {
+        Write-Error "Device code request failed: $($_.Exception.Message)"
+    }
     exit 1
 }
 

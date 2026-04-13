@@ -1,0 +1,5 @@
+# Transcript: UKCAUD - Stand-up - MS Teams-20260313_101238UTC-Meeting Recording
+# Duration: 70s | Language: en
+# Transcribed: 2026-04-13T01:14:40.000390
+# Model: faster-whisper base
+# Segments: 0 | Processing time: 2s

@@ -7,10 +7,12 @@ type TabId =
   | "today"
   | "tasks"
   | "projects"
+  | "automation"
   | "notes"
   | "ceremonies"
   | "docs"
   | "learning"
+  | "ibp"
   | "news"
   | "system";
 
@@ -18,10 +20,12 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "today", label: "Today" },
   { id: "tasks", label: "Tasks" },
   { id: "projects", label: "Projects" },
+  { id: "automation", label: "Automation" },
   { id: "notes", label: "Notes" },
   { id: "ceremonies", label: "Ceremonies" },
   { id: "docs", label: "Doc Health" },
   { id: "learning", label: "Analysis" },
+  { id: "ibp", label: "IBP" },
   { id: "news", label: "News" },
   { id: "system", label: "System" },
 ];
@@ -30,10 +34,12 @@ interface TabWorkspaceProps {
   todayContent: React.ReactNode;
   tasksContent: React.ReactNode;
   projectsContent: React.ReactNode;
+  automationContent: React.ReactNode;
   notesContent: React.ReactNode;
   ceremoniesContent: React.ReactNode;
   docsContent: React.ReactNode;
   learningContent: React.ReactNode;
+  ibpContent: React.ReactNode;
   newsContent: React.ReactNode;
   systemContent: React.ReactNode;
 }
@@ -72,10 +78,12 @@ function TabWorkspaceInner({
   todayContent,
   tasksContent,
   projectsContent,
+  automationContent,
   notesContent,
   ceremoniesContent,
   docsContent,
   learningContent,
+  ibpContent,
   newsContent,
   systemContent,
 }: TabWorkspaceProps) {
@@ -89,10 +97,12 @@ function TabWorkspaceInner({
     today: todayContent,
     tasks: tasksContent,
     projects: projectsContent,
+    automation: automationContent,
     notes: notesContent,
     ceremonies: ceremoniesContent,
     docs: docsContent,
     learning: learningContent,
+    ibp: ibpContent,
     news: newsContent,
     system: systemContent,
   };

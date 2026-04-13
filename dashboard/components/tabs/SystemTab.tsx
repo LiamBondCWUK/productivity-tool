@@ -2,6 +2,47 @@
 
 import { useState, useEffect, useCallback } from "react";
 
+// ── Script Runner Hook ───────────────────────────────────────────────────────
+
+interface ScriptResult {
+  success: boolean;
+  stdout?: string;
+  stderr?: string;
+  error?: string;
+}
+
+function useScriptRunner() {
+  const [running, setRunning] = useState<Record<string, boolean>>({});
+  const [results, setResults] = useState<Record<string, ScriptResult>>({});
+
+  const run = useCallback(async (key: string) => {
+    setRunning((prev) => ({ ...prev, [key]: true }));
+    setResults((prev) => {
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+    try {
+      const res = await fetch("/api/execute", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ command: key }),
+      });
+      const data: ScriptResult = await res.json();
+      setResults((prev) => ({ ...prev, [key]: data }));
+    } catch (err: unknown) {
+      setResults((prev) => ({
+        ...prev,
+        [key]: { success: false, error: err instanceof Error ? err.message : "Network error" },
+      }));
+    } finally {
+      setRunning((prev) => ({ ...prev, [key]: false }));
+    }
+  }, []);
+
+  return { running, results, run };
+}
+
 // ── Types ────────────────────────────────────────────────────────────────────
 
 interface ScheduledTask {
@@ -325,13 +366,89 @@ function ClaudeSpeedPanel({ speed }: { speed: ClaudeSpeed }) {
   );
 }
 
+// ── Quick Actions ─────────────────────────────────────────────────────────────
+
+interface QuickAction {
+  key: string;
+  label: string;
+}
+
+function QuickActionGroup({
+  label,
+  actions,
+  running,
+  results,
+  onRun,
+}: {
+  label: string;
+  actions: QuickAction[];
+  running: Record<string, boolean>;
+  results: Record<string, ScriptResult>;
+  onRun: (key: string) => void;
+}) {
+  return (
+    <div className="bg-gray-800/40 border border-gray-700/40 rounded-lg p-3">
+      <p className="text-xs text-gray-500 font-medium mb-2">{label}</p>
+      <div className="flex flex-wrap gap-2">
+        {actions.map((action) => {
+          const isRunning = running[action.key];
+          const result = results[action.key];
+          const btnColor = result
+            ? result.success
+              ? "bg-green-700/40 border-green-600/50 text-green-300"
+              : "bg-red-700/40 border-red-600/50 text-red-300"
+            : "bg-gray-700/60 border-gray-600/50 text-gray-300 hover:bg-gray-600/60 hover:text-gray-200";
+
+          return (
+            <button
+              key={action.key}
+              onClick={() => onRun(action.key)}
+              disabled={isRunning}
+              className={`text-xs px-2.5 py-1.5 rounded border transition-colors disabled:opacity-50 ${btnColor}`}
+              title={result?.error ?? result?.stdout?.slice(0, 100) ?? ""}
+            >
+              {isRunning ? "Running…" : action.label}
+              {result && !isRunning && (
+                <span className="ml-1">{result.success ? "✓" : "✗"}</span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ── Main Component ────────────────────────────────────────────────────────────
 
-export function SystemTab() {
+interface RecommendedInstall {
+  id: string;
+  name: string;
+  category: string;
+  priority: string;
+  description: string;
+  signal: string;
+  installCommand?: string;
+  status: string;
+}
+
+interface SystemTabProps {
+  suggestions?: string[];
+  recommendedInstalls?: RecommendedInstall[];
+  onMarkInstalled?: (id: string) => Promise<void>;
+}
+
+export function SystemTab({
+  suggestions = [],
+  recommendedInstalls = [],
+  onMarkInstalled,
+}: SystemTabProps) {
   const [health, setHealth] = useState<SystemHealth | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastFetched, setLastFetched] = useState<Date | null>(null);
+
+  const { running, results, run } = useScriptRunner();
 
   const fetchHealth = useCallback(async () => {
     setLoading(true);
@@ -458,6 +575,133 @@ export function SystemTab() {
               <SectionHeader>Claude Performance</SectionHeader>
               <ClaudeSpeedPanel speed={health.claudeSpeed} />
             </section>
+
+            {/* Quick Actions */}
+            <section>
+              <SectionHeader>Quick Actions</SectionHeader>
+              <div className="space-y-3">
+                <QuickActionGroup
+                  label="Data Refresh"
+                  actions={[
+                    { key: "refresh-email", label: "Refresh Email" },
+                    { key: "refresh-calendar", label: "Refresh Calendar" },
+                    { key: "sync-projects", label: "Sync Projects" },
+                    { key: "system-health", label: "System Health" },
+                  ]}
+                  running={running}
+                  results={results}
+                  onRun={run}
+                />
+                <QuickActionGroup
+                  label="AI Generation"
+                  actions={[
+                    { key: "generate-day-plan", label: "Day Plan" },
+                    { key: "generate-ibp", label: "Generate IBP" },
+                    { key: "overnight-analysis", label: "Overnight Analysis" },
+                  ]}
+                  running={running}
+                  results={results}
+                  onRun={run}
+                />
+                <QuickActionGroup
+                  label="Maintenance"
+                  actions={[
+                    { key: "activity-merge", label: "Merge Activity" },
+                    { key: "refresh-news", label: "Extract News" },
+                    { key: "jira-status", label: "Jira Status" },
+                    { key: "morning-orchestrator", label: "Morning Orchestrator" },
+                  ]}
+                  running={running}
+                  results={results}
+                  onRun={run}
+                />
+              </div>
+            </section>
+
+            {/* Suggestions & Recommended Installs */}
+            {(suggestions.length > 0 || recommendedInstalls.length > 0) && (
+              <section>
+                <SectionHeader>Suggestions & Recommended Installs</SectionHeader>
+                <div className="space-y-3">
+                  {suggestions.length > 0 && (
+                    <div className="bg-gray-800/40 border border-gray-700/40 rounded-lg p-3">
+                      <p className="text-xs text-gray-500 font-medium mb-2">
+                        AI Suggestions
+                      </p>
+                      <ul className="space-y-1.5">
+                        {suggestions.map((s, i) => (
+                          <li
+                            key={i}
+                            className="text-xs text-gray-300 flex items-start gap-2"
+                          >
+                            <span className="text-gray-600 shrink-0">•</span>
+                            <span>{s}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {recommendedInstalls.length > 0 && (
+                    <div className="bg-gray-800/40 border border-gray-700/40 rounded-lg p-3">
+                      <p className="text-xs text-gray-500 font-medium mb-2">
+                        Recommended Installs
+                      </p>
+                      <div className="space-y-2">
+                        {recommendedInstalls.map((item) => (
+                          <div
+                            key={item.id}
+                            className="flex items-start justify-between gap-2 py-1"
+                          >
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <span className="text-xs font-medium text-gray-200">
+                                  {item.name}
+                                </span>
+                                <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-700/60 text-gray-400">
+                                  {item.category}
+                                </span>
+                                <span
+                                  className={`text-[10px] px-1.5 py-0.5 rounded ${
+                                    item.priority === "HIGH"
+                                      ? "bg-red-900/40 text-red-300"
+                                      : item.priority === "MED"
+                                        ? "bg-yellow-900/40 text-yellow-300"
+                                        : "bg-gray-700/60 text-gray-400"
+                                  }`}
+                                >
+                                  {item.priority}
+                                </span>
+                                {item.status === "INSTALLED" && (
+                                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-green-900/40 text-green-300">
+                                    Installed
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-xs text-gray-500 mt-0.5">
+                                {item.description}
+                              </p>
+                              {item.installCommand && item.status !== "INSTALLED" && (
+                                <code className="text-[10px] text-green-400 bg-gray-800 rounded px-1.5 py-0.5 mt-1 block font-mono">
+                                  {item.installCommand}
+                                </code>
+                              )}
+                            </div>
+                            {item.status !== "INSTALLED" && onMarkInstalled && (
+                              <button
+                                onClick={() => onMarkInstalled(item.id)}
+                                className="text-[10px] px-2 py-1 rounded bg-green-700/30 text-green-300 hover:bg-green-700/50 transition-colors shrink-0"
+                              >
+                                Mark Installed
+                              </button>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
 
             {/* Footer */}
             {health.collectedAt && (

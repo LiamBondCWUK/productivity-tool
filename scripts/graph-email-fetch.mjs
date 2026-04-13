@@ -116,6 +116,122 @@ async function fetchFlaggedEmails() {
   }
 }
 
+/**
+ * Fetch AI newsletter and internal comms emails.
+ * Reads newsletter-sources.md for sender domains and subject keywords.
+ * Uses existing Mail.Read scope — no admin consent needed.
+ */
+async function fetchNewsletterEmails() {
+  if (!existsSync(TOKEN_FILE)) return [];
+
+  let tokenData;
+  try {
+    tokenData = JSON.parse(readFileSync(TOKEN_FILE, "utf8"));
+    tokenData = await refreshTokenIfNeeded(tokenData);
+  } catch (err) {
+    console.log(`[graph-email-fetch] Newsletter token error: ${err.message}`);
+    return [];
+  }
+
+  try {
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+
+    // Known external newsletter sender domains
+    const externalDomains = [
+      "deeplearning.ai",
+      "tldrai.com",
+      "jack-clark.net",
+      "theneurondaily.com",
+      "bensbites.com",
+      "newsletter.pragmaticengineer.com",
+    ];
+
+    // Subject keywords for AI-related internal emails
+    const aiSubjectKeywords = [
+      "AI", "ML", "GenAI", "Copilot", "innovation",
+      "artificial intelligence", "machine learning", "LLM",
+    ];
+
+    // Subject keywords for newsletter-type emails
+    const newsletterKeywords = [
+      "newsletter", "digest", "AI weekly", "weekly briefing", "AI update",
+    ];
+
+    // Build OData filter — Graph API $filter is limited, so we use a broad filter
+    // then do client-side refinement
+    const filter = encodeURIComponent(
+      `receivedDateTime ge ${oneDayAgo}`
+    );
+
+    const data = await graphGet(
+      tokenData.access_token,
+      `/me/messages?$filter=${filter}&$select=id,subject,from,receivedDateTime,webLink,bodyPreview&$top=50&$orderby=receivedDateTime desc`
+    );
+
+    const allMessages = data.value ?? [];
+
+    // Client-side filter: match newsletter senders, AI keywords, or newsletter keywords
+    const newsletters = allMessages.filter((m) => {
+      const fromAddr = (m.from?.emailAddress?.address ?? "").toLowerCase();
+      const fromName = (m.from?.emailAddress?.name ?? "").toLowerCase();
+      const subject = (m.subject ?? "").toLowerCase();
+
+      // External newsletter sender match
+      const isExternalNewsletter = externalDomains.some((d) => fromAddr.includes(d));
+
+      // Internal Caseware AI email match
+      const isInternalAI = fromAddr.includes("caseware.com") && aiSubjectKeywords.some(
+        (kw) => subject.includes(kw.toLowerCase())
+      );
+
+      // Internal Caseware product update that mentions AI
+      const isProductUpdate = fromAddr.includes("caseware.com") && (
+        subject.includes("product update") ||
+        subject.includes("release notes") ||
+        subject.includes("what's new")
+      ) && (m.bodyPreview ?? "").toLowerCase().match(/\bai\b|copilot|genai|machine learning/);
+
+      // Generic newsletter keyword match
+      const isNewsletterKeyword = newsletterKeywords.some(
+        (kw) => subject.includes(kw.toLowerCase()) || fromName.includes("newsletter")
+      );
+
+      return isExternalNewsletter || isInternalAI || isProductUpdate || isNewsletterKeyword;
+    });
+
+    // Deduplicate by subject similarity (strip "Re:", "Fwd:", whitespace)
+    const seen = new Set();
+    const deduped = newsletters.filter((m) => {
+      const normalized = (m.subject ?? "")
+        .replace(/^(re|fwd|fw):\s*/gi, "")
+        .trim()
+        .toLowerCase();
+      if (seen.has(normalized)) return false;
+      seen.add(normalized);
+      return true;
+    });
+
+    const results = deduped.slice(0, 15).map((m) => ({
+      id: m.id,
+      subject: m.subject ?? "(no subject)",
+      from: m.from?.emailAddress?.name ?? m.from?.emailAddress?.address ?? "Unknown",
+      fromAddress: m.from?.emailAddress?.address ?? "",
+      webLink: m.webLink ?? "",
+      receivedAt: m.receivedDateTime ?? new Date().toISOString(),
+      preview: (m.bodyPreview ?? "").slice(0, 500),
+      sourceType: (m.from?.emailAddress?.address ?? "").includes("caseware.com")
+        ? "internal"
+        : "external",
+    }));
+
+    console.log(`[graph-email-fetch] ${results.length} newsletter emails found (${newsletters.length} pre-dedup)`);
+    return results;
+  } catch (err) {
+    console.warn("[graph-email-fetch] Failed to fetch newsletters:", err.message);
+    return [];
+  }
+}
+
 function runOutlookFallback() {
   if (!existsSync(OUTLOOK_FALLBACK_SCRIPT)) {
     console.warn("[graph-email-fetch] Outlook fallback script not found");
@@ -143,17 +259,20 @@ function runOutlookFallback() {
 
 async function run() {
   const flaggedEmails = await fetchFlaggedEmails();
+  const newsletterEmails = await fetchNewsletterEmails();
 
-  if (flaggedEmails.length === 0 && runOutlookFallback()) {
+  if (flaggedEmails.length === 0 && newsletterEmails.length === 0 && runOutlookFallback()) {
     return;
   }
 
   const dashboardData = readJson(DASHBOARD_DATA_PATH, {});
   dashboardData.flaggedEmails = flaggedEmails;
   dashboardData.flaggedEmailsFetchedAt = new Date().toISOString();
+  dashboardData.newsletterEmails = newsletterEmails;
+  dashboardData.newsletterEmailsFetchedAt = new Date().toISOString();
 
   writeFileSync(DASHBOARD_DATA_PATH, JSON.stringify(dashboardData, null, 2));
-  console.log(`[graph-email-fetch] wrote ${flaggedEmails.length} emails to dashboard-data.json`);
+  console.log(`[graph-email-fetch] wrote ${flaggedEmails.length} flagged + ${newsletterEmails.length} newsletter emails to dashboard-data.json`);
 }
 
 run().catch((err) => {

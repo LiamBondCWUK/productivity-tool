@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { CalendarEvent } from "../types/dashboard";
 
 interface Props {
@@ -44,10 +45,26 @@ function EventRow({ event }: { event: CalendarEvent }) {
 }
 
 export function CalendarPanel({ today, weekAhead, hasToken }: Props) {
+  const [refreshing, setRefreshing] = useState(false);
   const safeWeekAhead = weekAhead ?? [];
   const todayEvents = (today ?? []).sort(
     (a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
   );
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await fetch("/api/execute", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ command: "refresh-calendar" }),
+      });
+    } catch {
+      // silent
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   return (
     <div className="flex flex-col h-full">
@@ -55,11 +72,21 @@ export function CalendarPanel({ today, weekAhead, hasToken }: Props) {
         <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
           Today&apos;s Calendar
         </h2>
-        {!hasToken && (
-          <span className="text-yellow-600 text-xs">
-            No token — run setup-graph-token.ps1
-          </span>
-        )}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="text-xs px-1.5 py-0.5 text-gray-500 hover:text-gray-300 disabled:opacity-40 transition-colors"
+            title="Refresh calendar"
+          >
+            {refreshing ? "…" : "↻"}
+          </button>
+          {!hasToken && (
+            <span className="text-yellow-600 text-xs">
+              No token — run setup-graph-token.ps1
+            </span>
+          )}
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto min-h-0 space-y-4">

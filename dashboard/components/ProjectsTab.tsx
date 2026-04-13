@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { AutomationStatus } from "./AutomationStatus";
 import type {
   PersonalProject,
-  AutomationRule,
   ProjectPhase,
   ProjectSuggestion,
   ProjectEntry,
@@ -32,8 +30,6 @@ interface MergedProject {
 
 interface ProjectsTabProps {
   projects: PersonalProject[];
-  automationRules: AutomationRule[];
-  automationLastChecked: string | null;
   onPhaseChange: (projectId: string, phase: ProjectPhase) => Promise<void>;
   onAddTask: (
     suggestion: ProjectSuggestion,
@@ -272,8 +268,6 @@ function RegistryProjectCard({
 
 export function ProjectsTab({
   projects,
-  automationRules,
-  automationLastChecked,
   onPhaseChange,
   onAddTask,
   onRefetch,
@@ -413,14 +407,6 @@ export function ProjectsTab({
             </div>
           )}
         </div>
-      </div>
-
-      <div className="w-[280px] shrink-0 p-4 border-l border-gray-700/50 flex flex-col overflow-hidden">
-        <AutomationStatus
-          rules={automationRules}
-          lastChecked={automationLastChecked}
-          onRefetch={onRefetch}
-        />
       </div>
     </div>
   );

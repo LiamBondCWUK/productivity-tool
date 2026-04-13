@@ -7,6 +7,10 @@ const ACTIVITY_LOG = resolve(
   "../workspace/coordinator/activity-log.json"
 );
 
+function removeUtf8Bom(content: string): string {
+  return content.charCodeAt(0) === 0xfeff ? content.slice(1) : content;
+}
+
 interface ActivitySession {
   start: string;
   end: string;
@@ -17,7 +21,7 @@ interface ActivitySession {
 
 export async function GET() {
   try {
-    const raw = readFileSync(ACTIVITY_LOG, "utf8").trim();
+    const raw = removeUtf8Bom(readFileSync(ACTIVITY_LOG, "utf8")).trim();
     const allSessions: ActivitySession[] = JSON.parse(raw || "[]");
 
     // Filter to today's sessions only

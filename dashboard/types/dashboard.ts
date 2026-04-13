@@ -71,6 +71,9 @@ export interface InboxItem {
   driveItemId?: string;
   driveId?: string;
   commentObjectId?: string;
+  // ai-suggestion fields (setup suggestions from morning scan)
+  installCommand?: string;
+  reasoning?: string;
 }
 
 export interface PriorityInbox {
@@ -233,6 +236,17 @@ export interface FlaggedEmail {
   receivedAt: string;
 }
 
+export interface NewsletterEmail {
+  id: string;
+  subject: string;
+  from: string;
+  fromAddress: string;
+  webLink: string;
+  receivedAt: string;
+  preview: string;
+  sourceType: "internal" | "external";
+}
+
 export type DayPlanBlockType = "focus" | "admin" | "meeting" | "buffer";
 
 export interface DayPlanBlock {
@@ -258,6 +272,21 @@ export interface ActivitySession {
   durationMin: number;
 }
 
+export type InternalIntelSourceType = "teams" | "confluence" | "newsletter";
+
+export interface InternalIntelItem {
+  title: string;
+  summary: string;
+  sourceType: InternalIntelSourceType;
+  url?: string;
+}
+
+export interface InternalIntelligence {
+  teamsChannels: InternalIntelItem[];
+  confluencePages: InternalIntelItem[];
+  newsletterHighlights: InternalIntelItem[];
+}
+
 export interface AiNewsResults {
   lastRun: string | null;
   topStories: Array<{
@@ -267,6 +296,7 @@ export interface AiNewsResults {
     publishedAt?: string;
   }>;
   suggestions: string[];
+  internalIntel?: InternalIntelligence;
 }
 
 export interface DashboardData {
@@ -311,5 +341,9 @@ export interface DashboardData {
   docHealth?: {
     lastRun: string | null;
     staleDocs: DocHealthItem[];
+  };
+  ibp?: {
+    lastGenerated: string | null;
+    availableDates: string[];
   };
 }
