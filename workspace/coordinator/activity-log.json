@@ -3771,5 +3771,537 @@
     "windowTitle": "Rules - Automation - UK Cloud Audit - Jira (caseware.atlassian.net) - Documents - Visual Studio Code",
     "inferredTask": "jira-browse",
     "durationMin": 1
+  },
+  {
+    "start": "2026-04-13T16:29:07.772Z",
+    "end": "2026-04-14T08:39:28.854Z",
+    "windowTitle": "Rule builder - Automation - UK Cloud Audit - Jira (caseware.atlassian.net) - Documents - Visual Studio Code",
+    "inferredTask": "jira-browse",
+    "durationMin": 970
+  },
+  {
+    "start": "2026-04-14T08:39:54.650Z",
+    "end": "2026-04-14T09:15:25.019Z",
+    "windowTitle": "Rule builder - Automation - UK Cloud Audit - Jira (caseware.atlassian.net) - Documents - Visual Studio Code",
+    "inferredTask": "jira-browse",
+    "durationMin": 36
+  },
+  {
+    "start": "2026-04-14T09:15:25.019Z",
+    "end": "2026-04-14T09:17:59.843Z",
+    "windowTitle": "HAT-QA-Summary-v2.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-14T09:18:56.062Z",
+    "end": "2026-04-14T09:26:55.323Z",
+    "windowTitle": "HAT-QA-Summary-v2.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 8
+  },
+  {
+    "start": "2026-04-14T09:26:55.323Z",
+    "end": "2026-04-14T09:32:55.578Z",
+    "windowTitle": "HAT-Sampling-Execution-Plan-v2.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-14T09:32:55.578Z",
+    "end": "2026-04-14T09:49:25.673Z",
+    "windowTitle": "HAT-QA-Summary-v2.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 17
+  },
+  {
+    "start": "2026-04-14T09:49:25.673Z",
+    "end": "2026-04-14T09:57:25.571Z",
+    "windowTitle": "? HAT-QA-Summary-v2.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 8
+  },
+  {
+    "start": "2026-04-14T09:57:25.571Z",
+    "end": "2026-04-14T10:00:55.676Z",
+    "windowTitle": "HAT-Sampling-Execution-Plan-v2.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-14T10:00:55.676Z",
+    "end": "2026-04-14T11:03:31.042Z",
+    "windowTitle": "? HAT-QA-Summary-v2.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 63
+  },
+  {
+    "start": "2026-04-14T11:04:27.686Z",
+    "end": "2026-04-14T11:12:27.459Z",
+    "windowTitle": "? HAT-QA-Summary-v2.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 8
+  },
+  {
+    "start": "2026-04-14T11:12:27.459Z",
+    "end": "2026-04-14T11:13:57.163Z",
+    "windowTitle": "Claude-VSCode-Onboarding-Session.pptx - Documents - Visual Studio Code",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T11:13:57.163Z",
+    "end": "2026-04-14T11:14:27.281Z",
+    "windowTitle": "? HAT-QA-Summary-v2.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T11:14:27.281Z",
+    "end": "2026-04-14T11:18:56.953Z",
+    "windowTitle": "UKCAUD-BUG-AND-QA-PROCESS.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-14T11:18:56.953Z",
+    "end": "2026-04-14T11:31:32.621Z",
+    "windowTitle": "CLAUDE-VSCODE-USER-GUIDE.md - Documents - Visual Studio Code",
+    "inferredTask": "ai-coding",
+    "durationMin": 13
+  },
+  {
+    "start": "2026-04-14T11:31:58.038Z",
+    "end": "2026-04-14T11:32:31.589Z",
+    "windowTitle": "? HAT-QA-Summary-v2.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T11:33:00.155Z",
+    "end": "2026-04-14T11:41:31.788Z",
+    "windowTitle": "DRAFT-feedback-Adam-Martin.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 9
+  },
+  {
+    "start": "2026-04-14T11:42:28.137Z",
+    "end": "2026-04-14T11:46:32.186Z",
+    "windowTitle": "DRAFT-feedback-Adam-Martin.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-14T11:46:57.930Z",
+    "end": "2026-04-14T11:47:57.750Z",
+    "windowTitle": "DRAFT-feedback-Adam-Martin.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T11:47:57.750Z",
+    "end": "2026-04-14T11:51:27.654Z",
+    "windowTitle": "Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-14T12:08:27.317Z",
+    "end": "2026-04-14T12:10:26.296Z",
+    "windowTitle": "Solution Engineering AI Enablement-20260313_140059-Meeting Recording.mp4 and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-14T12:10:26.296Z",
+    "end": "2026-04-14T12:10:56.344Z",
+    "windowTitle": "New tab and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T12:10:56.344Z",
+    "end": "2026-04-14T12:11:56.337Z",
+    "windowTitle": "Solution Engineering AI Enablement-20260313_140059-Meeting Recording.mp4 and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T12:11:56.337Z",
+    "end": "2026-04-14T12:12:26.393Z",
+    "windowTitle": "code/.claude/skills at develop � caseware/code and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T12:12:26.393Z",
+    "end": "2026-04-14T12:12:56.600Z",
+    "windowTitle": "code/.claude/skills/jira-ticket-management at develop � caseware/code and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T12:12:56.600Z",
+    "end": "2026-04-14T12:13:27.065Z",
+    "windowTitle": "[SE-62581] SE Server SKILLS for Claude agents (#77717) � caseware/code@ea657ea and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "SE-62581",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T12:13:27.065Z",
+    "end": "2026-04-14T12:24:26.250Z",
+    "windowTitle": "Solution Engineering AI Enablement-20260313_140059-Meeting Recording.mp4 and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-14T12:24:56.225Z",
+    "end": "2026-04-14T12:26:56.428Z",
+    "windowTitle": "CaseWare Cloud and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-14T12:26:56.428Z",
+    "end": "2026-04-14T12:28:26.493Z",
+    "windowTitle": "New tab and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-14T12:28:26.493Z",
+    "end": "2026-04-14T12:29:33.142Z",
+    "windowTitle": "Caseware Agile - Standard - Caseware Agile Standard - Caseware Confluence and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T12:30:56.849Z",
+    "end": "2026-04-14T12:31:29.703Z",
+    "windowTitle": "R&D and Technology Team - Onboarding - Career Ladder - All Documents and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T12:31:29.703Z",
+    "end": "2026-04-14T12:32:00.685Z",
+    "windowTitle": "Development Roles.pptx and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T12:32:26.428Z",
+    "end": "2026-04-14T12:33:26.529Z",
+    "windowTitle": "CW Test Team Roles FY24 Update.pptx and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T12:33:26.529Z",
+    "end": "2026-04-14T12:50:31.504Z",
+    "windowTitle": "Development Roles.pptx and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 17
+  },
+  {
+    "start": "2026-04-14T12:50:56.845Z",
+    "end": "2026-04-14T12:52:27.213Z",
+    "windowTitle": "Development Roles.pptx and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-14T12:52:56.679Z",
+    "end": "2026-04-14T12:54:27.406Z",
+    "windowTitle": "SharePoint and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-14T12:54:57.001Z",
+    "end": "2026-04-14T12:58:57.420Z",
+    "windowTitle": "Inbox (3) and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-14T12:58:57.420Z",
+    "end": "2026-04-14T12:59:28.480Z",
+    "windowTitle": "Inbox (2) and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T12:59:28.480Z",
+    "end": "2026-04-14T12:59:58.796Z",
+    "windowTitle": "SharePoint and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T12:59:58.796Z",
+    "end": "2026-04-14T13:00:57.399Z",
+    "windowTitle": "SharePoint and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T13:00:57.399Z",
+    "end": "2026-04-14T13:01:27.445Z",
+    "windowTitle": "SharePoint and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T13:02:26.958Z",
+    "end": "2026-04-14T13:02:57.368Z",
+    "windowTitle": "Fieldguide for Coffee and Content.docx and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T13:02:57.368Z",
+    "end": "2026-04-14T13:04:27.053Z",
+    "windowTitle": "SHARED - NA_UK August 2023 Product and Design Roles Career Ladder - Slides Format - Note that this document may be updated from time to time.pptx and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T13:04:27.053Z",
+    "end": "2026-04-14T13:19:57.856Z",
+    "windowTitle": "Inbox (2) and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 16
+  },
+  {
+    "start": "2026-04-14T13:19:57.856Z",
+    "end": "2026-04-14T13:20:31.566Z",
+    "windowTitle": "Repls - Caseware - Replit and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T13:20:57.474Z",
+    "end": "2026-04-14T13:23:57.102Z",
+    "windowTitle": "Repls - Caseware - Replit and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-14T13:23:57.102Z",
+    "end": "2026-04-14T13:44:57.487Z",
+    "windowTitle": "Inbox (2) and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 21
+  },
+  {
+    "start": "2026-04-14T13:44:57.487Z",
+    "end": "2026-04-14T13:50:27.611Z",
+    "windowTitle": "Inbox (1) and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-14T13:50:57.545Z",
+    "end": "2026-04-14T13:56:57.683Z",
+    "windowTitle": "Inbox (1) and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-14T13:57:27.681Z",
+    "end": "2026-04-14T13:58:57.771Z",
+    "windowTitle": "List - UK Cloud Audit Support - Caseware Jira and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-14T13:58:57.771Z",
+    "end": "2026-04-14T14:04:28.204Z",
+    "windowTitle": "Inbox (1) and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-14T14:04:57.797Z",
+    "end": "2026-04-14T14:35:58.587Z",
+    "windowTitle": "Inbox (1) and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 31
+  },
+  {
+    "start": "2026-04-14T14:35:58.587Z",
+    "end": "2026-04-14T14:36:28.725Z",
+    "windowTitle": "Caseware Agile - Standard - Caseware Agile Standard - Caseware Confluence and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T14:36:28.725Z",
+    "end": "2026-04-14T14:43:59.104Z",
+    "windowTitle": "Repls - Caseware - Replit and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 8
+  },
+  {
+    "start": "2026-04-14T14:44:28.819Z",
+    "end": "2026-04-14T14:51:02.892Z",
+    "windowTitle": "[UKCAUD-16108] SS+TS HAT Planning/Final Needs To Be Selected - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-16108",
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-14T14:51:28.707Z",
+    "end": "2026-04-14T14:52:02.841Z",
+    "windowTitle": "[UKCAUD-16108] SS+TS HAT Planning/Final Needs To Be Selected - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-16108",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T14:52:59.036Z",
+    "end": "2026-04-14T14:56:03.073Z",
+    "windowTitle": "[UKCAUD-16108] SS+TS HAT Planning/Final Needs To Be Selected - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-16108",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-14T14:56:29.177Z",
+    "end": "2026-04-14T14:57:29.896Z",
+    "windowTitle": "[UKCAUD-16108] SS+TS HAT Planning/Final Needs To Be Selected - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-16108",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T14:57:29.896Z",
+    "end": "2026-04-14T14:58:00.663Z",
+    "windowTitle": "hat-develop (2025) and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T14:58:29.138Z",
+    "end": "2026-04-14T15:00:03.095Z",
+    "windowTitle": "[UKCAUD-16108] SS+TS HAT Planning/Final Needs To Be Selected - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-16108",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-14T15:00:30.021Z",
+    "end": "2026-04-14T15:04:30.684Z",
+    "windowTitle": "[UKCAUD-16108] SS+TS HAT Planning/Final Needs To Be Selected - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-16108",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-14T15:04:30.684Z",
+    "end": "2026-04-14T15:05:03.294Z",
+    "windowTitle": "[UKCAUD-15524] 4. Audit HAT UK Company - SS Risk assessment, Risk factor, Risk scale, Calculation table - Caseware Jira and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15524",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T15:05:29.103Z",
+    "end": "2026-04-14T15:06:03.284Z",
+    "windowTitle": "[UKCAUD-15524] 4. Audit HAT UK Company - SS Risk assessment, Risk factor, Risk scale, Calculation table - Caseware Jira and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15524",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T15:06:30.649Z",
+    "end": "2026-04-14T15:08:29.631Z",
+    "windowTitle": "[UKCAUD-16108] SS+TS HAT Planning/Final Needs To Be Selected - Caseware Jira and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-16108",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-14T15:08:29.631Z",
+    "end": "2026-04-14T15:09:01.832Z",
+    "windowTitle": "New tab and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T15:09:01.832Z",
+    "end": "2026-04-14T15:11:03.402Z",
+    "windowTitle": "Home and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-14T15:11:30.794Z",
+    "end": "2026-04-14T15:17:59.585Z",
+    "windowTitle": "Home and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-14T15:17:59.585Z",
+    "end": "2026-04-14T15:40:59.679Z",
+    "windowTitle": "Inbox (1) and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 23
+  },
+  {
+    "start": "2026-04-14T15:40:59.679Z",
+    "end": "2026-04-14T15:51:00.048Z",
+    "windowTitle": "[UKCAUD-16108] SS+TS HAT Planning/Final Needs To Be Selected - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-16108",
+    "durationMin": 10
+  },
+  {
+    "start": "2026-04-14T15:51:00.048Z",
+    "end": "2026-04-14T15:56:29.990Z",
+    "windowTitle": "[Reported by me] Work item search - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-14T15:56:29.990Z",
+    "end": "2026-04-14T15:57:01.847Z",
+    "windowTitle": "[Reported by me] Work item search - Caseware Jira and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-14T15:58:00.188Z",
+    "end": "2026-04-14T16:01:30.058Z",
+    "windowTitle": "Loom | Free Screen & Video Recording Software | Loom and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-14T16:01:30.058Z",
+    "end": "2026-04-14T16:05:30.637Z",
+    "windowTitle": "[UKCAUD-15524] 4. Audit HAT UK Company - SS Risk assessment, Risk factor, Risk scale, Calculation table - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15524",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-14T16:06:30.223Z",
+    "end": "2026-04-14T16:09:29.948Z",
+    "windowTitle": "New tab and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-14T16:09:29.948Z",
+    "end": "2026-04-14T16:11:04.328Z",
+    "windowTitle": "Loom | Free Screen & Video Recording Software | Loom and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-14T16:11:30.107Z",
+    "end": "2026-04-14T16:17:30.406Z",
+    "windowTitle": "Loom | Free Screen & Video Recording Software | Loom and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-14T16:17:30.406Z",
+    "end": "2026-04-14T16:20:30.259Z",
+    "windowTitle": "Inbox (1) and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
   }
 ]
