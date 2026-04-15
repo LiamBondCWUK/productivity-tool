@@ -11,7 +11,13 @@
     "vibe-kanban": "npx vibe-kanban",
     "vibe-kanban:discover": "node scripts/create-kanban-issue.mjs --discover",
     "create-issue": "node scripts/create-kanban-issue.mjs",
-    "sync-feedback": "node scripts/sync-feedback.mjs"
+    "sync-feedback": "node scripts/sync-feedback.mjs",
+    "overnight": "node scripts/overnight-analysis.mjs",
+    "overnight:dry-run": "node scripts/project-discovery.mjs && node scripts/project-health-check.mjs",
+    "overnight:push-cards": "node scripts/push-pending-kanban-cards.mjs",
+    "overnight:push-cards:dry": "node scripts/push-pending-kanban-cards.mjs --dry-run",
+    "implement": "node scripts/implement-approved-cards.mjs",
+    "implement:dry-run": "node scripts/implement-approved-cards.mjs --dry-run"
   },
   "repository": {
     "type": "git",
@@ -32,6 +38,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.2",
     "playwright": "^1.59.1",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.2.2",
+    "vibe-kanban": "^0.1.29"
   }
 }

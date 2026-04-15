@@ -1,152 +1,570 @@
-{
-  "aiNewsResults": {
-    "lastRun": "2026-04-12T22:05:36.720Z",
-    "topStories": [
-      {
-        "title": "Anthropic Claude 3.5 Advanced Kit",
-        "summary": "GitHub Trending (2 hours ago). Comprehensive toolkit for building agentic systems. 8.2k stars, 145 forks. Featured in ai-starter-kit repo.",
-        "url": "https://github.com/anthropics"
-      },
-      {
-        "title": "OpenAI GPT-4 Vision Fine-tuning",
-        "summary": "GitHub (yesterday). Native support for vision task adaptation and multi-modal learning. 6.7k stars."
-      },
-      {
-        "title": "Show HN: MCP Protocol Debugger",
-        "summary": "Hacker News (312 points). Standalone tool for testing Model Context Protocol implementations, debugging workflows.",
-        "url": "https://news.ycombinator.com"
-      },
-      {
-        "title": "Agents Are the Future of Software",
-        "summary": "Hacker News (687 points). Discussion on agentic architectures and reasoning strategies from Anthropic CTO.",
-        "url": "https://news.ycombinator.com"
-      },
-      {
-        "title": "How I Built an Autonomous Research Agent",
-        "summary": "Reddit r/ClaudeAI (428 upvotes). Practical guide to multi-agent research systems using Claude APIs.",
-        "url": "https://reddit.com/r/ClaudeAI"
-      },
-      {
-        "title": "MCP Server Showcase",
-        "summary": "Reddit r/mcp (156 upvotes). Community sharing custom MCP tools and integrations.",
-        "url": "https://reddit.com/r/mcp"
-      },
-      {
-        "title": "Anthropic Raises Series C at $20B Valuation",
-        "summary": "TechCrunch (today). Major funding round accelerates agent research and MCP infrastructure.",
-        "url": "https://techcrunch.com"
-      },
-      {
-        "title": "Microsoft Expands Copilot Enterprise Features",
-        "summary": "The Verge (today). New capabilities for org-wide AI deployment and governance.",
-        "url": "https://theverge.com"
-      },
-      {
-        "title": "AI Trends: +920% Search Interest in AI Agents",
-        "summary": "Google Trends (this week). Breakout keywords: \"AI Agents\" (+920%), \"Model Context Protocol\" (+740%), \"Agentic workflow\" (+560%).",
-        "url": "https://trends.google.com"
-      },
-      {
-        "title": "Frontier Model Reliability Benchmarking",
-        "summary": "DeepLearning.ai (today). New course on measuring real-world AI system reliability.",
-        "url": "https://deeplearning.ai"
-      }
-    ],
-    "suggestions": [],
-    "internalIntel": {
-      "teamsChannels": [
-        {
-          "title": "Multi-agent Contract Review System",
-          "summary": "Sarah Chen prototyping automated contract analysis using Claude APIs. Early results show 40% faster turnaround vs manual review. Team seeking collaborators for compliance module.",
-          "sourceType": "teams",
-          "url": "https://teams.microsoft.com/l/channel/ai-innovation-lab"
-        },
-        {
-          "title": "Batch API Cost Optimization",
-          "summary": "Jamie Rodriguez tested Claude Batch API for compliance analysis pipeline. Results: 65% cost reduction vs real-time. Presenting findings at Data Science Guild standup this week.",
-          "sourceType": "teams",
-          "url": "https://teams.microsoft.com/l/channel/data-science-guild"
-        },
-        {
-          "title": "RAG with Internal Knowledge Base",
-          "summary": "Marcus Wong discussing domain-specific retrieval using Claude + Confluence CQL. 100 docs indexed, performance solid. 6 responses.",
-          "sourceType": "teams",
-          "url": "https://teams.microsoft.com/l/channel/ml-center"
-        },
-        {
-          "title": "Workpaper Generation Automation",
-          "summary": "Alex Thompson exploring Claude SDK for automated audit workpaper generation. Balance sheet tie-offs working, expanding to multi-workpaper coordination. 12 replies.",
-          "sourceType": "teams",
-          "url": "https://teams.microsoft.com/l/channel/caseware-advanced-tools"
-        }
-      ],
-      "confluencePages": [
-        {
-          "title": "AI Strategy Roadmap Q2-Q3",
-          "summary": "Multi-agent orchestration for client engagement workflows. MCP integration for tool extensibility. Budget approved, kickoff scheduled. Created 2 hours ago.",
-          "sourceType": "confluence",
-          "url": "https://confluence.caseware.com/ai-strategy-q2-q3"
-        },
-        {
-          "title": "Claude SDK Integration Patterns",
-          "summary": "New documentation section: Error Recovery in Agentic Workflows. Code examples, best practices. Last updated 3 hours ago.",
-          "sourceType": "confluence",
-          "url": "https://confluence.caseware.com/claude-sdk-patterns"
-        },
-        {
-          "title": "Compliance Automation Feasibility Study",
-          "summary": "Claude + MCP achieves 92% accuracy on routine compliance items. ROI analysis shows break-even by month 4. Updated 5 hours ago.",
-          "sourceType": "confluence",
-          "url": "https://confluence.caseware.com/compliance-feasibility"
-        },
-        {
-          "title": "Q2 AI Product Roadmap",
-          "summary": "Copilot integration for engagement letters, WIP scheduling, variance analysis. Engineering consensus on feasibility. Created 1 hour ago.",
-          "sourceType": "confluence",
-          "url": "https://confluence.caseware.com/q2-roadmap"
-        }
-      ],
-      "newsletterHighlights": [
-        {
-          "title": "The Neuron Weekly #128",
-          "summary": "Frontier Model Reliability: Benchmarking Real-World Performance across production systems and use cases—focus on measuring actual reliability metrics. [Read](https://theneurondaily.com)",
-          "sourceType": "newsletter"
-        },
-        {
-          "title": "Pragmatic Engineer",
-          "summary": "Building AI Teams: Scaling from POC to Production—case studies of 1→20 person AI team growth and organizational patterns. [Read](https://newsletter.pragmaticengineer.com)",
-          "sourceType": "newsletter"
-        },
-        {
-          "title": "deeplearning.ai",
-          "summary": "New Course: Building with Agents—covering agent architectures, MCP patterns, error handling, and production deployment lessons. [Read](https://deeplearning.ai/courses)",
-          "sourceType": "newsletter"
-        },
-        {
-          "title": "Caseware Internal – Product Updates",
-          "summary": "Q2 AI Priorities & Resource Allocation approved: Copilot SDK integration, MCP infrastructure budget, AI Integration team hiring. [Read](https://internal.caseware.com/product-updates)",
-          "sourceType": "newsletter"
-        },
-        {
-          "title": "ben's bites",
-          "summary": "The AI Ops Stack: Tools That Actually Work—operational frameworks companies adopting for production AI systems. [Read](https://bensbites.com)",
-          "sourceType": "newsletter"
-        }
-      ]
-    }
-  },
-  "dayPlan": {
-    "generatedAt": "2026-04-13T10:30:04.650Z",
-    "accepted": false,
-    "blocks": [
-      {
-        "time": "16:30",
-        "duration": 60,
-        "task": "admin",
-        "type": "admin",
-        "label": "Email and messages check-in",
-        "rationale": "End-of-day administrative work before close"
-      }
-    ]
-  }
+﻿{
+    "aiNewsResults":  {
+                          "lastRun":  "2026-04-12T22:05:36.720Z",
+                          "topStories":  [
+                                             {
+                                                 "title":  "Anthropic Claude 3.5 Advanced Kit",
+                                                 "summary":  "GitHub Trending (2 hours ago). Comprehensive toolkit for building agentic systems. 8.2k stars, 145 forks. Featured in ai-starter-kit repo.",
+                                                 "url":  "https://github.com/anthropics"
+                                             },
+                                             {
+                                                 "title":  "OpenAI GPT-4 Vision Fine-tuning",
+                                                 "summary":  "GitHub (yesterday). Native support for vision task adaptation and multi-modal learning. 6.7k stars."
+                                             },
+                                             {
+                                                 "title":  "Show HN: MCP Protocol Debugger",
+                                                 "summary":  "Hacker News (312 points). Standalone tool for testing Model Context Protocol implementations, debugging workflows.",
+                                                 "url":  "https://news.ycombinator.com"
+                                             },
+                                             {
+                                                 "title":  "Agents Are the Future of Software",
+                                                 "summary":  "Hacker News (687 points). Discussion on agentic architectures and reasoning strategies from Anthropic CTO.",
+                                                 "url":  "https://news.ycombinator.com"
+                                             },
+                                             {
+                                                 "title":  "How I Built an Autonomous Research Agent",
+                                                 "summary":  "Reddit r/ClaudeAI (428 upvotes). Practical guide to multi-agent research systems using Claude APIs.",
+                                                 "url":  "https://reddit.com/r/ClaudeAI"
+                                             },
+                                             {
+                                                 "title":  "MCP Server Showcase",
+                                                 "summary":  "Reddit r/mcp (156 upvotes). Community sharing custom MCP tools and integrations.",
+                                                 "url":  "https://reddit.com/r/mcp"
+                                             },
+                                             {
+                                                 "title":  "Anthropic Raises Series C at $20B Valuation",
+                                                 "summary":  "TechCrunch (today). Major funding round accelerates agent research and MCP infrastructure.",
+                                                 "url":  "https://techcrunch.com"
+                                             },
+                                             {
+                                                 "title":  "Microsoft Expands Copilot Enterprise Features",
+                                                 "summary":  "The Verge (today). New capabilities for org-wide AI deployment and governance.",
+                                                 "url":  "https://theverge.com"
+                                             },
+                                             {
+                                                 "title":  "AI Trends: +920% Search Interest in AI Agents",
+                                                 "summary":  "Google Trends (this week). Breakout keywords: \"AI Agents\" (+920%), \"Model Context Protocol\" (+740%), \"Agentic workflow\" (+560%).",
+                                                 "url":  "https://trends.google.com"
+                                             },
+                                             {
+                                                 "title":  "Frontier Model Reliability Benchmarking",
+                                                 "summary":  "DeepLearning.ai (today). New course on measuring real-world AI system reliability.",
+                                                 "url":  "https://deeplearning.ai"
+                                             }
+                                         ],
+                          "suggestions":  [
+
+                                          ],
+                          "internalIntel":  {
+                                                "teamsChannels":  [
+                                                                      {
+                                                                          "title":  "Multi-agent Contract Review System",
+                                                                          "summary":  "Sarah Chen prototyping automated contract analysis using Claude APIs. Early results show 40% faster turnaround vs manual review. Team seeking collaborators for compliance module.",
+                                                                          "sourceType":  "teams",
+                                                                          "url":  "https://teams.microsoft.com/l/channel/ai-innovation-lab"
+                                                                      },
+                                                                      {
+                                                                          "title":  "Batch API Cost Optimization",
+                                                                          "summary":  "Jamie Rodriguez tested Claude Batch API for compliance analysis pipeline. Results: 65% cost reduction vs real-time. Presenting findings at Data Science Guild standup this week.",
+                                                                          "sourceType":  "teams",
+                                                                          "url":  "https://teams.microsoft.com/l/channel/data-science-guild"
+                                                                      },
+                                                                      {
+                                                                          "title":  "RAG with Internal Knowledge Base",
+                                                                          "summary":  "Marcus Wong discussing domain-specific retrieval using Claude + Confluence CQL. 100 docs indexed, performance solid. 6 responses.",
+                                                                          "sourceType":  "teams",
+                                                                          "url":  "https://teams.microsoft.com/l/channel/ml-center"
+                                                                      },
+                                                                      {
+                                                                          "title":  "Workpaper Generation Automation",
+                                                                          "summary":  "Alex Thompson exploring Claude SDK for automated audit workpaper generation. Balance sheet tie-offs working, expanding to multi-workpaper coordination. 12 replies.",
+                                                                          "sourceType":  "teams",
+                                                                          "url":  "https://teams.microsoft.com/l/channel/caseware-advanced-tools"
+                                                                      }
+                                                                  ],
+                                                "confluencePages":  [
+                                                                        {
+                                                                            "title":  "AI Strategy Roadmap Q2-Q3",
+                                                                            "summary":  "Multi-agent orchestration for client engagement workflows. MCP integration for tool extensibility. Budget approved, kickoff scheduled. Created 2 hours ago.",
+                                                                            "sourceType":  "confluence",
+                                                                            "url":  "https://confluence.caseware.com/ai-strategy-q2-q3"
+                                                                        },
+                                                                        {
+                                                                            "title":  "Claude SDK Integration Patterns",
+                                                                            "summary":  "New documentation section: Error Recovery in Agentic Workflows. Code examples, best practices. Last updated 3 hours ago.",
+                                                                            "sourceType":  "confluence",
+                                                                            "url":  "https://confluence.caseware.com/claude-sdk-patterns"
+                                                                        },
+                                                                        {
+                                                                            "title":  "Compliance Automation Feasibility Study",
+                                                                            "summary":  "Claude + MCP achieves 92% accuracy on routine compliance items. ROI analysis shows break-even by month 4. Updated 5 hours ago.",
+                                                                            "sourceType":  "confluence",
+                                                                            "url":  "https://confluence.caseware.com/compliance-feasibility"
+                                                                        },
+                                                                        {
+                                                                            "title":  "Q2 AI Product Roadmap",
+                                                                            "summary":  "Copilot integration for engagement letters, WIP scheduling, variance analysis. Engineering consensus on feasibility. Created 1 hour ago.",
+                                                                            "sourceType":  "confluence",
+                                                                            "url":  "https://confluence.caseware.com/q2-roadmap"
+                                                                        }
+                                                                    ],
+                                                "newsletterHighlights":  [
+                                                                             {
+                                                                                 "title":  "The Neuron Weekly #128",
+                                                                                 "summary":  "Frontier Model Reliability: Benchmarking Real-World Performance across production systems and use casesâ€”focus on measuring actual reliability metrics. [Read](https://theneurondaily.com)",
+                                                                                 "sourceType":  "newsletter"
+                                                                             },
+                                                                             {
+                                                                                 "title":  "Pragmatic Engineer",
+                                                                                 "summary":  "Building AI Teams: Scaling from POC to Productionâ€”case studies of 1â†’20 person AI team growth and organizational patterns. [Read](https://newsletter.pragmaticengineer.com)",
+                                                                                 "sourceType":  "newsletter"
+                                                                             },
+                                                                             {
+                                                                                 "title":  "deeplearning.ai",
+                                                                                 "summary":  "New Course: Building with Agentsâ€”covering agent architectures, MCP patterns, error handling, and production deployment lessons. [Read](https://deeplearning.ai/courses)",
+                                                                                 "sourceType":  "newsletter"
+                                                                             },
+                                                                             {
+                                                                                 "title":  "Caseware Internal â€“ Product Updates",
+                                                                                 "summary":  "Q2 AI Priorities \u0026 Resource Allocation approved: Copilot SDK integration, MCP infrastructure budget, AI Integration team hiring. [Read](https://internal.caseware.com/product-updates)",
+                                                                                 "sourceType":  "newsletter"
+                                                                             },
+                                                                             {
+                                                                                 "title":  "ben\u0027s bites",
+                                                                                 "summary":  "The AI Ops Stack: Tools That Actually Workâ€”operational frameworks companies adopting for production AI systems. [Read](https://bensbites.com)",
+                                                                                 "sourceType":  "newsletter"
+                                                                             }
+                                                                         ]
+                                            }
+                      },
+    "dayPlan":  {
+                    "generatedAt":  "2026-04-13T10:30:04.650Z",
+                    "accepted":  false,
+                    "blocks":  [
+                                   {
+                                       "time":  "16:30",
+                                       "duration":  60,
+                                       "task":  "admin",
+                                       "type":  "admin",
+                                       "label":  "Email and messages check-in",
+                                       "rationale":  "End-of-day administrative work before close"
+                                   }
+                               ]
+                },
+    "overnightAnalysis":  {
+                              "generatedAt":  "2026-04-15T12:59:52.492Z",
+                              "durationMs":  646157,
+                              "model":  "tiered (haiku/sonnet)",
+                              "estimatedCostUsd":  0.0342,
+                              "estimatedInputTokens":  8742,
+                              "estimatedOutputTokens":  6803,
+                              "budgetLimit":  5,
+                              "budgetLimitReached":  false,
+                              "projectsScanned":  12,
+                              "projectsWithFindings":  12,
+                              "projectsProcessedByLLM":  12,
+                              "kanbanCardsPushed":  0,
+                              "kanbanCardsPending":  22,
+                              "projects":  {
+                                               "productivity-tool":  {
+                                                                         "state":  "Active development with 81 untested source files, 11 uncommitted changes, and 6-day-old unpublished changelog entries.",
+                                                                         "suggestions":  [
+                                                                                             {
+                                                                                                 "priority":  "HIGH",
+                                                                                                 "action":  "Establish a basic test suite for the Next.js dashboard. Start with 3-5 tests for critical API routes (day-plan, activity, automation) and the main page component. Use Jest or Playwright. This will prevent regressions as the 81-file codebase grows.",
+                                                                                                 "effort":  "M"
+                                                                                             },
+                                                                                             {
+                                                                                                 "priority":  "HIGH",
+                                                                                                 "action":  "Commit the 11 pending file changes with semantic messages (chore:, feat:, fix: prefixes per CLAUDE.md). This clears uncommitted state and maintains a clean git history for the daily sync pattern.",
+                                                                                                 "effort":  "S"
+                                                                                             },
+                                                                                             {
+                                                                                                 "priority":  "MED",
+                                                                                                 "action":  "Publish CHANGELOG-PENDING.md entries (139 lines, 6 days old) into CHANGELOG.md and clear the pending file. This keeps doc-tracking current with the active development pace.",
+                                                                                                 "effort":  "S"
+                                                                                             }
+                                                                                         ],
+                                                                         "qualityIssues":  [
+                                                                                               "Zero test coverage on 81 source files â€” high regression risk for a production dashboard managing priority/day-plan data",
+                                                                                               "11 uncommitted changes pending â€” breaks the EOD sync pattern and masks uncommitted work",
+                                                                                               "No LSP diagnostics run â€” TypeScript errors may be hidden in the Next.js codebase"
+                                                                                           ],
+                                                                         "neglected":  [
+                                                                                           "Test infrastructure (0 of 81 files have corresponding test files)"
+                                                                                       ],
+                                                                         "crossProjectDeps":  [
+
+                                                                                              ]
+                                                                     },
+                                               "cw-ukcaud-project-tracker":  {
+                                                                                 "state":  "Active development with daily automation and documentation work, but 8 uncommitted changes and 6-day-old changelog backlog blocking proper commit discipline.",
+                                                                                 "suggestions":  [
+                                                                                                     {
+                                                                                                         "priority":  "HIGH",
+                                                                                                         "action":  "Commit the 8 uncommitted changes immediately. Project follows documentation-with-commits protocol (per CLAUDE.md): stage doc files alongside code, check DOC-UPDATE-NEEDED.md, consolidate CHANGELOG-PENDING.md before commits.",
+                                                                                                         "effort":  "S"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "MED",
+                                                                                                         "action":  "Consolidate 46-day-old CHANGELOG-PENDING.md entries (6 days stale) into CHANGELOG.md and commit. Establishes regular cadence to prevent future backlogs.",
+                                                                                                         "effort":  "S"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "MED",
+                                                                                                         "action":  "Test-to-source ratio is sparse (3 test files for 38 source files). Audit coverage for critical paths: sprint ceremony automation and delivery tracking logic.",
+                                                                                                         "effort":  "M"
+                                                                                                     }
+                                                                                                 ],
+                                                                                 "qualityIssues":  [
+                                                                                                       "8 uncommitted file changes indicate incomplete workflow (doc changes staged without code, or vice versa)",
+                                                                                                       "46 unpublished changelog lines accumulating for 6+ days suggests inconsistent documentation consolidation discipline"
+                                                                                                   ],
+                                                                                 "neglected":  [
+                                                                                                   "Test suite coverage relative to codebase size (3 test files for 38 source files)"
+                                                                                               ],
+                                                                                 "crossProjectDeps":  [
+                                                                                                          "Integrates with UKCAUD Jira project for sprint ceremony automation â€” depends on Atlassian MCP or Jira API token availability"
+                                                                                                      ]
+                                                                             },
+                                               "ai-breaking-news-tool":  {
+                                                                             "state":  "Early-stage breaking news tool with minimal source code, pending changelog consolidation, and 6 uncommitted changes blocking clarity.",
+                                                                             "suggestions":  [
+                                                                                                 {
+                                                                                                     "priority":  "HIGH",
+                                                                                                     "action":  "Evaluate and commit the 6 uncommitted file changes or explicitly stash them â€” blocking clarity on project status",
+                                                                                                     "effort":  "S"
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "priority":  "MED",
+                                                                                                     "action":  "Consolidate CHANGELOG-PENDING.md (20 lines, 8 days old) into CHANGELOG.md per documentation-with-commits protocol",
+                                                                                                     "effort":  "S"
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "priority":  "MED",
+                                                                                                     "action":  "Add test file(s) for the single source file â€” 0/1 coverage is a risk for production tooling",
+                                                                                                     "effort":  "M"
+                                                                                                 }
+                                                                                             ],
+                                                                             "qualityIssues":  [
+                                                                                                   "Zero test coverage (0 test files for 1 source file)",
+                                                                                                   "Only 1 source file suggests incomplete implementation or placeholder structure",
+                                                                                                   "6 uncommitted changes indicate stalled work-in-progress"
+                                                                                               ],
+                                                                             "neglected":  [
+                                                                                               "CHANGELOG-PENDING.md unpublished for 8 days (20 entries)"
+                                                                                           ],
+                                                                             "crossProjectDeps":  [
+
+                                                                                                  ]
+                                                                         },
+                                               "cw-template-comparison-tool":  {
+                                                                                   "state":  "Full-stack template comparison tool in active development (51 source files, last commit 5 days ago) but entirely test-free with 7 days of unpublished changelog entries.",
+                                                                                   "suggestions":  [
+                                                                                                       {
+                                                                                                           "priority":  "HIGH",
+                                                                                                           "action":  "Establish test infrastructure before adding more features. Set up Jest/Vitest for frontend, add unit tests for API layer, and create baseline coverage targets. This unblocks safe refactoring and quality gates.",
+                                                                                                           "effort":  "M"
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "priority":  "HIGH",
+                                                                                                           "action":  "Consolidate CHANGELOG-PENDING.md (20 entries, 7 days accumulated) into CHANGELOG.md. Stage and commit alongside code changes to prevent doc debt.",
+                                                                                                           "effort":  "S"
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "priority":  "MED",
+                                                                                                           "action":  "Create project-specific CLAUDE.md documenting test strategy, code standards (immutability rules, file organization), and setup instructions. Reference CW API Scraper dependency clearly.",
+                                                                                                           "effort":  "S"
+                                                                                                       }
+                                                                                                   ],
+                                                                                   "qualityIssues":  [
+                                                                                                         "51 source files with zero test files â€” no unit or integration coverage",
+                                                                                                         "No test framework configured or CI quality gates established",
+                                                                                                         "Changelog debt: 20 pending entries (7 days old) not consolidated into main CHANGELOG.md"
+                                                                                                     ],
+                                                                                   "neglected":  [
+                                                                                                     "Test infrastructure entirely absent â€” no testing setup despite full-stack codebase"
+                                                                                                 ],
+                                                                                   "crossProjectDeps":  [
+                                                                                                            "Wraps \u0027CW API Scraper\u0027 upstream â€” verify scraper API stability before feature work"
+                                                                                                        ]
+                                                                               },
+                                               "cw-release-notes-tool":  {
+                                                                             "state":  "Implemented Python release notes tool with 11 source files but zero test coverage and stale pending changelog (7 days old).",
+                                                                             "suggestions":  [
+                                                                                                 {
+                                                                                                     "priority":  "HIGH",
+                                                                                                     "action":  "Add test suite covering core app.py and feedback-widget.js functionality. Start with unit tests for critical paths, then integration tests for the release notes pipeline.",
+                                                                                                     "effort":  "M"
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "priority":  "MED",
+                                                                                                     "action":  "Consolidate CHANGELOG-PENDING.md (6 entries, 7 days old) into CHANGELOG.md as part of next release cycle to keep changelog current.",
+                                                                                                     "effort":  "S"
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "priority":  "LOW",
+                                                                                                     "action":  "Create project-level CLAUDE.md to document tool architecture, data flow, and testing strategy for future contributors.",
+                                                                                                     "effort":  "S"
+                                                                                                 }
+                                                                                             ],
+                                                                             "qualityIssues":  [
+                                                                                                   "Zero test coverage despite 11 source files and \u0027Implemented\u0027 status â€” no testFileCount detected",
+                                                                                                   "CHANGELOG-PENDING.md entries sitting unpublished for 7 days, indicating release workflow stall"
+                                                                                               ],
+                                                                             "neglected":  [
+                                                                                               "CHANGELOG-PENDING.md consolidation â€” 6 entries aged 7 days waiting for publication"
+                                                                                           ],
+                                                                             "crossProjectDeps":  [
+
+                                                                                                  ]
+                                                                         },
+                                               "cw-lead-schedule-specifications":  {
+                                                                                       "state":  "54-file specification validation platform in Building phase with zero test coverage and stale changelog entries (5 days since last commit).",
+                                                                                       "suggestions":  [
+                                                                                                           {
+                                                                                                               "priority":  "HIGH",
+                                                                                                               "action":  "Implement test suite for validation logic â€” start with unit tests for spec parsing/validation (Excel compatibility, field validation). Zero coverage is critical risk for a specification platform. Recommend Jest or Vitest for frontend, consider integration tests for end-to-end spec validation workflows.",
+                                                                                                               "effort":  "M"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "priority":  "MED",
+                                                                                                               "action":  "Consolidate CHANGELOG-PENDING.md (26 entries, 7 days old) into CHANGELOG.md and commit. Reactivate documentation workflow post-commit per user\u0027s doc-check hooks.",
+                                                                                                               "effort":  "S"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "priority":  "MED",
+                                                                                                               "action":  "Create CLAUDE.md in project root with: testing standards for spec validation, Excel/data format constraints, validation error handling rules, Caseware brand/compliance requirements if applicable.",
+                                                                                                               "effort":  "S"
+                                                                                                           }
+                                                                                                       ],
+                                                                                       "qualityIssues":  [
+                                                                                                             "Zero test coverage on 54-file codebase â€” critical for validation platform where correctness must be guaranteed",
+                                                                                                             "Changelog stale for 7 days (26 pending entries) â€” documentation pipeline appears inactive",
+                                                                                                             "No project context file (CLAUDE.md) â€” onboarding and standards not documented"
+                                                                                                         ],
+                                                                                       "neglected":  [
+                                                                                                         "Test infrastructure (0 test files vs 54 source files)",
+                                                                                                         "Documentation publishing (changelog entries queued but not consolidated)"
+                                                                                                     ],
+                                                                                       "crossProjectDeps":  [
+
+                                                                                                            ]
+                                                                                   },
+                                               "cw-ukjpd-workflows":  {
+                                                                          "state":  "Lightweight documentation project in active maintenance phase with stale changelog entries awaiting consolidation.",
+                                                                          "suggestions":  [
+                                                                                              {
+                                                                                                  "priority":  "HIGH",
+                                                                                                  "action":  "Consolidate 6 unpublished entries from CHANGELOG-PENDING.md into CHANGELOG.md â€” they are 7 days old and should not accumulate further. Aligns with documentation-with-commits enforcement.",
+                                                                                                  "effort":  "S"
+                                                                                              },
+                                                                                              {
+                                                                                                  "priority":  "MED",
+                                                                                                  "action":  "Create CLAUDE.md at project root to define JPD workflow context, approval gates, and documentation standards specific to this Caseware automation project.",
+                                                                                                  "effort":  "S"
+                                                                                              }
+                                                                                          ],
+                                                                          "qualityIssues":  [
+                                                                                                "CHANGELOG-PENDING.md entries unpublished for 7 days â€” violates documentation-with-commits pre-commit hook requirement"
+                                                                                            ],
+                                                                          "neglected":  [
+
+                                                                                        ],
+                                                                          "crossProjectDeps":  [
+                                                                                                   "Likely depends on CW Personal Productivity Tool (contains IBP/day-plan pipeline referenced in primer.md)"
+                                                                                               ]
+                                                                      },
+                                               "cw-uat-testing-tool":  {
+                                                                           "state":  "Early-stage UAT testing tool with minimal source structure (1 file) and 6-day-old pending documentation requiring consolidation.",
+                                                                           "suggestions":  [
+                                                                                               {
+                                                                                                   "priority":  "HIGH",
+                                                                                                   "action":  "Consolidate CHANGELOG-PENDING.md (6 entries, 7 days old) into CHANGELOG.md before next commit â€” this is a documented workflow requirement in your global CLAUDE.md",
+                                                                                                   "effort":  "S"
+                                                                                               },
+                                                                                               {
+                                                                                                   "priority":  "MED",
+                                                                                                   "action":  "Create CLAUDE.md in this project root with phase-specific guidelines (testing strategy, UAT acceptance criteria, deployment target)",
+                                                                                                   "effort":  "S"
+                                                                                               },
+                                                                                               {
+                                                                                                   "priority":  "MED",
+                                                                                                   "action":  "Add basic test structure for feedback-widget.js (0 tests found) â€” UAT tooling benefits from regression coverage as it matures",
+                                                                                                   "effort":  "M"
+                                                                                               }
+                                                                                           ],
+                                                                           "qualityIssues":  [
+                                                                                                 "Pending changelog entries not consolidated to main CHANGELOG.md (workflow violation)"
+                                                                                             ],
+                                                                           "neglected":  [
+
+                                                                                         ],
+                                                                           "crossProjectDeps":  [
+
+                                                                                                ]
+                                                                       },
+                                               "ukcaud-authoring-agent-spec-layer":  {
+                                                                                         "state":  "High-risk audit/compliance codebase with 36 source files, zero test coverage, and no project context documentation; last commit 8 days ago.",
+                                                                                         "suggestions":  [
+                                                                                                             {
+                                                                                                                 "priority":  "HIGH",
+                                                                                                                 "action":  "Add test suite for core audit/compliance logic. Start with unit tests for business-critical functions â€” at minimum: data validation, workflow state transitions, and compliance rule enforcement. Use pytest or equivalent.",
+                                                                                                                 "effort":  "M"
+                                                                                                             },
+                                                                                                             {
+                                                                                                                 "priority":  "MED",
+                                                                                                                 "action":  "Create CLAUDE.md with project-specific AI context: compliance requirements, data sensitivity levels, audit trail expectations, and validation rules. This will improve both AI-assisted development and onboarding.",
+                                                                                                                 "effort":  "S"
+                                                                                                             },
+                                                                                                             {
+                                                                                                                 "priority":  "MED",
+                                                                                                                 "action":  "Clarify project status: last commit is 8 days old with no recent activity logged. If \u0027Building\u0027 phase is active, re-engage; if paused, mark as such in project metadata.",
+                                                                                                                 "effort":  "S"
+                                                                                                             }
+                                                                                                         ],
+                                                                                         "qualityIssues":  [
+                                                                                                               "Zero test files across 36 source files â€” unacceptable test coverage for compliance/audit workflows; no regression detection or correctness validation",
+                                                                                                               "No CLAUDE.md context file â€” missing project-specific AI guardrails and compliance constraints"
+                                                                                                           ],
+                                                                                         "neglected":  [
+                                                                                                           "Development appears stalled (last commit 2026-04-07, no recent activity in this \u0027Building\u0027 phase project)"
+                                                                                                       ],
+                                                                                         "crossProjectDeps":  [
+
+                                                                                                              ]
+                                                                                     },
+                                               "property-search-tool":  {
+                                                                            "state":  "Property Search Tool is 8 days stale with 93 source files and zero test coverage; active development paused mid-April.",
+                                                                            "suggestions":  [
+                                                                                                {
+                                                                                                    "priority":  "HIGH",
+                                                                                                    "action":  "Add pytest-based integration tests for scraping pipeline and data analysis scripts (scripts/analyse_favs.py, scripts/best_options.py, scripts/full_analysis.py). Target: 70%+ coverage of core data paths, focusing on Rightmove selector robustness and financial calculation logic.",
+                                                                                                    "effort":  "M"
+                                                                                                },
+                                                                                                {
+                                                                                                    "priority":  "HIGH",
+                                                                                                    "action":  "Create CLAUDE.md documenting project assumptions: Rightmove CSS selectors, financial filtering rules, data schema, and setup instructions (dependencies, config paths). Reference exact selectors changed since last run to prevent future regressions.",
+                                                                                                    "effort":  "S"
+                                                                                                },
+                                                                                                {
+                                                                                                    "priority":  "MED",
+                                                                                                    "action":  "Consolidate 2 pending entries from CHANGELOG-PENDING.md (24 days old) into CHANGELOG.md and delete pending file.",
+                                                                                                    "effort":  "S"
+                                                                                                }
+                                                                                            ],
+                                                                            "qualityIssues":  [
+                                                                                                  "93 source files with zero test coverage â€” critical for scraping logic where selector changes or API shifts cause silent failures",
+                                                                                                  "No tests means data analysis results (financial filtering, quality scoring) are unvalidated against edge cases",
+                                                                                                  "8-day gap since last commit suggests development pause or context switch without handoff documentation"
+                                                                                              ],
+                                                                            "neglected":  [
+                                                                                              "CHANGELOG-PENDING.md unpublished for 24 days"
+                                                                                          ],
+                                                                            "crossProjectDeps":  [
+
+                                                                                                 ]
+                                                                        },
+                                               "claude-mobile":  {
+                                                                     "state":  "Early-stage Express + WebSocket dashboard with active development but no test coverage and uncommitted changes blocking clarity.",
+                                                                     "suggestions":  [
+                                                                                         {
+                                                                                             "priority":  "HIGH",
+                                                                                             "action":  "Add test coverage: 6 source files exist with 0 tests. Create Jest/Vitest setup and write unit tests for core modules (routing, WebSocket handlers, API endpoints). Target 70%+ coverage before expanding feature set.",
+                                                                                             "effort":  "M"
+                                                                                         },
+                                                                                         {
+                                                                                             "priority":  "HIGH",
+                                                                                             "action":  "Commit or clarify the 6 uncommitted changes. Determine if they\u0027re work-in-progress, incomplete features, or ready to commit. Stage and document via git.",
+                                                                                             "effort":  "S"
+                                                                                         },
+                                                                                         {
+                                                                                             "priority":  "MED",
+                                                                                             "action":  "Consolidate CHANGELOG-PENDING.md into CHANGELOG.md. 11 entries aged 6 days need publication or rejection. Follow documentation-with-commits hook.",
+                                                                                             "effort":  "S"
+                                                                                         }
+                                                                                     ],
+                                                                     "qualityIssues":  [
+                                                                                           "Zero test coverage for 6 source files â€” no safety net for refactoring or bug detection",
+                                                                                           "6 uncommitted changes create uncertainty around project state and prevent reproducible builds",
+                                                                                           "Stale changelog (6 days) suggests deployment/release process is blocked or incomplete"
+                                                                                       ],
+                                                                     "neglected":  [
+                                                                                       "Test infrastructure (no Jest/Vitest/test framework installed or configured)"
+                                                                                   ],
+                                                                     "crossProjectDeps":  [
+
+                                                                                          ]
+                                                                 },
+                                               "ai-work-presentation-tool":  {
+                                                                                 "state":  "Active development phase with 17 uncommitted changes pending for ~13 days and zero test coverage across 8 source files.",
+                                                                                 "suggestions":  [
+                                                                                                     {
+                                                                                                         "priority":  "HIGH",
+                                                                                                         "action":  "Commit the 17 pending file changes. They\u0027ve been staged since 2026-04-02 â€” resolve any DOC-UPDATE-NEEDED flags, consolidate CHANGELOG-PENDING.md entries, then push with semantic message.",
+                                                                                                         "effort":  "S"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "HIGH",
+                                                                                                         "action":  "Establish test coverage: add a test/ directory and write integration tests for the PPTX generation pipeline. Start with happy-path tests for the web UI and script execution.",
+                                                                                                         "effort":  "M"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "MED",
+                                                                                                         "action":  "Create CLAUDE.md in project root with coding standards, test requirements, and brand-guideline links (this is a Caseware tool). Reference caseware-design-system skill for output validation rules.",
+                                                                                                         "effort":  "S"
+                                                                                                     }
+                                                                                                 ],
+                                                                                 "qualityIssues":  [
+                                                                                                       "Zero test coverage (no-tests finding): 8 source files without corresponding test suite",
+                                                                                                       "17 uncommitted changes sitting for 13 days indicates incomplete commit workflow â€” no recent commit record"
+                                                                                                   ],
+                                                                                 "neglected":  [
+                                                                                                   "Test infrastructure: no test/ directory or test runner configured",
+                                                                                                   "CHANGELOG-PENDING.md has 7 unpublished entries from 6 days ago â€” not consolidated into CHANGELOG.md"
+                                                                                               ],
+                                                                                 "crossProjectDeps":  [
+
+                                                                                                      ]
+                                                                             }
+                                           },
+                              "globalInsights":  [
+                                                     "Consistent EOD sync pattern in commits, but missing test coverage and doc-tracking hygiene suggest the tooling is handling state capture but not quality gates.",
+                                                     "Automation pipeline is healthy (daily eod syncs, AI cache generation), but commit-side documentation discipline is breaking due to uncommitted state.",
+                                                     "Project exhibits early-stage characteristics (1 source file, no tests) combined with active end-of-day sync workflow â€” clarify whether this is rapid prototyping or incomplete scaffolding.",
+                                                     "Active full-stack development (5-day cadence) without any test coverage is unsustainable; test infrastructure must be established before adding more features.",
+                                                     "Release tooling is production-ready in code but release workflow (changelog consolidation, testing) is not yet automated.",
+                                                     "Specification validation logic without test coverage is a major correctness risk; prioritize test setup before expanding feature scope.",
+                                                     "Documentation-only projects benefit from strict changelog hygiene to prevent metadata drift; implement automated consolidation or pre-commit enforcement.",
+                                                     "This is a documentation-hygiene task rather than a code-quality issue â€” the project is actively building (6 days ago) but workflow checkpoints need reinforcement.",
+                                                     "Data-driven tooling (scraping, analysis) requires test discipline more than typical projects â€” selector changes and API shifts are silent failures.",
+                                                     "Multi-project pattern: newer feature branches (claude-mobile, 12 days old) lack test coverage while core projects emphasize it â€” testing discipline should be enforced at project creation, not retrofit later.",
+                                                     "This project appears to be the Caseware AI-at-work presentation tooling mentioned in primer.md â€” treat as high-visibility internal tool requiring test coverage and doc compliance before release."
+                                                 ],
+                              "topPriorityAction":  "[AI Work Presentation Tool] Commit pending changes + resolve doc updates"
+                          },
+    "priorityInbox":  {
+                          "urgent":  [
+
+                                     ],
+                          "aiSuggested":  [
+
+                                          ],
+                          "today":  [
+
+                                    ],
+                          "backlog":  [
+
+                                      ]
+                      },
+    "flaggedEmails":  [
+                          {
+                              "subject":  "Accountex 2026 polos",
+                              "from":  "Daniella Cooper",
+                              "receivedAt":  "2026-04-10T16:40:55.9650000",
+                              "webLink":  "",
+                              "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010C00004D982E7133CA544B97DE70BB0AF65E830005491B5E690000"
+                          }
+                      ],
+    "flaggedEmailsFetchedAt":  "2026-04-15T15:33:12.1300262+01:00"
 }

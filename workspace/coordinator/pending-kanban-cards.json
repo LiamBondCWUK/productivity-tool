@@ -1,0 +1,235 @@
+{
+  "generatedAt": "2026-04-15T12:59:34.294Z",
+  "totalCards": 19,
+  "cards": [
+    {
+      "title": "Commit pending changes and clear uncommitted state",
+      "body": "11 files are uncommitted (package.json, scripts, components, docs). This breaks the clean state expected by the EOD sync pattern. Stage and commit with semantic messages (chore: for doc syncs, feat: for features).",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "productivity-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "Productivity Tool"
+    },
+    {
+      "title": "Resolve 6 uncommitted changes",
+      "body": "Six files are uncommitted and blocking project clarity. Evaluate whether these are in-progress work, experimental branches, or forgotten edits. Commit with semantic messages or explicitly stash if not ready. This is a prerequisite to understanding true project state.",
+      "priority": "urgent",
+      "type": "improvement",
+      "labels": [
+        "ai-breaking-news-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "AI Breaking News Tool"
+    },
+    {
+      "title": "Consolidate overdue changelog entries",
+      "body": "CHANGELOG-PENDING.md has accumulated 20 entries over 8 days without consolidation. Per documentation-with-commits protocol, these should be merged into CHANGELOG.md before next commit. This is a standard cleanup task.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "ai-breaking-news-tool",
+        "overnight",
+        "docs"
+      ],
+      "project": "AI Breaking News Tool"
+    },
+    {
+      "title": "Establish test infrastructure",
+      "body": "51 source files with zero tests creates technical debt and blocks safe refactoring. Implement Jest/Vitest for frontend, unit tests for API layer, and define baseline coverage targets (e.g., 70%). This enables quality gates and prevents regressions as the tool grows.",
+      "priority": "urgent",
+      "type": "feature",
+      "labels": [
+        "cw-template-comparison-tool",
+        "overnight",
+        "feature"
+      ],
+      "project": "CW Template Comparison Tool"
+    },
+    {
+      "title": "Consolidate changelog backlog",
+      "body": "CHANGELOG-PENDING.md accumulated 20 entries over 7 days. Consolidate into main CHANGELOG.md and document the consolidation pattern in CLAUDE.md to prevent future debt. This should happen alongside code commits per documentation-with-commits hook.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "cw-template-comparison-tool",
+        "overnight",
+        "docs"
+      ],
+      "project": "CW Template Comparison Tool"
+    },
+    {
+      "title": "Add test suite for release notes tool",
+      "body": "11 source files currently have zero test coverage. Critical for 'Implemented' status. Prioritize tests for app.py (main logic) and feedback-widget.js (UI). Start with unit tests for core release note parsing/generation, then add integration tests for end-to-end workflow.",
+      "priority": "urgent",
+      "type": "improvement",
+      "labels": [
+        "cw-release-notes-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW Release Notes Tool"
+    },
+    {
+      "title": "Publish pending changelog entries",
+      "body": "CHANGELOG-PENDING.md has 6 entries aged 7 days. Consolidate into CHANGELOG.md and publish to mark this milestone. Review recent commits (app.py updates from 2026-04-10) to ensure all work is documented.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "cw-release-notes-tool",
+        "overnight",
+        "docs"
+      ],
+      "project": "CW Release Notes Tool"
+    },
+    {
+      "title": "Add test coverage for spec validation",
+      "body": "54 source files with zero tests is unacceptable for a platform that validates financial statement specifications. Start with unit tests for core validation: Excel parsing, field type checking, and data integrity rules. Consider pytest or Jest depending on stack. This is a prerequisite before adding new features.",
+      "priority": "urgent",
+      "type": "bug",
+      "labels": [
+        "cw-lead-schedule-specifications",
+        "overnight",
+        "bug"
+      ],
+      "project": "CW Lead Schedule Specifications"
+    },
+    {
+      "title": "Publish CHANGELOG-PENDING and reactivate doc sync",
+      "body": "26 entries pending for 7 days. Consolidate CHANGELOG-PENDING.md into CHANGELOG.md, commit, and verify post-commit doc hook runs. This unblocks the documentation workflow and ensures release notes stay current.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "cw-lead-schedule-specifications",
+        "overnight",
+        "docs"
+      ],
+      "project": "CW Lead Schedule Specifications"
+    },
+    {
+      "title": "Consolidate stale changelog entries",
+      "body": "CHANGELOG-PENDING.md contains 6 entries waiting 7 days for consolidation into CHANGELOG.md. This violates the pre-commit-doc-check hook requirement and creates metadata debt. Consolidate immediately and verify hook is wired to this project.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "cw-ukjpd-workflows",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW UKJPD Workflows"
+    },
+    {
+      "title": "Consolidate CHANGELOG-PENDING.md",
+      "body": "CHANGELOG-PENDING.md has been pending for 7 days with 6 unpublished entries. Per your documented workflow rules, this must be consolidated into CHANGELOG.md and staged alongside code changes before the next commit. This is blocking proper release hygiene.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "cw-uat-testing-tool",
+        "overnight",
+        "docs"
+      ],
+      "project": "CW UAT Testing Tool"
+    },
+    {
+      "title": "Implement test coverage for compliance-critical code",
+      "body": "36-source-file codebase with zero test files creates unacceptable risk for audit/compliance workflows. Correctness failures could trigger compliance violations or failed audits. Prioritize tests for data validation, rule enforcement, and workflow state transitions.",
+      "priority": "urgent",
+      "type": "bug",
+      "labels": [
+        "ukcaud-authoring-agent-spec-layer",
+        "overnight",
+        "bug"
+      ],
+      "project": "UKCAUD-Authoring-Agent-Spec-Layer"
+    },
+    {
+      "title": "Add integration tests for Rightmove scraping pipeline",
+      "body": "Property Search Tool has 93 source files and zero test coverage. Scraping tools are particularly vulnerable to selector breakage and data parsing bugs. Add pytest-based integration tests covering core data paths: scraping, parsing, filtering, and financial calculations. Target 70%+ coverage of scripts/ directory.",
+      "priority": "urgent",
+      "type": "feature",
+      "labels": [
+        "property-search-tool",
+        "overnight",
+        "feature"
+      ],
+      "project": "Property Search Tool"
+    },
+    {
+      "title": "Create CLAUDE.md with project context and Rightmove assumptions",
+      "body": "Document key assumptions about Rightmove structure, CSS selectors, financial filtering rules, and data schema. Include setup instructions and list selectors that should trigger alerts if changed. This unblocks future debugging and prevents regression when Rightmove UI shifts.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "property-search-tool",
+        "overnight",
+        "docs"
+      ],
+      "project": "Property Search Tool"
+    },
+    {
+      "title": "Add test coverage to claude-mobile",
+      "body": "6 source files with zero test files represents a high-risk gap in a browser-based dashboard. WebSocket communication, multi-session state, and voice processing all need unit tests. Create a test suite (Jest or Vitest) targeting 70%+ coverage. Priority: before adding voice/session features.",
+      "priority": "urgent",
+      "type": "improvement",
+      "labels": [
+        "claude-mobile",
+        "overnight",
+        "improvement"
+      ],
+      "project": "claude-mobile"
+    },
+    {
+      "title": "Resolve 6 uncommitted changes",
+      "body": "The project has uncommitted modifications that obscure the true state. Review each change, stage or discard, and commit with semantic message. Clarify whether these are incomplete features or refinements ready to ship.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "claude-mobile",
+        "overnight",
+        "improvement"
+      ],
+      "project": "claude-mobile"
+    },
+    {
+      "title": "Commit pending changes + resolve doc updates",
+      "body": "17 uncommitted file changes have been staged since 2026-04-02. Before committing, check DOC-UPDATE-NEEDED.md for flagged updates, consolidate CHANGELOG-PENDING.md entries into CHANGELOG.md, and stage doc files alongside code. Push with semantic commit message (e.g., `feat: presentation generator` or `fix: PPTX rendering`).",
+      "priority": "urgent",
+      "type": "improvement",
+      "labels": [
+        "ai-work-presentation-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "AI Work Presentation Tool"
+    },
+    {
+      "title": "Add test suite for PPTX generation",
+      "body": "8-file codebase with zero test coverage is a blocker for production readiness. Add test/ directory and write integration tests for the presentation generator (web UI flow, CLI script execution, output validation). Use existing project test patterns as reference.",
+      "priority": "high",
+      "type": "feature",
+      "labels": [
+        "ai-work-presentation-tool",
+        "overnight",
+        "feature"
+      ],
+      "project": "AI Work Presentation Tool"
+    },
+    {
+      "title": "Create CLAUDE.md with project standards",
+      "body": "Missing CLAUDE.md context file. Add project-specific coding standards, test requirements, and reference to Caseware brand guidelines (use caseware-design-system skill to validate output styling). Include any compliance rules for branded presentations.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "ai-work-presentation-tool",
+        "overnight",
+        "docs"
+      ],
+      "project": "AI Work Presentation Tool"
+    }
+  ],
+  "lastReviewedAt": "2026-04-15T14:37:55.090Z"
+}

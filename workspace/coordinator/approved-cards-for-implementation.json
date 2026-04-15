@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-04-15T14:37:55.090Z",
+  "totalCards": 3,
+  "cards": [
+    {
+      "title": "Add test suite to Productivity Tool dashboard",
+      "body": "81 source files have zero test coverage. With daily commits and API routes managing critical state (activity, day-plan, automation), this is a regression risk. Start with Jest for API routes and Playwright for the main UI. Target 3-5 tests for critical paths, then expand.",
+      "priority": "urgent",
+      "type": "improvement",
+      "labels": [
+        "productivity-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "Productivity Tool"
+    },
+    {
+      "title": "Stage uncommitted changes and enforce documentation-with-commits",
+      "body": "8 files currently uncommitted (likely documentation + code split). Review DOC-UPDATE-NEEDED.md, consolidate CHANGELOG-PENDING.md into CHANGELOG.md, then stage and commit all changes together. This enforces the documentation-with-commits protocol required by project rules and prevents future fragmentation.",
+      "priority": "urgent",
+      "type": "improvement",
+      "labels": [
+        "cw-ukcaud-project-tracker",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW UKCAUD Project Tracker"
+    },
+    {
+      "title": "Clear stale changelog backlog (46 lines, 6 days old)",
+      "body": "CHANGELOG-PENDING.md has accumulated 46 unpublished entries since 2026-04-09. Consolidate into CHANGELOG.md with a single dated entry summarizing the batch. Establish weekly or per-milestone consolidation to prevent future buildup.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "cw-ukcaud-project-tracker",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW UKCAUD Project Tracker"
+    }
+  ],
+  "summary": "3 cards approved for implementation on 15/04/2026, 15:37:55"
+}

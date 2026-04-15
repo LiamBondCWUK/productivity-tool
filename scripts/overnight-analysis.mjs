@@ -1,24 +1,45 @@
 #!/usr/bin/env node
 /**
- * Overnight Analysis Agent
- * Runs at 02:00 Mon-Fri via Windows Task Scheduler
- * Reads all personal projects, calls Claude API, writes suggestions to dashboard-data.json
+ * overnight-analysis.mjs  —  v2 (budget-guarded tiered pipeline)
+ *
+ * Orchestrator for the nightly project health pipeline:
+ *   1. Discover projects   (project-discovery.mjs)
+ *   2. Health check each   (project-health-check.mjs)  ← deterministic, no LLM
+ *   3. Synthesise findings (overnight-synthesize.mjs)  ← Haiku/Sonnet, $5 cap
+ *   4. Push kanban cards   (create-kanban-issue.mjs)   ← if projectId configured
+ *   5. Write dashboard     (dashboard-data.json)
+ *   6. Write report        (overnight-report.md)
+ *
+ * Hard guardrails (all enforced in overnight-synthesize.mjs):
+ *   - $5.00 nightly ceiling (OVERNIGHT_BUDGET env to override)
+ *   - 8k token input cap per project
+ *   - Haiku default, Sonnet only for large+complex projects
+ *   - Only projects WITH findings go to LLM
+ *   - No subagents, sequential only
+ *
+ * Runs at 02:00 Mon-Fri via Windows Task Scheduler.
+ * Log: workspace/coordinator/overnight-analysis.log
  */
 
-import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { join } from 'path';
-import { execSync, spawnSync } from 'child_process';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
+import { join, dirname } from 'path';
+import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
 
-const BASE_DIR = 'C:/Users/liam.bond/Documents/Productivity Tool';
-const REGISTRY_FILE = join(BASE_DIR, 'workspace/coordinator/project-registry.json');
-const DASHBOARD_DATA_FILE = join(BASE_DIR, 'workspace/coordinator/dashboard-data.json');
-const OVERNIGHT_REPORT_FILE = join(BASE_DIR, 'workspace/coordinator/overnight-report.md');
-const DOC_HEALTH_SCRIPT = join(BASE_DIR, 'scripts/doc-freshness-check.ps1');
-const DOC_HEALTH_REPORT_FILE = join(BASE_DIR, 'workspace/coordinator/doc-health-report.json');
+const BASE_DIR       = 'C:/Users/liam.bond/Documents/Productivity Tool';
+const SCRIPTS_DIR    = join(BASE_DIR, 'scripts');
+const COORDINATOR    = join(BASE_DIR, 'workspace/coordinator');
+const REGISTRY_FILE  = join(COORDINATOR, 'project-registry.json');
+const DASHBOARD_FILE = join(COORDINATOR, 'dashboard-data.json');
+const REPORT_FILE    = join(COORDINATOR, 'overnight-report.md');
+const CARDS_FILE     = join(COORDINATOR, 'pending-kanban-cards.json');
+const DOC_HEALTH_SCRIPT  = join(SCRIPTS_DIR, 'doc-freshness-check.ps1');
+const DOC_HEALTH_REPORT  = join(COORDINATOR,  'doc-health-report.json');
 
+// ── Helpers ───────────────────────────────────────────────────────────────────
 
 function slugify(name) {
-  return name.toLowerCase().replace(/\s+/g, '-');
+  return name.toLowerCase().replace(/[\s_]+/g, '-');
 }
 
 function readJson(filePath) {
@@ -29,344 +50,384 @@ function readJson(filePath) {
   }
 }
 
-function readTextFile(filePath, maxLines = 100) {
-  try {
-    const content = readFileSync(filePath, 'utf-8');
-    const lines = content.split('\n');
-    if (lines.length <= maxLines) return content;
-    return lines.slice(0, maxLines).join('\n') + '\n[...truncated]';
-  } catch {
-    return null;
-  }
+function ensureDir(dir) {
+  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
 }
 
 function runDocHealthCheck() {
-  if (!existsSync(DOC_HEALTH_SCRIPT)) {
-    return null;
-  }
-
+  if (!existsSync(DOC_HEALTH_SCRIPT)) return null;
   try {
     execSync(
       `powershell -ExecutionPolicy Bypass -File "${DOC_HEALTH_SCRIPT}" -StaleDays 21 -WriteDashboard`,
-      { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
+      { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'], timeout: 60_000 },
     );
-
-    if (!existsSync(DOC_HEALTH_REPORT_FILE)) {
-      return null;
-    }
-
-    return readJson(DOC_HEALTH_REPORT_FILE);
+    return readJson(DOC_HEALTH_REPORT);
   } catch {
     return null;
   }
 }
 
-function gitLog(gitDir) {
+// ── Git change detection — skip unmodified projects ───────────────────────────
+function hasChangedSinceTimestamp(entry, sinceIso) {
+  if (!entry.hasGit || !entry.path || !sinceIso) return true; // can't tell → process
   try {
-    return execSync(
-      'git log --since="7 days ago" --oneline',
-      { cwd: gitDir, encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
-    ).trim().slice(0, 2000);
-  } catch {
-    return null;
-  }
-}
-
-function globMarkdownFiles(dir) {
-  try {
-    const result = execSync(
-      `find "${dir}" -name "*.md" -type f 2>/dev/null`,
-      { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
+    const output = execSync(
+      `git log --since="${sinceIso}" --oneline`,
+      { cwd: entry.path, encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'], timeout: 5000 },
     );
-    return result.trim().split('\n').filter(Boolean);
+    if (output.trim()) return true;
+    // Also check mtime of non-git files
+    return false;
   } catch {
-    return [];
+    return true; // on error, default to process
   }
 }
 
-function collectProjectContext(entry) {
-  const sections = [];
-  const slug = slugify(entry.name);
-  sections.push(`## Project: ${entry.name} (key: ${slug})`);
-  sections.push(`Phase: ${entry.phase} | HasGit: ${entry.hasGit} | HasClaude: ${entry.hasClaude}`);
-  sections.push(`Description: ${entry.description || 'none'}`);
-  sections.push(`Last commit: ${entry.lastCommit || 'none'}`);
-  if (entry.lastCommitMsg) sections.push(`Last commit message: ${entry.lastCommitMsg}`);
+// ── Kanban card push ──────────────────────────────────────────────────────────
+async function pushKanbanCards(cards) {
+  if (!cards || cards.length === 0) return { pushed: 0, skipped: 0, error: null };
 
-  if (entry.hasGit && entry.path && existsSync(entry.path)) {
-    const log = gitLog(entry.path);
-    if (log) {
-      sections.push(`\n### Git Log (last 7 days)\n${log}`);
-    } else {
-      sections.push('\n### Git Log: no commits in last 7 days');
-    }
-  }
-
-  if (entry.path && existsSync(entry.path)) {
-    const devActiveDir = join(entry.path, 'dev', 'active');
-    if (existsSync(devActiveDir)) {
-      const mdFiles = globMarkdownFiles(devActiveDir);
-      for (const filePath of mdFiles.slice(0, 3)) {
-        const fileContent = readTextFile(filePath, 80);
-        if (fileContent) {
-          const filename = filePath.split('/').pop();
-          sections.push(`\n### Dev Doc: ${filename}\n${fileContent}`);
+  try {
+    const { createKanbanIssue } = await import('./create-kanban-issue.mjs');
+    let pushed = 0;
+    let skipped = 0;
+    for (const card of cards) {
+      try {
+        await createKanbanIssue({
+          title:    card.title,
+          body:     card.body,
+          priority: card.priority,
+          labels:   card.labels || [],
+        });
+        pushed += 1;
+      } catch (err) {
+        // projectId not configured → don't rethrow, just skip
+        if (err.message.includes('projectId')) {
+          console.warn('[kanban] projectId not configured — skipping card push (run vibe-kanban:discover)');
+          return { pushed: 0, skipped: cards.length, error: 'projectId not configured' };
         }
+        console.warn(`[kanban] Failed to push card "${card.title}": ${err.message}`);
+        skipped += 1;
       }
     }
+    return { pushed, skipped, error: null };
+  } catch (err) {
+    console.warn(`[kanban] Could not import create-kanban-issue.mjs: ${err.message}`);
+    return { pushed: 0, skipped: cards.length, error: err.message };
+  }
+}
 
-    const commandsDir = join(entry.path, 'commands');
-    if (existsSync(commandsDir)) {
-      const cmdFiles = globMarkdownFiles(commandsDir);
-      const cmdList = cmdFiles.map(f => f.split('/').pop().replace('.md', '')).join(', ');
-      if (cmdList) sections.push(`\n### Commands Available\n${cmdList}`);
-    }
+// ── Main pipeline ─────────────────────────────────────────────────────────────
 
-    const changelogFile = join(entry.path, 'CHANGELOG-PENDING.md');
-    const changelog = readTextFile(changelogFile, 50);
-    if (changelog) sections.push(`\n### CHANGELOG-PENDING\n${changelog}`);
+async function runOvernightPipeline() {
+  const pipelineStart = Date.now();
+  ensureDir(COORDINATOR);
+  console.log(`\n====== Overnight Analysis v2 — ${new Date().toISOString()} ======\n`);
+
+  // ── Step 1: Refresh project registry ────────────────────────────────────
+  console.log('[1/6] Refreshing project registry...');
+  try {
+    execSync(`node "${join(SCRIPTS_DIR, 'project-discovery.mjs')}"`, {
+      encoding: 'utf-8',
+      stdio: 'inherit',
+      timeout: 60_000,
+    });
+  } catch (err) {
+    console.warn(`[1/6] project-discovery failed: ${err.message} — using cached registry`);
   }
 
-  return sections.join('\n');
-}
-
-
-function callClaudeViaCLI(systemPrompt, userPrompt) {
-  const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
-  // Use haiku model for cost-effective overnight runs
-  const model = process.env.OVERNIGHT_MODEL ?? 'claude-haiku-4-5-20251001';
-  const result = spawnSync('claude', ['--print', '--model', model], {
-    input: fullPrompt,
-    encoding: 'utf-8',
-    timeout: 180000,
-    maxBuffer: 10 * 1024 * 1024,
-    stdio: ['pipe', 'pipe', 'pipe'],
-  });
-  if (result.error) throw new Error(`Claude CLI error: ${result.error.message}`);
-  if (result.status !== 0) throw new Error(`Claude CLI exited ${result.status}: ${result.stderr}`);
-  return result.stdout.trim();
-}
-
-function analyseProjects() {
   const registry = readJson(REGISTRY_FILE);
-  if (!registry || !registry.projects) {
-    console.error('Could not read project-registry.json — run node scripts/project-discovery.mjs first');
+  if (!registry?.projects?.length) {
+    console.error('[1/6] No projects in registry. Aborting.');
     process.exit(1);
   }
   const projects = registry.projects;
+  console.log(`[1/6] ${projects.length} projects loaded\n`);
 
-  const projectContexts = projects.map(collectProjectContext).join('\n\n---\n\n');
+  // ── Step 2: Deterministic health checks ─────────────────────────────────
+  console.log('[2/6] Running deterministic health checks...');
+  const { checkProjectHealth } = await import('./project-health-check.mjs');
 
-  const systemPrompt = `You are an AI assistant performing a nightly deep-dive analysis of a developer's personal projects.
-Analyse the provided project data and generate actionable suggestions.
-Be specific and concrete — not vague. Reference actual file names, command names, or git activity where relevant.
-Focus on what will have the highest impact in the next 1-2 days.`;
+  const lastRunAt = readJson(DASHBOARD_FILE)?.overnightAnalysis?.generatedAt ?? null;
 
-  const userPrompt = `Analyse these personal AI projects. For each project, provide:
-1. Current state summary (1 sentence)
-2. Top 3 suggested next actions (ranked by impact, be specific)
-3. Any quality issues in commands/skills found (specific improvements)
-4. Cross-project dependency flags (does one project block another?)
-5. What has been neglected (not touched in 5+ days, incomplete tasks)
-
-Respond ONLY as JSON with this exact structure (no markdown wrapper):
-{
-  "projects": {
-    "<project-name-slug>": {
-      "state": "string",
-      "suggestions": [
-        { "priority": "HIGH|MED|LOW", "action": "string", "effort": "S|M|L" }
-      ],
-      "qualityIssues": ["string"],
-      "neglected": ["string"],
-      "crossProjectDeps": ["string"]
+  const healthResults = [];
+  for (const entry of projects) {
+    // Skip projects with no changes since last run (git-based)
+    if (lastRunAt && !hasChangedSinceTimestamp(entry, lastRunAt)) {
+      console.log(`  [skip] ${entry.name} — no changes since last run`);
+      healthResults.push({
+        project: entry.name,
+        path: entry.path,
+        findings: [],
+        skipped: true,
+        skipReason: 'no git changes since last run',
+        sourceFileCount: 0,
+        testFileCount: 0,
+      });
+      continue;
     }
-  },
-  "globalInsights": ["string"],
-  "topPriorityAction": "string"
-}
+    const result = checkProjectHealth(entry);
+    const badge = result.findings.length > 0
+      ? `⚠ ${result.findings.length} findings`
+      : '✓ healthy';
+    console.log(`  ${entry.name}: ${badge}`);
+    healthResults.push(result);
+  }
 
-PROJECT DATA:
-${projectContexts}`;
+  const projectsWithFindings = healthResults.filter(r => !r.skipped && r.findings.length > 0);
+  console.log(`\n[2/6] ${projectsWithFindings.length}/${projects.length} projects have findings\n`);
 
-  console.log('Calling Claude CLI for overnight analysis...');
-  const startTime = Date.now();
+  // ── Step 3: LLM synthesis (per project, budget-guarded) ──────────────────
+  console.log('[3/6] Running budget-guarded LLM synthesis...');
+  const { synthesizeProject, createBudgetState, getRecentCommits } = await import('./overnight-synthesize.mjs');
 
-  // Estimate input token cost (rough: ~4 chars per token)
-  const inputChars = projectContexts.length + 500; // context + prompt overhead
-  const estimatedInputTokens = Math.ceil(inputChars / 4);
+  const budget = createBudgetState();
+  const synthesisResults = [];
 
-  let analysisResult;
-  let outputTokenEstimate = 0;
-  try {
-    const responseText = callClaudeViaCLI(systemPrompt, userPrompt);
-    outputTokenEstimate = Math.ceil(responseText.length / 4);
+  for (let i = 0; i < projects.length; i++) {
+    const entry = projects[i];
+    const health = healthResults[i];
+    const recentCommits = getRecentCommits(entry.path, entry.hasGit);
+    const result = await synthesizeProject(entry, health, budget, recentCommits);
+    synthesisResults.push(result);
+  }
 
-    const jsonMatch = responseText.match(/```json\n?([\s\S]*?)\n?```/) ||
-                      responseText.match(/(\{[\s\S]*\})/);
-    const jsonStr = jsonMatch ? jsonMatch[1] : responseText;
-    analysisResult = JSON.parse(jsonStr.trim());
-  } catch (error) {
-    console.error('Claude API call or parse failed:', error.message);
-    analysisResult = {
-      projects: {},
-      globalInsights: [`Analysis failed: ${error.message}`],
-      topPriorityAction: 'Check overnight analysis logs for errors',
+  console.log(`\n[3/6] LLM synthesis complete`);
+  console.log(`  Budget used: $${budget.totalCostUsd.toFixed(4)} / $${process.env.OVERNIGHT_BUDGET ?? '5.00'}`);
+  console.log(`  Projects called: ${budget.projectsCalled}, skipped: ${budget.projectsSkipped}`);
+  if (budget.limitReached) {
+    console.warn('  ⚠ Budget ceiling reached — some projects were not synthesised');
+  }
+  console.log('');
+
+  // ── Step 4: Push kanban cards ────────────────────────────────────────────
+  console.log('[4/6] Collecting and pushing kanban cards...');
+  const allCards = synthesisResults.flatMap(r => r.cards || []);
+
+  // Always write pending cards JSON (for review / fallback if kanban not configured)
+  writeFileSync(CARDS_FILE, JSON.stringify({
+    generatedAt: new Date().toISOString(),
+    totalCards: allCards.length,
+    cards: allCards,
+  }, null, 2));
+
+  const kanbanResult = await pushKanbanCards(allCards);
+  console.log(`[4/6] Cards: ${allCards.length} generated | ${kanbanResult.pushed} pushed to vibe-kanban | ${kanbanResult.skipped} pending`);
+  if (kanbanResult.error) {
+    console.log(`  Note: ${kanbanResult.error} — cards saved to ${CARDS_FILE}`);
+  }
+  console.log('');
+
+  // ── Step 5: Doc freshness check ──────────────────────────────────────────
+  console.log('[5/6] Running doc freshness check...');
+  const docHealth = runDocHealthCheck();
+  if (docHealth) {
+    console.log(`  Stale docs: ${docHealth.summary?.staleCount ?? 0}`);
+  } else {
+    console.log('  Doc health script not available — skipping');
+  }
+  console.log('');
+
+  // ── Step 6: Write dashboard-data.json and report ─────────────────────────
+  console.log('[6/6] Writing dashboard and report...');
+
+  const dashboardData = readJson(DASHBOARD_FILE) || {};
+  const durationMs = Date.now() - pipelineStart;
+
+  // Build aggregated projects map (for dashboard.overnightAnalysis.projects)
+  const projectsMap = {};
+  for (const r of synthesisResults) {
+    if (!r.analysis) continue;
+    projectsMap[slugify(r.project)] = {
+      state:            r.analysis.state,
+      suggestions:      r.analysis.suggestions,
+      qualityIssues:    r.analysis.qualityIssues,
+      neglected:        r.analysis.neglected,
+      crossProjectDeps: r.analysis.crossProjectDeps,
     };
   }
 
-  const durationMs = Date.now() - startTime;
-  const model = process.env.OVERNIGHT_MODEL ?? 'claude-haiku-4-5-20251001';
-  // Haiku pricing: $0.80/MTok input, $4.00/MTok output (as of 2025)
-  const isHaiku = model.includes('haiku');
-  const inputCostPer1k = isHaiku ? 0.0008 : 0.003;
-  const outputCostPer1k = isHaiku ? 0.004 : 0.015;
-  const estimatedCostUsd = (estimatedInputTokens * inputCostPer1k / 1000) +
-    (outputTokenEstimate * outputCostPer1k / 1000);
+  // Global insights + top priority (aggregate from per-project globalInsight fields)
+  const globalInsights = synthesisResults
+    .filter(r => r.analysis?.globalInsight)
+    .map(r => r.analysis.globalInsight);
 
-  console.log(`Analysis complete in ${Math.round(durationMs / 1000)}s`);
-  console.log(`Est. tokens: ${estimatedInputTokens} in / ${outputTokenEstimate} out`);
-  console.log(`Est. cost: $${estimatedCostUsd.toFixed(4)} (${model})`);
+  const topHighCard = allCards
+    .filter(c => c.priority === 'urgent' || c.priority === 'high')
+    .sort((a, b) => (a.priority === 'urgent' ? -1 : 1))[0];
 
-  const dashboardData = readJson(DASHBOARD_DATA_FILE) || {};
-  const docHealth = runDocHealthCheck();
+  const topPriorityAction = topHighCard
+    ? `[${topHighCard.project}] ${topHighCard.title}`
+    : (globalInsights[0] ?? 'No high-priority items found');
 
+  // Update overnightAnalysis section (preserves existing shape for Command Center)
+  dashboardData.overnightAnalysis = {
+    generatedAt:              new Date().toISOString(),
+    durationMs,
+    model:                    'tiered (haiku/sonnet)',
+    estimatedCostUsd:         Math.round(budget.totalCostUsd * 10000) / 10000,
+    estimatedInputTokens:     budget.totalInputTokens,
+    estimatedOutputTokens:    budget.totalOutputTokens,
+    budgetLimit:              parseFloat(process.env.OVERNIGHT_BUDGET ?? '5.00'),
+    budgetLimitReached:       budget.limitReached,
+    projectsScanned:          projects.length,
+    projectsWithFindings:     projectsWithFindings.length,
+    projectsProcessedByLLM:   budget.projectsCalled,
+    kanbanCardsPushed:        kanbanResult.pushed,
+    kanbanCardsPending:       kanbanResult.skipped,
+    projects:                 projectsMap,
+    globalInsights,
+    topPriorityAction,
+  };
+
+  // Update priorityInbox with doc health suggestions
+  if (!dashboardData.priorityInbox) {
+    dashboardData.priorityInbox = { urgent: [], aiSuggested: [], today: [], backlog: [] };
+  }
+  if (!Array.isArray(dashboardData.priorityInbox.aiSuggested)) {
+    dashboardData.priorityInbox.aiSuggested = [];
+  }
+  // Remove stale doc-health entries before re-inserting fresh ones
+  dashboardData.priorityInbox.aiSuggested = dashboardData.priorityInbox.aiSuggested.filter(
+    item => !(typeof item?.id === 'string' && item.id.startsWith('doc-health-')),
+  );
+  if (docHealth?.staleDocs?.length) {
+    const docCards = docHealth.staleDocs.slice(0, 5).map(doc => ({
+      id:        `doc-health-${doc.id}`,
+      title:     `Refresh stale doc: ${doc.filePath}`,
+      type:      'ai-suggestion',
+      source:    'doc-health-check',
+      priority:  doc.priority === 'HIGH' ? 'urgent' : 'today',
+      addedAt:   new Date().toISOString(),
+      reasoning: `${doc.daysSinceUpdate} days since last update (${doc.reason})`,
+    }));
+    dashboardData.priorityInbox.aiSuggested.unshift(...docCards);
+  }
+
+  // Update docHealth section
   if (docHealth) {
     dashboardData.docHealth = {
-      lastRun: docHealth.generatedAt,
+      lastRun:   docHealth.generatedAt,
       staleDocs: docHealth.staleDocs || [],
     };
   }
 
-  dashboardData.overnightAnalysis = {
-    generatedAt: new Date().toISOString(),
-    durationMs,
-    model,
-    estimatedCostUsd: Math.round(estimatedCostUsd * 10000) / 10000,
-    estimatedInputTokens,
-    estimatedOutputTokens: outputTokenEstimate,
-    projects: analysisResult.projects || {},
-    globalInsights: analysisResult.globalInsights || [],
-    topPriorityAction: analysisResult.topPriorityAction || '',
-  };
-
-  if (!dashboardData.priorityInbox) {
-    dashboardData.priorityInbox = {
-      urgent: [],
-      aiSuggested: [],
-      today: [],
-      backlog: [],
-    };
-  }
-
-  if (!Array.isArray(dashboardData.priorityInbox.aiSuggested)) {
-    dashboardData.priorityInbox.aiSuggested = [];
-  }
-
-  dashboardData.priorityInbox.aiSuggested = dashboardData.priorityInbox.aiSuggested.filter(
-    item => !(typeof item?.id === 'string' && item.id.startsWith('doc-health-'))
-  );
-
-  if (docHealth?.staleDocs?.length) {
-    const topDocs = docHealth.staleDocs.slice(0, 5);
-    const docSuggestions = topDocs.map((doc) => ({
-      id: `doc-health-${doc.id}`,
-      title: `Refresh stale doc: ${doc.filePath}`,
-      type: 'ai-suggestion',
-      source: 'doc-health-check',
-      priority: doc.priority === 'HIGH' ? 'urgent' : 'today',
-      addedAt: new Date().toISOString(),
-      reasoning: `${doc.daysSinceUpdate} days since last update (${doc.reason})`,
-      link: undefined,
-    }));
-
-    dashboardData.priorityInbox.aiSuggested.unshift(...docSuggestions);
-  }
-
-  if (dashboardData.personalProjects?.projects) {
-    dashboardData.personalProjects.projects = dashboardData.personalProjects.projects.map(project => {
-      const key = slugify(project.name);
-      const analysis = analysisResult.projects?.[key];
-      if (!analysis) return project;
+  // Patch personalProjects with per-project analysis
+  if (Array.isArray(dashboardData.personalProjects?.projects)) {
+    dashboardData.personalProjects.projects = dashboardData.personalProjects.projects.map(p => {
+      const key = slugify(p.name);
+      const analysis = projectsMap[key];
+      if (!analysis) return p;
       return {
-        ...project,
-        state: analysis.state,
-        suggestions: analysis.suggestions || [],
-        neglected: analysis.neglected || [],
+        ...p,
+        state:            analysis.state,
+        suggestions:      analysis.suggestions || [],
+        neglected:        analysis.neglected    || [],
         crossProjectDeps: analysis.crossProjectDeps || [],
       };
     });
   }
 
-  writeFileSync(DASHBOARD_DATA_FILE, JSON.stringify(dashboardData, null, 2));
-  console.log('Updated dashboard-data.json with overnight analysis');
+  writeFileSync(DASHBOARD_FILE, JSON.stringify(dashboardData, null, 2));
+  console.log(`  Dashboard updated: ${DASHBOARD_FILE}`);
 
+  // ── Write overnight-report.md ──────────────────────────────────────────
   const now = new Date();
   const dateStr = now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   const timeStr = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 
-  let report = `# Overnight Analysis Report\n## ${dateStr} at ${timeStr}\n\n`;
+  let report = `# Overnight Project Analysis Report
+## ${dateStr} at ${timeStr}
 
-  if (analysisResult.topPriorityAction) {
-    report += `## Top Priority Action\n${analysisResult.topPriorityAction}\n\n`;
-  }
+**Pipeline:** v2 (tiered - haiku/sonnet)
+**Duration:** ${Math.round(durationMs / 1000)}s
+**Budget used:** $${budget.totalCostUsd.toFixed(4)} / $${process.env.OVERNIGHT_BUDGET ?? '5.00'}
+**Projects scanned:** ${projects.length} | **With findings:** ${projectsWithFindings.length} | **LLM processed:** ${budget.projectsCalled}
+**Kanban cards:** ${allCards.length} generated | ${kanbanResult.pushed} pushed | ${kanbanResult.skipped} pending (see ${CARDS_FILE})
+${budget.limitReached ? '\n> ⚠ **Budget ceiling reached** — some projects were not LLM-synthesised\n' : ''}
 
-  if (analysisResult.globalInsights?.length) {
-    report += `## Global Insights\n${analysisResult.globalInsights.map(i => `- ${i}`).join('\n')}\n\n`;
+---
+
+## Top Priority Action
+${topPriorityAction}
+
+`;
+
+  if (globalInsights.length) {
+    report += `## Global Insights\n${globalInsights.map(i => `- ${i}`).join('\n')}\n\n`;
   }
 
   if (docHealth) {
     report += `## Documentation Freshness\n`;
-    report += `- Last run: ${docHealth.generatedAt}\n`;
-    report += `- Stale docs: ${docHealth.summary?.staleCount ?? 0}\n`;
-    report += `- High priority stale docs: ${docHealth.summary?.highPriorityCount ?? 0}\n\n`;
-
-    if (Array.isArray(docHealth.staleDocs) && docHealth.staleDocs.length > 0) {
-      report += `### Top stale docs\n`;
+    report += `- Stale docs: ${docHealth.summary?.staleCount ?? 0} (high priority: ${docHealth.summary?.highPriorityCount ?? 0})\n`;
+    if (docHealth.staleDocs?.length) {
       for (const doc of docHealth.staleDocs.slice(0, 5)) {
-        report += `- [${doc.priority}] ${doc.filePath} (${doc.daysSinceUpdate} days)\n`;
+        report += `  - [${doc.priority}] ${doc.filePath} (${doc.daysSinceUpdate}d)\n`;
       }
-      report += '\n';
     }
+    report += '\n';
   }
+
+  report += `## Project Findings\n\n`;
 
   for (const entry of projects) {
     const key = slugify(entry.name);
-    const analysis = analysisResult.projects?.[key];
-    if (!analysis) continue;
+    const health = healthResults.find(h => h.project === entry.name);
+    const synthesis = synthesisResults.find(s => s.project === entry.name);
+    const analysis = projectsMap[key];
 
-    report += `## ${entry.name} (${entry.phase})\n`;
-    report += `**State:** ${analysis.state}\n\n`;
+    // Only include projects that had something to report
+    if (!health?.findings?.length && !analysis) continue;
 
-    if (analysis.suggestions?.length) {
-      report += `**Suggestions:**\n`;
-      for (const s of analysis.suggestions) {
-        report += `- [${s.priority}] [${s.effort}] ${s.action}\n`;
+    report += `### ${entry.name} (${entry.phase})\n`;
+
+    if (health?.findings?.length) {
+      report += `**Deterministic findings (${health.findings.length}):**\n`;
+      for (const f of health.findings) {
+        const icon = f.severity === 'high' ? '🔴' : f.severity === 'medium' ? '🟡' : '🟢';
+        report += `${icon} \`${f.type}\` — ${f.message}\n`;
       }
       report += '\n';
     }
 
-    if (analysis.qualityIssues?.length) {
-      report += `**Quality Issues:** ${analysis.qualityIssues.join('; ')}\n\n`;
+    if (analysis) {
+      report += `**State:** ${analysis.state}\n\n`;
+      if (analysis.suggestions?.length) {
+        report += `**Suggestions:**\n`;
+        for (const s of analysis.suggestions) {
+          report += `- [${s.priority}][${s.effort}] ${s.action}\n`;
+        }
+        report += '\n';
+      }
+      if (analysis.qualityIssues?.length) {
+        report += `**Quality issues:** ${analysis.qualityIssues.join('; ')}\n\n`;
+      }
     }
 
-    if (analysis.neglected?.length) {
-      report += `**Neglected:** ${analysis.neglected.join(', ')}\n\n`;
-    }
-
-    if (analysis.crossProjectDeps?.length) {
-      report += `**Cross-project deps:** ${analysis.crossProjectDeps.join(', ')}\n\n`;
+    const projectCards = allCards.filter(c => c.project === entry.name);
+    if (projectCards.length) {
+      report += `**Kanban cards (${projectCards.length}):**\n`;
+      for (const c of projectCards) {
+        report += `- [${c.priority}][${c.type}] ${c.title}\n`;
+      }
+      report += '\n';
     }
   }
 
-  writeFileSync(OVERNIGHT_REPORT_FILE, report);
-  console.log(`Overnight report written to ${OVERNIGHT_REPORT_FILE}`);
-  console.log('Overnight analysis complete.');
+  if (allCards.length > 0 && kanbanResult.pushed === 0) {
+    report += `---\n\n## ⏳ Pending Kanban Cards (${allCards.length})\n`;
+    report += `Cards saved to \`pending-kanban-cards.json\`. `;
+    report += `To push: configure vibe-kanban (\`npm run vibe-kanban:discover\`) then run:\n`;
+    report += `\`\`\`\nnode scripts/push-pending-kanban-cards.mjs\n\`\`\`\n\n`;
+  }
+
+  writeFileSync(REPORT_FILE, report);
+  console.log(`  Report written: ${REPORT_FILE}`);
+  console.log(`\n====== Overnight Analysis Complete (${Math.round(durationMs / 1000)}s) ======\n`);
 }
 
-try {
-  analyseProjects();
-} catch (error) {
-  console.error('Fatal error in overnight analysis:', error);
+// ── Entry point ───────────────────────────────────────────────────────────────
+runOvernightPipeline().catch(err => {
+  console.error('Fatal error in overnight pipeline:', err);
   process.exit(1);
-}
+});
