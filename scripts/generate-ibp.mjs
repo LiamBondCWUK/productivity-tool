@@ -14,13 +14,29 @@
  * If OAuth isn't available, writes a plain data-only summary.
  *
  * Usage:
- *   node scripts/generate-ibp.mjs [--date YYYY-MM-DD] [--skip-ai]
+ *   node scripts/generate-ibp.mjs [--date=YYYY-MM-DD] [--skip-ai] [--output=workspace/coordinator/demo-ibp-YYYY-MM-DD.md]
  */
 
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import { resolve, dirname } from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import { execSync, spawnSync } from "child_process";
+
+// Load .env if it exists
+try {
+  const dotenvPath = resolve(dirname(fileURLToPath(import.meta.url)), "..", ".env");
+  if (existsSync(dotenvPath)) {
+    const envContent = readFileSync(dotenvPath, "utf8");
+    envContent.split("\n").forEach((line) => {
+      const [key, ...valueParts] = line.trim().split("=");
+      if (key && !key.startsWith("#") && !process.env[key]) {
+        process.env[key] = valueParts.join("=").trim();
+      }
+    });
+  }
+} catch (e) {
+  // Silently ignore if dotenv fails
+}
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
@@ -29,10 +45,13 @@ const UNIFIED_LOG_PATH = resolve(ROOT, "workspace/coordinator/daily-unified-log.
 const DASHBOARD_DATA_PATH = resolve(ROOT, "workspace/coordinator/dashboard-data.json");
 
 const dateArg = process.argv.find((a) => a.startsWith("--date"))?.split("=")[1];
+const outputArg = process.argv.find((a) => a.startsWith("--output"))?.split("=")[1];
 const TARGET_DATE = dateArg ?? new Date().toISOString().slice(0, 10);
 const SKIP_AI = process.argv.includes("--skip-ai");
 
-const OUTPUT_PATH = resolve(ROOT, `workspace/coordinator/ibp-${TARGET_DATE}.md`);
+const OUTPUT_PATH = outputArg
+  ? resolve(ROOT, outputArg)
+  : resolve(ROOT, `workspace/coordinator/ibp-${TARGET_DATE}.md`);
 
 console.log(`[generate-ibp] generating IBP for ${TARGET_DATE}`);
 
@@ -66,6 +85,143 @@ function cleanText(input, maxLen = 240) {
   return normalized.slice(0, maxLen);
 }
 
+function blockToBullets(block, limit = 6) {
+  if (!block) return [];
+  return String(block)
+    .split("\n")
+    .map((line) => line.trim().replace(/^[-*]\s*/, ""))
+    .filter(Boolean)
+    .slice(0, limit);
+}
+
+function toActionBullet(text, fallback = "") {
+  const cleaned = cleanText(text, 180);
+  if (!cleaned) return fallback;
+  if (cleaned.includes(" - ") || cleaned.includes(" — ")) return cleaned;
+  return cleaned;
+}
+
+function uniqueBy(items, normalizer = (item) => item) {
+  const seen = new Set();
+  return items.filter((item) => {
+    const key = normalizer(item);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function toYmd(date) {
+  return date.toISOString().slice(0, 10);
+}
+
+function parseYmd(value) {
+  return new Date(`${value}T00:00:00Z`);
+}
+
+function addDays(date, days) {
+  const next = new Date(date);
+  next.setUTCDate(next.getUTCDate() + days);
+  return next;
+}
+
+function formatDateLabel(ymd) {
+  const date = parseYmd(ymd);
+  return date
+    .toLocaleDateString("en-GB", { weekday: "short", day: "2-digit", month: "short" })
+    .replace(",", "");
+}
+
+function getWorkWeekRanges(targetYmd) {
+  const target = parseYmd(targetYmd);
+  const day = target.getUTCDay();
+  const offsetToMonday = day === 0 ? -6 : 1 - day;
+  const currentWeekStart = addDays(target, offsetToMonday);
+  const currentWeekEnd = addDays(currentWeekStart, 4);
+  const nextWeekStart = addDays(currentWeekStart, 7);
+  const nextWeekEnd = addDays(nextWeekStart, 4);
+
+  return {
+    currentWeekStart: toYmd(currentWeekStart),
+    currentWeekEnd: toYmd(currentWeekEnd),
+    nextWeekStart: toYmd(nextWeekStart),
+    nextWeekEnd: toYmd(nextWeekEnd),
+  };
+}
+
+function isYmdBetween(ymd, startYmd, endYmd) {
+  if (!ymd) return false;
+  return ymd >= startYmd && ymd <= endYmd;
+}
+
+function eventYmd(event) {
+  const startTime = event?.startTime;
+  if (!startTime) return null;
+  return String(startTime).slice(0, 10);
+}
+
+function enumerateDays(startYmd, endYmd) {
+  const out = [];
+  let cursor = parseYmd(startYmd);
+  const end = parseYmd(endYmd);
+  while (cursor <= end) {
+    out.push(toYmd(cursor));
+    cursor = addDays(cursor, 1);
+  }
+  return out;
+}
+
+function loadWeekUnifiedLogs(startYmd, endYmd) {
+  const days = enumerateDays(startYmd, endYmd);
+  const logs = [];
+
+  for (const ymd of days) {
+    const datedPath = resolve(ROOT, `workspace/coordinator/daily-unified-log-${ymd}.json`);
+    if (existsSync(datedPath)) {
+      const log = readJson(datedPath, null);
+      if (log?.entries?.length) {
+        logs.push(log);
+        continue;
+      }
+    }
+
+    if (ymd === TARGET_DATE) {
+      const latest = readJson(UNIFIED_LOG_PATH, null);
+      if (latest?.date === ymd && latest?.entries?.length) {
+        logs.push(latest);
+      }
+    }
+  }
+
+  return logs;
+}
+
+function aggregateSummaryFromLogs(logs) {
+  const byLabel = new Map();
+
+  for (const log of logs) {
+    for (const item of log.summary ?? []) {
+      const key = cleanText(item.label, 120) || "(unknown)";
+      if (!byLabel.has(key)) {
+        byLabel.set(key, {
+          label: key,
+          totalMin: 0,
+          sources: new Set(),
+        });
+      }
+      const entry = byLabel.get(key);
+      entry.totalMin += item.totalMin ?? 0;
+      for (const source of item.sources ?? []) {
+        entry.sources.add(source);
+      }
+    }
+  }
+
+  return [...byLabel.values()]
+    .map((item) => ({ ...item, sources: [...item.sources] }))
+    .sort((a, b) => (b.totalMin ?? 0) - (a.totalMin ?? 0));
+}
+
 // --- Build context for the AI prompt / plain summary -----------------------
 
 function buildContext(unifiedLog, dashboardData) {
@@ -83,8 +239,13 @@ function buildContext(unifiedLog, dashboardData) {
 
   // Claude sessions narrative
   const claudeSessions = entries.filter((e) => e.source === "claude");
-  const claudeSummary = claudeSessions
-    .slice(0, 8)
+  const claudeSummary = uniqueBy(
+    claudeSessions
+      .filter((session) => (session.durationMin ?? 0) >= 5 || /ibp|demo|workflow|dashboard|automation/i.test(session.label ?? ""))
+      .sort((a, b) => (b.durationMin ?? 0) - (a.durationMin ?? 0)),
+    (session) => `${cleanText(session.label, 80)}|${cleanText(session.detail, 80)}`
+  )
+    .slice(0, 6)
     .map((s) => {
       const label = cleanText(s.label, 80) || "(session)";
       const detail = cleanText(s.detail, 80);
@@ -124,17 +285,24 @@ function buildContext(unifiedLog, dashboardData) {
     })
     .join("\n");
 
-  // Teams messages
-  const teamMessages = dashboardData?.teamMessages ?? [];
+  const weekRanges = getWorkWeekRanges(TARGET_DATE);
+
+  // Teams messages (prefer Power Automate ingest when available)
+  const teamMessages = dashboardData?.paTeamsMessages ?? dashboardData?.teamMessages ?? [];
   const teamMessagesSummary = teamMessages
     .slice(0, 10)
     .map((m) => {
-      const timeStr = m.receivedAt
-        ? new Date(m.receivedAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })
+      const rawTime = m.receivedAt ?? m.createdDateTime;
+      const sender = m.from?.user?.displayName ?? m.from;
+      const preview = cleanText((m.preview ?? m.body?.content ?? "(no preview)").replace(/<[^>]*>/g, " "), 140);
+      const timeStr = rawTime
+        ? new Date(rawTime).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })
         : "?";
-      return `  - [${timeStr}] ${cleanText(m.from, 40)}: ${cleanText(m.preview ?? "(no preview)", 80)}`;
+      return `  - [${timeStr}] ${cleanText(sender, 40)}: ${cleanText(preview, 80)}`;
     })
     .join("\n");
+
+  const documentSignals = dashboardData?.paDocumentSignals ?? [];
 
   // Flagged / important emails
   const flaggedEmails = dashboardData?.flaggedEmails ?? [];
@@ -150,7 +318,29 @@ function buildContext(unifiedLog, dashboardData) {
 
   // Calendar — split meetings vs focus blocks
   const calendarToday = dashboardData?.calendar?.today ?? [];
+  const weekAhead = dashboardData?.calendar?.weekAhead ?? [];
+  const allKnownEvents = [...calendarToday, ...weekAhead];
+
   const todayMeetings = calendarToday.filter((e) => !e.isFocusBlock);
+  const thisWeekUpcomingMeetings = weekAhead.filter((event) => {
+    if (event.isFocusBlock) return false;
+    const ymd = eventYmd(event);
+    return isYmdBetween(ymd, TARGET_DATE, weekRanges.currentWeekEnd);
+  });
+  const nextWeekMeetings = allKnownEvents.filter((event) => {
+    if (event.isFocusBlock) return false;
+    const ymd = eventYmd(event);
+    return isYmdBetween(ymd, weekRanges.nextWeekStart, weekRanges.nextWeekEnd);
+  });
+
+  const completedThisWeekMeetings = calendarToday.filter((event) => {
+    if (event.isFocusBlock) return false;
+    const ymd = eventYmd(event);
+    return Boolean(event.isCompleted)
+      && isYmdBetween(ymd, weekRanges.currentWeekStart, weekRanges.currentWeekEnd)
+      && !/(lunch|focus|break)/i.test(event.title ?? "");
+  });
+
   const meetingsTotalMin = todayMeetings.reduce((sum, m) => {
     if (m.startTime && m.endTime) {
       const durationMin = Math.round((new Date(m.endTime) - new Date(m.startTime)) / 60000);
@@ -180,6 +370,20 @@ function buildContext(unifiedLog, dashboardData) {
     .map((i) => `  - [${(i.priority ?? "?").toUpperCase()}] ${cleanText(i.title, 110)} (${cleanText(i.project ?? "?", 20)})`)
     .join("\n");
 
+  const weekAheadSummary = weekAhead
+    .slice(0, 8)
+    .map((m) => {
+      const startStr = m.startTime
+        ? new Date(m.startTime).toLocaleString("en-GB", {
+            weekday: "short",
+            hour: "2-digit",
+            minute: "2-digit",
+          })
+        : "Later";
+      return `  - ${startStr} ${cleanText(m.title, 100)}`;
+    })
+    .join("\n");
+
   return {
     date: TARGET_DATE,
     totalTracked: fmtMin(total),
@@ -203,107 +407,582 @@ function buildContext(unifiedLog, dashboardData) {
     meetingCount: todayMeetings.length,
     jiraInboxSummary,
     jiraInboxCount: allInboxJira.length,
+    weekAheadSummary,
+    weekAheadCount: weekAhead.length,
+    weekRanges,
+    thisWeekUpcomingMeetings,
+    nextWeekMeetings,
+    completedThisWeekMeetings,
+    documentSignals,
+    documentSignalCount: documentSignals.length,
     jiraProjectSnapshots: null, // populated in run() via async Jira API call
+    jiraDistBlockers: [],
+    jiraComments: [],
+    githubActivity: null,
+    confluenceActivity: null,
+    jiraAutomationActivity: [],
   };
 }
 
 // --- Plain summary (no AI) -------------------------------------------------
 
-function buildPlainSummary(ctx) {
-  const lines = [
-    `# IBP — ${ctx.date}`,
-    ``,
-    `**Total tracked time:** ${ctx.totalTracked}`,
-    `**Planned focus time:** ${fmtMin(ctx.plannedTodayMinutes)}${ctx.actualToPlannedPct !== null ? ` (${ctx.actualToPlannedPct}% execution)` : ""}`,
-    ``,
+export function extractQuinnSections(markdown) {
+  const content = String(markdown ?? "");
+  const sectionDefs = [
+    // Accept both new clean headers and legacy emoji headers
+    { key: "winsAndImpact", header: /^##\s*(?:🚀\s*Current Week:\s*Wins\s*&\s*Impact|Impact)\s*$/im },
+    { key: "issuesBlockers", header: /^##\s*(?:⚠️\s*Issues\s*\/\s*Blockers|Blockers)\s*$/im },
+    { key: "nextWeekPriorities", header: /^##\s*(?:🔥\s*Next Week:\s*(?:Top\s*)?Priorities|Priorities)\s*$/im },
+    { key: "lookingAhead", header: /^##\s*(?:🔮\s*)?Looking Ahead\s*$/im },
   ];
 
-  if (ctx.summary.length > 0) {
-    lines.push(`## Time by Activity`);
-    lines.push(``);
-    for (const item of ctx.summary) {
-      lines.push(`| ${item.label} | ${fmtMin(item.totalMin)} | ${item.sources.join(", ")} |`);
+  const starts = sectionDefs
+    .map((def) => {
+      const match = def.header.exec(content);
+      return match ? { key: def.key, start: match.index, headerLine: match[0] } : null;
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.start - b.start);
+
+  const result = {
+    winsAndImpact: "",
+    issuesBlockers: "",
+    nextWeekPriorities: "",
+    lookingAhead: "",
+  };
+
+  for (let i = 0; i < starts.length; i += 1) {
+    const current = starts[i];
+    const end = i + 1 < starts.length ? starts[i + 1].start : content.length;
+    const raw = content.slice(current.start, end);
+    const withoutHeader = raw.replace(current.headerLine, "").trim();
+    result[current.key] = withoutHeader;
+  }
+
+  return result;
+}
+
+function buildPlainSummary(ctx) {
+  const weekRanges = ctx.weekRanges ?? getWorkWeekRanges(ctx.date);
+  const weekLabel = `${formatDateLabel(weekRanges.currentWeekStart)} - ${formatDateLabel(weekRanges.currentWeekEnd)}`;
+  const nextWeekLabel = `${formatDateLabel(weekRanges.nextWeekStart)} - ${formatDateLabel(weekRanges.nextWeekEnd)}`;
+
+  const allIssues = (ctx.jiraProjectSnapshots ?? [])
+    .flatMap((snapshot) => (snapshot.issues ?? []).map((issue) => ({ ...issue, project: snapshot.project })));
+  const distBlockers = ctx.jiraDistBlockers ?? [];
+  const weekSummary = (ctx.weekSummary?.length ? ctx.weekSummary : ctx.summary) ?? [];
+  const weekEntries = ctx.weekEntries ?? [];
+  const github = ctx.githubActivity ?? { prsAuthored: [], prsReviewed: [], commits: [], localCommits: [] };
+  const confluence = ctx.confluenceActivity ?? { pagesCreated: [], pagesEdited: [] };
+  const automationRules = ctx.jiraAutomationActivity ?? [];
+  const jiraComments = ctx.jiraComments ?? [];
+  // All commits: GitHub (pushed) + local git repos (unpushed / private)
+  const allCommits = [
+    ...(github.commits ?? []),
+    ...(github.localCommits ?? []).filter((lc) => !(github.commits ?? []).some((c) => c.message === lc.message && c.repo === lc.repo)),
+  ];
+
+  function isPersonallyTouchedIssue(issue) {
+    if (issue?.reporterIsCurrentUser) return true;
+    if (issue?.isUnassigned && issue?.touchedByCurrentUserManual) return true;
+    return false;
+  }
+
+  const personallyTouchedIssues = allIssues
+    .filter(isPersonallyTouchedIssue)
+    .sort((a, b) => new Date(b.updated ?? 0).getTime() - new Date(a.updated ?? 0).getTime());
+
+  function softTime(minutes) {
+    if (!minutes || minutes <= 0) return "a short block";
+    if (minutes < 45) return "under an hour";
+    if (minutes < 90) return "roughly an hour";
+    const hours = Math.round(minutes / 60);
+    if (hours <= 3) return "a couple of hours";
+    if (hours <= 6) return "around half a day";
+    if (hours <= 10) return "most of a day";
+    if (hours <= 16) return "a solid couple of days";
+    if (hours <= 25) return "roughly three days";
+    return "the bulk of the week";
+  }
+
+  function softHours(minutes) {
+    if (!minutes || minutes <= 0) return "minimal time";
+    const hours = Math.round(minutes / 60);
+    if (hours === 0) return "under an hour";
+    if (hours === 1) return "~1h";
+    return `~${hours}h`;
+  }
+
+  function humaniseActivityLabel(label) {
+    const value = String(label ?? "").toLowerCase().trim();
+    if (/^ai-coding$/.test(value)) return "Hands-on coding (AI pair-programming)";
+    if (/^jira-browse$/.test(value)) return "Jira ticket review, triage, and sprint work";
+    if (/^browser$/.test(value)) return "Web research and documentation review";
+    if (/^dev$/.test(value)) return "Local development environment and tooling";
+    if (/^bond$/.test(value)) return "Cross-project engineering sessions";
+    if (/^bond documents$/.test(value)) return "Workspace automation and scripting";
+    if (/^local[.-]command/.test(value)) return "Cross-project engineering sessions";
+    if (/^productivity tool/.test(value)) return "Command Center and IBP pipeline work";
+    if (/^(ukcaud|ukjpd|ukcas|dist)-?\d*/i.test(value)) return `Focused work on ${value.toUpperCase()}`;
+    return cleanText(label, 60);
+  }
+
+  function cleanClaudeDetail(detail) {
+    if (!detail) return "";
+    // Strip the entire local-command-caveat block (the full warning text up to DO NOT respond)
+    let cleaned = detail
+      .replace(/<local-command-caveat>[\s\S]*?DO NOT respond[^.\n]*\.?\s*/gi, "")
+      .replace(/^<local-command-caveat>\s*/i, "")
+      .replace(/Caveat:\s*The messages below were generated by the user while running local commands[^.]*\.?\s*DO NOT respond[^.\n]*\.?\s*/gi, "")
+      .replace(/^caveat:\s*/i, "")
+      .replace(/^(do not|warning|system):\s*/i, "")
+      .replace(/The messages below were generated by the user while running local commands[^\n]*/gi, "")
+      .replace(/DO NOT respond[^\n]*/gi, "")
+      .replace(/You are working inside the project:?\s*"[^"]*"\s*Working directory:?\s*\S+/gi, "")
+      .replace(/^(run|start|open|check)\s+my\s+/i, "")
+      .replace(/C:[/\\]\S+/g, "")
+      .replace(/\s{2,}/g, " ")
+      .trim();
+    if (/^(local[.-]command|the messages below|do not respond)/i.test(cleaned)) return "";
+    if (/^[\w.-]+$/.test(cleaned) && cleaned.length < 30) return "";
+    if (cleaned.length < 8) return "";
+    return cleanText(cleaned, 120);
+  }
+
+  function professionaliseDetail(detail) {
+    if (!detail || detail.length < 5) return "";
+    // Strip full caveat block first
+    let text = detail
+      .replace(/<local-command-caveat>[\s\S]*?DO NOT respond[^.\n]*\.?\s*/gi, "")
+      .replace(/^<local-command-caveat>\s*/i, "")
+      .replace(/Caveat:\s*The messages below[^.]*\.?\s*DO NOT respond[^.\n]*\.?\s*/gi, "")
+      .replace(/^caveat:\s*/i, "")
+      .replace(/^(do not|warning|system):\s*/i, "")
+      .replace(/The messages below were generated by the user while running local commands\.?[^\n]*/gi, "")
+      // Strip first-person opener
+      .replace(/^i\s+(want to make sure|need to make sure|want to ensure|need to ensure)\s+i\s+(have|get|can)\s+/i, "")
+      .replace(/^i\s+(want|need|have|think|feel|believe|need to|have to|want to)\s+/i, "")
+      // Strip remaining filler phrases
+      .replace(/^(to make sure\s+(?:i\s+)?(?:have|get|can)\s+)/i, "")
+      .replace(/^(something to prevent|something to|to prevent|to ensure|to make sure|to check)\s+/i, "")
+      .replace(/^(instead of|like the|such as)\s+/i, "")
+      .trim();
+    if (!text || text.length < 5) return "";
+    if (/^(do not|warning|caveat|the messages|local.command)/i.test(text)) return "";
+    const firstSentence = text.split(/[.!?]/)[0].trim();
+    if (!firstSentence || firstSentence.length < 8) return "";
+    let final = firstSentence.charAt(0).toUpperCase() + firstSentence.slice(1);
+    return cleanText(final, 90);
+  }
+
+  function joinNarrativeList(items) {
+    if (items.length === 0) return "";
+    if (items.length === 1) return items[0];
+    if (items.length === 2) return `${items[0]} and ${items[1]}`;
+    return `${items.slice(0, -1).join(", ")}, and ${items[items.length - 1]}`;
+  }
+
+  function humaniseTeamsIncident(line) {
+    const value = cleanText(line, 140);
+    if (/opening up new engagements/i.test(value)) {
+      return "reports that new engagements were not opening properly";
     }
-    lines.push(``);
+    return value;
   }
 
-  if (ctx.claudeSummary) {
-    lines.push(`## Claude Coding Sessions`);
-    lines.push(``);
-    lines.push(ctx.claudeSummary);
-    lines.push(``);
+  function cleanIssueSummary(summary) {
+    return cleanText(summary, 140)
+      .replace(/^DEVELOP\s*-\s*/i, "")
+      .replace(/^\d+\.\s*/, "")
+      .replace(/Audit HAT UK Company\s*-\s*/i, "")
+      .replace(/\s{2,}/g, " ")
+      .trim();
   }
 
-  if (ctx.jiraSummary) {
-    lines.push(`## Jira Worklog`);
-    lines.push(``);
-    lines.push(ctx.jiraSummary);
-    lines.push(``);
+  function themeForIssue(issue) {
+    const summary = cleanIssueSummary(issue.summary).toLowerCase();
+    if (/cosmetic|text|label|guidance/.test(summary)) return "UI polish and guidance improvements";
+    if (/hat|audit/.test(summary)) return "HAT audit template work";
+    if (/sampling|sample[\s.-]?size|transactional/.test(summary)) return "sampling and sample size configuration";
+    if (/tailoring|\btb\b/.test(summary)) return "tailoring and trial balance logic";
+    if (/rule[\s.-]?builder|automation/.test(summary)) return "rule builder and automation";
+    if (/materiality|sample/.test(summary)) return "materiality and sampling logic";
+    if (/disclosure checklist|checklist/.test(summary)) return "disclosure checklist delivery";
+    if (/navigation|details/.test(summary)) return "navigation and details experience";
+    if (/release|spec/.test(summary)) return "release coordination";
+    return "sprint delivery work";
   }
 
-  if (ctx.plannedSummary) {
-    lines.push(`## Planned Focus Blocks (Booked)`);
-    lines.push(``);
-    lines.push(ctx.plannedSummary);
-    lines.push(``);
+  function statusVerb(status) {
+    const value = String(status ?? "").toLowerCase();
+    if (/done|ready for test|test/.test(value)) return "Delivered";
+    if (/in progress|selected/.test(value)) return "Progressed";
+    if (/open|to do/.test(value)) return "Scoped";
+    return "Advanced";
   }
 
-  if (ctx.meetingsSummary) {
-    lines.push(`## Meetings Today (${ctx.meetingCount}, ${fmtMin(ctx.meetingsTotalMin)})`);
-    lines.push(``);
-    lines.push(ctx.meetingsSummary);
-    lines.push(``);
+  function priorityVerb(status) {
+    const value = String(status ?? "").toLowerCase();
+    if (/in progress/.test(value)) return "Continue";
+    if (/selected/.test(value)) return "Pick up";
+    if (/to do|open/.test(value)) return "Start";
+    return "Finalize";
   }
 
-  if (ctx.teamMessagesSummary) {
-    lines.push(`## Teams Messages (${ctx.teamMessageCount})`);
-    lines.push(``);
-    lines.push(ctx.teamMessagesSummary);
-    lines.push(``);
+  function blockerImpact(summary) {
+    const value = cleanIssueSummary(summary).toLowerCase();
+    if (/materiality|sample|tailoring/.test(value)) return "completion of checklist logic validation";
+    if (/details|navigation|guidance/.test(value)) return "final QA sign-off for disclosure checklist UX";
+    return "closure of this sprint's planned scope";
   }
 
-  if (ctx.flaggedEmailsSummary) {
-    lines.push(`## Flagged / Important Emails (${ctx.flaggedEmailCount})`);
-    lines.push(``);
-    lines.push(ctx.flaggedEmailsSummary);
-    lines.push(``);
+  function formatEventLine(event) {
+    const ymd = eventYmd(event);
+    const day = ymd ? formatDateLabel(ymd).split(" ")[0] : "Day";
+    const title = cleanText(event.title ?? "Meeting", 90).replace(/\s*-\s*MS Teams/i, "").trim();
+    return `${day}: ${title}`;
   }
 
-  if (ctx.jiraInboxSummary) {
-    lines.push(`## Jira Items in Inbox (${ctx.jiraInboxCount})`);
-    lines.push(``);
-    lines.push(ctx.jiraInboxSummary);
-    lines.push(``);
+  function groupEventsByDay(events) {
+    const grouped = new Map();
+    for (const event of events) {
+      if (/(lunch|focus|break)/i.test(event.title ?? "")) continue;
+      const ymd = eventYmd(event);
+      if (!ymd) continue;
+      const day = formatDateLabel(ymd).split(" ")[0];
+      if (!grouped.has(day)) grouped.set(day, []);
+      grouped.get(day).push(cleanText(event.title ?? "Meeting", 90).replace(/\s*-\s*MS Teams/i, "").trim());
+    }
+
+    return [...grouped.entries()].map(([day, titles]) => `${day}: ${uniqueBy(titles).slice(0, 4).join(", ")}`);
   }
 
-  if (ctx.jiraProjectSnapshots?.length > 0) {
-    lines.push(`## Jira Project Snapshots`);
-    lines.push(``);
-    for (const snap of ctx.jiraProjectSnapshots) {
-      lines.push(`### ${snap.project} (${snap.issues.length} updated today)`);
-      lines.push(``);
-      for (const issue of snap.issues) {
-        lines.push(`- **${issue.key}** [${issue.status}] ${issue.summary}`);
+  const workloadBuckets = [
+    { label: "hands-on coding and delivery", match: /(ai-coding|claude|script|tool|dashboard|productivity)/i, minutes: 0 },
+    { label: "Jira triage, sprint planning, and ticket execution", match: /(jira|ukcaud|ukjpd|ukcas|dist-)/i, minutes: 0 },
+    { label: "research, documentation review, and investigation", match: /(browser|web|search|research)/i, minutes: 0 },
+  ];
+  for (const item of weekSummary) {
+    const bucket = workloadBuckets.find((candidate) => candidate.match.test(item.label));
+    if (bucket) bucket.minutes += item.totalMin ?? 0;
+  }
+  const workloadNarrative = workloadBuckets
+    .filter((bucket) => bucket.minutes >= 30)
+    .map((bucket) => `${softTime(bucket.minutes)} in ${bucket.label}`);
+  const rankedWorkloadBuckets = [...workloadBuckets]
+    .filter((bucket) => bucket.minutes >= 30)
+    .sort((a, b) => b.minutes - a.minutes);
+
+  const themeMap = new Map();
+  for (const issue of allIssues) {
+    if (/(qa on hold|on hold|blocked|imped)/i.test(issue.status)) continue;
+    const theme = themeForIssue(issue);
+    if (!themeMap.has(theme)) themeMap.set(theme, []);
+    themeMap.get(theme).push(issue);
+  }
+  const winsByTheme = [...themeMap.entries()]
+    .sort((a, b) => b[1].length - a[1].length)
+    .slice(0, 5)
+    .map(([theme, issues]) => ({
+      theme,
+      issues: issues
+        .sort((a, b) => new Date(b.updated ?? 0).getTime() - new Date(a.updated ?? 0).getTime())
+        .slice(0, 3),
+      count: issues.length,
+    }));
+
+  const weekTotalHours = Math.max(1, Math.round((ctx.weekTotalMin ?? ctx.totalTrackedMin ?? 0) / 60));
+
+  // AI entries
+  const aiEntries = weekEntries
+    .filter((e) => e.source === "claude" || e.source === "vscode-chat")
+    .sort((a, b) => (b.durationMin ?? 0) - (a.durationMin ?? 0));
+  const aiTotalMin = aiEntries.reduce((acc, e) => acc + (e.durationMin ?? 0), 0);
+  const aiPct = weekTotalHours > 0 ? Math.round((aiTotalMin / (weekTotalHours * 60)) * 100) : 0;
+
+  // Top AI highlights (structured)
+  const topAiHighlights = aiEntries
+    .filter((e) => {
+      if ((e.durationMin ?? 0) < 5) return false;
+      if (!e.detail || e.detail.length < 10) return false;
+      if (e.source === "vscode-chat") {
+        const d = e.detail.trim();
+        if (d.endsWith("?") && d.length < 80) return false;
+        if (/^(done|is it|is the|are you|can you|did you)\b.*\??$/i.test(d)) return false;
       }
-      lines.push(``);
+      return true;
+    })
+    .slice(0, 10)
+    .map((entry) => {
+      const sourceLabel = entry.source === "vscode-chat" ? "Copilot" : "Claude";
+      let professionalized = "";
+      if (entry.source === "vscode-chat") {
+        const d = entry.detail.trim();
+        if (/^i\s+(want|need|feel|think|believe|was|would)/i.test(d)) {
+          professionalized = professionaliseDetail(d) || (d.charAt(0).toUpperCase() + d.slice(1));
+        } else {
+          professionalized = d.charAt(0).toUpperCase() + d.slice(1);
+        }
+        if (professionalized.length > 90) professionalized = professionalized.slice(0, 87) + "...";
+      } else {
+        const rawDetail = (entry.detail ?? "")
+          .replace(/<local-command-caveat>[\s\S]*?DO NOT respond[^.\n]*\.?\s*/gi, "")
+          .replace(/^<local-command-caveat>\s*/i, "")
+          .replace(/Caveat:\s*The messages below[^.]*\.?\s*DO NOT respond[^.\n]*\.?\s*/gi, "")
+          .replace(/^caveat:\s*/i, "")
+          .replace(/^(do not|warning|system):\s*/i, "")
+          .replace(/The messages below[^\n]*/gi, "")
+          .replace(/DO NOT respond[^\n]*/gi, "")
+          .trim();
+        if (/^(do not|warning|caveat|the messages|local.command)/i.test(rawDetail)) return null;
+        professionalized = professionaliseDetail(rawDetail) || cleanClaudeDetail(rawDetail) || "";
+      }
+      if (!professionalized || professionalized.length < 15) return null;
+      const labelLower = (entry.label ?? "").toLowerCase();
+      if ((labelLower.includes("cross") || labelLower === "bond") && professionalized.length < 25) return null;
+      return { sourceLabel, detail: professionalized, durationMin: entry.durationMin ?? 0 };
+    })
+    .filter(Boolean)
+    .slice(0, 5);
+
+  // DIST blockers
+  const blockerLines = distBlockers
+    .slice(0, 8)
+    .map((issue) => {
+      const summary = cleanIssueSummary(issue.summary);
+      const createdDate = issue.created ? formatDateLabel(issue.created.slice(0, 10)) : "recently";
+      return `${issue.key} (${summary}) remains unresolved in ${issue.status} [${issue.priority}] (raised ${createdDate}).`;
+    });
+
+  // Completed meetings (filter out ceremonies for the collab section)
+  const CEREMONY_RE = /\bstand[- ]?up\b|standup|\bretro\b|retrospective|sprint planning|sprint review|backlog refinement|1[:-]1\b|one[- ]on[- ]one|daily sync/i;
+  const allCompletedMeetings = uniqueBy((ctx.completedThisWeekMeetings ?? []).map(formatEventLine));
+  const substantiveMeetings = uniqueBy(
+    (ctx.completedThisWeekMeetings ?? [])
+      .filter((e) => !CEREMONY_RE.test(e.title ?? ""))
+      .map(formatEventLine)
+  );
+
+  // ---- BUILD OUTPUT -------------------------------------------------------
+
+  const lines = [
+    `# IBP — Week of ${weekLabel}`,
+    "",
+    `**Generated:** ${formatDateLabel(ctx.date)} | **~${weekTotalHours}h tracked** across ${ctx.daysWithWeekData ?? 1} of 5 weekdays`,
+    "",
+    "## Impact",
+    "",
+  ];
+
+  // Exec summary — outcome-first, quantified
+  const themeNames = winsByTheme.slice(0, 2).map((w) => w.theme);
+  let execSummary =
+    themeNames.length > 0
+      ? `Delivered progress across ${joinNarrativeList(themeNames)} this week.`
+      : "Delivered focused engineering work this week.";
+
+  const supportingContext = [];
+  const codingBucket = rankedWorkloadBuckets.find((b) => /coding|hands.on/i.test(b.label));
+  if (codingBucket) supportingContext.push(`${softTime(codingBucket.minutes)} in hands-on coding`);
+  if (aiPct > 0) supportingContext.push(`${aiPct}% AI-assisted via Claude and Copilot`);
+  const totalGitHub = github.prsAuthored.length + github.prsReviewed.length;
+  if (totalGitHub > 0) supportingContext.push(`${totalGitHub} GitHub PR${totalGitHub === 1 ? "" : "s"} raised or reviewed`);
+  if (allCompletedMeetings.length > 2) supportingContext.push(`${allCompletedMeetings.length} alignment meetings`);
+  if (supportingContext.length > 0) {
+    const support = joinNarrativeList(supportingContext);
+    execSummary += ` ${support.charAt(0).toUpperCase()}${support.slice(1)}.`;
+  }
+  lines.push(execSummary);
+  lines.push("");
+
+  // Thematic sub-sections — one bold heading per workstream, bullets per ticket
+  for (const { theme, issues, count } of winsByTheme) {
+    const heading = theme.charAt(0).toUpperCase() + theme.slice(1);
+    lines.push(`**${heading}**`);
+    for (const issue of issues) {
+      lines.push(`- ${statusVerb(issue.status)} ${cleanIssueSummary(issue.summary)} (${issue.key})`);
     }
+    if (count > issues.length) {
+      lines.push(`- _(+${count - issues.length} more tickets)_`);
+    }
+    lines.push("");
   }
 
-  if (ctx.inboxItems.length > 0) {
-    lines.push(`## Open Inbox`);
-    lines.push(``);
-    for (const item of ctx.inboxItems) {
-      lines.push(`- ${item}`);
-    }
-    lines.push(``);
+  // Engineering & AI-assisted work sub-section
+  const engLines = [];
+  for (const pr of github.prsAuthored.slice(0, 5)) {
+    const repo = pr.repository?.name ?? pr.repository?.nameWithOwner ?? "repo";
+    engLines.push(`- Merged PR (\`${repo}\`): ${cleanText(pr.title, 80)}`);
+  }
+  for (const pr of github.prsReviewed.slice(0, 4)) {
+    const repo = pr.repository?.name ?? pr.repository?.nameWithOwner ?? "repo";
+    engLines.push(`- Reviewed PR (\`${repo}\`): ${cleanText(pr.title, 80)}`);
+  }
+  // Group commits by repo — filter noise before rendering
+  const SKIP_COMMIT_REPOS = /^(dotfiles|Bondlw-dotfiles)$/i;
+  const SKIP_COMMIT_MSG = /^(?:chore|config|refactor)?:?\s*(?:eod sync|sync \d+|sync from|checkpoint before|wip\b)/i;
+
+  function humaniseRepo(repoName) {
+    return repoName.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  }
+  function stripPrefix(msg) {
+    return msg.replace(/^(?:feat|fix|chore|refactor|docs|test|perf|ci|config|build|style):\s*/i, "").trim();
   }
 
-  lines.push(`---`);
-  lines.push(`_Generated by generate-ibp.mjs at ${new Date().toLocaleTimeString("en-GB")}_`);
+  const commitsByRepo = new Map();
+  for (const c of allCommits) {
+    if (SKIP_COMMIT_REPOS.test(c.repo)) continue;
+    if (SKIP_COMMIT_MSG.test(c.message)) continue;
+    if (!commitsByRepo.has(c.repo)) commitsByRepo.set(c.repo, []);
+    commitsByRepo.get(c.repo).push(stripPrefix(c.message));
+  }
+  for (const [repo, messages] of commitsByRepo) {
+    const cleaned = messages.filter((m) => m.length > 3);
+    if (cleaned.length === 0) continue;
+    const label = humaniseRepo(repo);
+    if (cleaned.length <= 3) {
+      cleaned.forEach((m) => engLines.push(`- ${label}: ${cleanText(m, 90)}`));
+    } else {
+      // Surface the most descriptive messages (longest = most detail)
+      const top = [...cleaned].sort((a, b) => b.length - a.length).slice(0, 3);
+      top.forEach((m) => engLines.push(`- ${label}: ${cleanText(m, 90)}`));
+      engLines.push(`  _(+${cleaned.length - 3} more commits to ${label})_`);
+    }
+  }
+  for (const rule of automationRules.slice(0, 4)) {
+    engLines.push(`- ${rule.action} Jira automation rule: ${cleanText(rule.name, 80)}`);
+  }
+  for (const highlight of topAiHighlights) {
+    engLines.push(`- ${highlight.detail} (${highlight.sourceLabel}, ${softTime(highlight.durationMin)})`);
+  }
+  if (aiTotalMin > 0 && topAiHighlights.length > 0) {
+    engLines.push(`- Total AI-assisted: ${softHours(aiTotalMin)} (${aiPct}% of tracked time)`);
+  }
+  if (engLines.length > 0) {
+    lines.push("**Engineering & AI-assisted work**");
+    engLines.forEach((l) => lines.push(l));
+    lines.push("");
+  }
+
+  // Collaboration & documentation sub-section
+  const collabLines = [];
+  for (const page of confluence.pagesCreated.slice(0, 3)) {
+    collabLines.push(`- Created Confluence page: ${cleanText(page.title, 80)}${page.space ? ` (${page.space})` : ""}`);
+  }
+  for (const page of confluence.pagesEdited.slice(0, 4)) {
+    collabLines.push(`- Updated Confluence: ${cleanText(page.title, 80)}${page.space ? ` (${page.space})` : ""}`);
+  }
+  for (const comment of jiraComments.slice(0, 4)) {
+    const firstSentence = comment.comment.split(/[.!?]/)[0].trim();
+    if (firstSentence.length > 15) {
+      collabLines.push(
+        `- Contributed to ${comment.issueKey}: ${firstSentence.charAt(0).toUpperCase()}${firstSentence.slice(1)}`
+      );
+    }
+  }
+  if (substantiveMeetings.length > 0) {
+    collabLines.push(`- Meetings: ${substantiveMeetings.slice(0, 4).join("; ")}`);
+  }
+  if (collabLines.length > 0) {
+    lines.push("**Collaboration & documentation**");
+    collabLines.forEach((l) => lines.push(l));
+    lines.push("");
+  }
+
+  // Jira contributions (personally touched tickets)
+  const jiraHighlightLines = personallyTouchedIssues
+    .slice(0, 6)
+    .map((issue) => `- **${issue.project}** ${issue.key} [${issue.status}] ${cleanIssueSummary(issue.summary)}`);
+  if (jiraHighlightLines.length > 0) {
+    lines.push("**Jira contributions (personally touched)**");
+    jiraHighlightLines.forEach((l) => lines.push(l));
+    lines.push("");
+  }
+
+  // ---- BLOCKERS -----------------------------------------------------------
+
+  lines.push("## Blockers");
+  lines.push("");
+  if (blockerLines.length > 0) {
+    blockerLines.forEach((entry) => lines.push(`- ${entry}`));
+  } else {
+    lines.push("- None");
+  }
+  lines.push("");
+
+  // ---- PRIORITIES ---------------------------------------------------------
+
+  lines.push("## Priorities");
+  lines.push(`_${nextWeekLabel}_`);
+  lines.push("");
+
+  const priorityIssues = uniqueBy(
+    allIssues
+      .filter((issue) => /(to do|selected|in progress|open)/i.test(issue.status))
+      .slice(0, 10)
+      .map((issue) => {
+        const summary = cleanIssueSummary(issue.summary)
+          .replace(new RegExp(`^${issue.project}\\s*[-:]?\\s*`, "i"), "")
+          .replace(new RegExp(`^${issue.key}\\s*[-:]?\\s*`, "i"), "");
+        const lead = summary.charAt(0).toUpperCase() + summary.slice(1);
+        return { summary: lead, key: issue.key, status: issue.status, theme: themeForIssue(issue) };
+      }),
+    (issue) => issue.summary.toLowerCase()
+  );
+
+  // Group by theme if multiple themes present, otherwise flat list
+  const priorityByTheme = new Map();
+  for (const issue of priorityIssues) {
+    if (!priorityByTheme.has(issue.theme)) priorityByTheme.set(issue.theme, []);
+    priorityByTheme.get(issue.theme).push(issue);
+  }
+
+  if (priorityByTheme.size > 1) {
+    for (const [theme, issues] of priorityByTheme) {
+      const heading = theme.charAt(0).toUpperCase() + theme.slice(1);
+      lines.push(`**${heading}**`);
+      issues.slice(0, 3).forEach((issue) =>
+        lines.push(`- ${priorityVerb(issue.status)} ${issue.summary} (${issue.key})`)
+      );
+      lines.push("");
+    }
+  } else {
+    priorityIssues.slice(0, 5).forEach((issue) =>
+      lines.push(`- ${priorityVerb(issue.status)} ${issue.summary} (${issue.key})`)
+    );
+    if ((ctx.documentSignalCount ?? 0) > 0) {
+      lines.push(
+        `- Review ${ctx.documentSignalCount} document change signal${ctx.documentSignalCount === 1 ? "" : "s"}`
+      );
+    }
+    lines.push("");
+  }
+
+  // ---- LOOKING AHEAD -------------------------------------------------------
+
+  lines.push("## Looking Ahead");
+  lines.push("");
+
+  const thisWeekRemaining = groupEventsByDay(ctx.thisWeekUpcomingMeetings ?? []);
+  const nextWeekMeetings = groupEventsByDay(ctx.nextWeekMeetings ?? []);
+
+  lines.push("**Rest of this week:**");
+  if (thisWeekRemaining.length > 0) {
+    thisWeekRemaining.forEach((entry) => lines.push(`- ${entry}`));
+  } else {
+    lines.push("- No further ceremonies scheduled for this week.");
+  }
+  lines.push("");
+  lines.push("**Next week:**");
+  if (nextWeekMeetings.length > 0) {
+    nextWeekMeetings.forEach((entry) => lines.push(`- ${entry}`));
+  } else {
+    lines.push("- Next week calendar not yet populated.");
+  }
+  lines.push("");
 
   return lines.join("\n");
 }
-
 // --- Claude narrative -------------------------------------------------------
 
 function buildNarrativePrompt(ctx) {
@@ -369,7 +1048,7 @@ function callClaudeCliOAuth(ctx) {
       input: attempt.useStdin ? prompt : undefined,
       cwd: ROOT,
       encoding: "utf8",
-      timeout: 60000,
+      timeout: 25000,
       env: process.env,
       windowsHide: true,
     });
@@ -389,47 +1068,78 @@ function callClaudeCliOAuth(ctx) {
   return null;
 }
 
+// --- ADF text extraction helper ------------------------------------------
+
+function extractAdfText(body) {
+  if (!body) return "";
+  if (typeof body === "string") return body.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  const texts = [];
+  function walkAdf(node) {
+    if (!node) return;
+    if (node.type === "text" && node.text) texts.push(node.text);
+    if (node.content?.length) node.content.forEach(walkAdf);
+  }
+  walkAdf(body);
+  return texts.join(" ").replace(/\s+/g, " ").trim();
+}
+
 // --- Jira project snapshot (optional) -------------------------------------
 
-async function fetchJiraProjectSnapshot(date) {
+async function fetchJiraProjectSnapshot(fromDate) {
   const jiraEmail = process.env.JIRA_EMAIL;
   const jiraToken = process.env.JIRA_API_TOKEN;
-  if (!jiraEmail || !jiraToken) return null;
+  if (!jiraEmail || !jiraToken) return { snapshots: null, distBlockers: [] };
 
-  const JIRA_BASE = "https://caseware.atlassian.net";
-  const PROJECTS = ["UKCAUD", "UKJPD", "UKCAS"];
+  const PROJECTS = ["UKCAUD", "UKJPD", "UKCAS", "DIST"];
   const authHeader = Buffer.from(`${jiraEmail}:${jiraToken}`).toString("base64");
   const { default: https } = await import("https");
 
   const snapshots = [];
+  const distBlockers = [];
+
+  const jiraGetJson = async (path) => {
+    const options = {
+      hostname: "caseware.atlassian.net",
+      path,
+      method: "GET",
+      headers: {
+        Authorization: `Basic ${authHeader}`,
+        Accept: "application/json",
+      },
+    };
+
+    return new Promise((resolvePromise, rejectPromise) => {
+      const req = https.get(options, (res) => {
+        let data = "";
+        res.on("data", (chunk) => { data += chunk; });
+        res.on("end", () => {
+          try {
+            resolvePromise(JSON.parse(data));
+          } catch {
+            resolvePromise(null);
+          }
+        });
+      });
+      req.on("error", rejectPromise);
+      req.setTimeout(10000, () => req.destroy());
+    });
+  };
+
+  let currentUserAccountId = "";
+  try {
+    const myself = await jiraGetJson("/rest/api/3/myself");
+    currentUserAccountId = myself?.accountId ?? "";
+  } catch {
+    currentUserAccountId = "";
+  }
+  const currentUserEmail = String(jiraEmail).toLowerCase();
 
   for (const project of PROJECTS) {
     try {
       const jql = encodeURIComponent(
-        `project = ${project} AND (assignee = currentUser() OR reporter = currentUser()) AND updated >= "${date}" ORDER BY updated DESC`
+        `project = ${project} AND (assignee = currentUser() OR reporter = currentUser()) AND updated >= "${fromDate}" ORDER BY updated DESC`
       );
-      const options = {
-        hostname: "caseware.atlassian.net",
-        path: `/rest/api/3/search?jql=${jql}&maxResults=10&fields=summary,status,priority`,
-        method: "GET",
-        headers: {
-          Authorization: `Basic ${authHeader}`,
-          Accept: "application/json",
-        },
-      };
-
-      const response = await new Promise((resolvePromise, rejectPromise) => {
-        const req = https.get(options, (res) => {
-          let data = "";
-          res.on("data", (chunk) => { data += chunk; });
-          res.on("end", () => {
-            try { resolvePromise(JSON.parse(data)); }
-            catch { resolvePromise(null); }
-          });
-        });
-        req.on("error", rejectPromise);
-        req.setTimeout(10000, () => req.destroy());
-      });
+      const response = await jiraGetJson(`/rest/api/3/search/jql?jql=${jql}&maxResults=15&expand=changelog&fields=summary,status,priority,assignee,reporter,updated`);
 
       if (response?.issues?.length > 0) {
         snapshots.push({
@@ -439,6 +1149,29 @@ async function fetchJiraProjectSnapshot(date) {
             summary: i.fields.summary,
             status: i.fields.status?.name ?? "?",
             priority: i.fields.priority?.name ?? "?",
+            updated: i.fields.updated ?? "",
+            reporterAccountId: i.fields.reporter?.accountId ?? "",
+            assigneeAccountId: i.fields.assignee?.accountId ?? "",
+            assigneeDisplayName: i.fields.assignee?.displayName ?? "",
+            isUnassigned: !i.fields.assignee,
+            touchedByCurrentUser: (i.changelog?.histories ?? []).some((h) => {
+              const accountId = h?.author?.accountId ?? "";
+              const emailAddress = String(h?.author?.emailAddress ?? "").toLowerCase();
+              return (currentUserAccountId && accountId === currentUserAccountId) || (currentUserEmail && emailAddress === currentUserEmail);
+            }),
+            touchedByCurrentUserManual: (i.changelog?.histories ?? []).some((h) => {
+              const accountId = h?.author?.accountId ?? "";
+              const emailAddress = String(h?.author?.emailAddress ?? "").toLowerCase();
+              const isCurrentUser =
+                (currentUserAccountId && accountId === currentUserAccountId) ||
+                (currentUserEmail && emailAddress === currentUserEmail);
+              if (!isCurrentUser) return false;
+              const metadata = JSON.stringify(h?.historyMetadata ?? {}).toLowerCase();
+              return !/automation|rule actor|rule_action|atlassian.automation|auto-trigger|triggered by rule/.test(metadata);
+            }),
+            reporterIsCurrentUser:
+              (currentUserAccountId && i.fields.reporter?.accountId === currentUserAccountId) ||
+              (currentUserEmail && String(i.fields.reporter?.emailAddress ?? "").toLowerCase() === currentUserEmail),
           })),
         });
       }
@@ -447,7 +1180,296 @@ async function fetchJiraProjectSnapshot(date) {
     }
   }
 
-  return snapshots.length > 0 ? snapshots : null;
+  try {
+    const blockerJql = encodeURIComponent(
+      "project = DIST AND reporter = currentUser() AND priority = Blocker AND resolution = Unresolved AND created >= -30d ORDER BY created DESC"
+    );
+    const blockerResponse = await jiraGetJson(`/rest/api/3/search/jql?jql=${blockerJql}&maxResults=20&fields=summary,status,priority,created`);
+    if (blockerResponse?.issues?.length > 0) {
+      blockerResponse.issues.forEach((issue) => {
+        distBlockers.push({
+          key: issue.key,
+          summary: issue.fields.summary,
+          status: issue.fields.status?.name ?? "?",
+          priority: issue.fields.priority?.name ?? "?",
+          created: issue.fields.created ?? "",
+        });
+      });
+    }
+  } catch (err) {
+    console.warn("[generate-ibp] DIST blocker query failed:", err.message);
+  }
+
+  // Jira comment mining — collect user-authored comments on personally touched issues (parallel)
+  const comments = [];
+  const personallyTouchedForComments = snapshots
+    .flatMap((s) => s.issues.filter((i) => i.reporterIsCurrentUser || i.touchedByCurrentUserManual))
+    .slice(0, 12);
+  if (personallyTouchedForComments.length > 0) {
+    console.log(`[generate-ibp] Mining comments on ${personallyTouchedForComments.length} personally touched issues...`);
+    const fromMs = new Date(fromDate + "T00:00:00Z").getTime();
+    const commentBatches = await Promise.allSettled(
+      personallyTouchedForComments.map(async (issue) => {
+        const commentResponse = await jiraGetJson(
+          `/rest/api/3/issue/${issue.key}/comment?maxResults=15&orderBy=-created`
+        );
+        if (!commentResponse?.comments?.length) return [];
+        const found = [];
+        for (const comment of commentResponse.comments) {
+          const authorId = comment.author?.accountId ?? "";
+          const authorEmail = String(comment.author?.emailAddress ?? "").toLowerCase();
+          const isCurrentUser =
+            (currentUserAccountId && authorId === currentUserAccountId) ||
+            (currentUserEmail && authorEmail === currentUserEmail);
+          if (!isCurrentUser) continue;
+          const createdMs = new Date(comment.created ?? 0).getTime();
+          if (createdMs < fromMs) continue;
+          const bodyText = extractAdfText(comment.body);
+          if (!bodyText || bodyText.length < 30) continue;
+          // Skip short status-update comments
+          if (/^(done|updated|fixed|resolved|closed|noted|thanks|ok|lgtm|approved|\+1|will do|on it|checked)\s*\.?$/i.test(bodyText.trim())) continue;
+          // Skip comments that are just QA status tables (dev/qa checkboxes etc.)
+          if (/^\s*(plans?\s*[-–]|dev\s*[(:]).*qa\s*[(:]/is.test(bodyText)) continue;
+          found.push({
+            issueKey: issue.key,
+            issueSummary: issue.summary,
+            comment: bodyText.slice(0, 140),
+            created: comment.created ?? "",
+          });
+        }
+        return found;
+      })
+    );
+    for (const batch of commentBatches) {
+      if (batch.status === "fulfilled") comments.push(...batch.value);
+    }
+  }
+
+  return {
+    snapshots: snapshots.length > 0 ? snapshots : null,
+    distBlockers,
+    comments,
+  };
+}
+
+// --- Local git repo commit scan -------------------------------------------
+
+function fetchLocalGitCommits(fromDate, authorEmail) {
+  const since = `${fromDate}T00:00:00`;
+  const commits = [];
+  const seen = new Set();
+
+  const scanRoots = [
+    resolve(ROOT, ".."),     // ~/Documents
+  ];
+
+  function tryGitLog(dir) {
+    const result = spawnSync(
+      "git",
+      ["-C", dir, "log", `--author=${authorEmail}`, `--since=${since}`,
+        "--no-merges", "--format=%s", "--max-count=30"],
+      { encoding: "utf8", timeout: 8000, windowsHide: true }
+    );
+    if (result.error || result.status !== 0 || !result.stdout?.trim()) return;
+    const repoNameResult = spawnSync("git", ["-C", dir, "rev-parse", "--show-toplevel"],
+      { encoding: "utf8", timeout: 3000, windowsHide: true });
+    const repoPath = (repoNameResult.stdout?.trim() ?? dir).replace(/\\/g, "/");
+    const repoName = repoPath.split("/").pop() ?? dir;
+    const SKIP_LOCAL_MSG = /^(?:chore|config|refactor)?:?\s*(?:eod sync|sync \d+|sync from|checkpoint before|wip\b)/i;
+    for (const message of result.stdout.split("\n")) {
+      const msg = message.trim();
+      if (!msg || msg.length < 3) continue;
+      if (SKIP_LOCAL_MSG.test(msg)) continue;
+      const key = `${repoName}|${msg.slice(0, 60)}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      commits.push({ repo: repoName, message: msg, date: "" });
+    }
+  }
+
+  for (const root of scanRoots) {
+    try {
+      tryGitLog(root);
+      // Try well-known project subdirectories
+      const knownSubdirs = [
+        "Productivity Tool", "code", "UKCAUD AI Project",
+        "CW Release Notes Tool", "CW Template Comparison Tool", "Property Search Tool",
+        "claude-mobile", "chrome-cdp-skill-repo",
+      ];
+      for (const sub of knownSubdirs) {
+        tryGitLog(resolve(root, sub));
+      }
+    } catch { /* skip */ }
+  }
+
+  console.log(`[generate-ibp] Local git: ${commits.length} commits found`);
+  return commits;
+}
+
+// --- GitHub activity (all repos, via gh CLI) ------------------------------
+
+async function fetchGitHubActivity(fromDate) {
+  const result = { prsAuthored: [], prsReviewed: [], commits: [] };
+  const ghBin = process.platform === "win32" ? "gh.exe" : "gh";
+  const ghRun = (args) =>
+    spawnSync(ghBin, args, { encoding: "utf8", timeout: 20000, windowsHide: true });
+
+  try {
+    const authored = ghRun([
+      "search", "prs", "--author=@me", "--state=merged",
+      `--updated=>=${fromDate}`, "--limit=30",
+      "--json=title,repository,url,mergedAt",
+    ]);
+    if (!authored.error && authored.status === 0 && authored.stdout?.trim()) {
+      result.prsAuthored = JSON.parse(authored.stdout);
+    }
+  } catch { /* gh CLI unavailable */ }
+
+  try {
+    const reviewed = ghRun([
+      "search", "prs", "--reviewed-by=@me", "--state=merged",
+      `--updated=>=${fromDate}`, "--limit=30",
+      "--json=title,repository,url,mergedAt",
+    ]);
+    if (!reviewed.error && reviewed.status === 0 && reviewed.stdout?.trim()) {
+      const all = JSON.parse(reviewed.stdout);
+      const authoredUrls = new Set(result.prsAuthored.map((p) => p.url));
+      result.prsReviewed = all.filter((p) => !authoredUrls.has(p.url));
+    }
+  } catch { /* gh CLI unavailable */ }
+
+  try {
+    const commits = ghRun([
+      "search", "commits", "--author=@me",
+      `--committer-date=>=${fromDate}`, "--limit=50",
+      "--json=repository,commit,sha",
+    ]);
+    if (!commits.error && commits.status === 0 && commits.stdout?.trim()) {
+      const parsed = JSON.parse(commits.stdout);
+      const seen = new Set();
+      for (const c of parsed) {
+        const firstLine = (c.commit?.message ?? "").split("\n")[0].trim();
+        if (/^Merge (branch|pull request)/i.test(firstLine)) continue;
+        const key = `${c.repository?.nameWithOwner ?? ""}|${firstLine.slice(0, 60)}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        result.commits.push({
+          repo: c.repository?.name ?? c.repository?.nameWithOwner ?? "repo",
+          message: firstLine,
+          date: c.commit?.author?.date ?? "",
+        });
+      }
+    }
+  } catch { /* gh CLI unavailable */ }
+
+  console.log(`[generate-ibp] GitHub: ${result.prsAuthored.length} PRs authored, ${result.prsReviewed.length} PRs reviewed, ${result.commits.length} commits`);
+  return result;
+}
+
+// --- Confluence page activity ----------------------------------------------
+
+async function fetchConfluenceActivity(fromDate, authHeader) {
+  const result = { pagesCreated: [], pagesEdited: [] };
+  const { default: https } = await import("https");
+
+  const confluenceGet = (path) =>
+    new Promise((res) => {
+      const req = https.get(
+        {
+          hostname: "caseware.atlassian.net",
+          path,
+          method: "GET",
+          headers: { Authorization: `Basic ${authHeader}`, Accept: "application/json" },
+        },
+        (response) => {
+          let data = "";
+          response.on("data", (chunk) => { data += chunk; });
+          response.on("end", () => { try { res(JSON.parse(data)); } catch { res(null); } });
+        },
+      );
+      req.on("error", () => res(null));
+      req.setTimeout(10000, () => req.destroy());
+    });
+
+  try {
+    const cql = encodeURIComponent(
+      `contributor = currentUser() AND lastModified >= "${fromDate}" ORDER BY lastModified DESC`,
+    );
+    const response = await confluenceGet(
+      `/wiki/rest/api/content/search?cql=${cql}&limit=25&expand=version,space`,
+    );
+    if (response?.results?.length) {
+      for (const page of response.results) {
+        const item = {
+          title: page.title ?? "Untitled",
+          space: page.space?.name ?? page.space?.key ?? "",
+          version: page.version?.number ?? 1,
+        };
+        if (item.version <= 1) {
+          result.pagesCreated.push(item);
+        } else {
+          result.pagesEdited.push(item);
+        }
+      }
+    }
+  } catch (err) {
+    console.warn("[generate-ibp] Confluence activity fetch failed:", err.message);
+  }
+
+  console.log(`[generate-ibp] Confluence: ${result.pagesCreated.length} created, ${result.pagesEdited.length} edited`);
+  return result;
+}
+
+// --- Jira automation audit -------------------------------------------------
+
+async function fetchJiraAutomationActivity(fromDate, authHeader) {
+  const rules = [];
+  const { default: https } = await import("https");
+
+  const jiraGet = (path) =>
+    new Promise((res) => {
+      const req = https.get(
+        {
+          hostname: "caseware.atlassian.net",
+          path,
+          method: "GET",
+          headers: { Authorization: `Basic ${authHeader}`, Accept: "application/json" },
+        },
+        (response) => {
+          let data = "";
+          response.on("data", (chunk) => { data += chunk; });
+          response.on("end", () => {
+            try { res({ status: response.statusCode, body: JSON.parse(data) }); }
+            catch { res({ status: response.statusCode, body: null }); }
+          });
+        },
+      );
+      req.on("error", () => res({ status: 0, body: null }));
+      req.setTimeout(10000, () => req.destroy());
+    });
+
+  try {
+    const auditRes = await jiraGet(`/rest/api/3/auditing/record?from=${fromDate}&limit=100`);
+    if (auditRes.status === 200 && auditRes.body?.records?.length) {
+      const fromMs = new Date(fromDate + "T00:00:00Z").getTime();
+      for (const record of auditRes.body.records) {
+        const createdMs = record.created ? new Date(record.created).getTime() : 0;
+        if (createdMs < fromMs) continue;
+        if (/(automation|rule)/i.test(String(record.summary ?? record.eventType ?? ""))) {
+          rules.push({
+            name: record.objectItem?.name ?? record.summary ?? "Automation rule",
+            action: /creat/i.test(record.eventType ?? "") ? "Created" : "Updated",
+            date: record.created ?? "",
+          });
+        }
+      }
+    }
+  } catch (err) {
+    console.warn("[generate-ibp] Jira automation audit fetch failed:", err.message);
+  }
+
+  console.log(`[generate-ibp] Jira automation: ${rules.length} rule changes found`);
+  return rules;
 }
 
 // --- Main ------------------------------------------------------------------
@@ -471,14 +1493,47 @@ async function run() {
   const dashboardData = readJson(DASHBOARD_DATA_PATH, {});
 
   const ctx = buildContext(unifiedLog, dashboardData);
+  const weekRanges = ctx.weekRanges ?? getWorkWeekRanges(TARGET_DATE);
+  const weekLogs = loadWeekUnifiedLogs(weekRanges.currentWeekStart, weekRanges.currentWeekEnd);
+  const logsForAggregation = weekLogs.length > 0 ? weekLogs : [unifiedLog];
+
+  ctx.daysWithWeekData = weekLogs.length;
+  ctx.weekEntries = logsForAggregation.flatMap((log) => log.entries ?? []);
+  ctx.weekSummary = aggregateSummaryFromLogs(logsForAggregation);
+  ctx.weekTotalMin = logsForAggregation.reduce((sum, log) => sum + (log.totalMinutes ?? 0), 0);
 
   // Attach Jira project snapshots (async, optional — requires JIRA_EMAIL + JIRA_API_TOKEN)
-  console.log("[generate-ibp] fetching Jira project snapshots...");
-  ctx.jiraProjectSnapshots = await fetchJiraProjectSnapshot(TARGET_DATE);
+  console.log(`[generate-ibp] fetching Jira project snapshots from ${weekRanges.currentWeekStart}...`);
+  const jiraData = await fetchJiraProjectSnapshot(weekRanges.currentWeekStart);
+  ctx.jiraProjectSnapshots = jiraData?.snapshots ?? null;
+  ctx.jiraDistBlockers = jiraData?.distBlockers ?? [];
+  ctx.jiraComments = jiraData?.comments ?? [];
   if (ctx.jiraProjectSnapshots) {
     console.log(`[generate-ibp] Jira snapshots: ${ctx.jiraProjectSnapshots.map((s) => `${s.project}(${s.issues.length})`).join(", ")}`);
   } else {
-    console.log("[generate-ibp] Jira project snapshots skipped (no API credentials)");
+    console.log("[generate-ibp] Jira project snapshots unavailable (no matching issues, API error, or missing credentials)");
+  }
+
+  // GitHub activity (all repos via gh CLI + local git repos)
+  console.log("[generate-ibp] fetching GitHub activity...");
+  ctx.githubActivity = await fetchGitHubActivity(weekRanges.currentWeekStart);
+  // Local git commits (catches private/unpushed work)
+  const _gitEmail = process.env.JIRA_EMAIL ?? process.env.GIT_AUTHOR_EMAIL ?? "liam.bond@caseware.com";
+  const localCommits = fetchLocalGitCommits(weekRanges.currentWeekStart, _gitEmail);
+  ctx.githubActivity.localCommits = localCommits;
+
+  // Confluence pages + Jira automation audit (only when Jira auth is available)
+  const _jiraEmail = process.env.JIRA_EMAIL;
+  const _jiraToken = process.env.JIRA_API_TOKEN;
+  if (_jiraEmail && _jiraToken) {
+    const _authHeader = Buffer.from(`${_jiraEmail}:${_jiraToken}`).toString("base64");
+    console.log("[generate-ibp] fetching Confluence activity...");
+    ctx.confluenceActivity = await fetchConfluenceActivity(weekRanges.currentWeekStart, _authHeader);
+    console.log("[generate-ibp] fetching Jira automation audit...");
+    ctx.jiraAutomationActivity = await fetchJiraAutomationActivity(weekRanges.currentWeekStart, _authHeader);
+  } else {
+    ctx.confluenceActivity = { pagesCreated: [], pagesEdited: [] };
+    ctx.jiraAutomationActivity = [];
   }
 
   let content;
@@ -511,7 +1566,12 @@ async function run() {
   console.log(`[generate-ibp] wrote ${OUTPUT_PATH}`);
 }
 
-run().catch((err) => {
-  console.error("[generate-ibp] fatal:", err);
-  process.exit(1);
-});
+const isDirectExecution =
+  process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url;
+
+if (isDirectExecution) {
+  run().catch((err) => {
+    console.error("[generate-ibp] fatal:", err);
+    process.exit(1);
+  });
+}
