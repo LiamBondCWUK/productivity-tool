@@ -1,4 +1,526 @@
 ﻿{
+    "overnightAnalysis":  {
+                              "generatedAt":  "2026-04-16T01:27:38.063Z",
+                              "durationMs":  1656055,
+                              "model":  "tiered (haiku/sonnet)",
+                              "estimatedCostUsd":  0.0442,
+                              "estimatedInputTokens":  10346,
+                              "estimatedOutputTokens":  8972,
+                              "budgetLimit":  5,
+                              "budgetLimitReached":  false,
+                              "projectsScanned":  19,
+                              "projectsWithFindings":  18,
+                              "projectsProcessedByLLM":  18,
+                              "kanbanCardsPushed":  0,
+                              "kanbanCardsPending":  30,
+                              "projects":  {
+                                               "ukcaud-ai-project":  {
+                                                                         "state":  "Brand-new project initialized yesterday with 1 source file, 0 tests, and no project-level CLAUDE.md context file.",
+                                                                         "suggestions":  [
+                                                                                             {
+                                                                                                 "priority":  "HIGH",
+                                                                                                 "action":  "Create .claude/CLAUDE.md with project-specific instructions: tech stack (Node/React assumed), Caseware Nova design system reference, feedback widget API contract, and deployment target (Replit). Reference existing user global CLAUDE.md for Caseware UI rules.",
+                                                                                                 "effort":  "S"
+                                                                                             },
+                                                                                             {
+                                                                                                 "priority":  "MED",
+                                                                                                 "action":  "Set up package.json with dependencies for feedback widget (React, TypeScript, testing framework). Create .github/workflows/ci.yml from ~/Documents/dotfiles/templates/ci-workflow.yml and add pre-commit hooks for linting/secrets scanning.",
+                                                                                                 "effort":  "M"
+                                                                                             },
+                                                                                             {
+                                                                                                 "priority":  "MED",
+                                                                                                 "action":  "Add test scaffold: create tests/ directory, add first test file (empty or stub), and document how tests integrate with CI. Zero test files is acceptable at init, but structure prevents later friction.",
+                                                                                                 "effort":  "S"
+                                                                                             }
+                                                                                         ],
+                                                                         "qualityIssues":  [
+                                                                                               "No test files in a new project â€” establish testing baseline before feature code grows",
+                                                                                               "No CI/CD workflow â€” add GitHub Actions or Replit native CI before first merge"
+                                                                                           ],
+                                                                         "neglected":  [
+
+                                                                                       ],
+                                                                         "crossProjectDeps":  [
+                                                                                                  "Feedback widget output likely feeds into Productivity Tool command center (localhost:3002 per primer)",
+                                                                                                  "Phase 1.5 reverse sync between UKCAS â†” UKCAUD is blocked on DIST admin access â€” check if this widget is on the critical path"
+                                                                                              ]
+                                                                     },
+                                               "bondlw-programming-architecture":  {
+                                                                                       "state":  "Freshly initialized documentation project with baseline structure; no source files or content yet.",
+                                                                                       "suggestions":  [
+                                                                                                           {
+                                                                                                               "priority":  "HIGH",
+                                                                                                               "action":  "Create project-specific CLAUDE.md with documentation guidelines, file structure expectations, and Caseware SDK reference conventions",
+                                                                                                               "effort":  "M"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "priority":  "MED",
+                                                                                                               "action":  "Establish documentation file hierarchy: API reference template, SDK architecture guide, examples directory, and changelog structure",
+                                                                                                               "effort":  "M"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "priority":  "LOW",
+                                                                                                               "action":  "Configure pre-commit hooks to validate documentation format (markdown linting, link integrity, YAML frontmatter) before commits",
+                                                                                                               "effort":  "S"
+                                                                                                           }
+                                                                                                       ],
+                                                                                       "qualityIssues":  [
+
+                                                                                                         ],
+                                                                                       "neglected":  [
+
+                                                                                                     ],
+                                                                                       "crossProjectDeps":  [
+                                                                                                                "Coordinates with primary Caseware SDK projects â€” this is consolidated reference documentation, ensure changelog and API changes are mirrored from source repos"
+                                                                                                            ]
+                                                                                   },
+                                               "activepieces":  {
+                                                                    "state":  "Fresh repository initialization with baseline files only; zero source code committed. Ready for architecture and scaffolding decisions.",
+                                                                    "suggestions":  [
+                                                                                        {
+                                                                                            "priority":  "HIGH",
+                                                                                            "action":  "Define tech stack and create initial project scaffolding (package.json, src/ structure, build config) â€” this is a Zapier alternative, so expect Node.js + React frontend + NestJS/Express backend. Reference the Activepieces GitHub repo for the official stack.",
+                                                                                            "effort":  "M"
+                                                                                        },
+                                                                                        {
+                                                                                            "priority":  "HIGH",
+                                                                                            "action":  "Create CLAUDE.md with project conventions, workflow rules, and architectural decisions. Include: commit message format, branch naming, testing strategy (unit/integration/e2e), and integration testing approach for 280+ integrations.",
+                                                                                            "effort":  "M"
+                                                                                        },
+                                                                                        {
+                                                                                            "priority":  "MED",
+                                                                                            "action":  "Set up CI/CD pipeline (.github/workflows) with linting, test execution, and build validation â€” critical for an open-source project with 21K+ stars and active contributor base.",
+                                                                                            "effort":  "M"
+                                                                                        }
+                                                                                    ],
+                                                                    "qualityIssues":  [
+
+                                                                                      ],
+                                                                    "neglected":  [
+
+                                                                                  ],
+                                                                    "crossProjectDeps":  [
+                                                                                             "Check if Activepieces should integrate with \u0027AI Breaking News Tool\u0027 and \u0027Productivity Tool\u0027 mentioned in primer.md â€” may require connectors."
+                                                                                         ]
+                                                                },
+                                               "ukcaud-authoring-agent-spec-layer":  {
+                                                                                         "state":  "Building phase agent spec system with 36 source files but zero test coverage; actively maintained but untested.",
+                                                                                         "suggestions":  [
+                                                                                                             {
+                                                                                                                 "priority":  "HIGH",
+                                                                                                                 "action":  "Establish test baseline: identify critical agent logic in the 36 files and write tests for decision trees, spec validation, and workflow transitions. Start with 5-10 core tests for agent behavior.",
+                                                                                                                 "effort":  "M"
+                                                                                                             },
+                                                                                                             {
+                                                                                                                 "priority":  "MED",
+                                                                                                                 "action":  "Create project-specific CLAUDE.md with agent spec conventions (file organization, spec format, testing approach, git workflow for this repo).",
+                                                                                                                 "effort":  "S"
+                                                                                                             },
+                                                                                                             {
+                                                                                                                 "priority":  "LOW",
+                                                                                                                 "action":  "Verify package.json exists if this is a Node.js project; if not, document the language/runtime (e.g., Python, Go) in README so future contributors understand the tech stack.",
+                                                                                                                 "effort":  "S"
+                                                                                                             }
+                                                                                                         ],
+                                                                                         "qualityIssues":  [
+                                                                                                               "Zero test coverage on 36 source files â€” agent specs must be verified; no tests means logic bugs, spec inconsistencies, and edge cases are undetected.",
+                                                                                                               "No project-specific context file (CLAUDE.md) â€” rules, conventions, and testing strategy are implicit, not documented."
+                                                                                                           ],
+                                                                                         "neglected":  [
+
+                                                                                                       ],
+                                                                                         "crossProjectDeps":  [
+                                                                                                                  "Likely integrates with or extends the UKCAS â†” UKCAUD sync workflows mentioned in primer (Phase 1.5 blocked on DIST admin access)."
+                                                                                                              ]
+                                                                                     },
+                                               "cw-release-notes-tool":  {
+                                                                             "state":  "CW Release Notes Tool actively in development (commits yesterday) with 11 source files, zero test coverage, and 7-day-old pending changelog entries.",
+                                                                             "suggestions":  [
+                                                                                                 {
+                                                                                                     "priority":  "HIGH",
+                                                                                                     "action":  "Add test suite for 11 source files â€” choose testing framework (pytest for app.py, vitest/jest for feedback-widget.js), create tests/ directory, establish \u003e80% coverage baseline before production merge",
+                                                                                                     "effort":  "M"
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "priority":  "MED",
+                                                                                                     "action":  "Consolidate CHANGELOG-PENDING.md (6 entries, 7 days stale) into CHANGELOG.md and clear pending file â€” align with your changelog-tracker hook policy",
+                                                                                                     "effort":  "S"
+                                                                                                 }
+                                                                                             ],
+                                                                             "qualityIssues":  [
+                                                                                                   "11 source files with zero test files â€” violates stated quality gate of 80%+ coverage",
+                                                                                                   "CHANGELOG-PENDING.md accumulating unpublished entries for 7 days â€” hook system not enforcing consolidation"
+                                                                                               ],
+                                                                             "neglected":  [
+
+                                                                                           ],
+                                                                             "crossProjectDeps":  [
+
+                                                                                                  ]
+                                                                         },
+                                               "cw-lead-schedule-specifications":  {
+                                                                                       "state":  "Active development with 54 source files but zero test coverageâ€”a critical gap for a specification validation platform.",
+                                                                                       "suggestions":  [
+                                                                                                           {
+                                                                                                               "priority":  "HIGH",
+                                                                                                               "action":  "Establish test suite immediately. Start with integration tests for the Excel spec validation logic (highest-risk component). Target 60%+ coverage before proceeding further.",
+                                                                                                               "effort":  "L"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "priority":  "HIGH",
+                                                                                                               "action":  "Consolidate CHANGELOG-PENDING.md entries into CHANGELOG.md. 26 unpublished lines over 7 days indicates a patternâ€”integrate this into your commit-prep workflow to prevent future backlog.",
+                                                                                                               "effort":  "S"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "priority":  "MED",
+                                                                                                               "action":  "Codify testing discipline in project onboarding docs. Add a pre-commit hook or CI check that blocks commits without test coverage for new logic.",
+                                                                                                               "effort":  "M"
+                                                                                                           }
+                                                                                                       ],
+                                                                                       "qualityIssues":  [
+                                                                                                             "54 source files with 0 test filesâ€”no safety net for spec validation logic",
+                                                                                                             "CHANGELOG-PENDING.md accumulating unpublished entries; consolidation blocked or forgotten"
+                                                                                                         ],
+                                                                                       "neglected":  [
+                                                                                                         "Test infrastructure entirely absent; no test files, no test runner configured"
+                                                                                                     ],
+                                                                                       "crossProjectDeps":  [
+
+                                                                                                            ]
+                                                                                   },
+                                               "claude-mobile":  {
+                                                                     "state":  "Active dashboard project in rapid development with zero test coverage and 6 uncommitted changes blocking release.",
+                                                                     "suggestions":  [
+                                                                                         {
+                                                                                             "priority":  "HIGH",
+                                                                                             "action":  "Create test suite for Express API routes and WebSocket handlers (focus: authentication, session state, voice processing). Start with jest + supertest for API coverage.",
+                                                                                             "effort":  "M"
+                                                                                         },
+                                                                                         {
+                                                                                             "priority":  "MED",
+                                                                                             "action":  "Commit 6 pending changes with semantic messages (feat/fix/refactor), consolidate CHANGELOG-PENDING.md into CHANGELOG.md, then tag a release.",
+                                                                                             "effort":  "S"
+                                                                                         },
+                                                                                         {
+                                                                                             "priority":  "LOW",
+                                                                                             "action":  "Create CLAUDE.md with project scope (express + websocket + voice), local dev instructions, and test/commit hooks to prevent future test gaps.",
+                                                                                             "effort":  "S"
+                                                                                         }
+                                                                                     ],
+                                                                     "qualityIssues":  [
+                                                                                           "Zero test files for 6 source modules â€” no coverage for API routes, WebSocket events, or voice processing pipeline",
+                                                                                           "6 uncommitted file changes suggest incomplete work cycles",
+                                                                                           "11-day-old changelog entries indicate stalled release process"
+                                                                                       ],
+                                                                     "neglected":  [
+                                                                                       "Test framework/infrastructure (0 test files in Building phase)",
+                                                                                       "Release cadence (CHANGELOG-PENDING backlog for 7+ days)"
+                                                                                   ],
+                                                                     "crossProjectDeps":  [
+
+                                                                                          ]
+                                                                 },
+                                               "ai-work-presentation-tool":  {
+                                                                                 "state":  "Active development with 17 uncommitted changes over 14 days; zero test coverage on 8 source files.",
+                                                                                 "suggestions":  [
+                                                                                                     {
+                                                                                                         "priority":  "HIGH",
+                                                                                                         "action":  "Commit the 17 uncommitted changes immediately with semantic messages (feat/fix/refactor) and establish a daily commit habit to avoid stale work.",
+                                                                                                         "effort":  "S"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "HIGH",
+                                                                                                         "action":  "Add test coverage for the presentation generation pipeline: at minimum, smoke tests for PPTX file creation, template loading, and brand token injection. Start with 2-3 tests to unblock deployability.",
+                                                                                                         "effort":  "M"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "MED",
+                                                                                                         "action":  "Publish the 7 pending changelog entries (7 days old) into CHANGELOG.md and establish a weekly publication cadence.",
+                                                                                                         "effort":  "S"
+                                                                                                     }
+                                                                                                 ],
+                                                                                 "qualityIssues":  [
+                                                                                                       "Zero test coverage on 8 source files â€” critical for a presentation generation tool where output correctness is user-visible",
+                                                                                                       "Commit discipline broken: 14 days since last commit despite active development (17 uncommitted changes suggests batch work not being checkpointed)"
+                                                                                                   ],
+                                                                                 "neglected":  [
+                                                                                                   "CHANGELOG-PENDING.md backlog growing (7 entries, 7 days old) â€” publication automation or weekly ritual needed"
+                                                                                               ],
+                                                                                 "crossProjectDeps":  [
+
+                                                                                                      ]
+                                                                             },
+                                               "yearly-reviews":  {
+                                                                      "state":  "Newly initialized Yearly Reviews project with minimal structure; only README.md missing from core documentation.",
+                                                                      "suggestions":  [
+                                                                                          {
+                                                                                              "priority":  "HIGH",
+                                                                                              "action":  "Add README.md documenting project purpose, setup instructions, and usage examples. Reference CLAUDE.md conventions for consistency with other projects.",
+                                                                                              "effort":  "S"
+                                                                                          },
+                                                                                          {
+                                                                                              "priority":  "MED",
+                                                                                              "action":  "Create test directory and baseline test file â€” project is in \u0027Review\u0027 phase and should establish quality gates early rather than retrofit testing later.",
+                                                                                              "effort":  "M"
+                                                                                          }
+                                                                                      ],
+                                                                      "qualityIssues":  [
+
+                                                                                        ],
+                                                                      "neglected":  [
+
+                                                                                    ],
+                                                                      "crossProjectDeps":  [
+
+                                                                                           ]
+                                                                  },
+                                               "property-search-tool":  {
+                                                                            "state":  "Property Search Tool has 93 source files with zero test coverage and stale changelog entries; ready for test implementation before production deployment.",
+                                                                            "suggestions":  [
+                                                                                                {
+                                                                                                    "priority":  "HIGH",
+                                                                                                    "action":  "Implement test suite for core scraping (Rightmove parser), financial logic (property filtering), and data models. Start with unit tests for the financial criteria evaluation â€” this is the highest-risk component. Use pytest if Python or unittest framework native to the language.",
+                                                                                                    "effort":  "L"
+                                                                                                },
+                                                                                                {
+                                                                                                    "priority":  "HIGH",
+                                                                                                    "action":  "Resolve CHANGELOG-PENDING.md: 2 entries are 25 days stale. Consolidate into CHANGELOG.md and commit with \u0027chore: consolidate changelog\u0027. This unblocks EOD sync workflow per hooks protocol.",
+                                                                                                    "effort":  "S"
+                                                                                                },
+                                                                                                {
+                                                                                                    "priority":  "MED",
+                                                                                                    "action":  "Set up CI pipeline to block merges if test coverage drops below 70%. Add a minimal test fixture for Rightmove scraper mock responses to reduce test environment friction.",
+                                                                                                    "effort":  "M"
+                                                                                                }
+                                                                                            ],
+                                                                            "qualityIssues":  [
+                                                                                                  "Zero test coverage on 93-file scraper/financial processing codebase â€” critical gap for data-driven tool touching real estate prices",
+                                                                                                  "CHANGELOG-PENDING.md has 2 unpublished entries 25 days old, blocking normal documentation consolidation workflow"
+                                                                                              ],
+                                                                            "neglected":  [
+                                                                                              "Test infrastructure completely absent â€” no test files, no CI, no coverage baseline"
+                                                                                          ],
+                                                                            "crossProjectDeps":  [
+                                                                                                     "Depends on Rightmove availability and HTML structure stability â€” add tests for parser resilience to site changes"
+                                                                                                 ]
+                                                                        },
+                                               "productivity-tool":  {
+                                                                         "state":  "Productivity dashboard (Next.js 14) in Review phase with 67 uncommitted changes and 7-day-old CHANGELOG backlog â€” execution discipline violation.",
+                                                                         "suggestions":  [
+                                                                                             {
+                                                                                                 "priority":  "HIGH",
+                                                                                                 "action":  "Resolve 67 uncommitted changes: review `git status` and either commit with semantic messages (`feat:`, `fix:`, `chore:`) or discard via `git checkout -- .`. Violates git-workflow.md execution discipline.",
+                                                                                                 "effort":  "M"
+                                                                                             },
+                                                                                             {
+                                                                                                 "priority":  "HIGH",
+                                                                                                 "action":  "Consolidate CHANGELOG-PENDING.md (139 lines, 7 days old) into CHANGELOG.md per doc-with-commits hook. Resolve DOC-UPDATE-NEEDED.md flags before next commit.",
+                                                                                                 "effort":  "S"
+                                                                                             },
+                                                                                             {
+                                                                                                 "priority":  "MED",
+                                                                                                 "action":  "Establish test baseline: 1 test for 88 source files (1.1% coverage). Identify critical paths (API routes, state management, data transforms) and write integration tests for highest-value modules.",
+                                                                                                 "effort":  "L"
+                                                                                             }
+                                                                                         ],
+                                                                         "qualityIssues":  [
+                                                                                               "67 uncommitted changes pending â€” violates execution-discipline.md checkpoint rule",
+                                                                                               "1.1% test coverage (1/88 files) â€” no coverage for 87 source files",
+                                                                                               "CHANGELOG-PENDING.md unresolved for 7 days â€” violates doc-with-commits hook protocol",
+                                                                                               "All recent commits are bulk \u0027eod sync\u0027 with no semantic versioning â€” unclear scope and intent",
+                                                                                               "DOC-UPDATE-NEEDED.md still flagged but referenced in commits â€” documentation backlog not resolved"
+                                                                                           ],
+                                                                         "neglected":  [
+                                                                                           "Test suite (1 test file for 88 source files â€” 1.1% coverage)",
+                                                                                           "Semantic commit messages (all recent commits are \u0027eod sync\u0027 bulk updates)"
+                                                                                       ],
+                                                                         "crossProjectDeps":  [
+                                                                                                  "Consumes AI Breaking News Tool output (primer.md: gnews-session.json, scrape-gnews.js integration)",
+                                                                                                  "Shares pm2 process management with other local services"
+                                                                                              ]
+                                                                     },
+                                               "cw-ukjpd-workflows":  {
+                                                                          "state":  "Documentation project for UK JPD workflow automation actively maintained but with stale changelog entries.",
+                                                                          "suggestions":  [
+                                                                                              {
+                                                                                                  "priority":  "HIGH",
+                                                                                                  "action":  "Consolidate 6 pending changelog entries (7 days old) from CHANGELOG-PENDING.md into CHANGELOG.md to maintain visibility and project history",
+                                                                                                  "effort":  "S"
+                                                                                              },
+                                                                                              {
+                                                                                                  "priority":  "MED",
+                                                                                                  "action":  "Establish a weekly schedule (CronCreate or loop) to review and publish pending changelog entries automatically, preventing future accumulation",
+                                                                                                  "effort":  "S"
+                                                                                              },
+                                                                                              {
+                                                                                                  "priority":  "MED",
+                                                                                                  "action":  "Add a README or CONTRIBUTING.md documenting the workflow automation process, prompt file purpose, and template update procedures for future maintainers",
+                                                                                                  "effort":  "M"
+                                                                                              }
+                                                                                          ],
+                                                                          "qualityIssues":  [
+                                                                                                "Changelog publication lag: 6 entries pending for 7 days indicates inconsistent consolidation process"
+                                                                                            ],
+                                                                          "neglected":  [
+
+                                                                                        ],
+                                                                          "crossProjectDeps":  [
+                                                                                                   "JPD automation prompts (create-epic.prompt.md, create-initiative.prompt.md) likely feed into Caseware product ticketing/planning systems"
+                                                                                               ]
+                                                                      },
+                                               "cw-ukcaud-project-tracker":  {
+                                                                                 "state":  "Active review-phase project with 13 uncommitted changes and heavy automation/state-management activity but low test coverage (3 test files for 39 source files).",
+                                                                                 "suggestions":  [
+                                                                                                     {
+                                                                                                         "priority":  "HIGH",
+                                                                                                         "action":  "Commit the 13 uncommitted changes immediately. Review whether `.omc/state/` and `outputs/` directories should be .gitignored to prevent state bloat in the review phase.",
+                                                                                                         "effort":  "S"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "HIGH",
+                                                                                                         "action":  "Expand test coverage from 3 to at least 12-15 test files to match the 39-source-file codebase (target 20%+ test-to-source ratio for review-phase acceptance).",
+                                                                                                         "effort":  "M"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "MED",
+                                                                                                         "action":  "Consolidate repeated \u0027eod sync\u0027 commits into semantic commits (feat/fix/docs) and review whether generated cache files (standup_*, portfolio-sync_*) belong in .gitignore.",
+                                                                                                         "effort":  "M"
+                                                                                                     }
+                                                                                                 ],
+                                                                                 "qualityIssues":  [
+                                                                                                       "Test coverage critically low: 3 test files vs. 39 source files (8% ratio; target \u003e20%)",
+                                                                                                       "13 uncommitted changes blocking clean review-phase state",
+                                                                                                       "Generated output artifacts in git (outputs/ai-analysis-cache/, outputs/ceremony-prep/) risk repository bloat"
+                                                                                                   ],
+                                                                                 "neglected":  [
+                                                                                                   "Test suite appears abandoned â€” last meaningful feature work (4 commits ago) preceded by no corresponding test expansion"
+                                                                                               ],
+                                                                                 "crossProjectDeps":  [
+                                                                                                          "Project depends on Jira UKCAUD integration; if UKCAUD project blocks, sprint ceremony automation stalls"
+                                                                                                      ]
+                                                                             },
+                                               "cw-template-comparison-tool":  {
+                                                                                   "state":  "Active full-stack template comparison tool with 51 uncontested source files and zero test infrastructure in Review phase.",
+                                                                                   "suggestions":  [
+                                                                                                       {
+                                                                                                           "priority":  "HIGH",
+                                                                                                           "action":  "Create test files for core modules (API integration layer, template comparison business logic, frontend UI components). Start with API tests to unblock other work.",
+                                                                                                           "effort":  "L"
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "priority":  "HIGH",
+                                                                                                           "action":  "Consolidate CHANGELOG-PENDING.md (20 entries, 7 days old) into CHANGELOG.md and commit â€” this unblocks the documentation hooks.",
+                                                                                                           "effort":  "S"
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "priority":  "MED",
+                                                                                                           "action":  "Add pre-commit hook to enforce test file presence for any new source additions. Reference: ~/Documents/dotfiles/templates/ci-workflow.yml for CI setup once tests exist.",
+                                                                                                           "effort":  "M"
+                                                                                                       }
+                                                                                                   ],
+                                                                                   "qualityIssues":  [
+                                                                                                         "Zero test coverage on 51 source files â€” unacceptable for Review phase; blocks confidence in template comparison logic",
+                                                                                                         "20 unpublished changelog entries (7 days old) indicate stalled changelog consolidation workflow"
+                                                                                                     ],
+                                                                                   "neglected":  [
+                                                                                                     "Testing infrastructure entirely absent â€” no test framework, fixtures, or CI pipeline"
+                                                                                                 ],
+                                                                                   "crossProjectDeps":  [
+                                                                                                            "Depends on CW API Scraper (mentioned in description) â€” verify scraper is stable and accessible before production use"
+                                                                                                        ]
+                                                                               },
+                                               "cw-uat-testing-tool":  {
+                                                                           "state":  "Done-phase UAT artifact collection with active EOD syncs but pending changelog entries from 7 days ago.",
+                                                                           "suggestions":  [
+                                                                                               {
+                                                                                                   "priority":  "MED",
+                                                                                                   "action":  "Consolidate CHANGELOG-PENDING.md (6 entries, 7 days old) into CHANGELOG.md per documentation-with-commits hook",
+                                                                                                   "effort":  "S"
+                                                                                               },
+                                                                                               {
+                                                                                                   "priority":  "MED",
+                                                                                                   "action":  "Verify project phase accuracy: marked \u0027Done\u0027 but receiving daily EOD syncs â€” update phase or close changelog tracking if truly archived",
+                                                                                                   "effort":  "S"
+                                                                                               }
+                                                                                           ],
+                                                                           "qualityIssues":  [
+
+                                                                                             ],
+                                                                           "neglected":  [
+
+                                                                                         ],
+                                                                           "crossProjectDeps":  [
+                                                                                                    "Project documents UK Cloud Audit squad UAT effort â€” confirm dependencies on upstream audit/compliance workflows"
+                                                                                                ]
+                                                                       },
+                                               "ai-breaking-news-tool":  {
+                                                                             "state":  "Operational maintenance mode with daily syncs; changelog backlog accumulating.",
+                                                                             "suggestions":  [
+                                                                                                 {
+                                                                                                     "priority":  "HIGH",
+                                                                                                     "action":  "Add test coverage for scrape-gnews.js â€” test Google News login session handling, RSS fallback, and article parsing. Session auth is fragile; mock tests would catch breakage early.",
+                                                                                                     "effort":  "M"
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "priority":  "HIGH",
+                                                                                                     "action":  "Consolidate 20 pending changelog entries (8 days old) into CHANGELOG.md. Establish weekly consolidation cadence to prevent backlog.",
+                                                                                                     "effort":  "S"
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "priority":  "MED",
+                                                                                                     "action":  "Reorganize source into scripts/ subdirectories by concern (auth, parsing, sync) to clarify structure as the tool grows beyond single-file scope.",
+                                                                                                     "effort":  "M"
+                                                                                                 }
+                                                                                             ],
+                                                                             "qualityIssues":  [
+                                                                                                   "Zero test files for a news scraper that depends on external authentication and unstable HTML parsing",
+                                                                                                   "Google News session cookies hardcoded in setup; no session refresh mechanism if auth expires mid-day",
+                                                                                                   "All commits are chore/sync only â€” no visibility into what actually changed in live behavior"
+                                                                                               ],
+                                                                             "neglected":  [
+                                                                                               "Test suite entirely absent despite daily operational use",
+                                                                                               "Changelog entries accumulating (20 unpublished over 8 days); process not automated"
+                                                                                           ],
+                                                                             "crossProjectDeps":  [
+                                                                                                      "Sends results to Productivity Tool\u0027s command center (localhost:3002) â€” syncs depend on that service running",
+                                                                                                      "Depends on Google News login session (gnews-session.json) â€” session expiry would break daily scrapes"
+                                                                                                  ]
+                                                                         }
+                                           },
+                              "globalInsights":  [
+                                                     "This is a prerequisite for Phase 1.5 UKCAS/UKCAUD sync work; initialize CLAUDE.md and CI early to avoid delays when feature work accelerates.",
+                                                     "Documentation projects should establish structure and automation early to prevent inconsistency drift as content grows.",
+                                                     "This is a high-profile open-source project at inception; establish strong conventions and automation early to scale contributor onboarding.",
+                                                     "Agent/automation spec systems require test coverage earlier than typical projects due to correctness sensitivity â€” consider TDD before adding more files.",
+                                                     "Tool is actively maintained (EOD syncs) but test infrastructure is missing entirely; fix this before moving past \u0027Building\u0027 phase.",
+                                                     "Pattern of \u0027eod sync\u0027 commits with CLAUDE.md updates suggests active daily iteration, but lack of tests indicates documentation is advancing faster than verification discipline.",
+                                                     "Rapid feature iteration (Groq Whisper integration) without corresponding test coverage or release checkpoints â€” typical of early Building phase, but needs gates before production use.",
+                                                     "This project shows active development but weak commit/test discipline â€” common sign of rapid prototyping without production-readiness checks.",
+                                                     "This Yearly Reviews tool is part of a broader personal productivity ecosystem alongside AI Breaking News and Productivity Tool projects, suggesting an integrated planning and reflection workflow.",
+                                                     "Project is functionally mature (93 files, active commits) but skipped testing phase; typical for solo automation tools that need test-first refactoring before scaling.",
+                                                     "Review phase work being tracked via bulk sync commits rather than semantic versioning â€” suggests consolidation/documentation task that should be finalized with proper git hygiene.",
+                                                     "Recent activity shows daily eod-sync commits with config updates but changelog consolidation is not part of the routine.",
+                                                     "Automation-heavy review-phase project generating repeated state/cache artifacts; needs test expansion and .gitignore cleanup before merge.",
+                                                     "Template comparison tools are critical infrastructure; zero test coverage makes this unsuitable for Review phase without immediate test investment.",
+                                                     "Lightweight artifact project (1 source file, no tests) receiving daily maintenance via CLAUDE.md syncs suggests it\u0027s a living reference, not archived â€” consider phase reclassification.",
+                                                     "This is a well-maintained operational tool in \u0027Done\u0027 phase, but the absence of tests and persistent changelog backlog suggest process automation opportunities."
+                                                 ],
+                              "topPriorityAction":  "[CW Template Comparison Tool] Zero Test Coverage on 51 Files"
+                          },
+    "priorityInbox":  {
+                          "urgent":  [
+
+                                     ],
+                          "aiSuggested":  [
+
+                                          ],
+                          "today":  [
+
+                                    ],
+                          "backlog":  [
+
+                                      ]
+                      },
     "aiNewsResults":  {
                           "lastRun":  "2026-04-12T22:05:36.720Z",
                           "topStories":  [
@@ -137,434 +659,328 @@
                                                                          ]
                                             }
                       },
-    "dayPlan":  {
-                    "generatedAt":  "2026-04-13T10:30:04.650Z",
-                    "accepted":  false,
-                    "blocks":  [
-                                   {
-                                       "time":  "16:30",
-                                       "duration":  60,
-                                       "task":  "admin",
-                                       "type":  "admin",
-                                       "label":  "Email and messages check-in",
-                                       "rationale":  "End-of-day administrative work before close"
-                                   }
-                               ]
-                },
-    "overnightAnalysis":  {
-                              "generatedAt":  "2026-04-15T12:59:52.492Z",
-                              "durationMs":  646157,
-                              "model":  "tiered (haiku/sonnet)",
-                              "estimatedCostUsd":  0.0342,
-                              "estimatedInputTokens":  8742,
-                              "estimatedOutputTokens":  6803,
-                              "budgetLimit":  5,
-                              "budgetLimitReached":  false,
-                              "projectsScanned":  12,
-                              "projectsWithFindings":  12,
-                              "projectsProcessedByLLM":  12,
-                              "kanbanCardsPushed":  0,
-                              "kanbanCardsPending":  22,
-                              "projects":  {
-                                               "productivity-tool":  {
-                                                                         "state":  "Active development with 81 untested source files, 11 uncommitted changes, and 6-day-old unpublished changelog entries.",
-                                                                         "suggestions":  [
-                                                                                             {
-                                                                                                 "priority":  "HIGH",
-                                                                                                 "action":  "Establish a basic test suite for the Next.js dashboard. Start with 3-5 tests for critical API routes (day-plan, activity, automation) and the main page component. Use Jest or Playwright. This will prevent regressions as the 81-file codebase grows.",
-                                                                                                 "effort":  "M"
-                                                                                             },
-                                                                                             {
-                                                                                                 "priority":  "HIGH",
-                                                                                                 "action":  "Commit the 11 pending file changes with semantic messages (chore:, feat:, fix: prefixes per CLAUDE.md). This clears uncommitted state and maintains a clean git history for the daily sync pattern.",
-                                                                                                 "effort":  "S"
-                                                                                             },
-                                                                                             {
-                                                                                                 "priority":  "MED",
-                                                                                                 "action":  "Publish CHANGELOG-PENDING.md entries (139 lines, 6 days old) into CHANGELOG.md and clear the pending file. This keeps doc-tracking current with the active development pace.",
-                                                                                                 "effort":  "S"
-                                                                                             }
-                                                                                         ],
-                                                                         "qualityIssues":  [
-                                                                                               "Zero test coverage on 81 source files â€” high regression risk for a production dashboard managing priority/day-plan data",
-                                                                                               "11 uncommitted changes pending â€” breaks the EOD sync pattern and masks uncommitted work",
-                                                                                               "No LSP diagnostics run â€” TypeScript errors may be hidden in the Next.js codebase"
-                                                                                           ],
-                                                                         "neglected":  [
-                                                                                           "Test infrastructure (0 of 81 files have corresponding test files)"
-                                                                                       ],
-                                                                         "crossProjectDeps":  [
+    "teamMessages":  [
 
-                                                                                              ]
-                                                                     },
-                                               "cw-ukcaud-project-tracker":  {
-                                                                                 "state":  "Active development with daily automation and documentation work, but 8 uncommitted changes and 6-day-old changelog backlog blocking proper commit discipline.",
-                                                                                 "suggestions":  [
-                                                                                                     {
-                                                                                                         "priority":  "HIGH",
-                                                                                                         "action":  "Commit the 8 uncommitted changes immediately. Project follows documentation-with-commits protocol (per CLAUDE.md): stage doc files alongside code, check DOC-UPDATE-NEEDED.md, consolidate CHANGELOG-PENDING.md before commits.",
-                                                                                                         "effort":  "S"
-                                                                                                     },
-                                                                                                     {
-                                                                                                         "priority":  "MED",
-                                                                                                         "action":  "Consolidate 46-day-old CHANGELOG-PENDING.md entries (6 days stale) into CHANGELOG.md and commit. Establishes regular cadence to prevent future backlogs.",
-                                                                                                         "effort":  "S"
-                                                                                                     },
-                                                                                                     {
-                                                                                                         "priority":  "MED",
-                                                                                                         "action":  "Test-to-source ratio is sparse (3 test files for 38 source files). Audit coverage for critical paths: sprint ceremony automation and delivery tracking logic.",
-                                                                                                         "effort":  "M"
-                                                                                                     }
-                                                                                                 ],
-                                                                                 "qualityIssues":  [
-                                                                                                       "8 uncommitted file changes indicate incomplete workflow (doc changes staged without code, or vice versa)",
-                                                                                                       "46 unpublished changelog lines accumulating for 6+ days suggests inconsistent documentation consolidation discipline"
-                                                                                                   ],
-                                                                                 "neglected":  [
-                                                                                                   "Test suite coverage relative to codebase size (3 test files for 38 source files)"
-                                                                                               ],
-                                                                                 "crossProjectDeps":  [
-                                                                                                          "Integrates with UKCAUD Jira project for sprint ceremony automation â€” depends on Atlassian MCP or Jira API token availability"
-                                                                                                      ]
-                                                                             },
-                                               "ai-breaking-news-tool":  {
-                                                                             "state":  "Early-stage breaking news tool with minimal source code, pending changelog consolidation, and 6 uncommitted changes blocking clarity.",
-                                                                             "suggestions":  [
-                                                                                                 {
-                                                                                                     "priority":  "HIGH",
-                                                                                                     "action":  "Evaluate and commit the 6 uncommitted file changes or explicitly stash them â€” blocking clarity on project status",
-                                                                                                     "effort":  "S"
-                                                                                                 },
-                                                                                                 {
-                                                                                                     "priority":  "MED",
-                                                                                                     "action":  "Consolidate CHANGELOG-PENDING.md (20 lines, 8 days old) into CHANGELOG.md per documentation-with-commits protocol",
-                                                                                                     "effort":  "S"
-                                                                                                 },
-                                                                                                 {
-                                                                                                     "priority":  "MED",
-                                                                                                     "action":  "Add test file(s) for the single source file â€” 0/1 coverage is a risk for production tooling",
-                                                                                                     "effort":  "M"
-                                                                                                 }
-                                                                                             ],
-                                                                             "qualityIssues":  [
-                                                                                                   "Zero test coverage (0 test files for 1 source file)",
-                                                                                                   "Only 1 source file suggests incomplete implementation or placeholder structure",
-                                                                                                   "6 uncommitted changes indicate stalled work-in-progress"
-                                                                                               ],
-                                                                             "neglected":  [
-                                                                                               "CHANGELOG-PENDING.md unpublished for 8 days (20 entries)"
-                                                                                           ],
-                                                                             "crossProjectDeps":  [
-
-                                                                                                  ]
-                                                                         },
-                                               "cw-template-comparison-tool":  {
-                                                                                   "state":  "Full-stack template comparison tool in active development (51 source files, last commit 5 days ago) but entirely test-free with 7 days of unpublished changelog entries.",
-                                                                                   "suggestions":  [
-                                                                                                       {
-                                                                                                           "priority":  "HIGH",
-                                                                                                           "action":  "Establish test infrastructure before adding more features. Set up Jest/Vitest for frontend, add unit tests for API layer, and create baseline coverage targets. This unblocks safe refactoring and quality gates.",
-                                                                                                           "effort":  "M"
-                                                                                                       },
-                                                                                                       {
-                                                                                                           "priority":  "HIGH",
-                                                                                                           "action":  "Consolidate CHANGELOG-PENDING.md (20 entries, 7 days accumulated) into CHANGELOG.md. Stage and commit alongside code changes to prevent doc debt.",
-                                                                                                           "effort":  "S"
-                                                                                                       },
-                                                                                                       {
-                                                                                                           "priority":  "MED",
-                                                                                                           "action":  "Create project-specific CLAUDE.md documenting test strategy, code standards (immutability rules, file organization), and setup instructions. Reference CW API Scraper dependency clearly.",
-                                                                                                           "effort":  "S"
-                                                                                                       }
-                                                                                                   ],
-                                                                                   "qualityIssues":  [
-                                                                                                         "51 source files with zero test files â€” no unit or integration coverage",
-                                                                                                         "No test framework configured or CI quality gates established",
-                                                                                                         "Changelog debt: 20 pending entries (7 days old) not consolidated into main CHANGELOG.md"
-                                                                                                     ],
-                                                                                   "neglected":  [
-                                                                                                     "Test infrastructure entirely absent â€” no testing setup despite full-stack codebase"
-                                                                                                 ],
-                                                                                   "crossProjectDeps":  [
-                                                                                                            "Wraps \u0027CW API Scraper\u0027 upstream â€” verify scraper API stability before feature work"
-                                                                                                        ]
-                                                                               },
-                                               "cw-release-notes-tool":  {
-                                                                             "state":  "Implemented Python release notes tool with 11 source files but zero test coverage and stale pending changelog (7 days old).",
-                                                                             "suggestions":  [
-                                                                                                 {
-                                                                                                     "priority":  "HIGH",
-                                                                                                     "action":  "Add test suite covering core app.py and feedback-widget.js functionality. Start with unit tests for critical paths, then integration tests for the release notes pipeline.",
-                                                                                                     "effort":  "M"
-                                                                                                 },
-                                                                                                 {
-                                                                                                     "priority":  "MED",
-                                                                                                     "action":  "Consolidate CHANGELOG-PENDING.md (6 entries, 7 days old) into CHANGELOG.md as part of next release cycle to keep changelog current.",
-                                                                                                     "effort":  "S"
-                                                                                                 },
-                                                                                                 {
-                                                                                                     "priority":  "LOW",
-                                                                                                     "action":  "Create project-level CLAUDE.md to document tool architecture, data flow, and testing strategy for future contributors.",
-                                                                                                     "effort":  "S"
-                                                                                                 }
-                                                                                             ],
-                                                                             "qualityIssues":  [
-                                                                                                   "Zero test coverage despite 11 source files and \u0027Implemented\u0027 status â€” no testFileCount detected",
-                                                                                                   "CHANGELOG-PENDING.md entries sitting unpublished for 7 days, indicating release workflow stall"
-                                                                                               ],
-                                                                             "neglected":  [
-                                                                                               "CHANGELOG-PENDING.md consolidation â€” 6 entries aged 7 days waiting for publication"
-                                                                                           ],
-                                                                             "crossProjectDeps":  [
-
-                                                                                                  ]
-                                                                         },
-                                               "cw-lead-schedule-specifications":  {
-                                                                                       "state":  "54-file specification validation platform in Building phase with zero test coverage and stale changelog entries (5 days since last commit).",
-                                                                                       "suggestions":  [
-                                                                                                           {
-                                                                                                               "priority":  "HIGH",
-                                                                                                               "action":  "Implement test suite for validation logic â€” start with unit tests for spec parsing/validation (Excel compatibility, field validation). Zero coverage is critical risk for a specification platform. Recommend Jest or Vitest for frontend, consider integration tests for end-to-end spec validation workflows.",
-                                                                                                               "effort":  "M"
-                                                                                                           },
-                                                                                                           {
-                                                                                                               "priority":  "MED",
-                                                                                                               "action":  "Consolidate CHANGELOG-PENDING.md (26 entries, 7 days old) into CHANGELOG.md and commit. Reactivate documentation workflow post-commit per user\u0027s doc-check hooks.",
-                                                                                                               "effort":  "S"
-                                                                                                           },
-                                                                                                           {
-                                                                                                               "priority":  "MED",
-                                                                                                               "action":  "Create CLAUDE.md in project root with: testing standards for spec validation, Excel/data format constraints, validation error handling rules, Caseware brand/compliance requirements if applicable.",
-                                                                                                               "effort":  "S"
-                                                                                                           }
-                                                                                                       ],
-                                                                                       "qualityIssues":  [
-                                                                                                             "Zero test coverage on 54-file codebase â€” critical for validation platform where correctness must be guaranteed",
-                                                                                                             "Changelog stale for 7 days (26 pending entries) â€” documentation pipeline appears inactive",
-                                                                                                             "No project context file (CLAUDE.md) â€” onboarding and standards not documented"
-                                                                                                         ],
-                                                                                       "neglected":  [
-                                                                                                         "Test infrastructure (0 test files vs 54 source files)",
-                                                                                                         "Documentation publishing (changelog entries queued but not consolidated)"
-                                                                                                     ],
-                                                                                       "crossProjectDeps":  [
-
-                                                                                                            ]
-                                                                                   },
-                                               "cw-ukjpd-workflows":  {
-                                                                          "state":  "Lightweight documentation project in active maintenance phase with stale changelog entries awaiting consolidation.",
-                                                                          "suggestions":  [
-                                                                                              {
-                                                                                                  "priority":  "HIGH",
-                                                                                                  "action":  "Consolidate 6 unpublished entries from CHANGELOG-PENDING.md into CHANGELOG.md â€” they are 7 days old and should not accumulate further. Aligns with documentation-with-commits enforcement.",
-                                                                                                  "effort":  "S"
-                                                                                              },
-                                                                                              {
-                                                                                                  "priority":  "MED",
-                                                                                                  "action":  "Create CLAUDE.md at project root to define JPD workflow context, approval gates, and documentation standards specific to this Caseware automation project.",
-                                                                                                  "effort":  "S"
-                                                                                              }
-                                                                                          ],
-                                                                          "qualityIssues":  [
-                                                                                                "CHANGELOG-PENDING.md entries unpublished for 7 days â€” violates documentation-with-commits pre-commit hook requirement"
-                                                                                            ],
-                                                                          "neglected":  [
-
-                                                                                        ],
-                                                                          "crossProjectDeps":  [
-                                                                                                   "Likely depends on CW Personal Productivity Tool (contains IBP/day-plan pipeline referenced in primer.md)"
-                                                                                               ]
-                                                                      },
-                                               "cw-uat-testing-tool":  {
-                                                                           "state":  "Early-stage UAT testing tool with minimal source structure (1 file) and 6-day-old pending documentation requiring consolidation.",
-                                                                           "suggestions":  [
-                                                                                               {
-                                                                                                   "priority":  "HIGH",
-                                                                                                   "action":  "Consolidate CHANGELOG-PENDING.md (6 entries, 7 days old) into CHANGELOG.md before next commit â€” this is a documented workflow requirement in your global CLAUDE.md",
-                                                                                                   "effort":  "S"
-                                                                                               },
-                                                                                               {
-                                                                                                   "priority":  "MED",
-                                                                                                   "action":  "Create CLAUDE.md in this project root with phase-specific guidelines (testing strategy, UAT acceptance criteria, deployment target)",
-                                                                                                   "effort":  "S"
-                                                                                               },
-                                                                                               {
-                                                                                                   "priority":  "MED",
-                                                                                                   "action":  "Add basic test structure for feedback-widget.js (0 tests found) â€” UAT tooling benefits from regression coverage as it matures",
-                                                                                                   "effort":  "M"
-                                                                                               }
-                                                                                           ],
-                                                                           "qualityIssues":  [
-                                                                                                 "Pending changelog entries not consolidated to main CHANGELOG.md (workflow violation)"
-                                                                                             ],
-                                                                           "neglected":  [
-
-                                                                                         ],
-                                                                           "crossProjectDeps":  [
-
-                                                                                                ]
-                                                                       },
-                                               "ukcaud-authoring-agent-spec-layer":  {
-                                                                                         "state":  "High-risk audit/compliance codebase with 36 source files, zero test coverage, and no project context documentation; last commit 8 days ago.",
-                                                                                         "suggestions":  [
-                                                                                                             {
-                                                                                                                 "priority":  "HIGH",
-                                                                                                                 "action":  "Add test suite for core audit/compliance logic. Start with unit tests for business-critical functions â€” at minimum: data validation, workflow state transitions, and compliance rule enforcement. Use pytest or equivalent.",
-                                                                                                                 "effort":  "M"
-                                                                                                             },
-                                                                                                             {
-                                                                                                                 "priority":  "MED",
-                                                                                                                 "action":  "Create CLAUDE.md with project-specific AI context: compliance requirements, data sensitivity levels, audit trail expectations, and validation rules. This will improve both AI-assisted development and onboarding.",
-                                                                                                                 "effort":  "S"
-                                                                                                             },
-                                                                                                             {
-                                                                                                                 "priority":  "MED",
-                                                                                                                 "action":  "Clarify project status: last commit is 8 days old with no recent activity logged. If \u0027Building\u0027 phase is active, re-engage; if paused, mark as such in project metadata.",
-                                                                                                                 "effort":  "S"
-                                                                                                             }
-                                                                                                         ],
-                                                                                         "qualityIssues":  [
-                                                                                                               "Zero test files across 36 source files â€” unacceptable test coverage for compliance/audit workflows; no regression detection or correctness validation",
-                                                                                                               "No CLAUDE.md context file â€” missing project-specific AI guardrails and compliance constraints"
-                                                                                                           ],
-                                                                                         "neglected":  [
-                                                                                                           "Development appears stalled (last commit 2026-04-07, no recent activity in this \u0027Building\u0027 phase project)"
-                                                                                                       ],
-                                                                                         "crossProjectDeps":  [
-
-                                                                                                              ]
-                                                                                     },
-                                               "property-search-tool":  {
-                                                                            "state":  "Property Search Tool is 8 days stale with 93 source files and zero test coverage; active development paused mid-April.",
-                                                                            "suggestions":  [
-                                                                                                {
-                                                                                                    "priority":  "HIGH",
-                                                                                                    "action":  "Add pytest-based integration tests for scraping pipeline and data analysis scripts (scripts/analyse_favs.py, scripts/best_options.py, scripts/full_analysis.py). Target: 70%+ coverage of core data paths, focusing on Rightmove selector robustness and financial calculation logic.",
-                                                                                                    "effort":  "M"
-                                                                                                },
-                                                                                                {
-                                                                                                    "priority":  "HIGH",
-                                                                                                    "action":  "Create CLAUDE.md documenting project assumptions: Rightmove CSS selectors, financial filtering rules, data schema, and setup instructions (dependencies, config paths). Reference exact selectors changed since last run to prevent future regressions.",
-                                                                                                    "effort":  "S"
-                                                                                                },
-                                                                                                {
-                                                                                                    "priority":  "MED",
-                                                                                                    "action":  "Consolidate 2 pending entries from CHANGELOG-PENDING.md (24 days old) into CHANGELOG.md and delete pending file.",
-                                                                                                    "effort":  "S"
-                                                                                                }
-                                                                                            ],
-                                                                            "qualityIssues":  [
-                                                                                                  "93 source files with zero test coverage â€” critical for scraping logic where selector changes or API shifts cause silent failures",
-                                                                                                  "No tests means data analysis results (financial filtering, quality scoring) are unvalidated against edge cases",
-                                                                                                  "8-day gap since last commit suggests development pause or context switch without handoff documentation"
-                                                                                              ],
-                                                                            "neglected":  [
-                                                                                              "CHANGELOG-PENDING.md unpublished for 24 days"
-                                                                                          ],
-                                                                            "crossProjectDeps":  [
-
-                                                                                                 ]
-                                                                        },
-                                               "claude-mobile":  {
-                                                                     "state":  "Early-stage Express + WebSocket dashboard with active development but no test coverage and uncommitted changes blocking clarity.",
-                                                                     "suggestions":  [
-                                                                                         {
-                                                                                             "priority":  "HIGH",
-                                                                                             "action":  "Add test coverage: 6 source files exist with 0 tests. Create Jest/Vitest setup and write unit tests for core modules (routing, WebSocket handlers, API endpoints). Target 70%+ coverage before expanding feature set.",
-                                                                                             "effort":  "M"
-                                                                                         },
-                                                                                         {
-                                                                                             "priority":  "HIGH",
-                                                                                             "action":  "Commit or clarify the 6 uncommitted changes. Determine if they\u0027re work-in-progress, incomplete features, or ready to commit. Stage and document via git.",
-                                                                                             "effort":  "S"
-                                                                                         },
-                                                                                         {
-                                                                                             "priority":  "MED",
-                                                                                             "action":  "Consolidate CHANGELOG-PENDING.md into CHANGELOG.md. 11 entries aged 6 days need publication or rejection. Follow documentation-with-commits hook.",
-                                                                                             "effort":  "S"
-                                                                                         }
-                                                                                     ],
-                                                                     "qualityIssues":  [
-                                                                                           "Zero test coverage for 6 source files â€” no safety net for refactoring or bug detection",
-                                                                                           "6 uncommitted changes create uncertainty around project state and prevent reproducible builds",
-                                                                                           "Stale changelog (6 days) suggests deployment/release process is blocked or incomplete"
-                                                                                       ],
-                                                                     "neglected":  [
-                                                                                       "Test infrastructure (no Jest/Vitest/test framework installed or configured)"
-                                                                                   ],
-                                                                     "crossProjectDeps":  [
-
-                                                                                          ]
-                                                                 },
-                                               "ai-work-presentation-tool":  {
-                                                                                 "state":  "Active development phase with 17 uncommitted changes pending for ~13 days and zero test coverage across 8 source files.",
-                                                                                 "suggestions":  [
-                                                                                                     {
-                                                                                                         "priority":  "HIGH",
-                                                                                                         "action":  "Commit the 17 pending file changes. They\u0027ve been staged since 2026-04-02 â€” resolve any DOC-UPDATE-NEEDED flags, consolidate CHANGELOG-PENDING.md entries, then push with semantic message.",
-                                                                                                         "effort":  "S"
-                                                                                                     },
-                                                                                                     {
-                                                                                                         "priority":  "HIGH",
-                                                                                                         "action":  "Establish test coverage: add a test/ directory and write integration tests for the PPTX generation pipeline. Start with happy-path tests for the web UI and script execution.",
-                                                                                                         "effort":  "M"
-                                                                                                     },
-                                                                                                     {
-                                                                                                         "priority":  "MED",
-                                                                                                         "action":  "Create CLAUDE.md in project root with coding standards, test requirements, and brand-guideline links (this is a Caseware tool). Reference caseware-design-system skill for output validation rules.",
-                                                                                                         "effort":  "S"
-                                                                                                     }
-                                                                                                 ],
-                                                                                 "qualityIssues":  [
-                                                                                                       "Zero test coverage (no-tests finding): 8 source files without corresponding test suite",
-                                                                                                       "17 uncommitted changes sitting for 13 days indicates incomplete commit workflow â€” no recent commit record"
-                                                                                                   ],
-                                                                                 "neglected":  [
-                                                                                                   "Test infrastructure: no test/ directory or test runner configured",
-                                                                                                   "CHANGELOG-PENDING.md has 7 unpublished entries from 6 days ago â€” not consolidated into CHANGELOG.md"
-                                                                                               ],
-                                                                                 "crossProjectDeps":  [
-
-                                                                                                      ]
-                                                                             }
-                                           },
-                              "globalInsights":  [
-                                                     "Consistent EOD sync pattern in commits, but missing test coverage and doc-tracking hygiene suggest the tooling is handling state capture but not quality gates.",
-                                                     "Automation pipeline is healthy (daily eod syncs, AI cache generation), but commit-side documentation discipline is breaking due to uncommitted state.",
-                                                     "Project exhibits early-stage characteristics (1 source file, no tests) combined with active end-of-day sync workflow â€” clarify whether this is rapid prototyping or incomplete scaffolding.",
-                                                     "Active full-stack development (5-day cadence) without any test coverage is unsustainable; test infrastructure must be established before adding more features.",
-                                                     "Release tooling is production-ready in code but release workflow (changelog consolidation, testing) is not yet automated.",
-                                                     "Specification validation logic without test coverage is a major correctness risk; prioritize test setup before expanding feature scope.",
-                                                     "Documentation-only projects benefit from strict changelog hygiene to prevent metadata drift; implement automated consolidation or pre-commit enforcement.",
-                                                     "This is a documentation-hygiene task rather than a code-quality issue â€” the project is actively building (6 days ago) but workflow checkpoints need reinforcement.",
-                                                     "Data-driven tooling (scraping, analysis) requires test discipline more than typical projects â€” selector changes and API shifts are silent failures.",
-                                                     "Multi-project pattern: newer feature branches (claude-mobile, 12 days old) lack test coverage while core projects emphasize it â€” testing discipline should be enforced at project creation, not retrofit later.",
-                                                     "This project appears to be the Caseware AI-at-work presentation tooling mentioned in primer.md â€” treat as high-visibility internal tool requiring test coverage and doc compliance before release."
-                                                 ],
-                              "topPriorityAction":  "[AI Work Presentation Tool] Commit pending changes + resolve doc updates"
-                          },
-    "priorityInbox":  {
-                          "urgent":  [
-
-                                     ],
-                          "aiSuggested":  [
-
-                                          ],
-                          "today":  [
-
-                                    ],
-                          "backlog":  [
-
-                                      ]
-                      },
+                     ],
     "flaggedEmails":  [
                           {
-                              "subject":  "Accountex 2026 polos",
-                              "from":  "Daniella Cooper",
-                              "receivedAt":  "2026-04-10T16:40:55.9650000",
+                              "subject":  "Plandek | Sprint Progress Update for Audit - UKCAUD - Q1 2026 Sprint 7",
+                              "from":  "Plandek | Deliver Sprints Digests",
+                              "receivedAt":  "2026-04-16T08:01:40.3670000",
                               "webLink":  "",
-                              "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010C00004D982E7133CA544B97DE70BB0AF65E830005491B5E690000"
+                              "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010C00004D982E7133CA544B97DE70BB0AF65E8300057BD2BB980000"
+                          },
+                          {
+                              "subject":  "Issue UKCAUD-15956 has not been updated in 5 days",
+                              "from":  "Jira automation",
+                              "receivedAt":  "2026-04-16T07:30:48.7130000",
+                              "webLink":  "",
+                              "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010C00004D982E7133CA544B97DE70BB0AF65E8300057BD2BB970000"
                           }
                       ],
-    "flaggedEmailsFetchedAt":  "2026-04-15T15:33:12.1300262+01:00"
+    "flaggedEmailsFetchedAt":  "2026-04-16T08:45:26.8378485+01:00",
+    "calendar":  {
+                     "lastRefreshed":  "2026-04-16T08:45:30.2734051+01:00",
+                     "hasToken":  true,
+                     "today":  [
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0D9C0000",
+                                       "startTime":  "2026-04-16T07:30:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-16T10:00:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "Backlog Refinement Prep "
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                       "startTime":  "2026-04-16T10:15:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-16T10:30:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "UKCAUD - Stand-up - MS Teams "
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002F332CC580000",
+                                       "startTime":  "2026-04-16T10:30:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-16T11:30:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "Specifications Sync (Review Cards + Ask Questions) "
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                       "startTime":  "2026-04-16T12:00:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-16T13:00:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "Lunch"
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830005267BC6AF0000",
+                                       "startTime":  "2026-04-16T13:00:00.0000000",
+                                       "isFocusBlock":  true,
+                                       "endTime":  "2026-04-16T14:00:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "Focus time"
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0D8C0000",
+                                       "startTime":  "2026-04-16T14:00:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-16T16:00:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "Backlog Refinement Prep "
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300024079BCB90000",
+                                       "startTime":  "2026-04-16T16:30:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-16T17:00:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "Liam / Jon 1-2-1"
+                                   }
+                               ],
+                     "weekAhead":  [
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0D9F0000",
+                                           "startTime":  "2026-04-17T07:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-17T10:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Backlog Refinement Prep "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300035BF171A50000",
+                                           "startTime":  "2026-04-17T09:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-17T10:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "RetroSpective Document Contribution"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                           "startTime":  "2026-04-17T10:15:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-17T10:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Stand-up - MS Teams "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0E430000",
+                                           "startTime":  "2026-04-17T10:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-17T11:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Backlog Refinement - MS Teams"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000533025F180000",
+                                           "startTime":  "2026-04-17T11:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-17T12:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Use of AI for spec work - a brainstorming session"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                           "startTime":  "2026-04-17T12:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-17T13:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Lunch"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002D2E473650000",
+                                           "startTime":  "2026-04-17T14:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-17T15:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "AI Showcasing - Product"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830005267BC6B00000",
+                                           "startTime":  "2026-04-17T15:00:00.0000000",
+                                           "isFocusBlock":  true,
+                                           "endTime":  "2026-04-17T17:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Focus time"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300053DED3EAD0000",
+                                           "startTime":  "2026-04-17T15:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-17T16:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Claude Onboarding "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300056672ACD50000",
+                                           "startTime":  "2026-04-20T00:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-21T00:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "👀 Something new is coming…"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000549D27DD40000",
+                                           "startTime":  "2026-04-20T07:30:00.0000000",
+                                           "isFocusBlock":  true,
+                                           "endTime":  "2026-04-20T10:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Focus time"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                           "startTime":  "2026-04-20T10:15:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-20T10:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Stand-up - MS Teams "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830005267BC69A0000",
+                                           "startTime":  "2026-04-20T10:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-20T11:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UK UAT - SE 2026-04 Launch"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300053CE2EC640000",
+                                           "startTime":  "2026-04-20T11:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-20T12:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "LB/NK 121"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                           "startTime":  "2026-04-20T12:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-20T13:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Lunch"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300043216EF050000",
+                                           "startTime":  "2026-04-20T14:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-20T15:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Audit Release Planning"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000466FAAC3A0000",
+                                           "startTime":  "2026-04-20T15:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-20T16:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Following: North America - FY27 Q1 PI Planning"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                           "startTime":  "2026-04-21T10:15:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-21T10:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Stand-up - MS Teams "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300024A75AA1C0000",
+                                           "startTime":  "2026-04-21T11:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-21T12:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "PM Weekly Meeting"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                           "startTime":  "2026-04-21T12:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-21T13:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Lunch"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000549D27DD50000",
+                                           "startTime":  "2026-04-21T13:00:00.0000000",
+                                           "isFocusBlock":  true,
+                                           "endTime":  "2026-04-21T17:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Focus time"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002ACDF6B380000",
+                                           "startTime":  "2026-04-21T16:15:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-21T17:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Following: SE Builder - bi-weekly demo"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                           "startTime":  "2026-04-22T10:15:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-22T10:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Stand-up - MS Teams "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0E350000",
+                                           "startTime":  "2026-04-22T10:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-22T11:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Sprint Retrospective - MS Teams"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000338ED31790000",
+                                           "startTime":  "2026-04-22T11:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-22T11:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UK - Release Readiness Meeting"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0E5E0000",
+                                           "startTime":  "2026-04-22T11:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-22T12:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Sprint Planning - MS Teams"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                           "startTime":  "2026-04-22T12:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-22T13:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Lunch"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000549D27DD60000",
+                                           "startTime":  "2026-04-22T13:00:00.0000000",
+                                           "isFocusBlock":  true,
+                                           "endTime":  "2026-04-22T17:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Focus time"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300056672ACD40000",
+                                           "startTime":  "2026-04-22T13:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-22T14:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Office Lunch "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                           "startTime":  "2026-04-23T10:15:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-23T10:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Stand-up - MS Teams "
+                                       }
+                                   ]
+                 }
 }

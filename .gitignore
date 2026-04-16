@@ -5,3 +5,8 @@ scripts/*.png
 .env
 .env.local
 .env*.local
+
+workspace/coordinator/.playwright-edge-profile/
+workspace/coordinator/.playwright-fallback-profile/
+
+logs/

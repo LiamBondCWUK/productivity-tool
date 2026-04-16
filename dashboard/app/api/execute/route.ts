@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { execSync, spawnSync } from "child_process";
-import { join } from "path";
+import { dirname, join } from "path";
 import { existsSync } from "fs";
 
 export const dynamic = "force-dynamic";
@@ -74,6 +74,12 @@ const COMMAND_REGISTRY: Record<
     script: join(SCRIPTS_DIR, "outlook-mail-fetch.ps1"),
     timeout: 60_000,
   },
+  "refresh-notifications": {
+    description: "Fetch Jira comment notifications and Microsoft app comments",
+    type: "node",
+    script: join(SCRIPTS_DIR, "fetch-notifications.mjs"),
+    timeout: 90_000,
+  },
   "doc-health-update": {
     description: "Prompt Claude to update stale documentation",
     type: "node",
@@ -108,6 +114,12 @@ const COMMAND_REGISTRY: Record<
     description: "Fetch unread Teams messages via Microsoft Graph API",
     type: "node",
     script: join(SCRIPTS_DIR, "graph-teams-fetch.mjs"),
+    timeout: 60_000,
+  },
+  "ingest-pa-exports": {
+    description: "Ingest Power Automate OneDrive exports (Teams messages + document signals) into dashboard-data.json",
+    type: "node",
+    script: join(SCRIPTS_DIR, "ingest-pa-exports.mjs"),
     timeout: 60_000,
   },
   "check-automation-status": {
@@ -211,13 +223,29 @@ export async function POST(req: NextRequest) {
     let stdout = "";
 
     if (config.type === "node") {
-      const fullArgs = [config.script, ...commandArgs].join(" ");
-      stdout = execSync(`node ${fullArgs}`, {
-        timeout,
-        encoding: "utf8",
-        env: { ...safeEnv(), NODE_PATH: process.env.NODE_PATH ?? "" },
-        cwd: config.dir ?? join(config.script, ".."),
-      });
+      const result = spawnSync(
+        process.execPath,
+        [config.script, ...commandArgs],
+        {
+          timeout,
+          encoding: "utf8",
+          env: { ...safeEnv(), NODE_PATH: process.env.NODE_PATH ?? "" },
+          cwd: config.dir ?? dirname(config.script),
+        },
+      );
+      if (result.status !== 0) {
+        const errMsg = (result.stderr ?? result.stdout ?? "").trim();
+        return NextResponse.json(
+          {
+            error: `Script exited with code ${result.status}`,
+            output: errMsg.slice(0, 2000),
+            command: commandId,
+            durationMs: Date.now() - startTime,
+          },
+          { status: 500 },
+        );
+      }
+      stdout = result.stdout ?? "";
     } else {
       const result = spawnSync(
         "powershell",
@@ -230,10 +258,10 @@ export async function POST(req: NextRequest) {
           ...commandArgs,
         ],
         {
-          timeout,
-          encoding: "utf8",
+        timeout,
+        encoding: "utf8",
           env: safeEnv(),
-          cwd: config.dir ?? join(config.script, ".."),
+          cwd: config.dir ?? dirname(config.script),
         },
       );
       if (result.status !== 0) {

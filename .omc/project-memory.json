@@ -184,26 +184,32 @@
   "hotPaths": [
     {
       "path": "dashboard\\package.json",
-      "accessCount": 5,
-      "lastAccessed": 1776267666879,
+      "accessCount": 8,
+      "lastAccessed": 1776271406716,
       "type": "file"
     },
     {
       "path": "dashboard\\app\\api\\activity\\route.ts",
-      "accessCount": 3,
-      "lastAccessed": 1776267605455,
+      "accessCount": 5,
+      "lastAccessed": 1776271426755,
       "type": "file"
     },
     {
       "path": "dashboard\\app\\api\\day-plan\\route.ts",
-      "accessCount": 2,
-      "lastAccessed": 1776267514226,
+      "accessCount": 3,
+      "lastAccessed": 1776271347712,
       "type": "file"
     },
     {
       "path": "dashboard\\app\\page.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1776271349231,
+      "type": "file"
+    },
+    {
+      "path": "package.json",
       "accessCount": 2,
-      "lastAccessed": 1776267515538,
+      "lastAccessed": 1776271341008,
       "type": "file"
     },
     {
@@ -243,9 +249,21 @@
       "type": "file"
     },
     {
-      "path": "package.json",
+      "path": "dashboard\\jest.config.js",
       "accessCount": 1,
-      "lastAccessed": 1776267491814,
+      "lastAccessed": 1776271414702,
+      "type": "file"
+    },
+    {
+      "path": "dashboard\\jest.setup.js",
+      "accessCount": 1,
+      "lastAccessed": 1776271421860,
+      "type": "file"
+    },
+    {
+      "path": "dashboard\\app\\api\\activity\\__tests__\\route.test.ts",
+      "accessCount": 1,
+      "lastAccessed": 1776271445940,
       "type": "file"
     }
   ],

@@ -9,6 +9,7 @@ import type {
 interface Props {
   inbox: PriorityInboxType;
   onClear: (id: string) => Promise<void>;
+  onRefresh: () => Promise<void>;
 }
 
 function formatDeadlineCountdown(deadline: string): string {
@@ -131,8 +132,9 @@ function InboxItemRow({
   );
 }
 
-export function PriorityInbox({ inbox, onClear }: Props) {
+export function PriorityInbox({ inbox, onClear, onRefresh }: Props) {
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const [refreshing, setRefreshing] = useState(false);
 
   const toggleSection = (section: string) => {
     setCollapsed((prev) => ({ ...prev, [section]: !prev[section] }));
@@ -144,15 +146,34 @@ export function PriorityInbox({ inbox, onClear }: Props) {
     inbox.today.length +
     inbox.backlog.length;
 
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await onRefresh();
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
   return (
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
           Priority Inbox
         </h2>
-        {totalCount > 0 && (
-          <span className="text-xs text-gray-500">{totalCount} items</span>
-        )}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="text-xs px-1.5 py-0.5 text-gray-500 hover:text-gray-300 disabled:opacity-40 transition-colors"
+            title="Refresh Jira and Microsoft comment notifications"
+          >
+            {refreshing ? "…" : "↻"}
+          </button>
+          {totalCount > 0 && (
+            <span className="text-xs text-gray-500">{totalCount} items</span>
+          )}
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto space-y-4 min-h-0">
@@ -213,7 +234,9 @@ export function PriorityInbox({ inbox, onClear }: Props) {
                 <InboxItemRow key={item.id} item={item} onClear={onClear} />
               ))
             ) : (
-              <p className="text-gray-600 text-xs px-2">Run /gm to populate</p>
+              <p className="text-gray-600 text-xs px-2">
+                Use refresh to pull Jira and Microsoft comment notifications
+              </p>
             ))}
         </section>
 

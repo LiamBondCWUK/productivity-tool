@@ -1,0 +1,68 @@
+[2026-04-16 08:45:06] Starting /gm auto-trigger
+[2026-04-16 08:45:07] fetch-notifications: ­ƒô¼ fetch-notifications: starting... Ôä¦  graph-token.json not found ÔÇö skipping Office doc comment fetch ÔÜá  Jira search returned 410   Jira @mentions: 0 item(s)   Doc comments:   0 item(s) Ô£à fetch-notifications: dashboard-data.json updated
+[2026-04-16 08:45:08] graph-teams-fetch: [graph-teams-fetch] No graph-token.json ÔÇö run setup-graph-token.ps1 first [graph-teams-fetch] wrote 0 messages to dashboard-data.json
+[2026-04-16 08:45:22] graph-email-fetch: [graph-email-fetch] No graph-token.json ÔÇö run setup-graph-token.ps1 first [graph-email-fetch] Outlook fallback: [outlook-mail-fetch] wrote 0 emails to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-16 08:45:27] outlook-mail-fetch: [outlook-mail-fetch] wrote 2 emails to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-16 08:45:30] outlook-calendar-fetch: [outlook-calendar-fetch] wrote 7 today events and 30 week-ahead events to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-16 08:45:30] generate-day-plan: [generate-day-plan] Error: Unexpected token '´++', "´++{     "o"... is not valid JSON
+[2026-04-16 08:57:40] /gm completed
+Ô£à All 6 tasks complete
+
+---
+
+Good morning! Here's your brief for **Thursday 2026-04-16**:
+
+---
+
+­ƒöÑ **Top 3:**
+1. **Tag active Jira work with `LB_WIP`** ÔÇö nothing is syncing to your vault right now; 0 tagged tickets found
+2. **Refresh weekly plan** ÔÇö `weekly-plan.md` and all initiative todos are stale from 2026-03-17 (4 weeks)
+3. **UKCAUD-11298 awareness** ÔÇö "Pushes to Release + Prod For Dev" sitting at Blocker priority (Will Walker, In Progress)
+
+---
+
+­ƒÄ½ **My Tasks (LB_WIP):** 0 active ÔÇö tag work in Jira to start tracking
+
+­ƒôè **UKCAUD Sprint:** 23 open / 13 in progress / 3 done / 9 closed / 2 rejected (50 total)
+- ÔÜá´©Å 5 in-progress items are unassigned
+- ­ƒö¦ UKCAUD-11298 at Blocker priority (Will Walker)
+
+­ƒôè **UKCAS:** 0 open | **DIST:** 0 uk-audit escalations
+
+­ƒÅÑ **Project Health:**
+- UKJPD: 30 items in Parking Lot, untouched for ~24 days ÔÇö may need a sweep
+- DIST "aging" results: all legacy items from 2017ÔÇô2018, not current escalations
+
+ÔÜá´©Å **Alerts:** None urgent ÔÇö UKJPD parking lot and stale weekly plan are the main housekeeping items
+
+­ƒôà **Meetings:** Skipped ÔÇö Playwright can't run from system32. Check Outlook directly.
+
+­ƒôï **Vault tasks:** 0 overdue, 0 due today (fresh vault)
+
+­ƒôà **Schedule:**
+| Time | Block |
+|------|-------|
+| 09:00ÔÇô09:15 | Tag LB_WIP in Jira |
+| 09:15ÔÇô11:00 | Deep work ÔÇö sprint |
+| 11:15ÔÇô12:30 | Deep work ÔÇö sprint |
+| 13:30ÔÇô14:30 | Refresh weekly plan + todos |
+| 14:30ÔÇô16:00 | Deep work ÔÇö secondary |
+| 16:00ÔÇô16:30 | Quick wins (email/Slack) |
+| 16:30ÔÇô17:00 | /eod wrap |
+
+­ƒôú **Standup (ready to paste):**
+```
+Yesterday: (no log entry ÔÇö update manually)
+Today:
+- Tag active work with LB_WIP in Jira
+- Refresh weekly plan and initiative priorities
+- Check UKCAUD-11298 (Blocker ÔÇö Will Walker)
+Blockers: None
+```
+
+ÔÜá´©Å **Commitment check (Thu):** Weekly plan has placeholder content only ÔÇö no commitments tracked this week.
+
+---
+
+**Skipped:** Calendar + Email (Playwright permission error ÔÇö can't write to `system32`). Run Claude Code from a project directory (e.g. `~/Documents/Productivity Tool`) to enable these. Full brief ÔåÆ `workspace/coordinator/daily-brief-2026-04-16.md`
+SessionEnd hook [node "$CLAUDE_PLUGIN_ROOT"/scripts/run.cjs "$CLAUDE_PLUGIN_ROOT"/scripts/session-end.mjs] failed: Hook cancelled

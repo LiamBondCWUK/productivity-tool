@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1776076220590,
+  "lastScanned": 1776271728381,
   "projectRoot": "C:\\Users\\liam.bond\\Documents\\Productivity Tool\\dashboard",
   "techStack": {
     "languages": [
@@ -36,6 +36,11 @@
         "name": "react-dom",
         "version": "19.2.4",
         "category": "frontend"
+      },
+      {
+        "name": "jest",
+        "version": "29.7.0",
+        "category": "testing"
       }
     ],
     "packageManager": "npm",
@@ -43,13 +48,15 @@
   },
   "build": {
     "buildCommand": "npm run build",
-    "testCommand": null,
+    "testCommand": "npm test",
     "lintCommand": null,
     "devCommand": "npm run dev",
     "scripts": {
       "dev": "next dev",
       "build": "next build",
-      "start": "next start"
+      "start": "next start",
+      "test": "jest",
+      "test:watch": "jest --watch"
     }
   },
   "conventions": {
@@ -78,7 +85,7 @@
       "path": "app",
       "purpose": "Application code",
       "fileCount": 4,
-      "lastAccessed": 1776076220511,
+      "lastAccessed": 1776271728348,
       "keyFiles": [
         "favicon.ico",
         "globals.css",
@@ -89,21 +96,21 @@
     "components": {
       "path": "components",
       "purpose": "UI components",
-      "fileCount": 19,
-      "lastAccessed": 1776076220512,
+      "fileCount": 23,
+      "lastAccessed": 1776271728357,
       "keyFiles": [
         "ActiveWindow.tsx",
         "AISchedule.tsx",
         "AutomationStatus.tsx",
-        "CalendarPanel.tsx",
-        "CeremoniesTab.tsx"
+        "AutomationTab.tsx",
+        "CalendarPanel.tsx"
       ]
     },
     "data": {
       "path": "data",
       "purpose": "Data files",
       "fileCount": 1,
-      "lastAccessed": 1776076220513,
+      "lastAccessed": 1776271728358,
       "keyFiles": [
         "dashboard-data.json"
       ]
@@ -111,17 +118,18 @@
     "hooks": {
       "path": "hooks",
       "purpose": null,
-      "fileCount": 1,
-      "lastAccessed": 1776076220529,
+      "fileCount": 2,
+      "lastAccessed": 1776271728358,
       "keyFiles": [
-        "useDashboardData.ts"
+        "useDashboardData.ts",
+        "useExecuteCommand.ts"
       ]
     },
     "lib": {
       "path": "lib",
       "purpose": "Library code",
       "fileCount": 1,
-      "lastAccessed": 1776076220530,
+      "lastAccessed": 1776271728359,
       "keyFiles": [
         "dashboardData.ts"
       ]
@@ -130,7 +138,7 @@
       "path": "outputs",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1776076220530,
+      "lastAccessed": 1776271728359,
       "keyFiles": [
         "dashboard-data-demo.json"
       ]
@@ -139,7 +147,7 @@
       "path": "public",
       "purpose": "Public files",
       "fileCount": 5,
-      "lastAccessed": 1776076220531,
+      "lastAccessed": 1776271728360,
       "keyFiles": [
         "file.svg",
         "globe.svg",
@@ -152,7 +160,7 @@
       "path": "types",
       "purpose": "Type definitions",
       "fileCount": 1,
-      "lastAccessed": 1776076220531,
+      "lastAccessed": 1776271728360,
       "keyFiles": [
         "dashboard.ts"
       ]
@@ -161,10 +169,59 @@
       "path": "app\\api",
       "purpose": "API routes",
       "fileCount": 0,
-      "lastAccessed": 1776076220532,
+      "lastAccessed": 1776271728361,
       "keyFiles": []
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "jest.config.js",
+      "accessCount": 2,
+      "lastAccessed": 1776271863429,
+      "type": "file"
+    },
+    {
+      "path": "app\\page.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1776271901729,
+      "type": "file"
+    },
+    {
+      "path": "app\\api\\day-plan\\route.ts",
+      "accessCount": 1,
+      "lastAccessed": 1776271734216,
+      "type": "file"
+    },
+    {
+      "path": "app\\api\\day-plan\\__tests__\\route.test.ts",
+      "accessCount": 1,
+      "lastAccessed": 1776271770049,
+      "type": "file"
+    },
+    {
+      "path": "package.json",
+      "accessCount": 1,
+      "lastAccessed": 1776271849274,
+      "type": "file"
+    },
+    {
+      "path": "hooks\\useDashboardData.ts",
+      "accessCount": 1,
+      "lastAccessed": 1776271906438,
+      "type": "file"
+    },
+    {
+      "path": "types\\dashboard.ts",
+      "accessCount": 1,
+      "lastAccessed": 1776271907875,
+      "type": "file"
+    },
+    {
+      "path": "app\\__tests__\\page.test.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1776271955413,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }

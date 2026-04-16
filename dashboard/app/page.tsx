@@ -61,6 +61,33 @@ export default function Dashboard() {
     refetch();
   };
 
+  const handleRefreshNotifications = async () => {
+    await fetch("/api/execute", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ command: "refresh-notifications" }),
+    });
+    refetch();
+  };
+
+  const handleRefreshProjects = async () => {
+    await fetch("/api/execute", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ command: "sync-projects" }),
+    });
+    refetch();
+  };
+
+  const handleRefreshAll = async () => {
+    await fetch("/api/execute", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ command: "morning-orchestrator" }),
+    });
+    refetch();
+  };
+
   const handleAddTask = async (
     suggestion: ProjectSuggestion,
     projectId: string,
@@ -114,6 +141,13 @@ export default function Dashboard() {
           Liam Command Center
         </span>
         <div className="flex items-center gap-4 text-xs text-gray-500">
+          <button
+            onClick={handleRefreshAll}
+            className="text-gray-400 hover:text-gray-200 transition-colors px-2 py-1 rounded hover:bg-gray-700/30"
+            title="Refresh all data (morning orchestrator)"
+          >
+            ↻ Refresh All
+          </button>
           {data.overnightAnalysis.generatedAt && (
             <span className="text-purple-400">
               AI Analysis:{" "}
@@ -137,7 +171,9 @@ export default function Dashboard() {
             calendarHasToken={data.calendar.hasToken}
             timeTracker={data.timeTracker}
             standupUrl="http://localhost:3850/ceremony/sprint-operations"
+            ibpMeta={data.ibp ?? undefined}
             onClearNotification={handleClearNotification}
+            onRefreshNotifications={handleRefreshNotifications}
             onRefetch={refetch}
           />
         }
@@ -150,6 +186,7 @@ export default function Dashboard() {
             onPhaseChange={handlePhaseChange}
             onAddTask={handleAddTask}
             onRefetch={refetch}
+            onRefresh={handleRefreshProjects}
           />
         }
         automationContent={

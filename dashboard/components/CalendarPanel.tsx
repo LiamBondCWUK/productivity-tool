@@ -100,7 +100,7 @@ export function CalendarPanel({ today, weekAhead, hasToken }: Props) {
             </p>
           ) : (
             todayEvents.map((event) => (
-              <EventRow key={event.id} event={event} />
+              <EventRow key={`${event.id}-${event.startTime}`} event={event} />
             ))
           )}
         </section>
@@ -112,7 +112,7 @@ export function CalendarPanel({ today, weekAhead, hasToken }: Props) {
               Week Ahead
             </p>
             {safeWeekAhead.map((event) => (
-              <div key={event.id} className="flex items-center gap-2 py-0.5">
+              <div key={`${event.id}-${event.startTime}`} className="flex items-center gap-2 py-0.5">
                 <span className="text-gray-600 text-xs w-16 shrink-0">
                   {new Date(event.startTime).toLocaleDateString("en-GB", {
                     weekday: "short",

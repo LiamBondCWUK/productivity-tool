@@ -142,11 +142,16 @@ async function fetchTeamsMessages() {
 }
 
 async function run() {
+  const hasGraphToken = existsSync(TOKEN_FILE);
   const teamMessages = await fetchTeamsMessages();
 
   const dashboardData = readJson(DASHBOARD_DATA_PATH, {});
   dashboardData.teamMessages = teamMessages;
-  dashboardData.teamMessagesFetchedAt = new Date().toISOString();
+  if (hasGraphToken) {
+    dashboardData.teamMessagesFetchedAt = new Date().toISOString();
+  } else {
+    delete dashboardData.teamMessagesFetchedAt;
+  }
 
   writeFileSync(DASHBOARD_DATA_PATH, JSON.stringify(dashboardData, null, 2));
   console.log(`[graph-teams-fetch] wrote ${teamMessages.length} messages to dashboard-data.json`);

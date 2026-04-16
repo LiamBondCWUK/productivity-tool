@@ -1,142 +1,46 @@
 {
-  "generatedAt": "2026-04-15T12:59:34.294Z",
-  "totalCards": 19,
+  "generatedAt": "2026-04-16T01:27:06.027Z",
+  "totalCards": 30,
   "cards": [
     {
-      "title": "Commit pending changes and clear uncommitted state",
-      "body": "11 files are uncommitted (package.json, scripts, components, docs). This breaks the clean state expected by the EOD sync pattern. Stage and commit with semantic messages (chore: for doc syncs, feat: for features).",
-      "priority": "high",
-      "type": "improvement",
-      "labels": [
-        "productivity-tool",
-        "overnight",
-        "improvement"
-      ],
-      "project": "Productivity Tool"
-    },
-    {
-      "title": "Resolve 6 uncommitted changes",
-      "body": "Six files are uncommitted and blocking project clarity. Evaluate whether these are in-progress work, experimental branches, or forgotten edits. Commit with semantic messages or explicitly stash if not ready. This is a prerequisite to understanding true project state.",
-      "priority": "urgent",
-      "type": "improvement",
-      "labels": [
-        "ai-breaking-news-tool",
-        "overnight",
-        "improvement"
-      ],
-      "project": "AI Breaking News Tool"
-    },
-    {
-      "title": "Consolidate overdue changelog entries",
-      "body": "CHANGELOG-PENDING.md has accumulated 20 entries over 8 days without consolidation. Per documentation-with-commits protocol, these should be merged into CHANGELOG.md before next commit. This is a standard cleanup task.",
+      "title": "Initialize CLAUDE.md for UKCAUD AI Project",
+      "body": "New project needs local context file. Include: tech stack (Node/React/Typescript), Caseware Nova design system tokens mapping, feedback widget API schema, deployment target (Replit), and reference to user global security/git/testing rules. This is a prerequisite for consistent development and CI setup.",
       "priority": "high",
       "type": "docs",
       "labels": [
-        "ai-breaking-news-tool",
+        "ukcaud-ai-project",
         "overnight",
         "docs"
       ],
-      "project": "AI Breaking News Tool"
+      "project": "UKCAUD AI Project"
     },
     {
-      "title": "Establish test infrastructure",
-      "body": "51 source files with zero tests creates technical debt and blocks safe refactoring. Implement Jest/Vitest for frontend, unit tests for API layer, and define baseline coverage targets (e.g., 70%). This enables quality gates and prevents regressions as the tool grows.",
+      "title": "Initialize Project Scaffolding",
+      "body": "Repository contains only baseline files. Determine tech stack (frontend framework, backend framework, database), create package.json with core dependencies, and scaffold src/ directory structure. Activepieces is a Node.js-based automation platform with a React UI and 280+ integrations — baseline should include integration test infrastructure.",
       "priority": "urgent",
       "type": "feature",
       "labels": [
-        "cw-template-comparison-tool",
+        "activepieces",
         "overnight",
         "feature"
       ],
-      "project": "CW Template Comparison Tool"
+      "project": "Activepieces"
     },
     {
-      "title": "Consolidate changelog backlog",
-      "body": "CHANGELOG-PENDING.md accumulated 20 entries over 7 days. Consolidate into main CHANGELOG.md and document the consolidation pattern in CLAUDE.md to prevent future debt. This should happen alongside code commits per documentation-with-commits hook.",
+      "title": "Create CLAUDE.md & Project Context",
+      "body": "Document architectural decisions, commit conventions, testing strategy (unit/integration/e2e for integrations), and CI/CD requirements. This is a 21K+ star open-source project — early documentation prevents technical debt and scales contributor onboarding.",
       "priority": "high",
       "type": "docs",
       "labels": [
-        "cw-template-comparison-tool",
+        "activepieces",
         "overnight",
         "docs"
       ],
-      "project": "CW Template Comparison Tool"
+      "project": "Activepieces"
     },
     {
-      "title": "Add test suite for release notes tool",
-      "body": "11 source files currently have zero test coverage. Critical for 'Implemented' status. Prioritize tests for app.py (main logic) and feedback-widget.js (UI). Start with unit tests for core release note parsing/generation, then add integration tests for end-to-end workflow.",
-      "priority": "urgent",
-      "type": "improvement",
-      "labels": [
-        "cw-release-notes-tool",
-        "overnight",
-        "improvement"
-      ],
-      "project": "CW Release Notes Tool"
-    },
-    {
-      "title": "Publish pending changelog entries",
-      "body": "CHANGELOG-PENDING.md has 6 entries aged 7 days. Consolidate into CHANGELOG.md and publish to mark this milestone. Review recent commits (app.py updates from 2026-04-10) to ensure all work is documented.",
-      "priority": "high",
-      "type": "docs",
-      "labels": [
-        "cw-release-notes-tool",
-        "overnight",
-        "docs"
-      ],
-      "project": "CW Release Notes Tool"
-    },
-    {
-      "title": "Add test coverage for spec validation",
-      "body": "54 source files with zero tests is unacceptable for a platform that validates financial statement specifications. Start with unit tests for core validation: Excel parsing, field type checking, and data integrity rules. Consider pytest or Jest depending on stack. This is a prerequisite before adding new features.",
-      "priority": "urgent",
-      "type": "bug",
-      "labels": [
-        "cw-lead-schedule-specifications",
-        "overnight",
-        "bug"
-      ],
-      "project": "CW Lead Schedule Specifications"
-    },
-    {
-      "title": "Publish CHANGELOG-PENDING and reactivate doc sync",
-      "body": "26 entries pending for 7 days. Consolidate CHANGELOG-PENDING.md into CHANGELOG.md, commit, and verify post-commit doc hook runs. This unblocks the documentation workflow and ensures release notes stay current.",
-      "priority": "high",
-      "type": "docs",
-      "labels": [
-        "cw-lead-schedule-specifications",
-        "overnight",
-        "docs"
-      ],
-      "project": "CW Lead Schedule Specifications"
-    },
-    {
-      "title": "Consolidate stale changelog entries",
-      "body": "CHANGELOG-PENDING.md contains 6 entries waiting 7 days for consolidation into CHANGELOG.md. This violates the pre-commit-doc-check hook requirement and creates metadata debt. Consolidate immediately and verify hook is wired to this project.",
-      "priority": "high",
-      "type": "improvement",
-      "labels": [
-        "cw-ukjpd-workflows",
-        "overnight",
-        "improvement"
-      ],
-      "project": "CW UKJPD Workflows"
-    },
-    {
-      "title": "Consolidate CHANGELOG-PENDING.md",
-      "body": "CHANGELOG-PENDING.md has been pending for 7 days with 6 unpublished entries. Per your documented workflow rules, this must be consolidated into CHANGELOG.md and staged alongside code changes before the next commit. This is blocking proper release hygiene.",
-      "priority": "high",
-      "type": "docs",
-      "labels": [
-        "cw-uat-testing-tool",
-        "overnight",
-        "docs"
-      ],
-      "project": "CW UAT Testing Tool"
-    },
-    {
-      "title": "Implement test coverage for compliance-critical code",
-      "body": "36-source-file codebase with zero test files creates unacceptable risk for audit/compliance workflows. Correctness failures could trigger compliance violations or failed audits. Prioritize tests for data validation, rule enforcement, and workflow state transitions.",
+      "title": "Add test suite to agent spec system",
+      "body": "36 source files exist with zero tests. For an agent/automation specification layer, untested logic poses high risk of spec inconsistencies and behavioral bugs. Establish baseline coverage on critical agent decision logic and workflow validation. This is blocking quality confidence before the next phase.",
       "priority": "urgent",
       "type": "bug",
       "labels": [
@@ -147,33 +51,81 @@
       "project": "UKCAUD-Authoring-Agent-Spec-Layer"
     },
     {
-      "title": "Add integration tests for Rightmove scraping pipeline",
-      "body": "Property Search Tool has 93 source files and zero test coverage. Scraping tools are particularly vulnerable to selector breakage and data parsing bugs. Add pytest-based integration tests covering core data paths: scraping, parsing, filtering, and financial calculations. Target 70%+ coverage of scripts/ directory.",
-      "priority": "urgent",
-      "type": "feature",
-      "labels": [
-        "property-search-tool",
-        "overnight",
-        "feature"
-      ],
-      "project": "Property Search Tool"
-    },
-    {
-      "title": "Create CLAUDE.md with project context and Rightmove assumptions",
-      "body": "Document key assumptions about Rightmove structure, CSS selectors, financial filtering rules, and data schema. Include setup instructions and list selectors that should trigger alerts if changed. This unblocks future debugging and prevents regression when Rightmove UI shifts.",
+      "title": "Create CLAUDE.md with project conventions",
+      "body": "No project-specific context file. Document the spec format, testing approach, file organization, and git workflow so contributors (including future you) follow consistent patterns. This is lightweight setup with high payoff for maintainability.",
       "priority": "high",
       "type": "docs",
       "labels": [
-        "property-search-tool",
+        "ukcaud-authoring-agent-spec-layer",
         "overnight",
         "docs"
       ],
-      "project": "Property Search Tool"
+      "project": "UKCAUD-Authoring-Agent-Spec-Layer"
     },
     {
-      "title": "Add test coverage to claude-mobile",
-      "body": "6 source files with zero test files represents a high-risk gap in a browser-based dashboard. WebSocket communication, multi-session state, and voice processing all need unit tests. Create a test suite (Jest or Vitest) targeting 70%+ coverage. Priority: before adding voice/session features.",
+      "title": "Add Test Suite (0→80% coverage)",
+      "body": "11 source files (app.py, feedback-widget.js, etc.) have zero test coverage. Create tests/ directory, set up pytest + vitest, and establish >80% baseline. This is blocking production readiness per your quality gates in execution-discipline.md.",
       "priority": "urgent",
+      "type": "feature",
+      "labels": [
+        "cw-release-notes-tool",
+        "overnight",
+        "feature"
+      ],
+      "project": "CW Release Notes Tool"
+    },
+    {
+      "title": "Consolidate Stale Changelog Entries",
+      "body": "CHANGELOG-PENDING.md has 6 unpublished entries aged 7 days. Merge into CHANGELOG.md and clear pending file. Indicates changelog-tracker hook is not enforcing consolidation per your post-commit policy.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "cw-release-notes-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW Release Notes Tool"
+    },
+    {
+      "title": "Zero test coverage on spec validation engine",
+      "body": "A 54-file specification validation platform has no tests. For a tool that validates Excel specs against complex rules, this is a critical correctness gap. Start with integration tests on the validation core (likely frontend/backend boundary), targeting 60%+ coverage. This should block further feature development.",
+      "priority": "urgent",
+      "type": "bug",
+      "labels": [
+        "cw-lead-schedule-specifications",
+        "overnight",
+        "bug"
+      ],
+      "project": "CW Lead Schedule Specifications"
+    },
+    {
+      "title": "CHANGELOG-PENDING backlog accumulating",
+      "body": "26 unpublished entries over 7 days—consolidation is not happening as part of the commit workflow. Add a pre-commit check or end-of-sprint consolidation ritual. Root cause is likely that CLAUDE.md syncs are happening without the corresponding CHANGELOG review.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "cw-lead-schedule-specifications",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW Lead Schedule Specifications"
+    },
+    {
+      "title": "No test suite for dashboard API",
+      "body": "claude-mobile has 6 source files (Express routes, WebSocket handlers, voice pipelines) with zero test coverage. This blocks confidence in production deployment and makes refactoring risky. Recommend jest + supertest for HTTP API, ws + sinon for WebSocket events, and at least 60% coverage for core paths before release.",
+      "priority": "urgent",
+      "type": "bug",
+      "labels": [
+        "claude-mobile",
+        "overnight",
+        "bug"
+      ],
+      "project": "claude-mobile"
+    },
+    {
+      "title": "6 uncommitted changes block release",
+      "body": "Pending file changes indicate incomplete work cycles. Commit with semantic messages (feat/fix), then consolidate the 11-entry CHANGELOG-PENDING backlog into CHANGELOG.md and tag a release. This unblocks version tracking and deployment.",
+      "priority": "high",
       "type": "improvement",
       "labels": [
         "claude-mobile",
@@ -183,20 +135,20 @@
       "project": "claude-mobile"
     },
     {
-      "title": "Resolve 6 uncommitted changes",
-      "body": "The project has uncommitted modifications that obscure the true state. Review each change, stage or discard, and commit with semantic message. Clarify whether these are incomplete features or refinements ready to ship.",
+      "title": "CHANGELOG-PENDING stale for 7 days",
+      "body": "11 unpublished changelog entries accumulated since 2026-04-09, suggesting either a blocked release or skipped version bumps. Consolidate into CHANGELOG.md with a semantic version tag (e.g., v1.2.0 for Whisper integration feature).",
       "priority": "high",
-      "type": "improvement",
+      "type": "docs",
       "labels": [
         "claude-mobile",
         "overnight",
-        "improvement"
+        "docs"
       ],
       "project": "claude-mobile"
     },
     {
-      "title": "Commit pending changes + resolve doc updates",
-      "body": "17 uncommitted file changes have been staged since 2026-04-02. Before committing, check DOC-UPDATE-NEEDED.md for flagged updates, consolidate CHANGELOG-PENDING.md entries into CHANGELOG.md, and stage doc files alongside code. Push with semantic commit message (e.g., `feat: presentation generator` or `fix: PPTX rendering`).",
+      "title": "Commit 17 uncommitted changes before they diverge",
+      "body": "14 days have passed since the last commit (2026-04-02) despite 17 active file changes. This breaks commit history continuity and makes debugging difficult. Batch uncommitted changes into logical commits with semantic messages (feat/fix/refactor) and push today.",
       "priority": "urgent",
       "type": "improvement",
       "labels": [
@@ -207,8 +159,8 @@
       "project": "AI Work Presentation Tool"
     },
     {
-      "title": "Add test suite for PPTX generation",
-      "body": "8-file codebase with zero test coverage is a blocker for production readiness. Add test/ directory and write integration tests for the presentation generator (web UI flow, CLI script execution, output validation). Use existing project test patterns as reference.",
+      "title": "Add smoke tests for PPTX generation",
+      "body": "8 source files generating branded PowerPoint presentations with zero test coverage. Start with 3 tests: file creation, template + token injection, and output validation. This unblocks confident iteration and catches silent failures.",
       "priority": "high",
       "type": "feature",
       "labels": [
@@ -219,9 +171,9 @@
       "project": "AI Work Presentation Tool"
     },
     {
-      "title": "Create CLAUDE.md with project standards",
-      "body": "Missing CLAUDE.md context file. Add project-specific coding standards, test requirements, and reference to Caseware brand guidelines (use caseware-design-system skill to validate output styling). Include any compliance rules for branded presentations.",
-      "priority": "high",
+      "title": "Publish 7-day-old changelog backlog",
+      "body": "CHANGELOG-PENDING.md has 7 unpublished entries dated 2026-04-09. Move into CHANGELOG.md and establish a weekly publication ritual (e.g., every Friday) to keep documentation in sync with commits.",
+      "priority": "medium",
       "type": "docs",
       "labels": [
         "ai-work-presentation-tool",
@@ -229,7 +181,186 @@
         "docs"
       ],
       "project": "AI Work Presentation Tool"
+    },
+    {
+      "title": "Add README.md",
+      "body": "Project lacks README documentation. Add purpose statement (Yearly Reviews management), local setup steps, and key features. This is especially important for a Review-phase project where clarity on objectives drives quality.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "yearly-reviews",
+        "overnight",
+        "docs"
+      ],
+      "project": "Yearly Reviews"
+    },
+    {
+      "title": "Zero Test Coverage on Scraper",
+      "body": "93 source files with 0 tests. Core risk: Rightmove parser changes and financial filtering logic have no safety net. A single HTML structure change or logic bug silently breaks daily runs. Recommend starting with unit tests for the financial criteria evaluator and parser, then add integration tests for end-to-end property filtering.",
+      "priority": "urgent",
+      "type": "bug",
+      "labels": [
+        "property-search-tool",
+        "overnight",
+        "bug"
+      ],
+      "project": "Property Search Tool"
+    },
+    {
+      "title": "Stale Changelog Pending",
+      "body": "CHANGELOG-PENDING.md has 2 entries from 25 days ago (circa 2026-03-22). These should have been consolidated into CHANGELOG.md on the next commit. Consolidate now and update CLAUDE.md hooks if the automatic changelog consolidation isn't firing.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "property-search-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "Property Search Tool"
+    },
+    {
+      "title": "Resolve uncommitted changes (67 files pending)",
+      "body": "67 uncommitted file changes violate git-workflow.md execution discipline. Review `git status`, semantically commit valid changes (`feat:`, `fix:`, `chore:`), and discard exploratory work. Once resolved, enforce checkpoint commits before multi-file refactors.",
+      "priority": "urgent",
+      "type": "improvement",
+      "labels": [
+        "productivity-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "Productivity Tool"
+    },
+    {
+      "title": "Consolidate documentation backlog (7-day-old CHANGELOG)",
+      "body": "CHANGELOG-PENDING.md has 139 unpublished entries (7 days old) and DOC-UPDATE-NEEDED.md is still flagged. Per doc-with-commits hook protocol: consolidate pending changes into CHANGELOG.md and resolve all DOC-UPDATE-NEEDED flags before next commit.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "productivity-tool",
+        "overnight",
+        "docs"
+      ],
+      "project": "Productivity Tool"
+    },
+    {
+      "title": "Test coverage baseline (1.1% → target 60%+)",
+      "body": "Only 1 test file covers 88 source files. Focus on critical paths: API routes (day-plan, activity, automation), state transforms, and dashboard data aggregation. Use existing GoogleTest patterns from C++ projects or set up Jest for Next.js.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "productivity-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "Productivity Tool"
+    },
+    {
+      "title": "Consolidate stale changelog entries",
+      "body": "CHANGELOG-PENDING.md accumulates 6 entries over 7 days without publication. Consolidate into CHANGELOG.md immediately and establish a weekly automation (CronCreate) to prevent future backlog. This maintains project transparency and avoids lossy churn in the commit history.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "cw-ukjpd-workflows",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW UKJPD Workflows"
+    },
+    {
+      "title": "Commit 13 uncommitted changes before review approval",
+      "body": "13 files remain uncommitted as of 2026-04-15 (last commit 2026-04-15T17:31:09Z). Review phase cannot be closed with dirty working tree. Likely includes recent doc updates (UKCAUD-BUG-AND-QA-PROCESS.md, ukcaud-qa-feedback-epic-pattern.md) and state changes. Stage and commit with semantic message.",
+      "priority": "urgent",
+      "type": "bug",
+      "labels": [
+        "cw-ukcaud-project-tracker",
+        "overnight",
+        "bug"
+      ],
+      "project": "CW UKCAUD Project Tracker"
+    },
+    {
+      "title": "Expand test suite from 3 to 15+ files for review-phase standards",
+      "body": "Current 8% test-to-source ratio (3 tests / 39 sources) is below acceptable quality gates for review phase. Recent commits (feat: thematic template grouping, fix: HAT/AQA narrative) suggest feature maturity but no corresponding test additions. Target 20%+ coverage ratio (12–15 test files) before final approval.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "cw-ukcaud-project-tracker",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW UKCAUD Project Tracker"
+    },
+    {
+      "title": "Audit .gitignore: exclude generated outputs and state files",
+      "body": "Multiple cached output directories committed (outputs/ai-analysis-cache/, outputs/ceremony-prep/, .omc/state/) containing auto-generated artifacts. Review which should be .gitignored vs. tracked. eod sync commits suggest these regenerate frequently, risking repository bloat and noise in history.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "cw-ukcaud-project-tracker",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW UKCAUD Project Tracker"
+    },
+    {
+      "title": "Zero Test Coverage on 51 Files",
+      "body": "This tool has 51 source files (API, frontend, comparison logic) with no test files present. For a template comparison system in Review phase, this is a critical quality risk — template correctness directly impacts user workflows. Create a test foundation starting with API integration tests, then template comparison logic, then UI.",
+      "priority": "urgent",
+      "type": "improvement",
+      "labels": [
+        "cw-template-comparison-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW Template Comparison Tool"
+    },
+    {
+      "title": "CHANGELOG-PENDING Consolidation Debt",
+      "body": "20 entries have been pending for 7 days. This blocks the documentation hook workflow and signals stalled review hygiene. Move all entries into CHANGELOG.md in a single commit to restore clean state.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "cw-template-comparison-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW Template Comparison Tool"
+    },
+    {
+      "title": "Publish Pending Changelog Entries",
+      "body": "CHANGELOG-PENDING.md contains 6 unpublished entries dated ~7 April 2026. Per your documentation-with-commits hook, these should be consolidated into CHANGELOG.md before next session. This is low-friction but blocks changelog hygiene.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "cw-uat-testing-tool",
+        "overnight",
+        "docs"
+      ],
+      "project": "CW UAT Testing Tool"
+    },
+    {
+      "title": "Add test suite for scraper",
+      "body": "Zero test coverage for news scraping logic, Google News authentication, and RSS fallback. Session auth is a critical external dependency that can fail silently. Add unit tests for parsing, integration tests for session refresh, and CI job to validate daily scrape workflow.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "ai-breaking-news-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "AI Breaking News Tool"
+    },
+    {
+      "title": "Automate changelog consolidation",
+      "body": "CHANGELOG-PENDING.md has 20 entries accumulating (8 days). Implement weekly cron to consolidate pending entries into CHANGELOG.md or add a pre-commit hook to consolidate on each commit. Prevents manual backlog management.",
+      "priority": "medium",
+      "type": "improvement",
+      "labels": [
+        "ai-breaking-news-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "AI Breaking News Tool"
     }
-  ],
-  "lastReviewedAt": "2026-04-15T14:37:55.090Z"
+  ]
 }

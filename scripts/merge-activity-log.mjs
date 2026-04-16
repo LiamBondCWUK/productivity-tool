@@ -20,13 +20,30 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 
+// Load .env if present so scheduled/manual runs have Jira credentials.
+try {
+  const dotenvPath = resolve(ROOT, ".env");
+  if (existsSync(dotenvPath)) {
+    const envContent = readFileSync(dotenvPath, "utf8");
+    envContent.split("\n").forEach((line) => {
+      const [key, ...valueParts] = line.trim().split("=");
+      if (key && !key.startsWith("#") && !process.env[key]) {
+        process.env[key] = valueParts.join("=").trim();
+      }
+    });
+  }
+} catch {
+  // Ignore .env parsing failures and continue with process env.
+}
+
 const ACTIVITY_LOG_PATH = resolve(ROOT, "workspace/coordinator/activity-log.json");
 const CLAUDE_SESSIONS_PATH = resolve(ROOT, "workspace/coordinator/claude-sessions-today.json");
+const VSCODE_CHAT_PATH = resolve(ROOT, "workspace/coordinator/vscode-chat-today.json");
 const DASHBOARD_DATA_PATH = resolve(ROOT, "workspace/coordinator/dashboard-data.json");
-const OUTPUT_PATH = resolve(ROOT, "workspace/coordinator/daily-unified-log.json");
-
 const dateArg = process.argv.find((a) => a.startsWith("--date"))?.split("=")[1];
 const TARGET_DATE = dateArg ?? new Date().toISOString().slice(0, 10);
+const OUTPUT_PATH = resolve(ROOT, "workspace/coordinator/daily-unified-log.json");
+const OUTPUT_DATED_PATH = resolve(ROOT, `workspace/coordinator/daily-unified-log-${TARGET_DATE}.json`);
 
 console.log(`[merge-activity-log] merging sources for ${TARGET_DATE}`);
 
@@ -88,7 +105,34 @@ function loadClaudeSessions() {
   }));
 }
 
-// --- Source 3: Jira worklog ------------------------------------------------
+// --- Source 3: VS Code Copilot Chat sessions ------------------------------
+
+function loadVsCodeChatSessions() {
+  // Re-run extract-vscode-chat to get fresh data
+  try {
+    const dateFlag = dateArg ? `--date=${TARGET_DATE}` : "";
+    execSync(
+      `node "${resolve(__dirname, "extract-vscode-chat.mjs")}" ${dateFlag}`,
+      { stdio: "inherit" }
+    );
+  } catch (err) {
+    console.warn("[merge-activity-log] extract-vscode-chat failed:", err.message);
+  }
+
+  const sessions = readJson(VSCODE_CHAT_PATH, []);
+  return sessions.map((s) => ({
+    source: "vscode-chat",
+    start: s.start,
+    end: s.end,
+    durationMin: s.durationMin ?? 0,
+    label: "VS Code Copilot Chat",
+    detail: s.firstMessage ?? "",
+    sessionId: s.sessionId,
+    messageCount: s.messageCount ?? 0,
+  }));
+}
+
+// --- Source 4: Jira worklog ------------------------------------------------
 
 async function loadJiraWorklog() {
   const email = process.env.JIRA_EMAIL;
@@ -104,7 +148,7 @@ async function loadJiraWorklog() {
   const jql = encodeURIComponent(
     `worklogAuthor = currentUser() AND worklogDate = "${TARGET_DATE}" ORDER BY updated DESC`
   );
-  const url = `https://${domain}/rest/api/3/search?jql=${jql}&fields=summary,worklog&maxResults=20`;
+  const url = `https://${domain}/rest/api/3/search/jql?jql=${jql}&fields=summary,worklog&maxResults=20`;
   const auth = Buffer.from(`${email}:${token}`).toString("base64");
 
   let response;
@@ -195,9 +239,10 @@ function summariseByLabel(entries) {
 async function run() {
   const windowSessions = loadWindowSessions();
   const claudeSessions = loadClaudeSessions();
+  const vscodeChatSessions = loadVsCodeChatSessions();
   const jiraSessions = await loadJiraWorklog();
 
-  const allEntries = [...windowSessions, ...claudeSessions, ...jiraSessions];
+  const allEntries = [...windowSessions, ...claudeSessions, ...vscodeChatSessions, ...jiraSessions];
   allEntries.sort((a, b) => a.start.localeCompare(b.start));
 
   const totalMinAll = allEntries.reduce((acc, e) => acc + (e.durationMin ?? 0), 0);
@@ -210,6 +255,7 @@ async function run() {
     sourceCounts: {
       window: windowSessions.length,
       claude: claudeSessions.length,
+      vscodeChat: vscodeChatSessions.length,
       jiraWorklog: jiraSessions.length,
     },
     summary,
@@ -217,8 +263,10 @@ async function run() {
   };
 
   writeFileSync(OUTPUT_PATH, JSON.stringify(unifiedLog, null, 2));
+  writeFileSync(OUTPUT_DATED_PATH, JSON.stringify(unifiedLog, null, 2));
 
   console.log(`[merge-activity-log] wrote ${OUTPUT_PATH}`);
+  console.log(`[merge-activity-log] wrote ${OUTPUT_DATED_PATH}`);
   console.log(`[merge-activity-log] total tracked: ${totalMinAll} minutes across ${allEntries.length} entries`);
   if (summary.length > 0) {
     console.log("[merge-activity-log] top activities:");

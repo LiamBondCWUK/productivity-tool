@@ -1,7 +1,7 @@
 {
-  "tool_name": "Read",
-  "tool_input_preview": "{\"file_path\":\"C:\\\\Users\\\\liam.bond\\\\Documents\\\\Productivity Tool\\\\dashboard\\\\.omc\\\\prd.json\"}",
-  "error": "File does not exist. Note: your current working directory is C:\\Users\\liam.bond\\Documents\\Productivity Tool\\dashboard.",
-  "timestamp": "2026-04-07T22:46:48.169Z",
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd \\\"C:/Users/liam.bond/Documents/Productivity Tool/dashboard\\\" && npm test -- app/__tests__/page.test.tsx --coverage 2>&1\",\"description\":\"Run Jest tests for page.tsx with coverage report\"...",
+  "error": "Exit code 1\n\n> dashboard@0.1.0 test\n> jest app/__tests__/page.test.tsx --coverage\n\njest-haste-map: Haste module naming collision: dashboard\n  The following files share their name; please adjust your hasteImpl:\n    * <rootDir>\\package.json\n    * <rootDir>\\.next\\standalone\\package.json\n\njest-haste-map: Haste module naming collision: dashboard\n  The following files share their name; please adjust your hasteImpl:\n    * <rootDir>\\package.json\n    * <rootDir>\\.next\\standalone\\package.json\n\nFAIL compon...",
+  "timestamp": "2026-04-15T16:54:22.364Z",
   "retry_count": 2
 }

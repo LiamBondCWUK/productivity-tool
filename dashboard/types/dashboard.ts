@@ -328,7 +328,9 @@ export interface DashboardData {
   };
   projectRegistry: ProjectEntry[];
   teamMessages: TeamMessage[];
+  teamMessagesFetchedAt?: string | null;
   flaggedEmails: FlaggedEmail[];
+  flaggedEmailsFetchedAt?: string | null;
   dayPlan: DayPlan | null;
   activityLog: ActivitySession[];
   aiNewsResults: AiNewsResults | null;

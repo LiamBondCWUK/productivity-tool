@@ -1,5 +1,27 @@
 [
   {
+    "ranAt": "2026-04-15T16:54:27.475Z",
+    "totalCards": 1,
+    "succeeded": 0,
+    "failed": 1,
+    "results": [
+      {
+        "index": 0,
+        "title": "Add test suite to Productivity Tool dashboard",
+        "project": "Productivity Tool",
+        "priority": "urgent",
+        "model": "haiku",
+        "effort": "medium",
+        "status": "failed",
+        "exitCode": null,
+        "elapsedSeconds": 900.2,
+        "workDir": "C:\\Users\\liam.bond\\Documents\\Productivity Tool",
+        "ranAt": "2026-04-15T16:54:27.474Z"
+      }
+    ],
+    "approvedBatch": "3 cards approved for implementation on 15/04/2026, 15:37:55"
+  },
+  {
     "ranAt": "2026-04-15T16:21:09.674Z",
     "totalCards": 1,
     "succeeded": 0,

@@ -37,6 +37,7 @@ interface ProjectsTabProps {
     projectName: string,
   ) => Promise<void>;
   onRefetch: () => void;
+  onRefresh?: () => Promise<void>;
 }
 
 const PHASES: ProjectPhase[] = ["Backlog", "Building", "Review", "Done"];
@@ -271,12 +272,14 @@ export function ProjectsTab({
   onPhaseChange,
   onAddTask,
   onRefetch,
+  onRefresh,
 }: ProjectsTabProps) {
   const [registryProjects, setRegistryProjects] = useState<ProjectEntry[]>([]);
   const [registryUpdatedAt, setRegistryUpdatedAt] = useState<string | null>(
     null,
   );
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [activePhase, setActivePhase] = useState<ProjectPhase | "All">("All");
 
   useEffect(() => {
@@ -342,10 +345,20 @@ export function ProjectsTab({
                 </span>
               )}
               <button
-                onClick={onRefetch}
-                className="text-[10px] text-gray-500 hover:text-gray-400 transition-colors"
+                onClick={async () => {
+                  setRefreshing(true);
+                  try {
+                    if (onRefresh) await onRefresh();
+                  } finally {
+                    setRefreshing(false);
+                    onRefetch();
+                  }
+                }}
+                disabled={refreshing}
+                className="text-[10px] text-gray-500 hover:text-gray-400 disabled:opacity-40 transition-colors"
+                title="Sync project registry"
               >
-                ↻ refresh
+                {refreshing ? "…" : "↻"}
               </button>
             </div>
           </div>

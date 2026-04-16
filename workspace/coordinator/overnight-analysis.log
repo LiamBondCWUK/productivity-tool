@@ -1,0 +1,90 @@
+[16/04/2026  2:00:01.63] Starting overnight analysis v2 
+
+====== Overnight Analysis v2 — 2026-04-16T01:00:02.004Z ======
+
+[1/6] Refreshing project registry...
+Discovered 19 projects → C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\project-registry.json
+  [Building] UKCAUD AI Project  (git:true)
+  [Building] Bondlw Programming Architecture  (git:true)
+  [Building] AI Onboarding  (git:true)
+  [Building] Activepieces  (git:true)
+  [Building] dotfiles-publish  (git:true)
+  [Building] UKCAUD-Authoring-Agent-Spec-Layer  (git:true)
+  [Building] CW Release Notes Tool  (git:true)
+  [Building] CW Lead Schedule Specifications  (git:true)
+  [Building] claude-mobile  (git:true)
+  [Building] AI Work Presentation Tool  (git:true)
+  [Review] Builder Forms HAT Sampling  (git:true)
+  [Review] Yearly Reviews  (git:true)
+  [Review] Property Search Tool  (git:true)
+  [Review] Productivity Tool  (git:true)
+  [Review] CW UKJPD Workflows  (git:true)
+  [Review] CW UKCAUD Project Tracker  (git:true)
+  [Review] CW Template Comparison Tool  (git:true)
+  [Done] CW UAT Testing Tool  (git:true)
+  [Done] AI Breaking News Tool  (git:true)
+[1/6] 19 projects loaded
+
+[2/6] Running deterministic health checks...
+  UKCAUD AI Project: ⚠ 1 findings
+  Bondlw Programming Architecture: ⚠ 1 findings
+  AI Onboarding: ⚠ 1 findings
+  Activepieces: ⚠ 1 findings
+  dotfiles-publish: ⚠ 1 findings
+  UKCAUD-Authoring-Agent-Spec-Layer: ⚠ 2 findings
+  CW Release Notes Tool: ⚠ 2 findings
+  CW Lead Schedule Specifications: ⚠ 2 findings
+  claude-mobile: ⚠ 4 findings
+  AI Work Presentation Tool: ⚠ 4 findings
+  Builder Forms HAT Sampling: ✓ healthy
+  Yearly Reviews: ⚠ 1 findings
+  Property Search Tool: ⚠ 2 findings
+  Productivity Tool: ⚠ 3 findings
+  CW UKJPD Workflows: ⚠ 1 findings
+  CW UKCAUD Project Tracker: ⚠ 1 findings
+  CW Template Comparison Tool: ⚠ 2 findings
+  CW UAT Testing Tool: ⚠ 1 findings
+  AI Breaking News Tool: ⚠ 1 findings
+
+[2/6] 18/19 projects have findings
+
+[3/6] Running budget-guarded LLM synthesis...
+[synthesize] UKCAUD AI Project (haiku, 1 findings)
+[synthesize] Bondlw Programming Architecture (haiku, 1 findings)
+[synthesize] AI Onboarding (haiku, 1 findings)
+[synthesize] AI Onboarding failed: Claude CLI spawn error: spawnSync claude ETIMEDOUT
+[synthesize] Activepieces (haiku, 1 findings)
+[synthesize] dotfiles-publish (haiku, 1 findings)
+[synthesize] dotfiles-publish failed: Claude CLI spawn error: spawnSync claude ETIMEDOUT
+[synthesize] UKCAUD-Authoring-Agent-Spec-Layer (haiku, 2 findings)
+[synthesize] CW Release Notes Tool (haiku, 2 findings)
+[synthesize] CW Lead Schedule Specifications (haiku, 2 findings)
+[synthesize] claude-mobile (haiku, 4 findings)
+[synthesize] AI Work Presentation Tool (haiku, 4 findings)
+[synthesize] Yearly Reviews (haiku, 1 findings)
+[synthesize] Property Search Tool (haiku, 2 findings)
+[synthesize] Productivity Tool (haiku, 3 findings)
+[synthesize] CW UKJPD Workflows (haiku, 1 findings)
+[synthesize] CW UKCAUD Project Tracker (haiku, 1 findings)
+[synthesize] CW Template Comparison Tool (haiku, 2 findings)
+[synthesize] CW UAT Testing Tool (haiku, 1 findings)
+[synthesize] AI Breaking News Tool (haiku, 1 findings)
+
+[3/6] LLM synthesis complete
+  Budget used: $0.0442 / $5.00
+  Projects called: 18, skipped: 1
+
+[4/6] Collecting and pushing kanban cards...
+[kanban] projectId not configured — skipping card push (run vibe-kanban:discover)
+[4/6] Cards: 30 generated | 0 pushed to vibe-kanban | 30 pending
+  Note: projectId not configured — cards saved to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\pending-kanban-cards.json
+
+[5/6] Running doc freshness check...
+  Doc health script not available — skipping
+
+[6/6] Writing dashboard and report...
+  Dashboard updated: C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+  Report written: C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\overnight-report.md
+
+====== Overnight Analysis Complete (1656s) ======
+

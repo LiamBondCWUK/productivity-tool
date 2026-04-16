@@ -24,6 +24,18 @@ function formatRelativeTime(isoString: string): string {
   return `${days}d ago`;
 }
 
+function formatFetchedAt(isoString: string | null): string | null {
+  if (!isoString) {
+    return null;
+  }
+
+  return new Date(isoString).toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+}
+
 export function TeamMessages() {
   const [teams, setTeams] = useState<TeamsData>({
     teamMessages: [],
@@ -56,11 +68,18 @@ export function TeamMessages() {
   const handleRefresh = async () => {
     setRefreshing(true);
     try {
-      await fetch("/api/execute", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ command: "refresh-email" }),
-      });
+      await Promise.all([
+        fetch("/api/execute", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ command: "refresh-teams" }),
+        }),
+        fetch("/api/execute", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ command: "refresh-email" }),
+        }),
+      ]);
       await fetchAll();
     } catch {
       // silent
@@ -72,6 +91,7 @@ export function TeamMessages() {
   const hasTeams = teams.teamMessages.length > 0;
   const hasEmail = email.flaggedEmails.length > 0;
   const hasAny = hasTeams || hasEmail;
+  const lastFetched = teams.fetchedAt ?? email.fetchedAt;
 
   if (loading) {
     return (
@@ -91,14 +111,21 @@ export function TeamMessages() {
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
             Messages
           </p>
-          <button
-            onClick={handleRefresh}
-            disabled={refreshing}
-            className="text-xs px-1.5 py-0.5 text-gray-500 hover:text-gray-300 disabled:opacity-40 transition-colors"
-            title="Refresh emails"
-          >
-            {refreshing ? "…" : "↻"}
-          </button>
+          <div className="flex items-center gap-2">
+            {lastFetched && (
+              <span className="text-[10px] text-gray-500">
+                Updated {formatFetchedAt(lastFetched)}
+              </span>
+            )}
+            <button
+              onClick={handleRefresh}
+              disabled={refreshing}
+              className="text-xs px-1.5 py-0.5 text-gray-500 hover:text-gray-300 disabled:opacity-40 transition-colors"
+              title="Refresh Teams and email"
+            >
+              {refreshing ? "…" : "↻"}
+            </button>
+          </div>
         </div>
         <p className="text-xs text-gray-500 italic">
           No unread Teams or flagged emails
@@ -119,14 +146,21 @@ export function TeamMessages() {
         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
           Messages
         </p>
-        <button
-          onClick={handleRefresh}
-          disabled={refreshing}
-          className="text-xs px-1.5 py-0.5 text-gray-500 hover:text-gray-300 disabled:opacity-40 transition-colors"
-          title="Refresh emails"
-        >
-          {refreshing ? "…" : "↻"}
-        </button>
+        <div className="flex items-center gap-2">
+          {lastFetched && (
+            <span className="text-[10px] text-gray-500">
+              Updated {formatFetchedAt(lastFetched)}
+            </span>
+          )}
+          <button
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="text-xs px-1.5 py-0.5 text-gray-500 hover:text-gray-300 disabled:opacity-40 transition-colors"
+            title="Refresh Teams and email"
+          >
+            {refreshing ? "…" : "↻"}
+          </button>
+        </div>
       </div>
 
       {hasTeams && (

@@ -87,6 +87,21 @@ if (Test-Path $outlookCalendarScript) {
     Log "  outlook-calendar-fetch.ps1 not found — skipping" "Yellow"
 }
 
+# ── Step 2c: Ingest Power Automate OneDrive exports ─────────────────────────
+Log "[2c/5] Ingesting Power Automate exports (Teams messages + document signals)..."
+$ingestScript = "$ProdToolDir\scripts\ingest-pa-exports.mjs"
+if (Test-Path $ingestScript) {
+    try {
+        $ingestOutput = node $ingestScript 2>&1 | Out-String
+        Add-Content -Path $LogFile -Value $ingestOutput
+        Log "  PA exports ingested" "Green"
+    } catch {
+        Log "  PA export ingestion failed: $_" "Yellow"
+    }
+} else {
+    Log "  ingest-pa-exports.mjs not found — skipping" "Yellow"
+}
+
 # ── Step 3: Read overnight results ───────────────────────────────────────────
 Log "[3/5] Reading overnight results..."
 $overnightSummary = "(no overnight report found)"

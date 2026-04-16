@@ -1,0 +1,38 @@
+{
+  "date": "2026-04-16",
+  "generatedAt": "2026-04-16T00:17:34.122Z",
+  "totalMinutes": 13,
+  "sourceCounts": {
+    "window": 2,
+    "claude": 0,
+    "jiraWorklog": 0
+  },
+  "summary": [
+    {
+      "label": "UKCAUD-16039",
+      "sources": [
+        "window"
+      ],
+      "totalMin": 13,
+      "firstSeen": "2026-04-15T23:56:35.504Z"
+    }
+  ],
+  "entries": [
+    {
+      "source": "window",
+      "start": "2026-04-15T23:56:35.504Z",
+      "end": "2026-04-16T00:06:09.113Z",
+      "durationMin": 10,
+      "label": "UKCAUD-16039",
+      "detail": "[UKCAUD-16039] DEVELOP - Audit HAT UK Company - SS - Parent materiality: warning message, label rename, and value not populating - Caseware Jira and 7 more pages - Work - Microsoft? Edge"
+    },
+    {
+      "source": "window",
+      "start": "2026-04-16T00:06:35.423Z",
+      "end": "2026-04-16T00:09:09.260Z",
+      "durationMin": 3,
+      "label": "UKCAUD-16039",
+      "detail": "[UKCAUD-16039] DEVELOP - Audit HAT UK Company - SS - Parent materiality: warning message, label rename, and value not populating - Caseware Jira and 7 more pages - Work - Microsoft? Edge"
+    }
+  ]
+}

@@ -22,7 +22,7 @@ module.exports = {
       args: "start",
       cwd: path.join(projectRoot, "dashboard"),
       env: {
-        PORT: 3000,
+        PORT: 3002,
         NODE_ENV: "production",
       },
       watch: false,

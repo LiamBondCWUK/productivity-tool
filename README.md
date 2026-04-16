@@ -2,7 +2,7 @@
 
 ## Dashboard (Command Center)
 
-The dashboard is a Next.js 14 app at `localhost:3000`, managed by pm2. It provides a live view of the priority inbox, personal projects Kanban, vibe-kanban task board, calendar, and time tracker.
+The dashboard is a Next.js 14 app at `localhost:3002`, managed by pm2. It provides a live view of the priority inbox, personal projects Kanban, calendar, time tracker, IBP reporting, and AI analysis across 11 tabs.
 
 ### Prerequisites
 
@@ -22,7 +22,7 @@ npm run build
 
 # 3. Start with pm2 (auto-restarts, survives reboots)
 cd "C:\Users\liam.bond\Documents\Productivity Tool"
-pm2 start ecosystem.config.js
+pm2 start dashboard/ecosystem.config.js
 pm2 save
 pm2 startup   # run the output command to enable autostart on login
 
@@ -36,31 +36,82 @@ pm2 startup   # run the output command to enable autostart on login
 powershell -File "scripts\setup-graph-token.ps1"
 ```
 
-The root `ecosystem.config.js` configures two pm2 processes:
+The canonical pm2 config is `dashboard/ecosystem.config.js`, which runs:
 
-- **dashboard** — Next.js Command Center at port 3000 (`dashboard/` directory, `npm start`, auto-restart ×5)
-- **vibe-kanban** — BloopAI Kanban board (`npx vibe-kanban`, auto-discovers port from config)
+- **command-center** — Next.js dashboard on port 3002 (`next start -p 3002`)
 
-Logs are written to `logs/dashboard-out.log`, `logs/dashboard-err.log`, `logs/vibe-kanban-out.log`, `logs/vibe-kanban-err.log`.
-
-There is also a `dashboard/ecosystem.config.js` and `workspace/coordinator/ecosystem.config.js` — the **root-level config** is the canonical one used for `pm2 start`.
+Other pm2 processes (for example `vibe-kanban`) can be started separately when needed.
 
 ### Development mode
 
 ```powershell
 cd dashboard
-npm run dev   # hot-reload at localhost:3000
+npm run dev   # hot-reload at localhost:3002
 ```
 
 ---
 
 ## Overview
 
-This is a collection of 12 structured prompt files (referred to as "skills") designed to drive a **personal productivity system for a technical product manager**. The original author manages multiple software initiatives using Jira, Confluence, and GitHub, and built these prompts to automate the repetitive coordination work that connects daily execution to weekly reporting and long-term planning.
+This is a collection of structured prompt files (referred to as "skills") designed to drive a **personal productivity system for a technical product manager**. The original author manages multiple software initiatives using Jira, Confluence, and GitHub, and built these prompts to automate the repetitive coordination work that connects daily execution to weekly reporting and long-term planning.
 
 **Workflow philosophy:** The system follows a "capture, structure, surface" pattern. Raw information enters through daily check-ins and ad-hoc processing, gets structured into Jira issues and Confluence pages via creation/splitting prompts, and surfaces back as weekly summaries and meeting prep. The goal is to keep a single source of truth across local markdown files, Jira, and Confluence without manual copy-paste between systems.
 
 The prompts assume a **local workspace** of markdown files organised into `coordinator/` (cross-cutting plans, logs, briefs) and `initiatives/{name}/` (per-initiative context, todos, milestones, epics). They are designed to be invoked as slash commands inside an AI coding assistant (Claude Code) with MCP (Model Context Protocol) integrations for Jira, Confluence, and GitHub.
+
+---
+
+## IBP Automation Pipeline
+
+The IBP workflow now runs end-to-end: generate Quinn-format weekly updates, review in Command Center, and auto-fill the PowerApps weekly IBP form for manual submission.
+
+### 1) Generate Quinn-format IBP
+
+```powershell
+# Standard daily output
+node scripts/generate-ibp.mjs --date=2026-04-16 --skip-ai
+
+# Demo-safe output (separate file)
+node scripts/generate-ibp.mjs --date=2026-04-16 --skip-ai --output=workspace/coordinator/demo-ibp-2026-04-16.md
+```
+
+Output sections:
+
+- 🚀 Current Week: Wins & Impact
+- ⚠️ Issues / Blockers
+- 🔥 Next Week: Top Priorities
+- 🔮 Looking Ahead
+
+### 2) Review in dashboard (IBP tab)
+
+Open: `http://localhost:3002/?tab=ibp`
+
+The IBP tab provides:
+
+- Quinn section cards (2x2)
+- historical date switching
+- Generate IBP action
+- Fill PowerApps Form action
+
+### 3) Fill PowerApps form (never auto-submit)
+
+```powershell
+# Fill real IBP file for a date
+node scripts/playwright-ibp-submit.mjs --date=2026-04-16
+
+# Fill demo IBP file for a date
+node scripts/playwright-ibp-submit.mjs --date=2026-04-16 --demo
+```
+
+The script fills all 4 rich text editors and team selection, then stops for manual review. It does **not** click Submit.
+
+### 4) Full autonomous demo via Claude CLI
+
+```powershell
+pwsh -NoProfile -File ".\scripts\demo-build-test-claude-cli.ps1" -Date "2026-04-16" -FullWorkflow
+```
+
+This uses `prompts/demo-ibp-workflow.md` to run: Discovery -> Data Collection -> Generate IBP -> Dashboard Preview -> PowerApps Fill (manual submit retained).
 
 ---
 

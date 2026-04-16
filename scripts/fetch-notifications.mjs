@@ -47,8 +47,8 @@ const SINCE_DAYS = 7;
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
 
-const JIRA_EMAIL = process.env.JIRA_EMAIL;
-const JIRA_TOKEN = process.env.JIRA_API_TOKEN;
+const JIRA_EMAIL = process.env.JIRA_EMAIL ?? 'liam.bond@caseware.com';
+const JIRA_TOKEN = process.env.JIRA_API_TOKEN ?? process.env.ATLASSIAN_API_TOKEN;
 
 if (!JIRA_EMAIL || !JIRA_TOKEN) {
   console.warn('⚠  JIRA_EMAIL / JIRA_API_TOKEN not set — skipping Jira comment fetch');
@@ -57,7 +57,9 @@ if (!JIRA_EMAIL || !JIRA_TOKEN) {
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function readData() {
-  return JSON.parse(readFileSync(DASHBOARD_FILE, 'utf8'));
+  const raw = readFileSync(DASHBOARD_FILE, 'utf8');
+  const normalized = raw.charCodeAt(0) === 0xfeff ? raw.slice(1) : raw;
+  return JSON.parse(normalized);
 }
 
 function writeData(data) {
@@ -110,11 +112,10 @@ async function fetchJiraComments() {
     const accountId = me.accountId;
     const displayName = me.displayName;
 
-    // Step 2: search for issues with recent comments mentioning this user
-    // JQL: issues commented on in last N days where user is mentioned
-    const jql = `issueFunction in commented("after ${sinceDate()}") AND project in (UKCAUD, UKCAS, UKJPD, UKPFR)`;
+    // Step 2: search recent issues in the target projects, then filter comments locally.
+    const jql = `project in (UKCAUD, UKCAS, UKJPD, UKPFR) AND updated >= \"${sinceDate()}\" ORDER BY updated DESC`;
     const searchResp = await fetch(
-      `${JIRA_BASE}/rest/api/3/search?jql=${encodeURIComponent(jql)}&fields=summary,comment,status,priority&maxResults=50`,
+      `${JIRA_BASE}/rest/api/3/search?jql=${encodeURIComponent(jql)}&fields=summary,comment,status,priority&maxResults=100`,
       { headers: jiraHeaders() }
     );
     if (!searchResp.ok) {
@@ -352,6 +353,13 @@ async function fetchDocComments() {
  *   (they've been resolved or are too old).
  */
 function mergeNotifications(data, freshJiraItems, freshDocItems) {
+  data.priorityInbox = data.priorityInbox ?? {
+    urgent: [],
+    aiSuggested: [],
+    today: [],
+    backlog: [],
+  };
+
   const inbox = data.priorityInbox;
   const sections = ['urgent', 'aiSuggested', 'today', 'backlog'];
 

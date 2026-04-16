@@ -72,6 +72,50 @@ foreach ($file in $targetFiles) {
     }
 }
 
+# ─── Special tracked files (root-level indexes + audit data) ─────────────────
+# These files live outside project subdirs and require explicit tracking.
+
+$specialFiles = @(
+    [PSCustomObject]@{
+        Path      = Join-Path $documentsRoot "CW-AUTOMATIONS-INDEX.md"
+        Project   = "(docs-root)"
+        StaleDays = $StaleDays
+        Reason    = "Automations index not updated in {0} days — re-audit or update manually"
+    },
+    [PSCustomObject]@{
+        Path      = Join-Path $documentsRoot "CW-PROJECTS-INDEX.md"
+        Project   = "(docs-root)"
+        StaleDays = $StaleDays
+        Reason    = "Projects index not updated in {0} days — review for accuracy"
+    },
+    [PSCustomObject]@{
+        Path      = Join-Path $documentsRoot "scripts\jira-automation-results-final.json"
+        Project   = "scripts"
+        StaleDays = 30
+        Reason    = "Jira automation scrape data is {0} days old — re-run: node Documents/scripts/jira-automation-scrape.mjs"
+    }
+)
+
+foreach ($spec in $specialFiles) {
+    if (-not (Test-Path $spec.Path)) { continue }
+    $specialFile = Get-Item $spec.Path
+    $specialCutoff = (Get-Date).AddDays(-$spec.StaleDays)
+    if ($specialFile.LastWriteTime -gt $specialCutoff) { continue }
+
+    $daysSinceUpdate = [int]((Get-Date) - $specialFile.LastWriteTime).TotalDays
+    $relativePath = $specialFile.FullName.Replace($documentsRoot + "\\", "")
+
+    $staleDocs += [PSCustomObject]@{
+        id              = "doc-" + ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($relativePath)).Replace("=", "").Replace("/", "-").Replace("+", "_"))
+        project         = $spec.Project
+        filePath        = $relativePath.Replace("\\", "/")
+        reason          = ($spec.Reason -f $daysSinceUpdate)
+        daysSinceUpdate = $daysSinceUpdate
+        lastModified    = $specialFile.LastWriteTime.ToString("yyyy-MM-dd")
+        priority        = Get-Priority -daysSinceUpdate $daysSinceUpdate
+    }
+}
+
 $staleDocs = $staleDocs | Sort-Object -Property daysSinceUpdate -Descending
 
 $report = [PSCustomObject]@{
@@ -79,7 +123,7 @@ $report = [PSCustomObject]@{
     staleThresholdDays = $StaleDays
     staleDocs = $staleDocs
     summary = [PSCustomObject]@{
-        totalScanned = $targetFiles.Count
+        totalScanned = $targetFiles.Count + $specialFiles.Count
         staleCount = $staleDocs.Count
         highPriorityCount = ($staleDocs | Where-Object { $_.priority -eq "HIGH" }).Count
     }

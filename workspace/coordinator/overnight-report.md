@@ -1,261 +1,319 @@
 # Overnight Project Analysis Report
-## Wednesday 15 April 2026 at 13:59
+## Thursday, 16 April 2026 at 02:27
 
 **Pipeline:** v2 (tiered - haiku/sonnet)
-**Duration:** 646s
-**Budget used:** $0.0342 / $5.00
-**Projects scanned:** 12 | **With findings:** 12 | **LLM processed:** 12
-**Kanban cards:** 22 generated | 0 pushed | 22 pending (see C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\pending-kanban-cards.json)
+**Duration:** 1656s
+**Budget used:** $0.0442 / $5.00
+**Projects scanned:** 19 | **With findings:** 18 | **LLM processed:** 18
+**Kanban cards:** 30 generated | 0 pushed | 30 pending (see C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\pending-kanban-cards.json)
 
 
 ---
 
 ## Top Priority Action
-[AI Work Presentation Tool] Commit pending changes + resolve doc updates
+[CW Template Comparison Tool] Zero Test Coverage on 51 Files
 
 ## Global Insights
-- Consistent EOD sync pattern in commits, but missing test coverage and doc-tracking hygiene suggest the tooling is handling state capture but not quality gates.
-- Automation pipeline is healthy (daily eod syncs, AI cache generation), but commit-side documentation discipline is breaking due to uncommitted state.
-- Project exhibits early-stage characteristics (1 source file, no tests) combined with active end-of-day sync workflow — clarify whether this is rapid prototyping or incomplete scaffolding.
-- Active full-stack development (5-day cadence) without any test coverage is unsustainable; test infrastructure must be established before adding more features.
-- Release tooling is production-ready in code but release workflow (changelog consolidation, testing) is not yet automated.
-- Specification validation logic without test coverage is a major correctness risk; prioritize test setup before expanding feature scope.
-- Documentation-only projects benefit from strict changelog hygiene to prevent metadata drift; implement automated consolidation or pre-commit enforcement.
-- This is a documentation-hygiene task rather than a code-quality issue — the project is actively building (6 days ago) but workflow checkpoints need reinforcement.
-- Data-driven tooling (scraping, analysis) requires test discipline more than typical projects — selector changes and API shifts are silent failures.
-- Multi-project pattern: newer feature branches (claude-mobile, 12 days old) lack test coverage while core projects emphasize it — testing discipline should be enforced at project creation, not retrofit later.
-- This project appears to be the Caseware AI-at-work presentation tooling mentioned in primer.md — treat as high-visibility internal tool requiring test coverage and doc compliance before release.
+- This is a prerequisite for Phase 1.5 UKCAS/UKCAUD sync work; initialize CLAUDE.md and CI early to avoid delays when feature work accelerates.
+- Documentation projects should establish structure and automation early to prevent inconsistency drift as content grows.
+- This is a high-profile open-source project at inception; establish strong conventions and automation early to scale contributor onboarding.
+- Agent/automation spec systems require test coverage earlier than typical projects due to correctness sensitivity — consider TDD before adding more files.
+- Tool is actively maintained (EOD syncs) but test infrastructure is missing entirely; fix this before moving past 'Building' phase.
+- Pattern of 'eod sync' commits with CLAUDE.md updates suggests active daily iteration, but lack of tests indicates documentation is advancing faster than verification discipline.
+- Rapid feature iteration (Groq Whisper integration) without corresponding test coverage or release checkpoints — typical of early Building phase, but needs gates before production use.
+- This project shows active development but weak commit/test discipline — common sign of rapid prototyping without production-readiness checks.
+- This Yearly Reviews tool is part of a broader personal productivity ecosystem alongside AI Breaking News and Productivity Tool projects, suggesting an integrated planning and reflection workflow.
+- Project is functionally mature (93 files, active commits) but skipped testing phase; typical for solo automation tools that need test-first refactoring before scaling.
+- Review phase work being tracked via bulk sync commits rather than semantic versioning — suggests consolidation/documentation task that should be finalized with proper git hygiene.
+- Recent activity shows daily eod-sync commits with config updates but changelog consolidation is not part of the routine.
+- Automation-heavy review-phase project generating repeated state/cache artifacts; needs test expansion and .gitignore cleanup before merge.
+- Template comparison tools are critical infrastructure; zero test coverage makes this unsuitable for Review phase without immediate test investment.
+- Lightweight artifact project (1 source file, no tests) receiving daily maintenance via CLAUDE.md syncs suggests it's a living reference, not archived — consider phase reclassification.
+- This is a well-maintained operational tool in 'Done' phase, but the absence of tests and persistent changelog backlog suggest process automation opportunities.
 
 ## Project Findings
 
-### Productivity Tool (Building)
-**Deterministic findings (4):**
-🔴 `no-tests` — 81 source files but no test files found
-🟡 `uncommitted-changes` — 11 uncommitted file changes
-🟢 `changelog-pending` — CHANGELOG-PENDING.md has 139 unpublished entries (6 days old)
+### UKCAUD AI Project (Building)
+**Deterministic findings (1):**
 🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
 
-**State:** Active development with 81 untested source files, 11 uncommitted changes, and 6-day-old unpublished changelog entries.
+**State:** Brand-new project initialized yesterday with 1 source file, 0 tests, and no project-level CLAUDE.md context file.
 
 **Suggestions:**
-- [HIGH][M] Establish a basic test suite for the Next.js dashboard. Start with 3-5 tests for critical API routes (day-plan, activity, automation) and the main page component. Use Jest or Playwright. This will prevent regressions as the 81-file codebase grows.
-- [HIGH][S] Commit the 11 pending file changes with semantic messages (chore:, feat:, fix: prefixes per CLAUDE.md). This clears uncommitted state and maintains a clean git history for the daily sync pattern.
-- [MED][S] Publish CHANGELOG-PENDING.md entries (139 lines, 6 days old) into CHANGELOG.md and clear the pending file. This keeps doc-tracking current with the active development pace.
+- [HIGH][S] Create .claude/CLAUDE.md with project-specific instructions: tech stack (Node/React assumed), Caseware Nova design system reference, feedback widget API contract, and deployment target (Replit). Reference existing user global CLAUDE.md for Caseware UI rules.
+- [MED][M] Set up package.json with dependencies for feedback widget (React, TypeScript, testing framework). Create .github/workflows/ci.yml from ~/Documents/dotfiles/templates/ci-workflow.yml and add pre-commit hooks for linting/secrets scanning.
+- [MED][S] Add test scaffold: create tests/ directory, add first test file (empty or stub), and document how tests integrate with CI. Zero test files is acceptable at init, but structure prevents later friction.
 
-**Quality issues:** Zero test coverage on 81 source files — high regression risk for a production dashboard managing priority/day-plan data; 11 uncommitted changes pending — breaks the EOD sync pattern and masks uncommitted work; No LSP diagnostics run — TypeScript errors may be hidden in the Next.js codebase
-
-**Kanban cards (2):**
-- [urgent][improvement] Add test suite to Productivity Tool dashboard
-- [high][improvement] Commit pending changes and clear uncommitted state
-
-### CW UKCAUD Project Tracker (Building)
-**Deterministic findings (3):**
-🟡 `uncommitted-changes` — 8 uncommitted file changes
-🟢 `changelog-pending` — CHANGELOG-PENDING.md has 46 unpublished entries (6 days old)
-🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
-
-**State:** Active development with daily automation and documentation work, but 8 uncommitted changes and 6-day-old changelog backlog blocking proper commit discipline.
-
-**Suggestions:**
-- [HIGH][S] Commit the 8 uncommitted changes immediately. Project follows documentation-with-commits protocol (per CLAUDE.md): stage doc files alongside code, check DOC-UPDATE-NEEDED.md, consolidate CHANGELOG-PENDING.md before commits.
-- [MED][S] Consolidate 46-day-old CHANGELOG-PENDING.md entries (6 days stale) into CHANGELOG.md and commit. Establishes regular cadence to prevent future backlogs.
-- [MED][M] Test-to-source ratio is sparse (3 test files for 38 source files). Audit coverage for critical paths: sprint ceremony automation and delivery tracking logic.
-
-**Quality issues:** 8 uncommitted file changes indicate incomplete workflow (doc changes staged without code, or vice versa); 46 unpublished changelog lines accumulating for 6+ days suggests inconsistent documentation consolidation discipline
-
-**Kanban cards (2):**
-- [urgent][improvement] Stage uncommitted changes and enforce documentation-with-commits
-- [high][improvement] Clear stale changelog backlog (46 lines, 6 days old)
-
-### AI Breaking News Tool (Building)
-**Deterministic findings (3):**
-🟡 `uncommitted-changes` — 6 uncommitted file changes
-🟢 `changelog-pending` — CHANGELOG-PENDING.md has 20 unpublished entries (8 days old)
-🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
-
-**State:** Early-stage breaking news tool with minimal source code, pending changelog consolidation, and 6 uncommitted changes blocking clarity.
-
-**Suggestions:**
-- [HIGH][S] Evaluate and commit the 6 uncommitted file changes or explicitly stash them — blocking clarity on project status
-- [MED][S] Consolidate CHANGELOG-PENDING.md (20 lines, 8 days old) into CHANGELOG.md per documentation-with-commits protocol
-- [MED][M] Add test file(s) for the single source file — 0/1 coverage is a risk for production tooling
-
-**Quality issues:** Zero test coverage (0 test files for 1 source file); Only 1 source file suggests incomplete implementation or placeholder structure; 6 uncommitted changes indicate stalled work-in-progress
-
-**Kanban cards (2):**
-- [urgent][improvement] Resolve 6 uncommitted changes
-- [high][docs] Consolidate overdue changelog entries
-
-### CW Template Comparison Tool (Building)
-**Deterministic findings (3):**
-🔴 `no-tests` — 51 source files but no test files found
-🟢 `changelog-pending` — CHANGELOG-PENDING.md has 20 unpublished entries (7 days old)
-🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
-
-**State:** Full-stack template comparison tool in active development (51 source files, last commit 5 days ago) but entirely test-free with 7 days of unpublished changelog entries.
-
-**Suggestions:**
-- [HIGH][M] Establish test infrastructure before adding more features. Set up Jest/Vitest for frontend, add unit tests for API layer, and create baseline coverage targets. This unblocks safe refactoring and quality gates.
-- [HIGH][S] Consolidate CHANGELOG-PENDING.md (20 entries, 7 days accumulated) into CHANGELOG.md. Stage and commit alongside code changes to prevent doc debt.
-- [MED][S] Create project-specific CLAUDE.md documenting test strategy, code standards (immutability rules, file organization), and setup instructions. Reference CW API Scraper dependency clearly.
-
-**Quality issues:** 51 source files with zero test files — no unit or integration coverage; No test framework configured or CI quality gates established; Changelog debt: 20 pending entries (7 days old) not consolidated into main CHANGELOG.md
-
-**Kanban cards (2):**
-- [urgent][feature] Establish test infrastructure
-- [high][docs] Consolidate changelog backlog
-
-### CW Release Notes Tool (Building)
-**Deterministic findings (3):**
-🔴 `no-tests` — 11 source files but no test files found
-🟢 `changelog-pending` — CHANGELOG-PENDING.md has 6 unpublished entries (7 days old)
-🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
-
-**State:** Implemented Python release notes tool with 11 source files but zero test coverage and stale pending changelog (7 days old).
-
-**Suggestions:**
-- [HIGH][M] Add test suite covering core app.py and feedback-widget.js functionality. Start with unit tests for critical paths, then integration tests for the release notes pipeline.
-- [MED][S] Consolidate CHANGELOG-PENDING.md (6 entries, 7 days old) into CHANGELOG.md as part of next release cycle to keep changelog current.
-- [LOW][S] Create project-level CLAUDE.md to document tool architecture, data flow, and testing strategy for future contributors.
-
-**Quality issues:** Zero test coverage despite 11 source files and 'Implemented' status — no testFileCount detected; CHANGELOG-PENDING.md entries sitting unpublished for 7 days, indicating release workflow stall
-
-**Kanban cards (2):**
-- [urgent][improvement] Add test suite for release notes tool
-- [high][docs] Publish pending changelog entries
-
-### CW Lead Schedule Specifications (Building)
-**Deterministic findings (3):**
-🔴 `no-tests` — 54 source files but no test files found
-🟢 `changelog-pending` — CHANGELOG-PENDING.md has 26 unpublished entries (7 days old)
-🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
-
-**State:** 54-file specification validation platform in Building phase with zero test coverage and stale changelog entries (5 days since last commit).
-
-**Suggestions:**
-- [HIGH][M] Implement test suite for validation logic — start with unit tests for spec parsing/validation (Excel compatibility, field validation). Zero coverage is critical risk for a specification platform. Recommend Jest or Vitest for frontend, consider integration tests for end-to-end spec validation workflows.
-- [MED][S] Consolidate CHANGELOG-PENDING.md (26 entries, 7 days old) into CHANGELOG.md and commit. Reactivate documentation workflow post-commit per user's doc-check hooks.
-- [MED][S] Create CLAUDE.md in project root with: testing standards for spec validation, Excel/data format constraints, validation error handling rules, Caseware brand/compliance requirements if applicable.
-
-**Quality issues:** Zero test coverage on 54-file codebase — critical for validation platform where correctness must be guaranteed; Changelog stale for 7 days (26 pending entries) — documentation pipeline appears inactive; No project context file (CLAUDE.md) — onboarding and standards not documented
-
-**Kanban cards (2):**
-- [urgent][bug] Add test coverage for spec validation
-- [high][docs] Publish CHANGELOG-PENDING and reactivate doc sync
-
-### CW UKJPD Workflows (Building)
-**Deterministic findings (2):**
-🟢 `changelog-pending` — CHANGELOG-PENDING.md has 6 unpublished entries (7 days old)
-🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
-
-**State:** Lightweight documentation project in active maintenance phase with stale changelog entries awaiting consolidation.
-
-**Suggestions:**
-- [HIGH][S] Consolidate 6 unpublished entries from CHANGELOG-PENDING.md into CHANGELOG.md — they are 7 days old and should not accumulate further. Aligns with documentation-with-commits enforcement.
-- [MED][S] Create CLAUDE.md at project root to define JPD workflow context, approval gates, and documentation standards specific to this Caseware automation project.
-
-**Quality issues:** CHANGELOG-PENDING.md entries unpublished for 7 days — violates documentation-with-commits pre-commit hook requirement
+**Quality issues:** No test files in a new project — establish testing baseline before feature code grows; No CI/CD workflow — add GitHub Actions or Replit native CI before first merge
 
 **Kanban cards (1):**
-- [high][improvement] Consolidate stale changelog entries
+- [high][docs] Initialize CLAUDE.md for UKCAUD AI Project
 
-### CW UAT Testing Tool (Building)
-**Deterministic findings (2):**
-🟢 `changelog-pending` — CHANGELOG-PENDING.md has 6 unpublished entries (7 days old)
+### Bondlw Programming Architecture (Building)
+**Deterministic findings (1):**
 🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
 
-**State:** Early-stage UAT testing tool with minimal source structure (1 file) and 6-day-old pending documentation requiring consolidation.
+**State:** Freshly initialized documentation project with baseline structure; no source files or content yet.
 
 **Suggestions:**
-- [HIGH][S] Consolidate CHANGELOG-PENDING.md (6 entries, 7 days old) into CHANGELOG.md before next commit — this is a documented workflow requirement in your global CLAUDE.md
-- [MED][S] Create CLAUDE.md in this project root with phase-specific guidelines (testing strategy, UAT acceptance criteria, deployment target)
-- [MED][M] Add basic test structure for feedback-widget.js (0 tests found) — UAT tooling benefits from regression coverage as it matures
+- [HIGH][M] Create project-specific CLAUDE.md with documentation guidelines, file structure expectations, and Caseware SDK reference conventions
+- [MED][M] Establish documentation file hierarchy: API reference template, SDK architecture guide, examples directory, and changelog structure
+- [LOW][S] Configure pre-commit hooks to validate documentation format (markdown linting, link integrity, YAML frontmatter) before commits
 
-**Quality issues:** Pending changelog entries not consolidated to main CHANGELOG.md (workflow violation)
+### AI Onboarding (Building)
+**Deterministic findings (1):**
+🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
 
-**Kanban cards (1):**
-- [high][docs] Consolidate CHANGELOG-PENDING.md
+### Activepieces (Building)
+**Deterministic findings (1):**
+🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
+
+**State:** Fresh repository initialization with baseline files only; zero source code committed. Ready for architecture and scaffolding decisions.
+
+**Suggestions:**
+- [HIGH][M] Define tech stack and create initial project scaffolding (package.json, src/ structure, build config) — this is a Zapier alternative, so expect Node.js + React frontend + NestJS/Express backend. Reference the Activepieces GitHub repo for the official stack.
+- [HIGH][M] Create CLAUDE.md with project conventions, workflow rules, and architectural decisions. Include: commit message format, branch naming, testing strategy (unit/integration/e2e), and integration testing approach for 280+ integrations.
+- [MED][M] Set up CI/CD pipeline (.github/workflows) with linting, test execution, and build validation — critical for an open-source project with 21K+ stars and active contributor base.
+
+**Kanban cards (2):**
+- [urgent][feature] Initialize Project Scaffolding
+- [high][docs] Create CLAUDE.md & Project Context
+
+### dotfiles-publish (Building)
+**Deterministic findings (1):**
+🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
 
 ### UKCAUD-Authoring-Agent-Spec-Layer (Building)
 **Deterministic findings (2):**
 🔴 `no-tests` — 36 source files but no test files found
 🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
 
-**State:** High-risk audit/compliance codebase with 36 source files, zero test coverage, and no project context documentation; last commit 8 days ago.
+**State:** Building phase agent spec system with 36 source files but zero test coverage; actively maintained but untested.
 
 **Suggestions:**
-- [HIGH][M] Add test suite for core audit/compliance logic. Start with unit tests for business-critical functions — at minimum: data validation, workflow state transitions, and compliance rule enforcement. Use pytest or equivalent.
-- [MED][S] Create CLAUDE.md with project-specific AI context: compliance requirements, data sensitivity levels, audit trail expectations, and validation rules. This will improve both AI-assisted development and onboarding.
-- [MED][S] Clarify project status: last commit is 8 days old with no recent activity logged. If 'Building' phase is active, re-engage; if paused, mark as such in project metadata.
+- [HIGH][M] Establish test baseline: identify critical agent logic in the 36 files and write tests for decision trees, spec validation, and workflow transitions. Start with 5-10 core tests for agent behavior.
+- [MED][S] Create project-specific CLAUDE.md with agent spec conventions (file organization, spec format, testing approach, git workflow for this repo).
+- [LOW][S] Verify package.json exists if this is a Node.js project; if not, document the language/runtime (e.g., Python, Go) in README so future contributors understand the tech stack.
 
-**Quality issues:** Zero test files across 36 source files — unacceptable test coverage for compliance/audit workflows; no regression detection or correctness validation; No CLAUDE.md context file — missing project-specific AI guardrails and compliance constraints
-
-**Kanban cards (1):**
-- [urgent][bug] Implement test coverage for compliance-critical code
-
-### Property Search Tool (Building)
-**Deterministic findings (3):**
-🔴 `no-tests` — 93 source files but no test files found
-🟢 `changelog-pending` — CHANGELOG-PENDING.md has 2 unpublished entries (24 days old)
-🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
-
-**State:** Property Search Tool is 8 days stale with 93 source files and zero test coverage; active development paused mid-April.
-
-**Suggestions:**
-- [HIGH][M] Add pytest-based integration tests for scraping pipeline and data analysis scripts (scripts/analyse_favs.py, scripts/best_options.py, scripts/full_analysis.py). Target: 70%+ coverage of core data paths, focusing on Rightmove selector robustness and financial calculation logic.
-- [HIGH][S] Create CLAUDE.md documenting project assumptions: Rightmove CSS selectors, financial filtering rules, data schema, and setup instructions (dependencies, config paths). Reference exact selectors changed since last run to prevent future regressions.
-- [MED][S] Consolidate 2 pending entries from CHANGELOG-PENDING.md (24 days old) into CHANGELOG.md and delete pending file.
-
-**Quality issues:** 93 source files with zero test coverage — critical for scraping logic where selector changes or API shifts cause silent failures; No tests means data analysis results (financial filtering, quality scoring) are unvalidated against edge cases; 8-day gap since last commit suggests development pause or context switch without handoff documentation
+**Quality issues:** Zero test coverage on 36 source files — agent specs must be verified; no tests means logic bugs, spec inconsistencies, and edge cases are undetected.; No project-specific context file (CLAUDE.md) — rules, conventions, and testing strategy are implicit, not documented.
 
 **Kanban cards (2):**
-- [urgent][feature] Add integration tests for Rightmove scraping pipeline
-- [high][docs] Create CLAUDE.md with project context and Rightmove assumptions
+- [urgent][bug] Add test suite to agent spec system
+- [high][docs] Create CLAUDE.md with project conventions
+
+### CW Release Notes Tool (Building)
+**Deterministic findings (2):**
+🔴 `no-tests` — 11 source files but no test files found
+🟢 `changelog-pending` — CHANGELOG-PENDING.md has 6 unpublished entries (7 days old)
+
+**State:** CW Release Notes Tool actively in development (commits yesterday) with 11 source files, zero test coverage, and 7-day-old pending changelog entries.
+
+**Suggestions:**
+- [HIGH][M] Add test suite for 11 source files — choose testing framework (pytest for app.py, vitest/jest for feedback-widget.js), create tests/ directory, establish >80% coverage baseline before production merge
+- [MED][S] Consolidate CHANGELOG-PENDING.md (6 entries, 7 days stale) into CHANGELOG.md and clear pending file — align with your changelog-tracker hook policy
+
+**Quality issues:** 11 source files with zero test files — violates stated quality gate of 80%+ coverage; CHANGELOG-PENDING.md accumulating unpublished entries for 7 days — hook system not enforcing consolidation
+
+**Kanban cards (2):**
+- [urgent][feature] Add Test Suite (0→80% coverage)
+- [high][improvement] Consolidate Stale Changelog Entries
+
+### CW Lead Schedule Specifications (Building)
+**Deterministic findings (2):**
+🔴 `no-tests` — 54 source files but no test files found
+🟢 `changelog-pending` — CHANGELOG-PENDING.md has 26 unpublished entries (7 days old)
+
+**State:** Active development with 54 source files but zero test coverage—a critical gap for a specification validation platform.
+
+**Suggestions:**
+- [HIGH][L] Establish test suite immediately. Start with integration tests for the Excel spec validation logic (highest-risk component). Target 60%+ coverage before proceeding further.
+- [HIGH][S] Consolidate CHANGELOG-PENDING.md entries into CHANGELOG.md. 26 unpublished lines over 7 days indicates a pattern—integrate this into your commit-prep workflow to prevent future backlog.
+- [MED][M] Codify testing discipline in project onboarding docs. Add a pre-commit hook or CI check that blocks commits without test coverage for new logic.
+
+**Quality issues:** 54 source files with 0 test files—no safety net for spec validation logic; CHANGELOG-PENDING.md accumulating unpublished entries; consolidation blocked or forgotten
+
+**Kanban cards (2):**
+- [urgent][bug] Zero test coverage on spec validation engine
+- [high][improvement] CHANGELOG-PENDING backlog accumulating
 
 ### claude-mobile (Building)
 **Deterministic findings (4):**
 🔴 `no-tests` — 6 source files but no test files found
 🟡 `uncommitted-changes` — 6 uncommitted file changes
-🟢 `changelog-pending` — CHANGELOG-PENDING.md has 11 unpublished entries (6 days old)
+🟢 `changelog-pending` — CHANGELOG-PENDING.md has 11 unpublished entries (7 days old)
 🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
 
-**State:** Early-stage Express + WebSocket dashboard with active development but no test coverage and uncommitted changes blocking clarity.
+**State:** Active dashboard project in rapid development with zero test coverage and 6 uncommitted changes blocking release.
 
 **Suggestions:**
-- [HIGH][M] Add test coverage: 6 source files exist with 0 tests. Create Jest/Vitest setup and write unit tests for core modules (routing, WebSocket handlers, API endpoints). Target 70%+ coverage before expanding feature set.
-- [HIGH][S] Commit or clarify the 6 uncommitted changes. Determine if they're work-in-progress, incomplete features, or ready to commit. Stage and document via git.
-- [MED][S] Consolidate CHANGELOG-PENDING.md into CHANGELOG.md. 11 entries aged 6 days need publication or rejection. Follow documentation-with-commits hook.
+- [HIGH][M] Create test suite for Express API routes and WebSocket handlers (focus: authentication, session state, voice processing). Start with jest + supertest for API coverage.
+- [MED][S] Commit 6 pending changes with semantic messages (feat/fix/refactor), consolidate CHANGELOG-PENDING.md into CHANGELOG.md, then tag a release.
+- [LOW][S] Create CLAUDE.md with project scope (express + websocket + voice), local dev instructions, and test/commit hooks to prevent future test gaps.
 
-**Quality issues:** Zero test coverage for 6 source files — no safety net for refactoring or bug detection; 6 uncommitted changes create uncertainty around project state and prevent reproducible builds; Stale changelog (6 days) suggests deployment/release process is blocked or incomplete
+**Quality issues:** Zero test files for 6 source modules — no coverage for API routes, WebSocket events, or voice processing pipeline; 6 uncommitted file changes suggest incomplete work cycles; 11-day-old changelog entries indicate stalled release process
 
-**Kanban cards (2):**
-- [urgent][improvement] Add test coverage to claude-mobile
-- [high][improvement] Resolve 6 uncommitted changes
+**Kanban cards (3):**
+- [urgent][bug] No test suite for dashboard API
+- [high][improvement] 6 uncommitted changes block release
+- [high][docs] CHANGELOG-PENDING stale for 7 days
 
 ### AI Work Presentation Tool (Building)
 **Deterministic findings (4):**
 🔴 `no-tests` — 8 source files but no test files found
 🔴 `uncommitted-changes` — 17 uncommitted file changes
-🟢 `changelog-pending` — CHANGELOG-PENDING.md has 7 unpublished entries (6 days old)
+🟢 `changelog-pending` — CHANGELOG-PENDING.md has 7 unpublished entries (7 days old)
 🟢 `missing-claude-md` — Active project has no CLAUDE.md context file
 
-**State:** Active development phase with 17 uncommitted changes pending for ~13 days and zero test coverage across 8 source files.
+**State:** Active development with 17 uncommitted changes over 14 days; zero test coverage on 8 source files.
 
 **Suggestions:**
-- [HIGH][S] Commit the 17 pending file changes. They've been staged since 2026-04-02 — resolve any DOC-UPDATE-NEEDED flags, consolidate CHANGELOG-PENDING.md entries, then push with semantic message.
-- [HIGH][M] Establish test coverage: add a test/ directory and write integration tests for the PPTX generation pipeline. Start with happy-path tests for the web UI and script execution.
-- [MED][S] Create CLAUDE.md in project root with coding standards, test requirements, and brand-guideline links (this is a Caseware tool). Reference caseware-design-system skill for output validation rules.
+- [HIGH][S] Commit the 17 uncommitted changes immediately with semantic messages (feat/fix/refactor) and establish a daily commit habit to avoid stale work.
+- [HIGH][M] Add test coverage for the presentation generation pipeline: at minimum, smoke tests for PPTX file creation, template loading, and brand token injection. Start with 2-3 tests to unblock deployability.
+- [MED][S] Publish the 7 pending changelog entries (7 days old) into CHANGELOG.md and establish a weekly publication cadence.
 
-**Quality issues:** Zero test coverage (no-tests finding): 8 source files without corresponding test suite; 17 uncommitted changes sitting for 13 days indicates incomplete commit workflow — no recent commit record
+**Quality issues:** Zero test coverage on 8 source files — critical for a presentation generation tool where output correctness is user-visible; Commit discipline broken: 14 days since last commit despite active development (17 uncommitted changes suggests batch work not being checkpointed)
 
 **Kanban cards (3):**
-- [urgent][improvement] Commit pending changes + resolve doc updates
-- [high][feature] Add test suite for PPTX generation
-- [high][docs] Create CLAUDE.md with project standards
+- [urgent][improvement] Commit 17 uncommitted changes before they diverge
+- [high][feature] Add smoke tests for PPTX generation
+- [medium][docs] Publish 7-day-old changelog backlog
+
+### Yearly Reviews (Review)
+**Deterministic findings (1):**
+🟡 `missing-readme` — No README.md found
+
+**State:** Newly initialized Yearly Reviews project with minimal structure; only README.md missing from core documentation.
+
+**Suggestions:**
+- [HIGH][S] Add README.md documenting project purpose, setup instructions, and usage examples. Reference CLAUDE.md conventions for consistency with other projects.
+- [MED][M] Create test directory and baseline test file — project is in 'Review' phase and should establish quality gates early rather than retrofit testing later.
+
+**Kanban cards (1):**
+- [high][docs] Add README.md
+
+### Property Search Tool (Review)
+**Deterministic findings (2):**
+🔴 `no-tests` — 93 source files but no test files found
+🟢 `changelog-pending` — CHANGELOG-PENDING.md has 2 unpublished entries (25 days old)
+
+**State:** Property Search Tool has 93 source files with zero test coverage and stale changelog entries; ready for test implementation before production deployment.
+
+**Suggestions:**
+- [HIGH][L] Implement test suite for core scraping (Rightmove parser), financial logic (property filtering), and data models. Start with unit tests for the financial criteria evaluation — this is the highest-risk component. Use pytest if Python or unittest framework native to the language.
+- [HIGH][S] Resolve CHANGELOG-PENDING.md: 2 entries are 25 days stale. Consolidate into CHANGELOG.md and commit with 'chore: consolidate changelog'. This unblocks EOD sync workflow per hooks protocol.
+- [MED][M] Set up CI pipeline to block merges if test coverage drops below 70%. Add a minimal test fixture for Rightmove scraper mock responses to reduce test environment friction.
+
+**Quality issues:** Zero test coverage on 93-file scraper/financial processing codebase — critical gap for data-driven tool touching real estate prices; CHANGELOG-PENDING.md has 2 unpublished entries 25 days old, blocking normal documentation consolidation workflow
+
+**Kanban cards (2):**
+- [urgent][bug] Zero Test Coverage on Scraper
+- [high][improvement] Stale Changelog Pending
+
+### Productivity Tool (Review)
+**Deterministic findings (3):**
+🟡 `low-test-coverage` — Low test coverage: 1/88 source files have tests
+🔴 `uncommitted-changes` — 67 uncommitted file changes
+🟢 `changelog-pending` — CHANGELOG-PENDING.md has 139 unpublished entries (7 days old)
+
+**State:** Productivity dashboard (Next.js 14) in Review phase with 67 uncommitted changes and 7-day-old CHANGELOG backlog — execution discipline violation.
+
+**Suggestions:**
+- [HIGH][M] Resolve 67 uncommitted changes: review `git status` and either commit with semantic messages (`feat:`, `fix:`, `chore:`) or discard via `git checkout -- .`. Violates git-workflow.md execution discipline.
+- [HIGH][S] Consolidate CHANGELOG-PENDING.md (139 lines, 7 days old) into CHANGELOG.md per doc-with-commits hook. Resolve DOC-UPDATE-NEEDED.md flags before next commit.
+- [MED][L] Establish test baseline: 1 test for 88 source files (1.1% coverage). Identify critical paths (API routes, state management, data transforms) and write integration tests for highest-value modules.
+
+**Quality issues:** 67 uncommitted changes pending — violates execution-discipline.md checkpoint rule; 1.1% test coverage (1/88 files) — no coverage for 87 source files; CHANGELOG-PENDING.md unresolved for 7 days — violates doc-with-commits hook protocol; All recent commits are bulk 'eod sync' with no semantic versioning — unclear scope and intent; DOC-UPDATE-NEEDED.md still flagged but referenced in commits — documentation backlog not resolved
+
+**Kanban cards (3):**
+- [urgent][improvement] Resolve uncommitted changes (67 files pending)
+- [high][docs] Consolidate documentation backlog (7-day-old CHANGELOG)
+- [high][improvement] Test coverage baseline (1.1% → target 60%+)
+
+### CW UKJPD Workflows (Review)
+**Deterministic findings (1):**
+🟢 `changelog-pending` — CHANGELOG-PENDING.md has 6 unpublished entries (7 days old)
+
+**State:** Documentation project for UK JPD workflow automation actively maintained but with stale changelog entries.
+
+**Suggestions:**
+- [HIGH][S] Consolidate 6 pending changelog entries (7 days old) from CHANGELOG-PENDING.md into CHANGELOG.md to maintain visibility and project history
+- [MED][S] Establish a weekly schedule (CronCreate or loop) to review and publish pending changelog entries automatically, preventing future accumulation
+- [MED][M] Add a README or CONTRIBUTING.md documenting the workflow automation process, prompt file purpose, and template update procedures for future maintainers
+
+**Quality issues:** Changelog publication lag: 6 entries pending for 7 days indicates inconsistent consolidation process
+
+**Kanban cards (1):**
+- [high][improvement] Consolidate stale changelog entries
+
+### CW UKCAUD Project Tracker (Review)
+**Deterministic findings (1):**
+🟡 `uncommitted-changes` — 13 uncommitted file changes
+
+**State:** Active review-phase project with 13 uncommitted changes and heavy automation/state-management activity but low test coverage (3 test files for 39 source files).
+
+**Suggestions:**
+- [HIGH][S] Commit the 13 uncommitted changes immediately. Review whether `.omc/state/` and `outputs/` directories should be .gitignored to prevent state bloat in the review phase.
+- [HIGH][M] Expand test coverage from 3 to at least 12-15 test files to match the 39-source-file codebase (target 20%+ test-to-source ratio for review-phase acceptance).
+- [MED][M] Consolidate repeated 'eod sync' commits into semantic commits (feat/fix/docs) and review whether generated cache files (standup_*, portfolio-sync_*) belong in .gitignore.
+
+**Quality issues:** Test coverage critically low: 3 test files vs. 39 source files (8% ratio; target >20%); 13 uncommitted changes blocking clean review-phase state; Generated output artifacts in git (outputs/ai-analysis-cache/, outputs/ceremony-prep/) risk repository bloat
+
+**Kanban cards (3):**
+- [urgent][bug] Commit 13 uncommitted changes before review approval
+- [high][improvement] Expand test suite from 3 to 15+ files for review-phase standards
+- [high][improvement] Audit .gitignore: exclude generated outputs and state files
+
+### CW Template Comparison Tool (Review)
+**Deterministic findings (2):**
+🔴 `no-tests` — 51 source files but no test files found
+🟢 `changelog-pending` — CHANGELOG-PENDING.md has 20 unpublished entries (7 days old)
+
+**State:** Active full-stack template comparison tool with 51 uncontested source files and zero test infrastructure in Review phase.
+
+**Suggestions:**
+- [HIGH][L] Create test files for core modules (API integration layer, template comparison business logic, frontend UI components). Start with API tests to unblock other work.
+- [HIGH][S] Consolidate CHANGELOG-PENDING.md (20 entries, 7 days old) into CHANGELOG.md and commit — this unblocks the documentation hooks.
+- [MED][M] Add pre-commit hook to enforce test file presence for any new source additions. Reference: ~/Documents/dotfiles/templates/ci-workflow.yml for CI setup once tests exist.
+
+**Quality issues:** Zero test coverage on 51 source files — unacceptable for Review phase; blocks confidence in template comparison logic; 20 unpublished changelog entries (7 days old) indicate stalled changelog consolidation workflow
+
+**Kanban cards (2):**
+- [urgent][improvement] Zero Test Coverage on 51 Files
+- [high][improvement] CHANGELOG-PENDING Consolidation Debt
+
+### CW UAT Testing Tool (Done)
+**Deterministic findings (1):**
+🟢 `changelog-pending` — CHANGELOG-PENDING.md has 6 unpublished entries (7 days old)
+
+**State:** Done-phase UAT artifact collection with active EOD syncs but pending changelog entries from 7 days ago.
+
+**Suggestions:**
+- [MED][S] Consolidate CHANGELOG-PENDING.md (6 entries, 7 days old) into CHANGELOG.md per documentation-with-commits hook
+- [MED][S] Verify project phase accuracy: marked 'Done' but receiving daily EOD syncs — update phase or close changelog tracking if truly archived
+
+**Kanban cards (1):**
+- [high][docs] Publish Pending Changelog Entries
+
+### AI Breaking News Tool (Done)
+**Deterministic findings (1):**
+🟢 `changelog-pending` — CHANGELOG-PENDING.md has 20 unpublished entries (8 days old)
+
+**State:** Operational maintenance mode with daily syncs; changelog backlog accumulating.
+
+**Suggestions:**
+- [HIGH][M] Add test coverage for scrape-gnews.js — test Google News login session handling, RSS fallback, and article parsing. Session auth is fragile; mock tests would catch breakage early.
+- [HIGH][S] Consolidate 20 pending changelog entries (8 days old) into CHANGELOG.md. Establish weekly consolidation cadence to prevent backlog.
+- [MED][M] Reorganize source into scripts/ subdirectories by concern (auth, parsing, sync) to clarify structure as the tool grows beyond single-file scope.
+
+**Quality issues:** Zero test files for a news scraper that depends on external authentication and unstable HTML parsing; Google News session cookies hardcoded in setup; no session refresh mechanism if auth expires mid-day; All commits are chore/sync only — no visibility into what actually changed in live behavior
+
+**Kanban cards (2):**
+- [high][improvement] Add test suite for scraper
+- [medium][improvement] Automate changelog consolidation
 
 ---
 
-## ⏳ Pending Kanban Cards (22)
+## ⏳ Pending Kanban Cards (30)
 Cards saved to `pending-kanban-cards.json`. To push: configure vibe-kanban (`npm run vibe-kanban:discover`) then run:
 ```
 node scripts/push-pending-kanban-cards.mjs
