@@ -826,15 +826,20 @@ function buildPlainSummary(ctx) {
     return repoName.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   }
   function stripPrefix(msg) {
-    return msg.replace(/^(?:feat|fix|chore|refactor|docs|test|perf|ci|config|build|style):\s*/i, "").trim();
+    // Strip both plain (feat:) and scoped (feat(scope):) conventional commit prefixes
+    return msg.replace(/^(?:feat|fix|chore|refactor|docs|test|perf|ci|config|build|style)(?:\([^)]+\))?:\s*/i, "").trim();
   }
+  // Also skip commits whose entire value is housekeeping after stripping the prefix
+  const SKIP_AFTER_STRIP = /^(?:update generated ibp output|ibp output for week)/i;
 
   const commitsByRepo = new Map();
   for (const c of allCommits) {
     if (SKIP_COMMIT_REPOS.test(c.repo)) continue;
     if (SKIP_COMMIT_MSG.test(c.message)) continue;
+    const stripped = stripPrefix(c.message);
+    if (SKIP_AFTER_STRIP.test(stripped)) continue;
     if (!commitsByRepo.has(c.repo)) commitsByRepo.set(c.repo, []);
-    commitsByRepo.get(c.repo).push(stripPrefix(c.message));
+    commitsByRepo.get(c.repo).push(stripped);
   }
   for (const [repo, messages] of commitsByRepo) {
     const cleaned = messages.filter((m) => m.length > 3);

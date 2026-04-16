@@ -7243,5 +7243,26 @@
     "windowTitle": "settings.json - Documents - Visual Studio Code",
     "inferredTask": "dev",
     "durationMin": 23
+  },
+  {
+    "start": "2026-04-16T22:13:55.223Z",
+    "end": "2026-04-16T22:37:25.320Z",
+    "windowTitle": "settings.json - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 24
+  },
+  {
+    "start": "2026-04-16T22:37:25.320Z",
+    "end": "2026-04-16T22:38:59.523Z",
+    "windowTitle": "Business Systems Distributor's Issues Board - Kanban Board - Caseware Jira and 4 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-16T22:39:25.284Z",
+    "end": "2026-04-16T22:43:29.706Z",
+    "windowTitle": "Business Systems Distributor's Issues Board - Kanban Board - Caseware Jira and 4 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 4
   }
 ]
