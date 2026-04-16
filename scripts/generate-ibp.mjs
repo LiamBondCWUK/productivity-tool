@@ -483,8 +483,10 @@ function buildPlainSummary(ctx) {
   ];
 
   function isPersonallyTouchedIssue(issue) {
+    // Reporter = always manual (user created it)
     if (issue?.reporterIsCurrentUser) return true;
-    if (issue?.isUnassigned && issue?.touchedByCurrentUserManual) return true;
+    // Any manual changelog entry (excludes automation-rule-only touches)
+    if (issue?.touchedByCurrentUserManual) return true;
     return false;
   }
 
@@ -674,7 +676,11 @@ function buildPlainSummary(ctx) {
     .sort((a, b) => b.minutes - a.minutes);
 
   const themeMap = new Map();
-  for (const issue of allIssues) {
+  // Only include issues the user personally touched — excludes auto-triggered automation runs
+  const manuallyTouchedIssues = allIssues.filter(
+    (issue) => issue.reporterIsCurrentUser || issue.touchedByCurrentUserManual
+  );
+  for (const issue of manuallyTouchedIssues) {
     if (/(qa on hold|on hold|blocked|imped)/i.test(issue.status)) continue;
     const theme = themeForIssue(issue);
     if (!themeMap.has(theme)) themeMap.set(theme, []);
