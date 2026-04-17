@@ -1,4 +1,4 @@
-run = "cd dashboard && node .next/standalone/server.js"
+run = "git pull --quiet || true && cd dashboard && npm install && npx next dev -p 3000"
 
 [deployment]
 visibility = "private"
