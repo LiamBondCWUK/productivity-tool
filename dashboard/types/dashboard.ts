@@ -299,6 +299,16 @@ export interface AiNewsResults {
   internalIntel?: InternalIntelligence;
 }
 
+export type FeedbackStatus = "inbox" | "accepted" | "denied";
+
+export interface FeedbackItem {
+  id: string;
+  text: string;
+  source: string;
+  status: FeedbackStatus;
+  createdAt: string;
+}
+
 export interface DashboardData {
   meta: {
     version: string;
@@ -347,5 +357,8 @@ export interface DashboardData {
   ibp?: {
     lastGenerated: string | null;
     availableDates: string[];
+  };
+  feedback?: {
+    items: FeedbackItem[];
   };
 }

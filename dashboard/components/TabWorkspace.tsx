@@ -14,6 +14,7 @@ type TabId =
   | "learning"
   | "ibp"
   | "news"
+  | "feedback"
   | "system";
 
 const TABS: { id: TabId; label: string }[] = [
@@ -27,6 +28,7 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "learning", label: "Analysis" },
   { id: "ibp", label: "IBP" },
   { id: "news", label: "News" },
+  { id: "feedback", label: "Feedback" },
   { id: "system", label: "System" },
 ];
 
@@ -41,6 +43,7 @@ interface TabWorkspaceProps {
   learningContent: React.ReactNode;
   ibpContent: React.ReactNode;
   newsContent: React.ReactNode;
+  feedbackContent: React.ReactNode;
   systemContent: React.ReactNode;
 }
 
@@ -85,6 +88,7 @@ function TabWorkspaceInner({
   learningContent,
   ibpContent,
   newsContent,
+  feedbackContent,
   systemContent,
 }: TabWorkspaceProps) {
   const searchParams = useSearchParams();
@@ -104,6 +108,7 @@ function TabWorkspaceInner({
     learning: learningContent,
     ibp: ibpContent,
     news: newsContent,
+    feedback: feedbackContent,
     system: systemContent,
   };
 

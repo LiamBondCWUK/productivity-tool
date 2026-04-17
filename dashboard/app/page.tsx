@@ -14,6 +14,7 @@ import { LearningTab } from "../components/LearningTab";
 import { NewsTab } from "../components/NewsTab";
 import { SystemTab } from "../components/tabs/SystemTab";
 import { IBPTab } from "../components/IBPTab";
+import { FeedbackTab } from "../components/FeedbackTab";
 import type { ProjectPhase, ProjectSuggestion } from "../types/dashboard";
 
 function formatCurrentTime(): string {
@@ -245,6 +246,9 @@ export default function Dashboard() {
         }
         ibpContent={
           <IBPTab ibpMeta={data.ibp ?? undefined} />
+        }
+        feedbackContent={
+          <FeedbackTab initialItems={data.feedback?.items ?? []} />
         }
         systemContent={
           <SystemTab
