@@ -88,3 +88,67 @@ Discovered 19 projects → C:\Users\liam.bond\Documents\Productivity Tool\worksp
 
 ====== Overnight Analysis Complete (1656s) ======
 
+[17/04/2026  2:00:02.46] Starting overnight analysis v2 
+
+====== Overnight Analysis v2 — 2026-04-17T01:00:04.909Z ======
+
+[1/6] Refreshing project registry...
+Discovered 20 projects → C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\project-registry.json
+  [Building] Claude Onboarding Meeting  (git:true)
+  [Building] AI Work Presentation Tool  (git:true)
+  [Building] claude-mobile  (git:true)
+  [Building] UKCAUD AI Project  (git:true)
+  [Building] dotfiles-publish  (git:true)
+  [Building] CW Lead Schedule Specifications  (git:true)
+  [Building] Bondlw Programming Architecture  (git:true)
+  [Building] AI Onboarding  (git:true)
+  [Building] Activepieces  (git:true)
+  [Building] UKCAUD-Authoring-Agent-Spec-Layer  (git:true)
+  [Building] CW Release Notes Tool  (git:true)
+  [Review] Productivity Tool  (git:true)
+  [Review] CW UKCAUD Project Tracker  (git:true)
+  [Review] CW Template Comparison Tool  (git:true)
+  [Review] Builder Forms HAT Sampling  (git:true)
+  [Review] Yearly Reviews  (git:true)
+  [Review] Property Search Tool  (git:true)
+  [Review] CW UKJPD Workflows  (git:true)
+  [Done] CW UAT Testing Tool  (git:true)
+  [Done] AI Breaking News Tool  (git:true)
+[1/6] 20 projects loaded
+
+[2/6] Running deterministic health checks...
+  Claude Onboarding Meeting: ⚠ 2 findings
+  AI Work Presentation Tool: ⚠ 3 findings
+  claude-mobile: ⚠ 3 findings
+  UKCAUD AI Project: ⚠ 1 findings
+  dotfiles-publish: ⚠ 1 findings
+  CW Lead Schedule Specifications: ⚠ 2 findings
+  Bondlw Programming Architecture: ⚠ 1 findings
+  AI Onboarding: ⚠ 1 findings
+  Activepieces: ⚠ 1 findings
+  UKCAUD-Authoring-Agent-Spec-Layer: ⚠ 2 findings
+  CW Release Notes Tool: ⚠ 2 findings
+  Productivity Tool: ⚠ 2 findings
+  CW UKCAUD Project Tracker: ✓ healthy
+  CW Template Comparison Tool: ⚠ 2 findings
+  Builder Forms HAT Sampling: ✓ healthy
+  Yearly Reviews: ⚠ 1 findings
+  Property Search Tool: ⚠ 2 findings
+  CW UKJPD Workflows: ⚠ 1 findings
+  CW UAT Testing Tool: ⚠ 1 findings
+  AI Breaking News Tool: ⚠ 1 findings
+
+[2/6] 18/20 projects have findings
+
+[3/6] Running budget-guarded LLM synthesis...
+[synthesize] Claude Onboarding Meeting (haiku, 2 findings)
+[synthesize] AI Work Presentation Tool (haiku, 3 findings)
+[synthesize] claude-mobile (haiku, 3 findings)
+[synthesize] UKCAUD AI Project (haiku, 1 findings)
+[synthesize] dotfiles-publish (haiku, 1 findings)
+[synthesize] CW Lead Schedule Specifications (haiku, 2 findings)
+[synthesize] Bondlw Programming Architecture (haiku, 1 findings)
+[synthesize] AI Onboarding (haiku, 1 findings)
+[synthesize] Activepieces (haiku, 1 findings)
+[synthesize] Activepieces failed: Claude CLI exited 3221225786: 
+^C

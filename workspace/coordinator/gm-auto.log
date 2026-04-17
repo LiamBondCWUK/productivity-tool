@@ -66,3 +66,88 @@ Blockers: None
 
 **Skipped:** Calendar + Email (Playwright permission error ÔÇö can't write to `system32`). Run Claude Code from a project directory (e.g. `~/Documents/Productivity Tool`) to enable these. Full brief ÔåÆ `workspace/coordinator/daily-brief-2026-04-16.md`
 SessionEnd hook [node "$CLAUDE_PLUGIN_ROOT"/scripts/run.cjs "$CLAUDE_PLUGIN_ROOT"/scripts/session-end.mjs] failed: Hook cancelled
+[2026-04-17 08:45:01] Starting /gm auto-trigger
+[2026-04-17 08:45:02] fetch-notifications: ­ƒô¼ fetch-notifications: starting... Ôä¦  graph-token.json not found ÔÇö skipping Office doc comment fetch ÔÜá  Jira search returned 410   Jira @mentions: 0 item(s)   Doc comments:   0 item(s) Ô£à fetch-notifications: dashboard-data.json updated
+[2026-04-17 08:45:02] graph-teams-fetch: [graph-teams-fetch] No graph-token.json ÔÇö run setup-graph-token.ps1 first [graph-teams-fetch] wrote 0 messages to dashboard-data.json
+[2026-04-17 08:45:07] graph-email-fetch: [graph-email-fetch] No graph-token.json ÔÇö run setup-graph-token.ps1 first [graph-email-fetch] Outlook fallback: [outlook-mail-fetch] wrote 2 emails to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-17 08:45:09] outlook-mail-fetch: [outlook-mail-fetch] wrote 2 emails to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-17 08:45:11] outlook-calendar-fetch: [outlook-calendar-fetch] wrote 9 today events and 30 week-ahead events to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-17 08:45:11] generate-day-plan: [generate-day-plan] Error: Unexpected token '´++', "´++{     "o"... is not valid JSON
+[2026-04-17 08:51:45] /gm completed
+All files written. Here's the brief:
+
+---
+
+Good morning! Friday 2026-04-17 ÔÇö end of sprint week.
+
+**­ƒöÑ Top 3:**
+1. **UKCAUD Backlog Refinement** ÔÇö meeting today; prep carry-overs (TS Sampling, SS/TS override) for scoping into next sprint
+2. **Apply `LB_WIP` in Jira** ÔÇö 3rd consecutive day with no vault tracking; do it before EOD
+3. **DIST-69292** ÔÇö 8 days open, still "New"; chase today or flag as impediment in Retro doc
+
+---
+
+**­ƒôï My Tasks (LB_WIP):** 0 active ÔÇö vault sync offline
+> Active work confirmed via IBP: TS Transactional Sampling, SS/TS Sample Size override
+
+**­ƒôè UKCAUD sprint:** ~19 to do / ~12 in progress / ~7 done / 9 closed / 2 rejected
+- ÔÜá´©Å UKCAUD-11298 Blocker (Will Walker) ÔÇö still In Progress
+- Ô£à My tickets 16094, 16093, 16080 ÔÇö all Closed
+
+**­ƒôè UKJPD:** 30 items, all Parking Lot, 25 days untriaged ÔÇö no active discovery
+**­ƒôè DIST/UKCAS:** No open uk-audit items
+
+---
+
+**­ƒôà Meetings (from IBP ÔÇö times not available):**
+- UKCAUD Stand-up
+- Backlog Refinement Prep
+- UKCAUD Backlog Refinement
+- Retrospective Document Contribution
+
+**­ƒôà Schedule:**
+| Time | Block |
+|------|-------|
+| 09:00ÔÇô09:15 | Setup + LB_WIP labelling |
+| 09:15ÔÇô09:45 | Backlog Refinement Prep |
+| 09:45ÔÇô10:00 | Stand-up |
+| 10:00ÔÇô11:00 | Retro doc |
+| 11:00ÔÇô12:30 | Backlog Refinement |
+| 13:30ÔÇô14:30 | Refresh weekly-plan.md for next sprint |
+| 14:30ÔÇô15:30 | Deep work ÔÇö TS Sampling |
+| 16:00ÔÇô16:30 | EOD wrap |
+
+---
+
+**­ƒôú Standup (ready to paste):**
+```
+Yesterday:
+- Continued TS Transactional Sampling Improvements
+- Continued TS/SS ÔÇö Sample Size row manually overridable
+- DIST-69292 blocker ÔÇö no movement (8 days, still New)
+
+Today:
+- UKCAUD Backlog Refinement + Retro doc
+- Refresh weekly plan for w/c 2026-04-20
+
+Blockers:
+- DIST-69292 (Enable MCP Functionality on HAT Server) ÔÇö open 8 days, still New
+```
+
+---
+
+**­ƒôå Commitment Check (Friday):**
+| Item | Status |
+|------|--------|
+| HAT Planning/Final Needs To Be Selected | Ô£à Delivered |
+| SS+TS HAT Planning/Final Needs To Be Selected | Ô£à Delivered |
+| TS Transactional Sampling Improvements | ­ƒƒí In progress ÔÇö continuing next sprint |
+| TS/SS Sample Size override | ­ƒƒí In progress ÔÇö continuing next sprint |
+
+**ÔÜá´©Å Drift:** `weekly-plan.md` + all initiative todos stale 31 days ÔÇö update for w/c 2026-04-20 today (sprint planning is Wed)
+
+---
+
+**­ƒæÇ Next week:** UK UAT SE Launch + LB/NK 121 (Mon), Sprint Retro + Planning (Wed)
+
+Full brief: `workspace/coordinator/daily-brief-2026-04-17.md`

@@ -34,15 +34,15 @@
                                                                                              }
                                                                                          ],
                                                                          "qualityIssues":  [
-                                                                                               "No test files in a new project â€” establish testing baseline before feature code grows",
-                                                                                               "No CI/CD workflow â€” add GitHub Actions or Replit native CI before first merge"
+                                                                                               "No test files in a new project Ã¢â‚¬â€ establish testing baseline before feature code grows",
+                                                                                               "No CI/CD workflow Ã¢â‚¬â€ add GitHub Actions or Replit native CI before first merge"
                                                                                            ],
                                                                          "neglected":  [
 
                                                                                        ],
                                                                          "crossProjectDeps":  [
                                                                                                   "Feedback widget output likely feeds into Productivity Tool command center (localhost:3002 per primer)",
-                                                                                                  "Phase 1.5 reverse sync between UKCAS â†” UKCAUD is blocked on DIST admin access â€” check if this widget is on the critical path"
+                                                                                                  "Phase 1.5 reverse sync between UKCAS Ã¢â€ â€ UKCAUD is blocked on DIST admin access Ã¢â‚¬â€ check if this widget is on the critical path"
                                                                                               ]
                                                                      },
                                                "bondlw-programming-architecture":  {
@@ -71,7 +71,7 @@
 
                                                                                                      ],
                                                                                        "crossProjectDeps":  [
-                                                                                                                "Coordinates with primary Caseware SDK projects â€” this is consolidated reference documentation, ensure changelog and API changes are mirrored from source repos"
+                                                                                                                "Coordinates with primary Caseware SDK projects Ã¢â‚¬â€ this is consolidated reference documentation, ensure changelog and API changes are mirrored from source repos"
                                                                                                             ]
                                                                                    },
                                                "activepieces":  {
@@ -79,7 +79,7 @@
                                                                     "suggestions":  [
                                                                                         {
                                                                                             "priority":  "HIGH",
-                                                                                            "action":  "Define tech stack and create initial project scaffolding (package.json, src/ structure, build config) â€” this is a Zapier alternative, so expect Node.js + React frontend + NestJS/Express backend. Reference the Activepieces GitHub repo for the official stack.",
+                                                                                            "action":  "Define tech stack and create initial project scaffolding (package.json, src/ structure, build config) Ã¢â‚¬â€ this is a Zapier alternative, so expect Node.js + React frontend + NestJS/Express backend. Reference the Activepieces GitHub repo for the official stack.",
                                                                                             "effort":  "M"
                                                                                         },
                                                                                         {
@@ -89,7 +89,7 @@
                                                                                         },
                                                                                         {
                                                                                             "priority":  "MED",
-                                                                                            "action":  "Set up CI/CD pipeline (.github/workflows) with linting, test execution, and build validation â€” critical for an open-source project with 21K+ stars and active contributor base.",
+                                                                                            "action":  "Set up CI/CD pipeline (.github/workflows) with linting, test execution, and build validation Ã¢â‚¬â€ critical for an open-source project with 21K+ stars and active contributor base.",
                                                                                             "effort":  "M"
                                                                                         }
                                                                                     ],
@@ -100,7 +100,7 @@
 
                                                                                   ],
                                                                     "crossProjectDeps":  [
-                                                                                             "Check if Activepieces should integrate with \u0027AI Breaking News Tool\u0027 and \u0027Productivity Tool\u0027 mentioned in primer.md â€” may require connectors."
+                                                                                             "Check if Activepieces should integrate with \u0027AI Breaking News Tool\u0027 and \u0027Productivity Tool\u0027 mentioned in primer.md Ã¢â‚¬â€ may require connectors."
                                                                                          ]
                                                                 },
                                                "ukcaud-authoring-agent-spec-layer":  {
@@ -123,14 +123,14 @@
                                                                                                              }
                                                                                                          ],
                                                                                          "qualityIssues":  [
-                                                                                                               "Zero test coverage on 36 source files â€” agent specs must be verified; no tests means logic bugs, spec inconsistencies, and edge cases are undetected.",
-                                                                                                               "No project-specific context file (CLAUDE.md) â€” rules, conventions, and testing strategy are implicit, not documented."
+                                                                                                               "Zero test coverage on 36 source files Ã¢â‚¬â€ agent specs must be verified; no tests means logic bugs, spec inconsistencies, and edge cases are undetected.",
+                                                                                                               "No project-specific context file (CLAUDE.md) Ã¢â‚¬â€ rules, conventions, and testing strategy are implicit, not documented."
                                                                                                            ],
                                                                                          "neglected":  [
 
                                                                                                        ],
                                                                                          "crossProjectDeps":  [
-                                                                                                                  "Likely integrates with or extends the UKCAS â†” UKCAUD sync workflows mentioned in primer (Phase 1.5 blocked on DIST admin access)."
+                                                                                                                  "Likely integrates with or extends the UKCAS Ã¢â€ â€ UKCAUD sync workflows mentioned in primer (Phase 1.5 blocked on DIST admin access)."
                                                                                                               ]
                                                                                      },
                                                "cw-release-notes-tool":  {
@@ -138,18 +138,18 @@
                                                                              "suggestions":  [
                                                                                                  {
                                                                                                      "priority":  "HIGH",
-                                                                                                     "action":  "Add test suite for 11 source files â€” choose testing framework (pytest for app.py, vitest/jest for feedback-widget.js), create tests/ directory, establish \u003e80% coverage baseline before production merge",
+                                                                                                     "action":  "Add test suite for 11 source files Ã¢â‚¬â€ choose testing framework (pytest for app.py, vitest/jest for feedback-widget.js), create tests/ directory, establish \u003e80% coverage baseline before production merge",
                                                                                                      "effort":  "M"
                                                                                                  },
                                                                                                  {
                                                                                                      "priority":  "MED",
-                                                                                                     "action":  "Consolidate CHANGELOG-PENDING.md (6 entries, 7 days stale) into CHANGELOG.md and clear pending file â€” align with your changelog-tracker hook policy",
+                                                                                                     "action":  "Consolidate CHANGELOG-PENDING.md (6 entries, 7 days stale) into CHANGELOG.md and clear pending file Ã¢â‚¬â€ align with your changelog-tracker hook policy",
                                                                                                      "effort":  "S"
                                                                                                  }
                                                                                              ],
                                                                              "qualityIssues":  [
-                                                                                                   "11 source files with zero test files â€” violates stated quality gate of 80%+ coverage",
-                                                                                                   "CHANGELOG-PENDING.md accumulating unpublished entries for 7 days â€” hook system not enforcing consolidation"
+                                                                                                   "11 source files with zero test files Ã¢â‚¬â€ violates stated quality gate of 80%+ coverage",
+                                                                                                   "CHANGELOG-PENDING.md accumulating unpublished entries for 7 days Ã¢â‚¬â€ hook system not enforcing consolidation"
                                                                                                ],
                                                                              "neglected":  [
 
@@ -159,7 +159,7 @@
                                                                                                   ]
                                                                          },
                                                "cw-lead-schedule-specifications":  {
-                                                                                       "state":  "Active development with 54 source files but zero test coverageâ€”a critical gap for a specification validation platform.",
+                                                                                       "state":  "Active development with 54 source files but zero test coverageÃ¢â‚¬â€a critical gap for a specification validation platform.",
                                                                                        "suggestions":  [
                                                                                                            {
                                                                                                                "priority":  "HIGH",
@@ -168,7 +168,7 @@
                                                                                                            },
                                                                                                            {
                                                                                                                "priority":  "HIGH",
-                                                                                                               "action":  "Consolidate CHANGELOG-PENDING.md entries into CHANGELOG.md. 26 unpublished lines over 7 days indicates a patternâ€”integrate this into your commit-prep workflow to prevent future backlog.",
+                                                                                                               "action":  "Consolidate CHANGELOG-PENDING.md entries into CHANGELOG.md. 26 unpublished lines over 7 days indicates a patternÃ¢â‚¬â€integrate this into your commit-prep workflow to prevent future backlog.",
                                                                                                                "effort":  "S"
                                                                                                            },
                                                                                                            {
@@ -178,7 +178,7 @@
                                                                                                            }
                                                                                                        ],
                                                                                        "qualityIssues":  [
-                                                                                                             "54 source files with 0 test filesâ€”no safety net for spec validation logic",
+                                                                                                             "54 source files with 0 test filesÃ¢â‚¬â€no safety net for spec validation logic",
                                                                                                              "CHANGELOG-PENDING.md accumulating unpublished entries; consolidation blocked or forgotten"
                                                                                                          ],
                                                                                        "neglected":  [
@@ -208,7 +208,7 @@
                                                                                          }
                                                                                      ],
                                                                      "qualityIssues":  [
-                                                                                           "Zero test files for 6 source modules â€” no coverage for API routes, WebSocket events, or voice processing pipeline",
+                                                                                           "Zero test files for 6 source modules Ã¢â‚¬â€ no coverage for API routes, WebSocket events, or voice processing pipeline",
                                                                                            "6 uncommitted file changes suggest incomplete work cycles",
                                                                                            "11-day-old changelog entries indicate stalled release process"
                                                                                        ],
@@ -240,11 +240,11 @@
                                                                                                      }
                                                                                                  ],
                                                                                  "qualityIssues":  [
-                                                                                                       "Zero test coverage on 8 source files â€” critical for a presentation generation tool where output correctness is user-visible",
+                                                                                                       "Zero test coverage on 8 source files Ã¢â‚¬â€ critical for a presentation generation tool where output correctness is user-visible",
                                                                                                        "Commit discipline broken: 14 days since last commit despite active development (17 uncommitted changes suggests batch work not being checkpointed)"
                                                                                                    ],
                                                                                  "neglected":  [
-                                                                                                   "CHANGELOG-PENDING.md backlog growing (7 entries, 7 days old) â€” publication automation or weekly ritual needed"
+                                                                                                   "CHANGELOG-PENDING.md backlog growing (7 entries, 7 days old) Ã¢â‚¬â€ publication automation or weekly ritual needed"
                                                                                                ],
                                                                                  "crossProjectDeps":  [
 
@@ -260,7 +260,7 @@
                                                                                           },
                                                                                           {
                                                                                               "priority":  "MED",
-                                                                                              "action":  "Create test directory and baseline test file â€” project is in \u0027Review\u0027 phase and should establish quality gates early rather than retrofit testing later.",
+                                                                                              "action":  "Create test directory and baseline test file Ã¢â‚¬â€ project is in \u0027Review\u0027 phase and should establish quality gates early rather than retrofit testing later.",
                                                                                               "effort":  "M"
                                                                                           }
                                                                                       ],
@@ -279,7 +279,7 @@
                                                                             "suggestions":  [
                                                                                                 {
                                                                                                     "priority":  "HIGH",
-                                                                                                    "action":  "Implement test suite for core scraping (Rightmove parser), financial logic (property filtering), and data models. Start with unit tests for the financial criteria evaluation â€” this is the highest-risk component. Use pytest if Python or unittest framework native to the language.",
+                                                                                                    "action":  "Implement test suite for core scraping (Rightmove parser), financial logic (property filtering), and data models. Start with unit tests for the financial criteria evaluation Ã¢â‚¬â€ this is the highest-risk component. Use pytest if Python or unittest framework native to the language.",
                                                                                                     "effort":  "L"
                                                                                                 },
                                                                                                 {
@@ -294,18 +294,18 @@
                                                                                                 }
                                                                                             ],
                                                                             "qualityIssues":  [
-                                                                                                  "Zero test coverage on 93-file scraper/financial processing codebase â€” critical gap for data-driven tool touching real estate prices",
+                                                                                                  "Zero test coverage on 93-file scraper/financial processing codebase Ã¢â‚¬â€ critical gap for data-driven tool touching real estate prices",
                                                                                                   "CHANGELOG-PENDING.md has 2 unpublished entries 25 days old, blocking normal documentation consolidation workflow"
                                                                                               ],
                                                                             "neglected":  [
-                                                                                              "Test infrastructure completely absent â€” no test files, no CI, no coverage baseline"
+                                                                                              "Test infrastructure completely absent Ã¢â‚¬â€ no test files, no CI, no coverage baseline"
                                                                                           ],
                                                                             "crossProjectDeps":  [
-                                                                                                     "Depends on Rightmove availability and HTML structure stability â€” add tests for parser resilience to site changes"
+                                                                                                     "Depends on Rightmove availability and HTML structure stability Ã¢â‚¬â€ add tests for parser resilience to site changes"
                                                                                                  ]
                                                                         },
                                                "productivity-tool":  {
-                                                                         "state":  "Productivity dashboard (Next.js 14) in Review phase with 67 uncommitted changes and 7-day-old CHANGELOG backlog â€” execution discipline violation.",
+                                                                         "state":  "Productivity dashboard (Next.js 14) in Review phase with 67 uncommitted changes and 7-day-old CHANGELOG backlog Ã¢â‚¬â€ execution discipline violation.",
                                                                          "suggestions":  [
                                                                                              {
                                                                                                  "priority":  "HIGH",
@@ -324,14 +324,14 @@
                                                                                              }
                                                                                          ],
                                                                          "qualityIssues":  [
-                                                                                               "67 uncommitted changes pending â€” violates execution-discipline.md checkpoint rule",
-                                                                                               "1.1% test coverage (1/88 files) â€” no coverage for 87 source files",
-                                                                                               "CHANGELOG-PENDING.md unresolved for 7 days â€” violates doc-with-commits hook protocol",
-                                                                                               "All recent commits are bulk \u0027eod sync\u0027 with no semantic versioning â€” unclear scope and intent",
-                                                                                               "DOC-UPDATE-NEEDED.md still flagged but referenced in commits â€” documentation backlog not resolved"
+                                                                                               "67 uncommitted changes pending Ã¢â‚¬â€ violates execution-discipline.md checkpoint rule",
+                                                                                               "1.1% test coverage (1/88 files) Ã¢â‚¬â€ no coverage for 87 source files",
+                                                                                               "CHANGELOG-PENDING.md unresolved for 7 days Ã¢â‚¬â€ violates doc-with-commits hook protocol",
+                                                                                               "All recent commits are bulk \u0027eod sync\u0027 with no semantic versioning Ã¢â‚¬â€ unclear scope and intent",
+                                                                                               "DOC-UPDATE-NEEDED.md still flagged but referenced in commits Ã¢â‚¬â€ documentation backlog not resolved"
                                                                                            ],
                                                                          "neglected":  [
-                                                                                           "Test suite (1 test file for 88 source files â€” 1.1% coverage)",
+                                                                                           "Test suite (1 test file for 88 source files Ã¢â‚¬â€ 1.1% coverage)",
                                                                                            "Semantic commit messages (all recent commits are \u0027eod sync\u0027 bulk updates)"
                                                                                        ],
                                                                          "crossProjectDeps":  [
@@ -393,7 +393,7 @@
                                                                                                        "Generated output artifacts in git (outputs/ai-analysis-cache/, outputs/ceremony-prep/) risk repository bloat"
                                                                                                    ],
                                                                                  "neglected":  [
-                                                                                                   "Test suite appears abandoned â€” last meaningful feature work (4 commits ago) preceded by no corresponding test expansion"
+                                                                                                   "Test suite appears abandoned Ã¢â‚¬â€ last meaningful feature work (4 commits ago) preceded by no corresponding test expansion"
                                                                                                ],
                                                                                  "crossProjectDeps":  [
                                                                                                           "Project depends on Jira UKCAUD integration; if UKCAUD project blocks, sprint ceremony automation stalls"
@@ -409,7 +409,7 @@
                                                                                                        },
                                                                                                        {
                                                                                                            "priority":  "HIGH",
-                                                                                                           "action":  "Consolidate CHANGELOG-PENDING.md (20 entries, 7 days old) into CHANGELOG.md and commit â€” this unblocks the documentation hooks.",
+                                                                                                           "action":  "Consolidate CHANGELOG-PENDING.md (20 entries, 7 days old) into CHANGELOG.md and commit Ã¢â‚¬â€ this unblocks the documentation hooks.",
                                                                                                            "effort":  "S"
                                                                                                        },
                                                                                                        {
@@ -419,14 +419,14 @@
                                                                                                        }
                                                                                                    ],
                                                                                    "qualityIssues":  [
-                                                                                                         "Zero test coverage on 51 source files â€” unacceptable for Review phase; blocks confidence in template comparison logic",
+                                                                                                         "Zero test coverage on 51 source files Ã¢â‚¬â€ unacceptable for Review phase; blocks confidence in template comparison logic",
                                                                                                          "20 unpublished changelog entries (7 days old) indicate stalled changelog consolidation workflow"
                                                                                                      ],
                                                                                    "neglected":  [
-                                                                                                     "Testing infrastructure entirely absent â€” no test framework, fixtures, or CI pipeline"
+                                                                                                     "Testing infrastructure entirely absent Ã¢â‚¬â€ no test framework, fixtures, or CI pipeline"
                                                                                                  ],
                                                                                    "crossProjectDeps":  [
-                                                                                                            "Depends on CW API Scraper (mentioned in description) â€” verify scraper is stable and accessible before production use"
+                                                                                                            "Depends on CW API Scraper (mentioned in description) Ã¢â‚¬â€ verify scraper is stable and accessible before production use"
                                                                                                         ]
                                                                                },
                                                "cw-uat-testing-tool":  {
@@ -439,7 +439,7 @@
                                                                                                },
                                                                                                {
                                                                                                    "priority":  "MED",
-                                                                                                   "action":  "Verify project phase accuracy: marked \u0027Done\u0027 but receiving daily EOD syncs â€” update phase or close changelog tracking if truly archived",
+                                                                                                   "action":  "Verify project phase accuracy: marked \u0027Done\u0027 but receiving daily EOD syncs Ã¢â‚¬â€ update phase or close changelog tracking if truly archived",
                                                                                                    "effort":  "S"
                                                                                                }
                                                                                            ],
@@ -450,7 +450,7 @@
 
                                                                                          ],
                                                                            "crossProjectDeps":  [
-                                                                                                    "Project documents UK Cloud Audit squad UAT effort â€” confirm dependencies on upstream audit/compliance workflows"
+                                                                                                    "Project documents UK Cloud Audit squad UAT effort Ã¢â‚¬â€ confirm dependencies on upstream audit/compliance workflows"
                                                                                                 ]
                                                                        },
                                                "ai-breaking-news-tool":  {
@@ -458,7 +458,7 @@
                                                                              "suggestions":  [
                                                                                                  {
                                                                                                      "priority":  "HIGH",
-                                                                                                     "action":  "Add test coverage for scrape-gnews.js â€” test Google News login session handling, RSS fallback, and article parsing. Session auth is fragile; mock tests would catch breakage early.",
+                                                                                                     "action":  "Add test coverage for scrape-gnews.js Ã¢â‚¬â€ test Google News login session handling, RSS fallback, and article parsing. Session auth is fragile; mock tests would catch breakage early.",
                                                                                                      "effort":  "M"
                                                                                                  },
                                                                                                  {
@@ -475,15 +475,15 @@
                                                                              "qualityIssues":  [
                                                                                                    "Zero test files for a news scraper that depends on external authentication and unstable HTML parsing",
                                                                                                    "Google News session cookies hardcoded in setup; no session refresh mechanism if auth expires mid-day",
-                                                                                                   "All commits are chore/sync only â€” no visibility into what actually changed in live behavior"
+                                                                                                   "All commits are chore/sync only Ã¢â‚¬â€ no visibility into what actually changed in live behavior"
                                                                                                ],
                                                                              "neglected":  [
                                                                                                "Test suite entirely absent despite daily operational use",
                                                                                                "Changelog entries accumulating (20 unpublished over 8 days); process not automated"
                                                                                            ],
                                                                              "crossProjectDeps":  [
-                                                                                                      "Sends results to Productivity Tool\u0027s command center (localhost:3002) â€” syncs depend on that service running",
-                                                                                                      "Depends on Google News login session (gnews-session.json) â€” session expiry would break daily scrapes"
+                                                                                                      "Sends results to Productivity Tool\u0027s command center (localhost:3002) Ã¢â‚¬â€ syncs depend on that service running",
+                                                                                                      "Depends on Google News login session (gnews-session.json) Ã¢â‚¬â€ session expiry would break daily scrapes"
                                                                                                   ]
                                                                          }
                                            },
@@ -491,18 +491,18 @@
                                                      "This is a prerequisite for Phase 1.5 UKCAS/UKCAUD sync work; initialize CLAUDE.md and CI early to avoid delays when feature work accelerates.",
                                                      "Documentation projects should establish structure and automation early to prevent inconsistency drift as content grows.",
                                                      "This is a high-profile open-source project at inception; establish strong conventions and automation early to scale contributor onboarding.",
-                                                     "Agent/automation spec systems require test coverage earlier than typical projects due to correctness sensitivity â€” consider TDD before adding more files.",
+                                                     "Agent/automation spec systems require test coverage earlier than typical projects due to correctness sensitivity Ã¢â‚¬â€ consider TDD before adding more files.",
                                                      "Tool is actively maintained (EOD syncs) but test infrastructure is missing entirely; fix this before moving past \u0027Building\u0027 phase.",
                                                      "Pattern of \u0027eod sync\u0027 commits with CLAUDE.md updates suggests active daily iteration, but lack of tests indicates documentation is advancing faster than verification discipline.",
-                                                     "Rapid feature iteration (Groq Whisper integration) without corresponding test coverage or release checkpoints â€” typical of early Building phase, but needs gates before production use.",
-                                                     "This project shows active development but weak commit/test discipline â€” common sign of rapid prototyping without production-readiness checks.",
+                                                     "Rapid feature iteration (Groq Whisper integration) without corresponding test coverage or release checkpoints Ã¢â‚¬â€ typical of early Building phase, but needs gates before production use.",
+                                                     "This project shows active development but weak commit/test discipline Ã¢â‚¬â€ common sign of rapid prototyping without production-readiness checks.",
                                                      "This Yearly Reviews tool is part of a broader personal productivity ecosystem alongside AI Breaking News and Productivity Tool projects, suggesting an integrated planning and reflection workflow.",
                                                      "Project is functionally mature (93 files, active commits) but skipped testing phase; typical for solo automation tools that need test-first refactoring before scaling.",
-                                                     "Review phase work being tracked via bulk sync commits rather than semantic versioning â€” suggests consolidation/documentation task that should be finalized with proper git hygiene.",
+                                                     "Review phase work being tracked via bulk sync commits rather than semantic versioning Ã¢â‚¬â€ suggests consolidation/documentation task that should be finalized with proper git hygiene.",
                                                      "Recent activity shows daily eod-sync commits with config updates but changelog consolidation is not part of the routine.",
                                                      "Automation-heavy review-phase project generating repeated state/cache artifacts; needs test expansion and .gitignore cleanup before merge.",
                                                      "Template comparison tools are critical infrastructure; zero test coverage makes this unsuitable for Review phase without immediate test investment.",
-                                                     "Lightweight artifact project (1 source file, no tests) receiving daily maintenance via CLAUDE.md syncs suggests it\u0027s a living reference, not archived â€” consider phase reclassification.",
+                                                     "Lightweight artifact project (1 source file, no tests) receiving daily maintenance via CLAUDE.md syncs suggests it\u0027s a living reference, not archived Ã¢â‚¬â€ consider phase reclassification.",
                                                      "This is a well-maintained operational tool in \u0027Done\u0027 phase, but the absence of tests and persistent changelog backlog suggest process automation opportunities."
                                                  ],
                               "topPriorityAction":  "[CW Template Comparison Tool] Zero Test Coverage on 51 Files"
@@ -633,27 +633,27 @@
                                                 "newsletterHighlights":  [
                                                                              {
                                                                                  "title":  "The Neuron Weekly #128",
-                                                                                 "summary":  "Frontier Model Reliability: Benchmarking Real-World Performance across production systems and use casesâ€”focus on measuring actual reliability metrics. [Read](https://theneurondaily.com)",
+                                                                                 "summary":  "Frontier Model Reliability: Benchmarking Real-World Performance across production systems and use casesÃ¢â‚¬â€focus on measuring actual reliability metrics. [Read](https://theneurondaily.com)",
                                                                                  "sourceType":  "newsletter"
                                                                              },
                                                                              {
                                                                                  "title":  "Pragmatic Engineer",
-                                                                                 "summary":  "Building AI Teams: Scaling from POC to Productionâ€”case studies of 1â†’20 person AI team growth and organizational patterns. [Read](https://newsletter.pragmaticengineer.com)",
+                                                                                 "summary":  "Building AI Teams: Scaling from POC to ProductionÃ¢â‚¬â€case studies of 1Ã¢â€ â€™20 person AI team growth and organizational patterns. [Read](https://newsletter.pragmaticengineer.com)",
                                                                                  "sourceType":  "newsletter"
                                                                              },
                                                                              {
                                                                                  "title":  "deeplearning.ai",
-                                                                                 "summary":  "New Course: Building with Agentsâ€”covering agent architectures, MCP patterns, error handling, and production deployment lessons. [Read](https://deeplearning.ai/courses)",
+                                                                                 "summary":  "New Course: Building with AgentsÃ¢â‚¬â€covering agent architectures, MCP patterns, error handling, and production deployment lessons. [Read](https://deeplearning.ai/courses)",
                                                                                  "sourceType":  "newsletter"
                                                                              },
                                                                              {
-                                                                                 "title":  "Caseware Internal â€“ Product Updates",
+                                                                                 "title":  "Caseware Internal Ã¢â‚¬â€œ Product Updates",
                                                                                  "summary":  "Q2 AI Priorities \u0026 Resource Allocation approved: Copilot SDK integration, MCP infrastructure budget, AI Integration team hiring. [Read](https://internal.caseware.com/product-updates)",
                                                                                  "sourceType":  "newsletter"
                                                                              },
                                                                              {
                                                                                  "title":  "ben\u0027s bites",
-                                                                                 "summary":  "The AI Ops Stack: Tools That Actually Workâ€”operational frameworks companies adopting for production AI systems. [Read](https://bensbites.com)",
+                                                                                 "summary":  "The AI Ops Stack: Tools That Actually WorkÃ¢â‚¬â€operational frameworks companies adopting for production AI systems. [Read](https://bensbites.com)",
                                                                                  "sourceType":  "newsletter"
                                                                              }
                                                                          ]
@@ -662,157 +662,84 @@
     "teamMessages":  [
 
                      ],
-    "flaggedEmails":  [
-                          {
-                              "subject":  "Plandek | Sprint Progress Update for Audit - UKCAUD - Q1 2026 Sprint 7",
-                              "from":  "Plandek | Deliver Sprints Digests",
-                              "receivedAt":  "2026-04-16T08:01:40.3670000",
-                              "webLink":  "",
-                              "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010C00004D982E7133CA544B97DE70BB0AF65E8300057BD2BB980000"
-                          },
-                          {
-                              "subject":  "Issue UKCAUD-15956 has not been updated in 5 days",
-                              "from":  "Jira automation",
-                              "receivedAt":  "2026-04-16T07:30:48.7130000",
-                              "webLink":  "",
-                              "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010C00004D982E7133CA544B97DE70BB0AF65E8300057BD2BB970000"
-                          }
-                      ],
-    "flaggedEmailsFetchedAt":  "2026-04-16T08:45:26.8378485+01:00",
     "calendar":  {
-                     "lastRefreshed":  "2026-04-16T08:45:30.2734051+01:00",
+                     "lastRefreshed":  "2026-04-17T08:45:11.1855055+01:00",
                      "hasToken":  true,
                      "today":  [
                                    {
-                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0D9C0000",
-                                       "startTime":  "2026-04-16T07:30:00.0000000",
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0D9F0000",
+                                       "startTime":  "2026-04-17T07:30:00.0000000",
                                        "isFocusBlock":  false,
-                                       "endTime":  "2026-04-16T10:00:00.0000000",
+                                       "endTime":  "2026-04-17T10:00:00.0000000",
                                        "isCompleted":  false,
                                        "title":  "Backlog Refinement Prep "
                                    },
                                    {
-                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
-                                       "startTime":  "2026-04-16T10:15:00.0000000",
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300035BF171A50000",
+                                       "startTime":  "2026-04-17T09:00:00.0000000",
                                        "isFocusBlock":  false,
-                                       "endTime":  "2026-04-16T10:30:00.0000000",
+                                       "endTime":  "2026-04-17T10:00:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "RetroSpective Document Contribution"
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                       "startTime":  "2026-04-17T10:15:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-17T10:30:00.0000000",
                                        "isCompleted":  false,
                                        "title":  "UKCAUD - Stand-up - MS Teams "
                                    },
                                    {
-                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002F332CC580000",
-                                       "startTime":  "2026-04-16T10:30:00.0000000",
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0E430000",
+                                       "startTime":  "2026-04-17T10:30:00.0000000",
                                        "isFocusBlock":  false,
-                                       "endTime":  "2026-04-16T11:30:00.0000000",
+                                       "endTime":  "2026-04-17T11:30:00.0000000",
                                        "isCompleted":  false,
-                                       "title":  "Specifications Sync (Review Cards + Ask Questions) "
+                                       "title":  "UKCAUD - Backlog Refinement - MS Teams"
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000533025F180000",
+                                       "startTime":  "2026-04-17T11:30:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-17T12:30:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "Use of AI for spec work - a brainstorming session"
                                    },
                                    {
                                        "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
-                                       "startTime":  "2026-04-16T12:00:00.0000000",
+                                       "startTime":  "2026-04-17T12:00:00.0000000",
                                        "isFocusBlock":  false,
-                                       "endTime":  "2026-04-16T13:00:00.0000000",
+                                       "endTime":  "2026-04-17T13:00:00.0000000",
                                        "isCompleted":  false,
                                        "title":  "Lunch"
                                    },
                                    {
-                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830005267BC6AF0000",
-                                       "startTime":  "2026-04-16T13:00:00.0000000",
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002D2E473650000",
+                                       "startTime":  "2026-04-17T14:30:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-17T15:00:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "AI Showcasing - Product"
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830005267BC6B00000",
+                                       "startTime":  "2026-04-17T15:00:00.0000000",
                                        "isFocusBlock":  true,
-                                       "endTime":  "2026-04-16T14:00:00.0000000",
+                                       "endTime":  "2026-04-17T17:00:00.0000000",
                                        "isCompleted":  false,
                                        "title":  "Focus time"
                                    },
                                    {
-                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0D8C0000",
-                                       "startTime":  "2026-04-16T14:00:00.0000000",
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300053DED3EAD0000",
+                                       "startTime":  "2026-04-17T15:00:00.0000000",
                                        "isFocusBlock":  false,
-                                       "endTime":  "2026-04-16T16:00:00.0000000",
+                                       "endTime":  "2026-04-17T16:00:00.0000000",
                                        "isCompleted":  false,
-                                       "title":  "Backlog Refinement Prep "
-                                   },
-                                   {
-                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300024079BCB90000",
-                                       "startTime":  "2026-04-16T16:30:00.0000000",
-                                       "isFocusBlock":  false,
-                                       "endTime":  "2026-04-16T17:00:00.0000000",
-                                       "isCompleted":  false,
-                                       "title":  "Liam / Jon 1-2-1"
+                                       "title":  "Claude Onboarding "
                                    }
                                ],
                      "weekAhead":  [
-                                       {
-                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0D9F0000",
-                                           "startTime":  "2026-04-17T07:30:00.0000000",
-                                           "isFocusBlock":  false,
-                                           "endTime":  "2026-04-17T10:00:00.0000000",
-                                           "isCompleted":  false,
-                                           "title":  "Backlog Refinement Prep "
-                                       },
-                                       {
-                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300035BF171A50000",
-                                           "startTime":  "2026-04-17T09:00:00.0000000",
-                                           "isFocusBlock":  false,
-                                           "endTime":  "2026-04-17T10:00:00.0000000",
-                                           "isCompleted":  false,
-                                           "title":  "RetroSpective Document Contribution"
-                                       },
-                                       {
-                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
-                                           "startTime":  "2026-04-17T10:15:00.0000000",
-                                           "isFocusBlock":  false,
-                                           "endTime":  "2026-04-17T10:30:00.0000000",
-                                           "isCompleted":  false,
-                                           "title":  "UKCAUD - Stand-up - MS Teams "
-                                       },
-                                       {
-                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0E430000",
-                                           "startTime":  "2026-04-17T10:30:00.0000000",
-                                           "isFocusBlock":  false,
-                                           "endTime":  "2026-04-17T11:30:00.0000000",
-                                           "isCompleted":  false,
-                                           "title":  "UKCAUD - Backlog Refinement - MS Teams"
-                                       },
-                                       {
-                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000533025F180000",
-                                           "startTime":  "2026-04-17T11:30:00.0000000",
-                                           "isFocusBlock":  false,
-                                           "endTime":  "2026-04-17T12:30:00.0000000",
-                                           "isCompleted":  false,
-                                           "title":  "Use of AI for spec work - a brainstorming session"
-                                       },
-                                       {
-                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
-                                           "startTime":  "2026-04-17T12:00:00.0000000",
-                                           "isFocusBlock":  false,
-                                           "endTime":  "2026-04-17T13:00:00.0000000",
-                                           "isCompleted":  false,
-                                           "title":  "Lunch"
-                                       },
-                                       {
-                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002D2E473650000",
-                                           "startTime":  "2026-04-17T14:30:00.0000000",
-                                           "isFocusBlock":  false,
-                                           "endTime":  "2026-04-17T15:00:00.0000000",
-                                           "isCompleted":  false,
-                                           "title":  "AI Showcasing - Product"
-                                       },
-                                       {
-                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830005267BC6B00000",
-                                           "startTime":  "2026-04-17T15:00:00.0000000",
-                                           "isFocusBlock":  true,
-                                           "endTime":  "2026-04-17T17:00:00.0000000",
-                                           "isCompleted":  false,
-                                           "title":  "Focus time"
-                                       },
-                                       {
-                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300053DED3EAD0000",
-                                           "startTime":  "2026-04-17T15:00:00.0000000",
-                                           "isFocusBlock":  false,
-                                           "endTime":  "2026-04-17T16:00:00.0000000",
-                                           "isCompleted":  false,
-                                           "title":  "Claude Onboarding "
-                                       },
                                        {
                                            "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300056672ACD50000",
                                            "startTime":  "2026-04-20T00:00:00.0000000",
@@ -980,7 +907,96 @@
                                            "endTime":  "2026-04-23T10:30:00.0000000",
                                            "isCompleted":  false,
                                            "title":  "UKCAUD - Stand-up - MS Teams "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002F332CC580000",
+                                           "startTime":  "2026-04-23T10:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-23T11:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Specifications Sync (Review Cards + Ask Questions) "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000359DB3F930000",
+                                           "startTime":  "2026-04-23T10:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-23T11:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Jason/ UK Product Monthly Catch Up"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                           "startTime":  "2026-04-23T12:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-23T13:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Lunch"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000549D27DD70000",
+                                           "startTime":  "2026-04-23T13:00:00.0000000",
+                                           "isFocusBlock":  true,
+                                           "endTime":  "2026-04-23T16:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Focus time"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000533025F1B0000",
+                                           "startTime":  "2026-04-23T16:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-23T17:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Claude Usage In Audit Specifications "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000549D27DD80000",
+                                           "startTime":  "2026-04-24T07:30:00.0000000",
+                                           "isFocusBlock":  true,
+                                           "endTime":  "2026-04-24T10:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Focus time"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                           "startTime":  "2026-04-24T10:15:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-24T10:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Stand-up - MS Teams "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                           "startTime":  "2026-04-24T12:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-24T13:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Lunch"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002D2E473650000",
+                                           "startTime":  "2026-04-24T14:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-24T15:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "AI Showcasing - Product"
                                        }
                                    ]
-                 }
+                 },
+    "flaggedEmails":  [
+                          {
+                              "subject":  "Plandek | Sprint Progress Update for Audit - UKCAUD - Q1 2026 Sprint 7",
+                              "from":  "Plandek | Deliver Sprints Digests",
+                              "receivedAt":  "2026-04-16T08:01:40.3670000",
+                              "webLink":  "",
+                              "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010C00004D982E7133CA544B97DE70BB0AF65E8300057BD2BB980000"
+                          },
+                          {
+                              "subject":  "Issue UKCAUD-15956 has not been updated in 5 days",
+                              "from":  "Jira automation",
+                              "receivedAt":  "2026-04-16T07:30:48.7130000",
+                              "webLink":  "",
+                              "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010C00004D982E7133CA544B97DE70BB0AF65E8300057BD2BB970000"
+                          }
+                      ],
+    "flaggedEmailsFetchedAt":  "2026-04-17T08:45:09.8566432+01:00"
 }

@@ -232,11 +232,45 @@ async function getEditorFrames(page, count = 4, timeoutMs = 30_000) {
 }
 
 async function fillEditorFrame(frame, content, label) {
-  // Use Playwright native fill on the contenteditable body — more reliable than execCommand
-  // because Playwright triggers the correct input events that Canvas App RTEs listen to.
-  await frame.click("body", { timeout: 5_000 });
-  await frame.fill("body", content);
-  console.log(`[playwright-ibp-submit] Filled "${label}"`);
+  // Use document.execCommand to fill contenteditable iframes.
+  // This goes through the browser's native text editing pipeline, which Canvas App RTEs
+  // are built on top of — more reliable than frame.fill() which may not fire the right events.
+  const MAX_RETRIES = 3;
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      await frame.click("body", { timeout: 5_000 });
+      await frame.waitForTimeout(200);
+
+      await frame.evaluate((text) => {
+        const body = document.body;
+        body.focus();
+        // Select all existing content then replace with new text via execCommand.
+        // execCommand fires the native InputEvent chain that Canvas App RTEs listen to.
+        document.execCommand("selectAll", false, null);
+        document.execCommand("insertText", false, text);
+      }, content);
+
+      await frame.waitForTimeout(400);
+
+      // Verify the first line of content actually persisted.
+      const actual = await frame.evaluate(() => (document.body.innerText ?? "").trim()).catch(() => "");
+      const expectedFirstLine = content.split("\n").find((l) => l.trim()) ?? "";
+      if (actual.length > 0 && (expectedFirstLine === "" || actual.startsWith(expectedFirstLine.slice(0, 40)))) {
+        console.log(`[playwright-ibp-submit] Filled "${label}" (attempt ${attempt}/${MAX_RETRIES})`);
+        return;
+      }
+      console.warn(
+        `[playwright-ibp-submit] Fill verification failed for "${label}" attempt ${attempt}/${MAX_RETRIES}` +
+        ` — got "${actual.slice(0, 60)}", expected to start with "${expectedFirstLine.slice(0, 40)}"`
+      );
+    } catch (err) {
+      console.warn(`[playwright-ibp-submit] Fill error for "${label}" attempt ${attempt}/${MAX_RETRIES}: ${err.message?.slice(0, 80)}`);
+    }
+    if (attempt < MAX_RETRIES) {
+      await new Promise((r) => setTimeout(r, 1200 * attempt));
+    }
+  }
+  console.error(`[playwright-ibp-submit] Could not verify fill for "${label}" after ${MAX_RETRIES} attempts — content may not have persisted`);
 }
 
 async function fillEditorByHeading(page, _headingText, content, index) {
@@ -305,7 +339,38 @@ async function run() {
     await page.screenshot({ path: preShot, fullPage: false }).catch(() => {});
     console.log(`[playwright-ibp-submit] Pre-fill screenshot: ${preShot}`);
 
-    await selectTeam(page, "UK Solutions");
+    // Retry team selection up to 3 times and verify it took effect.
+    let teamSelected = false;
+    for (let attempt = 1; attempt <= 3 && !teamSelected; attempt++) {
+      if (attempt > 1) {
+        console.log(`[playwright-ibp-submit] Retrying team selection (attempt ${attempt}/3)…`);
+        await page.waitForTimeout(2_000).catch(() => {});
+      }
+      await selectTeam(page, "UK Solutions");
+      const dropShotPath = resolve(SCREENSHOT_DIR, `debug-dropdown-${TARGET_DATE}.png`);
+      await page.screenshot({ path: dropShotPath, fullPage: false }).catch(() => {});
+
+      // Check if "UK Solutions" text is now visible in the app frame.
+      const appFrame = page.frames().find((f) => /runtime-app\.powerplatform\.com/.test(f.url()));
+      if (appFrame) {
+        const verified = await appFrame.evaluate(() => {
+          const normalize = (t) => (t || "").replace(/\s+/g, " ").trim().toLowerCase();
+          return Array.from(document.querySelectorAll("div,span,p,button")).some(
+            (el) => normalize(el.textContent) === "uk solutions"
+          );
+        }).catch(() => false);
+        if (verified) {
+          teamSelected = true;
+          console.log("[playwright-ibp-submit] Team selection verified ✓");
+        } else {
+          console.warn(`[playwright-ibp-submit] Team selection not confirmed (attempt ${attempt}/3)`);
+        }
+      }
+    }
+    if (!teamSelected) {
+      console.warn("[playwright-ibp-submit] Could not auto-select team — please select 'UK Solutions' manually");
+      if (process.stdin.isTTY) await prompt("Select 'UK Solutions' in browser then press Enter…");
+    }
 
     // After team selection the form may re-render (new iframes spin up). Wait for all 4 editors.
     console.log("[playwright-ibp-submit] Waiting for 4 editor frames after team selection…");
@@ -318,17 +383,41 @@ async function run() {
       throw new Error(`Expected 4 editor frames, found ${editorFrames.length}. Screenshot: ${failShot}`);
     }
 
-    // Order in DOM: wins(0), blockers(1), priorities(2), lookingAhead(3)
-    await fillEditorFrame(editorFrames[0], wins, "Current Week: Wins & Impact");
-    await page.waitForTimeout(300).catch(() => {});
-    await fillEditorFrame(editorFrames[1], blockers, "Issues / Blockers");
-    await page.waitForTimeout(300).catch(() => {});
-    await fillEditorFrame(editorFrames[2], priorities, "Next Week: Top Priorities");
-    await page.waitForTimeout(300).catch(() => {});
-    await fillEditorFrame(editorFrames[3], lookingAhead, "Looking Ahead");
-    await page.waitForTimeout(300).catch(() => {});
+    // Fill each editor in order, re-fetching fresh frame references between fills
+    // to guard against Canvas App re-rendering staling the cached frame handles.
+    const fills = [
+      { content: wins,        label: "Current Week: Wins & Impact" },
+      { content: blockers,    label: "Issues / Blockers" },
+      { content: priorities,  label: "Next Week: Top Priorities" },
+      { content: lookingAhead, label: "Looking Ahead" },
+    ];
 
-    await page.waitForTimeout(1000);
+    for (let i = 0; i < fills.length; i++) {
+      // Re-acquire fresh frame references before each fill — avoids stale handles
+      // after Canvas App re-renders in response to the previous fill.
+      const freshFrames = await getEditorFrames(page, 4, 8_000);
+      if (freshFrames.length < 4) {
+        console.warn(`[playwright-ibp-submit] Only ${freshFrames.length} editor frames before fill ${i + 1} — proceeding with what we have`);
+      }
+      const targetFrame = freshFrames[i];
+      if (!targetFrame) {
+        console.error(`[playwright-ibp-submit] No frame at index ${i} for "${fills[i].label}" — skipping`);
+        continue;
+      }
+
+      await fillEditorFrame(targetFrame, fills[i].content, fills[i].label);
+
+      // Per-fill screenshot for diagnostics.
+      const fillShot = resolve(SCREENSHOT_DIR, `debug-fill-${i + 1}-${fills[i].label.replace(/[^a-zA-Z0-9]/g, "-")}-${TARGET_DATE}.png`);
+      await page.screenshot({ path: fillShot, fullPage: false }).catch(() => {});
+
+      if (i < fills.length - 1) {
+        // Give Canvas App time to process the fill and stabilise before the next.
+        await page.waitForTimeout(2_000).catch(() => {});
+      }
+    }
+
+    await page.waitForTimeout(1_000);
 
     const screenshotPath = resolve(
       SCREENSHOT_DIR,

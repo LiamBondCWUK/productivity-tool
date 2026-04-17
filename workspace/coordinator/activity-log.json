@@ -7264,5 +7264,75 @@
     "windowTitle": "Business Systems Distributor's Issues Board - Kanban Board - Caseware Jira and 4 more pages - Work - Microsoft? Edge",
     "inferredTask": "jira-browse",
     "durationMin": 4
+  },
+  {
+    "start": "2026-04-16T22:43:55.779Z",
+    "end": "2026-04-16T23:36:26.745Z",
+    "windowTitle": "Business Systems Distributor's Issues Board - Kanban Board - Caseware Jira and 4 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 53
+  },
+  {
+    "start": "2026-04-16T23:36:26.745Z",
+    "end": "2026-04-16T23:47:31.366Z",
+    "windowTitle": "settings.json - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-16T23:47:57.929Z",
+    "end": "2026-04-16T23:50:28.391Z",
+    "windowTitle": "settings.json - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-16T23:50:28.391Z",
+    "end": "2026-04-16T23:53:32.814Z",
+    "windowTitle": "ibp-2026-04-16.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-16T23:53:58.637Z",
+    "end": "2026-04-17T00:04:31.880Z",
+    "windowTitle": "ibp-2026-04-16.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-17T00:05:30.557Z",
+    "end": "2026-04-17T00:07:32.035Z",
+    "windowTitle": "ibp-2026-04-16.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-17T00:07:58.347Z",
+    "end": "2026-04-17T00:08:34.318Z",
+    "windowTitle": "ibp-2026-04-16.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-17T00:09:30.179Z",
+    "end": "2026-04-17T00:10:32.262Z",
+    "windowTitle": "ibp-2026-04-16.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-17T00:10:58.960Z",
+    "end": "2026-04-17T00:16:32.214Z",
+    "windowTitle": "ibp-2026-04-16.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-17T00:16:58.615Z",
+    "end": "2026-04-17T00:17:32.383Z",
+    "windowTitle": "ibp-2026-04-16.md - Documents - Visual Studio Code",
+    "inferredTask": "dev",
+    "durationMin": 1
   }
 ]
