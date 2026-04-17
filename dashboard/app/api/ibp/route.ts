@@ -79,13 +79,17 @@ export async function GET(req: NextRequest) {
 
 export async function POST() {
   const scriptPath = join(SCRIPTS_DIR, "generate-ibp.mjs");
+  const today = new Date().toISOString().slice(0, 10);
 
   try {
-    const stdout = execSync(`node "${scriptPath}"`, {
-      timeout: 90_000,
-      encoding: "utf8",
-      cwd: join(process.cwd(), ".."),
-    });
+    const stdout = execSync(
+      `node "${scriptPath}" --date=${today} --skip-ai`,
+      {
+        timeout: 120_000,
+        encoding: "utf8",
+        cwd: join(process.cwd(), ".."),
+      },
+    );
 
     const ibpFiles = getIbpFiles();
     return NextResponse.json({
@@ -93,15 +97,20 @@ export async function POST() {
       stdout: stdout?.slice(0, 500),
       lastGenerated: ibpFiles[0]?.date ?? null,
       availableDates: ibpFiles.map((f) => f.date),
+      generatedDate: today,
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
+    const stderr = (err as { stderr?: string }).stderr ?? "";
     return NextResponse.json(
       {
         success: false,
         error: message.slice(0, 500),
+        stderr: stderr.slice(0, 500),
       },
       { status: 500 },
     );
   }
 }
+
+

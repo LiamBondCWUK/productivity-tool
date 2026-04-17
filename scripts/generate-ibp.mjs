@@ -467,8 +467,11 @@ function buildPlainSummary(ctx) {
   const weekLabel = `${formatDateLabel(weekRanges.currentWeekStart)} - ${formatDateLabel(weekRanges.currentWeekEnd)}`;
   const nextWeekLabel = `${formatDateLabel(weekRanges.nextWeekStart)} - ${formatDateLabel(weekRanges.nextWeekEnd)}`;
 
-  const allIssues = (ctx.jiraProjectSnapshots ?? [])
-    .flatMap((snapshot) => (snapshot.issues ?? []).map((issue) => ({ ...issue, project: snapshot.project })));
+  const allIssues = [...new Map(
+    (ctx.jiraProjectSnapshots ?? [])
+      .flatMap((snapshot) => (snapshot.issues ?? []).map((issue) => ({ ...issue, project: snapshot.project })))
+      .map((issue) => [issue.key, issue])
+  ).values()];
   const distBlockers = ctx.jiraDistBlockers ?? [];
   const weekSummary = (ctx.weekSummary?.length ? ctx.weekSummary : ctx.summary) ?? [];
   const weekEntries = ctx.weekEntries ?? [];
@@ -596,19 +599,21 @@ function buildPlainSummary(ctx) {
     return cleanText(summary, 140)
       .replace(/^DEVELOP\s*-\s*/i, "")
       .replace(/^\d+\.\s*/, "")
-      .replace(/Audit HAT UK Company\s*-\s*/i, "")
+      .replace(/^Audit\s+(?:(?:HAT|Mercia)\s+)?UK\s+(?:Academy|Company)\s*[-–]\s*/i, "")
+      .replace(/\bB\d{2}(?:-[A-Z]+)+\b\s*/g, "")
       .replace(/\s{2,}/g, " ")
       .trim();
   }
 
   function themeForIssue(issue) {
     const summary = cleanIssueSummary(issue.summary).toLowerCase();
+    if (/academy/i.test(issue.summary)) return "sprint delivery work";
     if (/cosmetic|text|label|guidance/.test(summary)) return "UI polish and guidance improvements";
-    if (/hat|audit/.test(summary)) return "HAT audit template work";
-    if (/sampling|sample[\s.-]?size|transactional/.test(summary)) return "sampling and sample size configuration";
+    if (/hat|sampling|sample[\s.-]?size|transactional/.test(summary)) return "HAT UK Company Audit — Sampling & Sample Size";
+    if (/audit/.test(summary)) return "HAT UK Company Audit — Sampling & Sample Size";
     if (/tailoring|\btb\b/.test(summary)) return "tailoring and trial balance logic";
     if (/rule[\s.-]?builder|automation/.test(summary)) return "rule builder and automation";
-    if (/materiality|sample/.test(summary)) return "materiality and sampling logic";
+    if (/materiality/.test(summary)) return "materiality and sampling logic";
     if (/disclosure checklist|checklist/.test(summary)) return "disclosure checklist delivery";
     if (/navigation|details/.test(summary)) return "navigation and details experience";
     if (/release|spec/.test(summary)) return "release coordination";
@@ -680,21 +685,22 @@ function buildPlainSummary(ctx) {
   const manuallyTouchedIssues = allIssues.filter(
     (issue) => issue.reporterIsCurrentUser || issue.touchedByCurrentUserManual
   );
-  for (const issue of manuallyTouchedIssues) {
+  // allIssues is already deduplicated by key at source
+  const uniqueManualIssues = manuallyTouchedIssues;
+  for (const issue of uniqueManualIssues) {
     if (/(qa on hold|on hold|blocked|imped)/i.test(issue.status)) continue;
     const theme = themeForIssue(issue);
     if (!themeMap.has(theme)) themeMap.set(theme, []);
     themeMap.get(theme).push(issue);
   }
   const winsByTheme = [...themeMap.entries()]
+    .filter(([theme]) => theme !== "sprint delivery work")
     .sort((a, b) => b[1].length - a[1].length)
     .slice(0, 5)
     .map(([theme, issues]) => ({
       theme,
       issues: issues
-        .sort((a, b) => new Date(b.updated ?? 0).getTime() - new Date(a.updated ?? 0).getTime())
-        .slice(0, 3),
-      count: issues.length,
+        .sort((a, b) => new Date(b.updated ?? 0).getTime() - new Date(a.updated ?? 0).getTime()),
     }));
 
   const weekTotalHours = Math.max(1, Math.round((ctx.weekTotalMin ?? ctx.totalTrackedMin ?? 0) / 60));
@@ -774,8 +780,6 @@ function buildPlainSummary(ctx) {
   const lines = [
     `# IBP — Week of ${weekLabel}`,
     "",
-    `**Generated:** ${formatDateLabel(ctx.date)} | **~${weekTotalHours}h tracked** across ${ctx.daysWithWeekData ?? 1} of 5 weekdays`,
-    "",
     "## Impact",
     "",
   ];
@@ -788,9 +792,6 @@ function buildPlainSummary(ctx) {
       : "Delivered focused engineering work this week.";
 
   const supportingContext = [];
-  const codingBucket = rankedWorkloadBuckets.find((b) => /coding|hands.on/i.test(b.label));
-  if (codingBucket) supportingContext.push(`${softTime(codingBucket.minutes)} in hands-on coding`);
-  if (aiPct > 0) supportingContext.push(`${aiPct}% AI-assisted via Claude and Copilot`);
   const totalGitHub = github.prsAuthored.length + github.prsReviewed.length;
   if (totalGitHub > 0) supportingContext.push(`${totalGitHub} GitHub PR${totalGitHub === 1 ? "" : "s"} raised or reviewed`);
   if (allCompletedMeetings.length > 2) supportingContext.push(`${allCompletedMeetings.length} alignment meetings`);
@@ -802,14 +803,16 @@ function buildPlainSummary(ctx) {
   lines.push("");
 
   // Thematic sub-sections — one bold heading per workstream, bullets per ticket
-  for (const { theme, issues, count } of winsByTheme) {
+  for (const { theme, issues } of winsByTheme) {
     const heading = theme.charAt(0).toUpperCase() + theme.slice(1);
     lines.push(`**${heading}**`);
+    // Deduplicate by cleaned summary within the theme (different keys, same displayed text)
+    const seenSummaries = new Set();
     for (const issue of issues) {
-      lines.push(`- ${statusVerb(issue.status)} ${cleanIssueSummary(issue.summary)} (${issue.key})`);
-    }
-    if (count > issues.length) {
-      lines.push(`- _(+${count - issues.length} more tickets)_`);
+      const cleaned = cleanIssueSummary(issue.summary).toLowerCase();
+      if (seenSummaries.has(cleaned)) continue;
+      seenSummaries.add(cleaned);
+      lines.push(`- ${statusVerb(issue.status)} ${cleanIssueSummary(issue.summary)}`);
     }
     lines.push("");
   }
@@ -848,26 +851,25 @@ function buildPlainSummary(ctx) {
     commitsByRepo.get(c.repo).push(stripped);
   }
   for (const [repo, messages] of commitsByRepo) {
-    const cleaned = messages.filter((m) => m.length > 3);
+    const cleaned = [...new Set(messages.filter((m) => m.length > 3))];
     if (cleaned.length === 0) continue;
     const label = humaniseRepo(repo);
-    if (cleaned.length <= 3) {
-      cleaned.forEach((m) => engLines.push(`- ${label}: ${cleanText(m, 90)}`));
-    } else {
-      // Surface the most descriptive messages (longest = most detail)
-      const top = [...cleaned].sort((a, b) => b.length - a.length).slice(0, 3);
-      top.forEach((m) => engLines.push(`- ${label}: ${cleanText(m, 90)}`));
-      engLines.push(`  _(+${cleaned.length - 3} more commits to ${label})_`);
-    }
+    // One line per repo — most descriptive messages comma-separated
+    const top = [...cleaned].sort((a, b) => b.length - a.length).slice(0, 4);
+    engLines.push(`- ${label}: ${top.map((m) => cleanText(m, 80)).join(", ")}`);
   }
   for (const rule of automationRules.slice(0, 4)) {
     engLines.push(`- ${rule.action} Jira automation rule: ${cleanText(rule.name, 80)}`);
   }
+  // Group AI highlights by tool — one line per tool, no durations
+  const aiByTool = new Map();
   for (const highlight of topAiHighlights) {
-    engLines.push(`- ${highlight.detail} (${highlight.sourceLabel}, ${softTime(highlight.durationMin)})`);
+    if (!aiByTool.has(highlight.sourceLabel)) aiByTool.set(highlight.sourceLabel, []);
+    aiByTool.get(highlight.sourceLabel).push(highlight.detail);
   }
-  if (aiTotalMin > 0 && topAiHighlights.length > 0) {
-    engLines.push(`- Total AI-assisted: ${softHours(aiTotalMin)} (${aiPct}% of tracked time)`);
+  for (const [tool, details] of aiByTool) {
+    const unique = [...new Set(details)];
+    engLines.push(`- ${tool}: ${unique.slice(0, 3).map((d) => cleanText(d, 70)).join("; ")}`);
   }
   if (engLines.length > 0) {
     lines.push("**Engineering & AI-assisted work**");
@@ -880,8 +882,12 @@ function buildPlainSummary(ctx) {
   for (const page of confluence.pagesCreated.slice(0, 3)) {
     collabLines.push(`- Created Confluence page: ${cleanText(page.title, 80)}${page.space ? ` (${page.space})` : ""}`);
   }
-  for (const page of confluence.pagesEdited.slice(0, 4)) {
-    collabLines.push(`- Updated Confluence: ${cleanText(page.title, 80)}${page.space ? ` (${page.space})` : ""}`);
+  const editedPageKeys = new Set();
+  for (const page of confluence.pagesEdited.slice(0, 6)) {
+    const key = page.title.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]/g, "");
+    if (editedPageKeys.has(key)) continue;
+    editedPageKeys.add(key);
+    collabLines.push(`- Updated Confluence: ${cleanText(page.title, 80)}`);
   }
   for (const comment of jiraComments.slice(0, 4)) {
     const firstSentence = comment.comment.split(/[.!?]/)[0].trim();
@@ -897,16 +903,6 @@ function buildPlainSummary(ctx) {
   if (collabLines.length > 0) {
     lines.push("**Collaboration & documentation**");
     collabLines.forEach((l) => lines.push(l));
-    lines.push("");
-  }
-
-  // Jira contributions (personally touched tickets)
-  const jiraHighlightLines = personallyTouchedIssues
-    .slice(0, 6)
-    .map((issue) => `- **${issue.project}** ${issue.key} [${issue.status}] ${cleanIssueSummary(issue.summary)}`);
-  if (jiraHighlightLines.length > 0) {
-    lines.push("**Jira contributions (personally touched)**");
-    jiraHighlightLines.forEach((l) => lines.push(l));
     lines.push("");
   }
 
@@ -928,8 +924,9 @@ function buildPlainSummary(ctx) {
   lines.push("");
 
   const priorityIssues = uniqueBy(
-    allIssues
+    uniqueManualIssues
       .filter((issue) => /(to do|selected|in progress|open)/i.test(issue.status))
+      .filter((issue) => themeForIssue(issue) !== "sprint delivery work")
       .slice(0, 10)
       .map((issue) => {
         const summary = cleanIssueSummary(issue.summary)
@@ -941,9 +938,10 @@ function buildPlainSummary(ctx) {
     (issue) => issue.summary.toLowerCase()
   );
 
-  // Group by theme if multiple themes present, otherwise flat list
+  // Group by theme if multiple themes present, otherwise flat list — exclude catch-all
   const priorityByTheme = new Map();
   for (const issue of priorityIssues) {
+    if (issue.theme === "sprint delivery work") continue;
     if (!priorityByTheme.has(issue.theme)) priorityByTheme.set(issue.theme, []);
     priorityByTheme.get(issue.theme).push(issue);
   }
@@ -953,13 +951,13 @@ function buildPlainSummary(ctx) {
       const heading = theme.charAt(0).toUpperCase() + theme.slice(1);
       lines.push(`**${heading}**`);
       issues.slice(0, 3).forEach((issue) =>
-        lines.push(`- ${priorityVerb(issue.status)} ${issue.summary} (${issue.key})`)
+        lines.push(`- ${priorityVerb(issue.status)} ${issue.summary}`)
       );
       lines.push("");
     }
   } else {
     priorityIssues.slice(0, 5).forEach((issue) =>
-      lines.push(`- ${priorityVerb(issue.status)} ${issue.summary} (${issue.key})`)
+      lines.push(`- ${priorityVerb(issue.status)} ${issue.summary}`)
     );
     if ((ctx.documentSignalCount ?? 0) > 0) {
       lines.push(

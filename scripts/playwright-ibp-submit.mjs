@@ -39,15 +39,25 @@ function prompt(question) {
   });
 }
 
+function stripMarkdown(line) {
+  return line
+    .replace(/\*\*(.*?)\*\*/g, "$1")  // **bold** → bold
+    .replace(/__(.*?)__/g, "$1")       // __bold__ → bold
+    .replace(/\*(.*?)\*/g, "$1")       // *italic* → italic
+    .replace(/_(.*?)_/g, "$1")         // _italic_ → italic
+    .replace(/^[-*#>\s]+/, "")         // strip leading list/heading markers
+    .trim();
+}
+
 function sectionToEditorText(section) {
   const lines = String(section || "")
     .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .map((line) => line.replace(/^[-*]\s*/, ""));
+    .map((line) => stripMarkdown(line))
+    .filter(Boolean);
 
-  if (lines.length === 0) return "- No updates captured.";
-  return lines.map((line) => `- ${line}`).join("\n");
+  if (lines.length === 0) return "No updates captured.";
+  // Plain text — the PowerApps RTE adds bullet formatting per line automatically
+  return lines.join("\n");
 }
 
 async function waitForForm(page) {
@@ -73,103 +83,167 @@ async function waitForForm(page) {
   }
 }
 
-async function selectTeam(page, teamName) {
-  const selected = await page.evaluate((name) => {
-    const normalize = (text) => (text || "").replace(/\s+/g, " ").trim().toLowerCase();
+async function selectTeamInFrame(frame, teamName) {
+  return frame
+    .evaluate((name) => {
+      const normalize = (text) => (text || "").replace(/\s+/g, " ").trim().toLowerCase();
 
-    const directSelect = Array.from(document.querySelectorAll("select")).find((el) =>
-      normalize(el.innerText).includes(normalize(name)) ||
-      Array.from(el.options || []).some((opt) => normalize(opt.textContent).includes(normalize(name))),
-    );
-
-    if (directSelect) {
-      const option = Array.from(directSelect.options).find((opt) =>
-        normalize(opt.textContent).includes(normalize(name)),
+      const directSelect = Array.from(document.querySelectorAll("select")).find(
+        (el) =>
+          normalize(el.innerText).includes(normalize(name)) ||
+          Array.from(el.options || []).some((opt) => normalize(opt.textContent).includes(normalize(name))),
       );
-      if (option) {
-        directSelect.value = option.value;
-        directSelect.dispatchEvent(new Event("change", { bubbles: true }));
-        return true;
-      }
-    }
 
-    const labels = Array.from(document.querySelectorAll("div,span,label")).filter((el) =>
-      normalize(el.textContent).includes("select team"),
-    );
-
-    for (const label of labels) {
-      let scope = label.closest("div");
-      for (let depth = 0; depth < 5 && scope; depth += 1) {
-        const combo = scope.querySelector('[role="combobox"], input, button');
-        if (combo) {
-          combo.click();
+      if (directSelect) {
+        const option = Array.from(directSelect.options).find((opt) =>
+          normalize(opt.textContent).includes(normalize(name)),
+        );
+        if (option) {
+          directSelect.value = option.value;
+          directSelect.dispatchEvent(new Event("change", { bubbles: true }));
           return true;
         }
-        scope = scope.parentElement;
       }
-    }
 
-    return false;
-  }, teamName);
+      const labels = Array.from(document.querySelectorAll("div,span,label")).filter((el) =>
+        normalize(el.textContent).includes("select team"),
+      );
 
-  if (selected) {
-    await page.waitForTimeout(800);
-    const option = page.getByText(teamName, { exact: false }).first();
-    if (await option.count()) {
-      await option.click({ timeout: 3_000 }).catch(() => {});
-      await page.waitForTimeout(700);
-    }
-  }
-}
-
-async function fillEditorByHeading(page, headingText, content, fallbackIndex) {
-  const ok = await page.evaluate(
-    ({ heading, value, index }) => {
-      const normalize = (text) => (text || "").replace(/\s+/g, " ").trim().toLowerCase();
-      const headingNeedle = normalize(heading);
-
-      const setEditor = (editor) => {
-        if (!editor) return false;
-        editor.focus();
-        editor.textContent = "";
-        editor.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "deleteContentBackward" }));
-        editor.textContent = value;
-        editor.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "insertText", data: value }));
-        editor.dispatchEvent(new Event("change", { bubbles: true }));
-        editor.blur();
-        return true;
-      };
-
-      const candidates = Array.from(document.querySelectorAll("div,span,h1,h2,h3,h4,label,p,strong"))
-        .filter((el) => {
-          const t = normalize(el.textContent);
-          return t.includes(headingNeedle) && t.length < 140;
-        });
-
-      for (const node of candidates) {
-        let scope = node.closest("div");
-        for (let depth = 0; depth < 7 && scope; depth += 1) {
-          const editor = scope.querySelector('[contenteditable="true"]');
-          if (setEditor(editor)) return true;
-          const editors = scope.querySelectorAll('[contenteditable="true"]');
-          if (editors.length > 0 && setEditor(editors[0])) return true;
+      for (const label of labels) {
+        let scope = label.closest("div");
+        for (let depth = 0; depth < 5 && scope; depth += 1) {
+          const combo = scope.querySelector('[role="combobox"], input, button');
+          if (combo) {
+            combo.click();
+            return true;
+          }
           scope = scope.parentElement;
         }
       }
 
-      const allEditors = Array.from(document.querySelectorAll('[contenteditable="true"]'));
-      if (allEditors[index]) {
-        return setEditor(allEditors[index]);
-      }
-
       return false;
-    },
-    { heading: headingText, value: content, index: fallbackIndex },
-  );
+    }, teamName)
+    .catch(() => false);
+}
 
-  if (!ok) {
-    throw new Error(`Could not fill editor for heading: ${headingText}`);
+async function selectTeam(page, teamName) {
+  // The Canvas App renders in the runtime-app.powerplatform.com frame.
+  const appFrame = page.frames().find((f) => /runtime-app\.powerplatform\.com/.test(f.url()));
+
+  if (!appFrame) {
+    console.warn("[playwright-ibp-submit] Could not find PowerApps app frame — skipping team selection");
+    return;
   }
+
+  // Find the dropdown control coordinates via JS, then click natively.
+  // Canvas App ignores JS synthetic click events — must use Playwright native pointer events.
+  const rect = await appFrame.evaluate(() => {
+    const normalize = (text) => (text || "").replace(/\s+/g, " ").trim().toLowerCase();
+    const labels = Array.from(document.querySelectorAll("div,span,label,p")).filter((el) =>
+      normalize(el.textContent).includes("select team") && normalize(el.textContent).length < 30,
+    );
+    for (const label of labels) {
+      let scope = label.closest("div");
+      for (let depth = 0; depth < 6 && scope; depth += 1) {
+        const combo = scope.querySelector('[role="combobox"],[role="listbox"],select,button,input');
+        if (combo) {
+          const r = combo.getBoundingClientRect();
+          if (r.width > 0 && r.height > 0) {
+            return { x: r.left + r.width / 2, y: r.top + r.height / 2, found: true };
+          }
+        }
+        scope = scope.parentElement;
+      }
+    }
+    return { found: false };
+  }).catch(() => ({ found: false }));
+
+  if (!rect?.found) {
+    console.warn("[playwright-ibp-submit] Could not locate dropdown control — please select team manually");
+    return;
+  }
+
+  console.log(`[playwright-ibp-submit] Clicking dropdown at frame coords (${Math.round(rect.x)}, ${Math.round(rect.y)})`);
+  // Native click fires proper pointerdown/pointerup/click events that Canvas App responds to
+  await appFrame.click("body", { position: { x: rect.x, y: rect.y }, timeout: 5_000 });
+
+  // Wait for options to render
+  await page.waitForTimeout(2_000).catch(() => {});
+
+  // Options render in the same app frame — wait for them and click natively
+  try {
+    await appFrame.waitForSelector(`text="${teamName}"`, { timeout: 5_000 });
+    await appFrame.click(`text="${teamName}"`, { timeout: 3_000 });
+    console.log(`[playwright-ibp-submit] Team "${teamName}" selected`);
+  } catch {
+    try {
+      await appFrame.click(`text=${teamName}`, { timeout: 3_000 });
+      console.log(`[playwright-ibp-submit] Team "${teamName}" selected (partial match)`);
+    } catch (err) {
+      console.warn(`[playwright-ibp-submit] Option not found: ${err.message?.slice(0, 80)} — please select manually`);
+    }
+  }
+
+  await page.waitForTimeout(700).catch(() => {});
+}
+
+// Broader selector: catches contenteditable="true", contenteditable="", contenteditable="plaintext-only"
+const EDITABLE_SEL = '[contenteditable]:not([contenteditable="false"])';
+
+async function debugFrameStructure(page) {
+  const info = await Promise.all(
+    page.frames().map(async (frame, i) => {
+      return frame
+        .evaluate((sel) => {
+          const editors = Array.from(document.querySelectorAll(sel));
+          return {
+            url: location.href.slice(0, 100),
+            editorCount: editors.length,
+            editorTags: editors.slice(0, 6).map((e) => `${e.tagName}[ce=${e.getAttribute("contenteditable")}][role=${e.getAttribute("role")}]`),
+            bodySnippet: (document.body?.innerText ?? "").slice(0, 200),
+          };
+        }, EDITABLE_SEL)
+        .catch(() => ({ url: "inaccessible", editorCount: -1 }))
+        .then((d) => ({ frame: i, ...d }));
+    }),
+  );
+  console.log("[playwright-ibp-submit] frame structure:", JSON.stringify(info, null, 2));
+}
+
+async function tryFillInFrame() { /* replaced by positional iframe approach */ }
+
+// Each PowerApps rich text editor is rendered as a separate iframe whose BODY is contenteditable.
+// Collect all such editor frames in DOM order, waiting up to timeoutMs for `count` to appear.
+async function getEditorFrames(page, count = 4, timeoutMs = 30_000) {
+  const deadline = Date.now() + timeoutMs;
+  let found = [];
+  while (Date.now() < deadline) {
+    found = [];
+    for (const frame of page.frames()) {
+      const isEditor = await frame
+        .evaluate(() => document.body?.getAttribute("contenteditable") === "true")
+        .catch(() => false);
+      if (isEditor) found.push(frame);
+    }
+    if (found.length >= count) return found;
+    await new Promise((r) => setTimeout(r, 600));
+  }
+  return found; // return however many we found
+}
+
+async function fillEditorFrame(frame, content, label) {
+  // Use Playwright native fill on the contenteditable body — more reliable than execCommand
+  // because Playwright triggers the correct input events that Canvas App RTEs listen to.
+  await frame.click("body", { timeout: 5_000 });
+  await frame.fill("body", content);
+  console.log(`[playwright-ibp-submit] Filled "${label}"`);
+}
+
+async function fillEditorByHeading(page, _headingText, content, index) {
+  // Legacy shim — now just delegates to positional filling via getEditorFrames.
+  // The `_headingText` param is kept for logging only; actual targeting is by index.
+  // Callers still pass the heading text for the log message.
+  throw new Error("fillEditorByHeading is deprecated — use fillEditorFrame directly");
 }
 
 async function run() {
@@ -225,12 +299,34 @@ async function run() {
 
   try {
     await waitForForm(page);
+
+    // Debug screenshot after form loads — helps diagnose any fill failures
+    const preShot = resolve(SCREENSHOT_DIR, `debug-preload-${TARGET_DATE}.png`);
+    await page.screenshot({ path: preShot, fullPage: false }).catch(() => {});
+    console.log(`[playwright-ibp-submit] Pre-fill screenshot: ${preShot}`);
+
     await selectTeam(page, "UK Solutions");
 
-    await fillEditorByHeading(page, "Current Week: Wins & Impact", wins, 0);
-    await fillEditorByHeading(page, "Issues / Blockers", blockers, 1);
-    await fillEditorByHeading(page, "Next Week: Top Priorities", priorities, 2);
-    await fillEditorByHeading(page, "Looking Ahead", lookingAhead, 3);
+    // After team selection the form may re-render (new iframes spin up). Wait for all 4 editors.
+    console.log("[playwright-ibp-submit] Waiting for 4 editor frames after team selection…");
+    const editorFrames = await getEditorFrames(page, 4, 30_000);
+    console.log(`[playwright-ibp-submit] Found ${editorFrames.length} editor frames`);
+    if (editorFrames.length < 4) {
+      await debugFrameStructure(page);
+      const failShot = resolve(SCREENSHOT_DIR, `debug-not-enough-editors-${TARGET_DATE}.png`);
+      await page.screenshot({ path: failShot, fullPage: false }).catch(() => {});
+      throw new Error(`Expected 4 editor frames, found ${editorFrames.length}. Screenshot: ${failShot}`);
+    }
+
+    // Order in DOM: wins(0), blockers(1), priorities(2), lookingAhead(3)
+    await fillEditorFrame(editorFrames[0], wins, "Current Week: Wins & Impact");
+    await page.waitForTimeout(300).catch(() => {});
+    await fillEditorFrame(editorFrames[1], blockers, "Issues / Blockers");
+    await page.waitForTimeout(300).catch(() => {});
+    await fillEditorFrame(editorFrames[2], priorities, "Next Week: Top Priorities");
+    await page.waitForTimeout(300).catch(() => {});
+    await fillEditorFrame(editorFrames[3], lookingAhead, "Looking Ahead");
+    await page.waitForTimeout(300).catch(() => {});
 
     await page.waitForTimeout(1000);
 

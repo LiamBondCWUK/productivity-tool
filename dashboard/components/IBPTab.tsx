@@ -301,10 +301,13 @@ export function IBPTab({ ibpMeta }: IBPTabProps) {
       const res = await fetch("/api/ibp", { method: "POST" });
       const data = await res.json();
       if (!res.ok || !data.success) {
-        throw new Error(data.error ?? "Generation failed");
+        const detail = data.stderr ? ` — ${data.stderr}` : "";
+        throw new Error((data.error ?? "Generation failed") + detail);
       }
-      // Refresh to show the new report
-      await fetchReport();
+      // Switch to the newly generated date and reload
+      const newDate = data.generatedDate ?? data.lastGenerated;
+      if (newDate) setSelectedDate(newDate);
+      await fetchReport(newDate ?? undefined);
     } catch (err: unknown) {
       setError(
         err instanceof Error ? err.message : "Failed to generate IBP",
