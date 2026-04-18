@@ -1,19 +1,7 @@
 {
   "generatedAt": "2026-04-16T01:27:06.027Z",
-  "totalCards": 30,
+  "totalCards": 29,
   "cards": [
-    {
-      "title": "Initialize CLAUDE.md for UKCAUD AI Project",
-      "body": "New project needs local context file. Include: tech stack (Node/React/Typescript), Caseware Nova design system tokens mapping, feedback widget API schema, deployment target (Replit), and reference to user global security/git/testing rules. This is a prerequisite for consistent development and CI setup.",
-      "priority": "high",
-      "type": "docs",
-      "labels": [
-        "ukcaud-ai-project",
-        "overnight",
-        "docs"
-      ],
-      "project": "UKCAUD AI Project"
-    },
     {
       "title": "Initialize Project Scaffolding",
       "body": "Repository contains only baseline files. Determine tech stack (frontend framework, backend framework, database), create package.json with core dependencies, and scaffold src/ directory structure. Activepieces is a Node.js-based automation platform with a React UI and 280+ integrations — baseline should include integration test infrastructure.",
@@ -362,5 +350,6 @@
       ],
       "project": "AI Breaking News Tool"
     }
-  ]
+  ],
+  "lastReviewedAt": "2026-04-18T21:54:35.839Z"
 }

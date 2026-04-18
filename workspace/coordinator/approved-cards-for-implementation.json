@@ -1,43 +1,19 @@
 {
-  "generatedAt": "2026-04-15T14:37:55.090Z",
-  "totalCards": 3,
+  "generatedAt": "2026-04-18T21:54:35.839Z",
+  "totalCards": 1,
   "cards": [
     {
-      "title": "Add test suite to Productivity Tool dashboard",
-      "body": "81 source files have zero test coverage. With daily commits and API routes managing critical state (activity, day-plan, automation), this is a regression risk. Start with Jest for API routes and Playwright for the main UI. Target 3-5 tests for critical paths, then expand.",
-      "priority": "urgent",
-      "type": "improvement",
-      "labels": [
-        "productivity-tool",
-        "overnight",
-        "improvement"
-      ],
-      "project": "Productivity Tool"
-    },
-    {
-      "title": "Stage uncommitted changes and enforce documentation-with-commits",
-      "body": "8 files currently uncommitted (likely documentation + code split). Review DOC-UPDATE-NEEDED.md, consolidate CHANGELOG-PENDING.md into CHANGELOG.md, then stage and commit all changes together. This enforces the documentation-with-commits protocol required by project rules and prevents future fragmentation.",
-      "priority": "urgent",
-      "type": "improvement",
-      "labels": [
-        "cw-ukcaud-project-tracker",
-        "overnight",
-        "improvement"
-      ],
-      "project": "CW UKCAUD Project Tracker"
-    },
-    {
-      "title": "Clear stale changelog backlog (46 lines, 6 days old)",
-      "body": "CHANGELOG-PENDING.md has accumulated 46 unpublished entries since 2026-04-09. Consolidate into CHANGELOG.md with a single dated entry summarizing the batch. Establish weekly or per-milestone consolidation to prevent future buildup.",
+      "title": "Initialize CLAUDE.md for UKCAUD AI Project",
+      "body": "New project needs local context file. Include: tech stack (Node/React/Typescript), Caseware Nova design system tokens mapping, feedback widget API schema, deployment target (Replit), and reference to user global security/git/testing rules. This is a prerequisite for consistent development and CI setup.",
       "priority": "high",
-      "type": "improvement",
+      "type": "docs",
       "labels": [
-        "cw-ukcaud-project-tracker",
+        "ukcaud-ai-project",
         "overnight",
-        "improvement"
+        "docs"
       ],
-      "project": "CW UKCAUD Project Tracker"
+      "project": "UKCAUD AI Project"
     }
   ],
-  "summary": "3 cards approved for implementation on 15/04/2026, 15:37:55"
+  "summary": "1 card approved for implementation on 18/04/2026, 22:54:35"
 }

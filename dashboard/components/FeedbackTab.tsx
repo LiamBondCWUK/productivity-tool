@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import type { FeedbackItem, FeedbackStatus } from "../types/dashboard";
 
 const COLUMNS: { id: FeedbackStatus; label: string; colour: string }[] = [
@@ -8,6 +8,23 @@ const COLUMNS: { id: FeedbackStatus; label: string; colour: string }[] = [
   { id: "accepted", label: "Accepted", colour: "text-green-400 border-green-500/30 bg-green-500/5" },
   { id: "denied",   label: "Denied",   colour: "text-red-400 border-red-500/30 bg-red-500/5" },
 ];
+
+const SOURCE_BADGE_COLOURS = [
+  "text-purple-300 bg-purple-900/40 border-purple-700/50",
+  "text-cyan-300 bg-cyan-900/40 border-cyan-700/50",
+  "text-orange-300 bg-orange-900/40 border-orange-700/50",
+  "text-pink-300 bg-pink-900/40 border-pink-700/50",
+  "text-teal-300 bg-teal-900/40 border-teal-700/50",
+  "text-yellow-300 bg-yellow-900/40 border-yellow-700/50",
+  "text-indigo-300 bg-indigo-900/40 border-indigo-700/50",
+  "text-emerald-300 bg-emerald-900/40 border-emerald-700/50",
+];
+
+function sourceBadgeColour(source: string): string {
+  let hash = 0;
+  for (let i = 0; i < source.length; i++) hash = (hash * 31 + source.charCodeAt(i)) >>> 0;
+  return SOURCE_BADGE_COLOURS[hash % SOURCE_BADGE_COLOURS.length];
+}
 
 interface FeedbackTabProps {
   initialItems?: FeedbackItem[];
@@ -28,6 +45,19 @@ export function FeedbackTab({ initialItems = [] }: FeedbackTabProps) {
   const [newSource, setNewSource] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sourceFilter, setSourceFilter] = useState<string>("all");
+
+  const projectSources = useMemo(() => {
+    const sources = [...new Set(
+      items.map((i) => i.source).filter((s): s is string => !!s && s !== "manual")
+    )].sort();
+    return sources;
+  }, [items]);
+
+  const filteredItems = useMemo(() => {
+    if (sourceFilter === "all") return items;
+    return items.filter((i) => i.source === sourceFilter);
+  }, [items, sourceFilter]);
 
   const addFeedback = useCallback(async () => {
     const text = newText.trim();
@@ -82,30 +112,62 @@ export function FeedbackTab({ initialItems = [] }: FeedbackTabProps) {
 
   return (
     <div className="flex flex-col h-full p-4 gap-4 overflow-hidden">
-      {/* Add feedback row */}
-      <div className="flex gap-2 shrink-0">
-        <input
-          type="text"
-          placeholder="Feedback text…"
-          value={newText}
-          onChange={(e) => setNewText(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && addFeedback()}
-          className="flex-1 bg-gray-800 border border-gray-700 rounded px-3 py-1.5 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-blue-500"
-        />
-        <input
-          type="text"
-          placeholder="Source (optional)"
-          value={newSource}
-          onChange={(e) => setNewSource(e.target.value)}
-          className="w-40 bg-gray-800 border border-gray-700 rounded px-3 py-1.5 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-blue-500"
-        />
-        <button
-          onClick={addFeedback}
-          disabled={submitting || !newText.trim()}
-          className="px-3 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 disabled:text-gray-500 text-white rounded transition-colors"
-        >
-          {submitting ? "Adding…" : "Add"}
-        </button>
+      {/* Toolbar: add feedback + project filter */}
+      <div className="flex flex-col gap-2 shrink-0">
+        <div className="flex gap-2">
+          <input
+            type="text"
+            placeholder="Feedback text…"
+            value={newText}
+            onChange={(e) => setNewText(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && addFeedback()}
+            className="flex-1 bg-gray-800 border border-gray-700 rounded px-3 py-1.5 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-blue-500"
+          />
+          <input
+            type="text"
+            placeholder="Source (optional)"
+            value={newSource}
+            onChange={(e) => setNewSource(e.target.value)}
+            className="w-40 bg-gray-800 border border-gray-700 rounded px-3 py-1.5 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-blue-500"
+          />
+          <button
+            onClick={addFeedback}
+            disabled={submitting || !newText.trim()}
+            className="px-3 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 disabled:text-gray-500 text-white rounded transition-colors"
+          >
+            {submitting ? "Adding…" : "Add"}
+          </button>
+        </div>
+        {projectSources.length > 0 && (
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[11px] text-gray-500">Filter:</span>
+            <button
+              onClick={() => setSourceFilter("all")}
+              className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${
+                sourceFilter === "all"
+                  ? "bg-gray-700 border-gray-500 text-gray-200"
+                  : "border-gray-600 text-gray-500 hover:text-gray-300"
+              }`}
+            >
+              All ({items.length})
+            </button>
+            {projectSources.map((src) => {
+              const count = items.filter((i) => i.source === src).length;
+              const colour = sourceBadgeColour(src);
+              return (
+                <button
+                  key={src}
+                  onClick={() => setSourceFilter(sourceFilter === src ? "all" : src)}
+                  className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${
+                    sourceFilter === src ? colour : "border-gray-600 text-gray-500 hover:text-gray-300"
+                  }`}
+                >
+                  {src} ({count})
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {error && (
@@ -115,7 +177,7 @@ export function FeedbackTab({ initialItems = [] }: FeedbackTabProps) {
       {/* Kanban columns */}
       <div className="flex gap-4 flex-1 min-h-0 overflow-hidden">
         {COLUMNS.map((col) => {
-          const colItems = items.filter((i) => i.status === col.id);
+          const colItems = filteredItems.filter((i) => i.status === col.id);
           const others = COLUMNS.filter((c) => c.id !== col.id);
 
           return (
@@ -143,7 +205,9 @@ export function FeedbackTab({ initialItems = [] }: FeedbackTabProps) {
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex flex-col gap-0.5">
                         {item.source && item.source !== "manual" && (
-                          <span className="text-gray-500 text-xs">{item.source}</span>
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded border w-fit ${sourceBadgeColour(item.source)}`}>
+                            {item.source}
+                          </span>
                         )}
                         <span className="text-gray-600 text-xs">{formatDate(item.createdAt)}</span>
                       </div>

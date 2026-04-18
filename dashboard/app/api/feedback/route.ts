@@ -4,9 +4,19 @@ import type { FeedbackItem, FeedbackStatus } from "../../../types/dashboard";
 
 export const dynamic = "force-dynamic";
 
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+export async function OPTIONS() {
+  return new NextResponse(null, { status: 204, headers: CORS_HEADERS });
+}
+
 export async function GET() {
   const data = readDashboardData();
-  return NextResponse.json(data.feedback ?? { items: [] });
+  return NextResponse.json(data.feedback ?? { items: [] }, { headers: CORS_HEADERS });
 }
 
 export async function POST(req: NextRequest) {
@@ -15,7 +25,7 @@ export async function POST(req: NextRequest) {
   const source = String(body.source ?? "manual").trim();
 
   if (!text) {
-    return NextResponse.json({ error: "text is required" }, { status: 400 });
+    return NextResponse.json({ error: "text is required" }, { status: 400, headers: CORS_HEADERS });
   }
 
   const data = readDashboardData();
@@ -34,7 +44,7 @@ export async function POST(req: NextRequest) {
   data.feedback.items.unshift(item);
   writeDashboardData(data);
 
-  return NextResponse.json(item, { status: 201 });
+  return NextResponse.json(item, { status: 201, headers: CORS_HEADERS });
 }
 
 export async function PATCH(req: NextRequest) {
@@ -43,7 +53,7 @@ export async function PATCH(req: NextRequest) {
   const status = body.status as FeedbackStatus;
 
   if (!id || !["inbox", "accepted", "denied"].includes(status)) {
-    return NextResponse.json({ error: "id and valid status required" }, { status: 400 });
+    return NextResponse.json({ error: "id and valid status required" }, { status: 400, headers: CORS_HEADERS });
   }
 
   const data = readDashboardData();
@@ -59,7 +69,7 @@ export async function PATCH(req: NextRequest) {
   item.status = status;
   writeDashboardData(data);
 
-  return NextResponse.json(item);
+  return NextResponse.json(item, { headers: CORS_HEADERS });
 }
 
 export async function DELETE(req: NextRequest) {
@@ -78,5 +88,5 @@ export async function DELETE(req: NextRequest) {
   data.feedback.items = data.feedback.items.filter((i) => i.id !== id);
   writeDashboardData(data);
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true }, { headers: CORS_HEADERS });
 }
