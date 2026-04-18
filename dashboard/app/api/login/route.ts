@@ -4,6 +4,15 @@ import { createHmac } from 'crypto'
 const COOKIE_NAME = 'auth_session'
 const THIRTY_DAYS_SECONDS = 30 * 24 * 60 * 60
 
+/** Resolve the public origin, handling reverse proxies (e.g. Replit). */
+function getPublicOrigin(request: NextRequest): string {
+  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL
+  const host = request.headers.get('x-forwarded-host') ?? request.headers.get('host')
+  const proto = request.headers.get('x-forwarded-proto') ?? 'https'
+  if (host) return `${proto}://${host}`
+  return new URL(request.url).origin
+}
+
 export async function POST(request: NextRequest) {
   const formData = await request.formData()
   const password = formData.get('password')?.toString() ?? ''
@@ -13,8 +22,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'SITE_PASSWORD not configured' }, { status: 500 })
   }
 
+  const origin = getPublicOrigin(request)
+
   if (password !== sitePassword) {
-    return NextResponse.redirect(new URL('/login?error=1', request.url))
+    return NextResponse.redirect(`${origin}/login?error=1`)
   }
 
   const ts = Date.now().toString()
@@ -22,11 +33,11 @@ export async function POST(request: NextRequest) {
   const cookieValue = `${ts}.${sig}`
   const isProd = process.env.NODE_ENV === 'production'
 
-  const response = NextResponse.redirect(new URL('/', request.url))
+  const response = NextResponse.redirect(`${origin}/`)
   response.cookies.set(COOKIE_NAME, cookieValue, {
     httpOnly: true,
-    sameSite: 'strict',
-    secure: isProd,
+    sameSite: 'none',
+    secure: true,
     maxAge: THIRTY_DAYS_SECONDS,
     path: '/',
   })

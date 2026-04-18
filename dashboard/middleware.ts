@@ -31,7 +31,12 @@ export function middleware(request: NextRequest) {
   }
   const cookie = request.cookies.get(COOKIE_NAME)?.value
   if (!verifyCookie(cookie)) {
-    return NextResponse.redirect(new URL('/login', request.url))
+    // Use x-forwarded-host so redirect works behind Replit's reverse proxy
+    const host = request.headers.get('x-forwarded-host') ?? request.headers.get('host')
+    const proto = request.headers.get('x-forwarded-proto') ?? 'https'
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL
+    const origin = appUrl ?? (host ? `${proto}://${host}` : new URL(request.url).origin)
+    return NextResponse.redirect(`${origin}/login`)
   }
   return NextResponse.next()
 }
