@@ -7,9 +7,19 @@ const THIRTY_DAYS_SECONDS = 30 * 24 * 60 * 60
 /** Resolve the public origin, handling reverse proxies (e.g. Replit). */
 function getPublicOrigin(request: NextRequest): string {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL
+  // Browser sends 'origin' header on form POSTs — most reliable for Replit
+  const browserOrigin = request.headers.get('origin')
+  if (browserOrigin && browserOrigin !== 'null' && !browserOrigin.includes('0.0.0.0')) {
+    return browserOrigin
+  }
+  // Referer header as fallback
+  const referer = request.headers.get('referer')
+  if (referer) {
+    try { return new URL(referer).origin } catch { /* ignore */ }
+  }
   const host = request.headers.get('x-forwarded-host') ?? request.headers.get('host')
   const proto = request.headers.get('x-forwarded-proto') ?? 'https'
-  if (host) return `${proto}://${host}`
+  if (host && !host.startsWith('0.0.0.0')) return `${proto}://${host}`
   return new URL(request.url).origin
 }
 
