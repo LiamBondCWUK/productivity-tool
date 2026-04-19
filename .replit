@@ -6,8 +6,8 @@ channel = "stable-23_11"
 run = "git pull --quiet || true && cd dashboard && npm install && npm run build && npm start"
 
 [deployment]
-run = ["bash", "-l", "-c", "cd dashboard && npm start"]
-build = ["bash", "-l", "-c", "cd dashboard && npm install --legacy-peer-deps --include=dev && NODE_OPTIONS='--max-old-space-size=1536' npm run build"]
+run = ["bash", "-l", "-c", "npm --prefix dashboard start"]
+build = ["bash", "-l", "-c", "npm install --prefix dashboard --legacy-peer-deps --include=dev && NODE_OPTIONS='--max-old-space-size=1536' npm run --prefix dashboard build"]
 visibility = "private"
 
 [[ports]]
