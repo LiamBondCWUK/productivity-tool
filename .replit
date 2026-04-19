@@ -7,7 +7,7 @@ run = "git pull --quiet || true && cd dashboard && npm install && npm run build 
 
 [deployment]
 run = ["bash", "-l", "-c", "npm --prefix dashboard start"]
-build = ["bash", "-l", "-c", "npm install --prefix dashboard --legacy-peer-deps --include=dev && NODE_OPTIONS='--max-old-space-size=1536' npm run --prefix dashboard build"]
+build = ["bash", "-l", "-c", "echo 'DIAG:PWD='$PWD; echo 'DIAG:HOME='$HOME; ls $HOME 2>&1 | head -10; ls /home/runner/workspace/dashboard/package.json 2>/dev/null && echo 'FOUND_WORKSPACE_DASHBOARD' || echo 'NO_WORKSPACE_DASHBOARD'; ls /home/runner/dashboard/package.json 2>/dev/null && echo 'FOUND_HOME_DASHBOARD' || echo 'NO_HOME_DASHBOARD'; exit 1"]
 visibility = "private"
 
 [[ports]]
