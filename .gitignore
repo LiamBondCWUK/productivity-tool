@@ -1,4 +1,5 @@
 node_modules/
+package-lock.json
 scripts/deploy-screenshots/
 scripts/*.png
 *.png

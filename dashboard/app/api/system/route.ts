@@ -1,23 +1,17 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
-import path from "path";
 
 export const dynamic = "force-dynamic";
 
-const HEALTH_PATH =
-  process.env.SYSTEM_HEALTH_PATH ??
-  path.join(
-    "C:",
-    "Users",
-    "liam.bond",
-    "Documents",
-    "Productivity Tool",
-    "workspace",
-    "coordinator",
-    "system-health.json",
-  );
+const HEALTH_PATH = process.env.SYSTEM_HEALTH_PATH;
 
 export async function GET() {
+  if (!HEALTH_PATH) {
+    return NextResponse.json(
+      { error: "SYSTEM_HEALTH_PATH environment variable not configured" },
+      { status: 503 },
+    );
+  }
   try {
     if (!fs.existsSync(HEALTH_PATH)) {
       return NextResponse.json(
