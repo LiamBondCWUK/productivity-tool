@@ -3,11 +3,11 @@ modules = ["nodejs-20"]
 [nix]
 channel = "stable-23_11"
 
-run = "git pull --quiet || true && cd dashboard && npm install && npx next build && npx next start -p 3000"
+run = "git pull --quiet || true && cd dashboard && npm install && npm run build && npm start"
 
 [deployment]
-run = ["bash", "-l", "-c", "cd dashboard && npx next start -p 3000"]
-build = ["bash", "-l", "-c", "cd dashboard && npm install && npx next build"]
+run = ["bash", "-l", "-c", "cd dashboard && npm start"]
+build = ["bash", "-l", "-c", "cd dashboard && npm install && npm run build"]
 visibility = "private"
 
 [[ports]]
