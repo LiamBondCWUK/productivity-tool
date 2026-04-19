@@ -7,7 +7,7 @@ run = "git pull --quiet || true && cd dashboard && npm install && npm run build 
 
 [deployment]
 run = ["bash", "-l", "-c", "cd dashboard && npm start"]
-build = ["bash", "-l", "-c", "cd dashboard && npm ci && NODE_OPTIONS='--max-old-space-size=1536' npm run build"]
+build = ["bash", "-l", "-c", "cd dashboard && npm install --legacy-peer-deps && NODE_OPTIONS='--max-old-space-size=1536' npm run build"]
 visibility = "private"
 
 [[ports]]
