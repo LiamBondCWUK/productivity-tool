@@ -151,3 +151,37 @@ Blockers:
 **­ƒæÇ Next week:** UK UAT SE Launch + LB/NK 121 (Mon), Sprint Retro + Planning (Wed)
 
 Full brief: `workspace/coordinator/daily-brief-2026-04-17.md`
+[2026-04-20 09:10:25] Starting /gm auto-trigger
+[2026-04-20 09:10:27] fetch-notifications: ­ƒô¼ fetch-notifications: starting... Ôä¦  graph-token.json not found ÔÇö skipping Office doc comment fetch ÔÜá  Jira search returned 410   Jira @mentions: 0 item(s)   Doc comments:   0 item(s) Ô£à fetch-notifications: dashboard-data.json updated
+[2026-04-20 09:10:27] graph-teams-fetch: [graph-teams-fetch] No graph-token.json ÔÇö run setup-graph-token.ps1 first [graph-teams-fetch] wrote 0 messages to dashboard-data.json
+[2026-04-20 09:10:34] graph-email-fetch: [graph-email-fetch] No graph-token.json ÔÇö run setup-graph-token.ps1 first [graph-email-fetch] Outlook fallback: [outlook-mail-fetch] wrote 2 emails to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-20 09:10:36] outlook-mail-fetch: [outlook-mail-fetch] wrote 2 emails to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-20 09:10:38] outlook-calendar-fetch: [outlook-calendar-fetch] wrote 8 today events and 27 week-ahead events to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-20 09:10:38] generate-day-plan: [generate-day-plan] Error: Unexpected token '´++', "´++{     "o"... is not valid JSON
+[2026-04-20 09:13:17] /gm completed
+The session's permission mode is blocking all reads outside `C:\WINDOWS\system32`. This needs to be fixed before `/gm` can run.
+
+**Root cause:** Claude Code is running from `C:\WINDOWS\system32` and the permission settings don't allow reads from your home directory.
+
+**Fix ÔÇö two options:**
+
+**Option 1: Approve via UI** ÔÇö look for a permission prompt in the Claude Code interface for each file path (there should be queued prompts).
+
+**Option 2: Edit settings.json manually** ÔÇö add these allow rules to `C:\Users\liam.bond\.claude\settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Read(C:/Users/liam.bond/Documents/**)",
+      "Read(C:/Users/liam.bond/.claude/**)"
+    ]
+  }
+}
+```
+
+If `settings.json` already has content, merge the `allow` array rather than replacing the whole file.
+
+**Option 3: Change permission mode** ÔÇö in Claude Code settings, switch from "default" to "auto-approve reads" (or equivalent).
+
+Once permissions are set, re-run `/gm` and it'll execute fully. Would you like me to walk through editing the settings.json with PowerShell?

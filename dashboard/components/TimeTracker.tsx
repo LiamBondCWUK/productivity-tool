@@ -46,7 +46,9 @@ export function TimeTracker({ tracker, onRefetch }: Props) {
   const [isStarting, setIsStarting] = useState(false);
   const [showStartForm, setShowStartForm] = useState(false);
 
-  const { activeSession, todayTotalMinutes, weekTotalMinutes } = tracker;
+  const { activeSession } = tracker;
+  const todayTotalMinutes = tracker.todayTotalMinutes ?? 0;
+  const weekTotalMinutes = tracker.weekTotalMinutes ?? 0;
   const plannedSessions = tracker.plannedSessions ?? [];
   const plannedTodayMinutes =
     tracker.plannedTodayMinutes ??

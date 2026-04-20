@@ -1,18 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
-import { execSync, spawnSync } from "child_process";
+import { spawnSync } from "child_process";
 import { dirname, join } from "path";
 import { existsSync } from "fs";
+import { platform } from "os";
 
 export const dynamic = "force-dynamic";
 
-const SCRIPTS_DIR = join(process.cwd(), "..", "scripts");
-const UKCAUD_SCRIPTS_DIR = join(
-  process.cwd(),
-  "..",
-  "..",
-  "CW UKCAUD Project Tracker",
-  "scripts",
-);
+const IS_WINDOWS = platform() === "win32";
+const IS_REPLIT = Boolean(process.env.REPL_SLUG || process.env.REPL_ID);
+
+const SCRIPTS_DIR = IS_REPLIT
+  ? join(process.cwd(), "..", "scripts")
+  : join(process.cwd(), "..", "scripts");
+
+const UKCAUD_SCRIPTS_DIR = IS_REPLIT
+  ? join(process.cwd(), "..", "..", "CW UKCAUD Project Tracker", "scripts")
+  : join(process.cwd(), "..", "..", "CW UKCAUD Project Tracker", "scripts");
+
+type Platform = "cross" | "windows" | "linux";
 
 // Allowlisted commands — each has a key, execution config, and description
 const COMMAND_REGISTRY: Record<
@@ -24,6 +29,7 @@ const COMMAND_REGISTRY: Record<
     dir?: string;
     timeout?: number;
     args?: string[];
+    platform: Platform;
   }
 > = {
   "generate-day-plan": {
@@ -31,117 +37,149 @@ const COMMAND_REGISTRY: Record<
     type: "node",
     script: join(SCRIPTS_DIR, "generate-day-plan.mjs"),
     timeout: 90_000,
+    platform: "cross",
   },
   "refresh-news": {
     description: "Run AI Breaking News tool to gather fresh stories",
     type: "node",
     script: join(SCRIPTS_DIR, "extract-news-results.mjs"),
     timeout: 120_000,
+    platform: "cross",
   },
   "system-health": {
     description: "Collect system health data (scheduled tasks, PM2, Claude speed)",
     type: "powershell",
     script: join(SCRIPTS_DIR, "system-health-collect.ps1"),
     timeout: 60_000,
+    platform: "windows",
   },
   "morning-orchestrator": {
     description: "Run full morning orchestrator (git sync, health, overnight, news)",
     type: "powershell",
     script: join(SCRIPTS_DIR, "run-morning-orchestrator.ps1"),
     timeout: 300_000,
+    platform: "windows",
   },
   "refresh-ceremonies": {
     description: "Regenerate ceremony data from Jira sprints",
     type: "node",
     script: join(UKCAUD_SCRIPTS_DIR, "generate-ceremony-data.mjs"),
     timeout: 120_000,
+    platform: "cross",
   },
   "generate-ibp": {
     description: "Generate daily Integrated Business Progress report",
     type: "node",
     script: join(SCRIPTS_DIR, "generate-ibp.mjs"),
     timeout: 120_000,
+    platform: "cross",
   },
   "refresh-calendar": {
-    description: "Fetch calendar events from Outlook",
-    type: "powershell",
-    script: join(SCRIPTS_DIR, "outlook-calendar-fetch.ps1"),
+    description: IS_REPLIT
+      ? "Fetch calendar events from ICS feed"
+      : "Fetch calendar events from Outlook",
+    type: IS_REPLIT ? "node" : "powershell",
+    script: IS_REPLIT
+      ? join(SCRIPTS_DIR, "ics-calendar-fetch.mjs")
+      : join(SCRIPTS_DIR, "outlook-calendar-fetch.ps1"),
     timeout: 60_000,
+    platform: "cross",
   },
   "refresh-email": {
     description: "Fetch flagged emails from Outlook",
     type: "powershell",
     script: join(SCRIPTS_DIR, "outlook-mail-fetch.ps1"),
     timeout: 60_000,
+    platform: "windows",
   },
   "refresh-notifications": {
     description: "Fetch Jira comment notifications and Microsoft app comments",
     type: "node",
     script: join(SCRIPTS_DIR, "fetch-notifications.mjs"),
     timeout: 90_000,
+    platform: "cross",
   },
   "doc-health-update": {
     description: "Prompt Claude to update stale documentation",
     type: "node",
     script: join(SCRIPTS_DIR, "update-stale-docs.mjs"),
     timeout: 180_000,
+    platform: "cross",
   },
   "overnight-analysis": {
     description: "Run overnight project analysis (AI suggestions)",
     type: "node",
     script: join(SCRIPTS_DIR, "overnight-analysis.mjs"),
     timeout: 300_000,
+    platform: "cross",
   },
   "sync-projects": {
     description: "Discover and sync project registry from git repos",
     type: "node",
     script: join(SCRIPTS_DIR, "sync-projects.mjs"),
     timeout: 60_000,
+    platform: "cross",
   },
   "jira-status": {
     description: "Check and sync Jira automation rule status",
     type: "node",
     script: join(SCRIPTS_DIR, "check-jira-automation-status.mjs"),
     timeout: 60_000,
+    platform: "cross",
   },
   "activity-merge": {
     description: "Merge activity logs from all sources",
     type: "node",
     script: join(SCRIPTS_DIR, "merge-activity-log.mjs"),
     timeout: 60_000,
+    platform: "cross",
   },
   "refresh-teams": {
     description: "Fetch unread Teams messages via Microsoft Graph API",
     type: "node",
     script: join(SCRIPTS_DIR, "graph-teams-fetch.mjs"),
     timeout: 60_000,
+    platform: "windows",
   },
   "ingest-pa-exports": {
     description: "Ingest Power Automate OneDrive exports (Teams messages + document signals) into dashboard-data.json",
     type: "node",
     script: join(SCRIPTS_DIR, "ingest-pa-exports.mjs"),
     timeout: 60_000,
+    platform: "windows",
   },
   "check-automation-status": {
     description: "Check Jira automation rules deployment status",
     type: "node",
     script: join(SCRIPTS_DIR, "check-jira-automation-status.mjs"),
     timeout: 60_000,
+    platform: "cross",
   },
 };
 
 // Safe environment allowlist for child processes
-const ENV_ALLOWLIST = [
+const ENV_ALLOWLIST_COMMON = [
   "PATH",
   "HOME",
+  "NODE_PATH",
+  "NODE_ENV",
+  "JIRA_EMAIL",
+  "JIRA_API_TOKEN",
+  "ATLASSIAN_API_TOKEN",
+  "ANTHROPIC_API_KEY",
+  "ICS_CALENDAR_URL",
+  "SYNC_SECRET",
+  "CW_CLIENT_ID",
+  "CW_CLIENT_SECRET",
+];
+
+const ENV_ALLOWLIST_WINDOWS = [
   "USERPROFILE",
   "TEMP",
   "TMP",
   "APPDATA",
   "LOCALAPPDATA",
   "SystemRoot",
-  "NODE_PATH",
-  "NODE_ENV",
   "COMPUTERNAME",
   "USERNAME",
   "HOMEDRIVE",
@@ -152,14 +190,24 @@ const ENV_ALLOWLIST = [
   "ProgramFiles(x86)",
   "CommonProgramFiles",
   "windir",
-  "JIRA_EMAIL",
-  "JIRA_API_TOKEN",
-  "ATLASSIAN_API_TOKEN",
+];
+
+const ENV_ALLOWLIST_LINUX = [
+  "USER",
+  "SHELL",
+  "LANG",
+  "REPL_SLUG",
+  "REPL_ID",
+  "REPL_OWNER",
 ];
 
 function safeEnv(): NodeJS.ProcessEnv {
   const env: Record<string, string> = {};
-  for (const key of ENV_ALLOWLIST) {
+  const allowlist = [
+    ...ENV_ALLOWLIST_COMMON,
+    ...(IS_WINDOWS ? ENV_ALLOWLIST_WINDOWS : ENV_ALLOWLIST_LINUX),
+  ];
+  for (const key of allowlist) {
     if (process.env[key]) {
       env[key] = process.env[key]!;
     }
@@ -167,14 +215,21 @@ function safeEnv(): NodeJS.ProcessEnv {
   return env as NodeJS.ProcessEnv;
 }
 
+function isCommandAvailable(config: (typeof COMMAND_REGISTRY)[string]): boolean {
+  if (config.platform === "windows" && !IS_WINDOWS) return false;
+  if (config.platform === "linux" && IS_WINDOWS) return false;
+  return existsSync(config.script);
+}
+
 // GET — list available commands
 export async function GET() {
   const commands = Object.entries(COMMAND_REGISTRY).map(([id, cmd]) => ({
     id,
     description: cmd.description,
-    available: existsSync(cmd.script),
+    available: isCommandAvailable(cmd),
+    platform: cmd.platform,
   }));
-  return NextResponse.json({ commands });
+  return NextResponse.json({ commands, platform: IS_WINDOWS ? "windows" : "linux" });
 }
 
 // POST — execute a command
@@ -198,9 +253,15 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (!existsSync(config.script)) {
+  if (!isCommandAvailable(config)) {
+    const reason =
+      config.platform === "windows" && !IS_WINDOWS
+        ? "This command requires Windows (not available on Replit)"
+        : config.platform === "linux" && IS_WINDOWS
+          ? "This command is Linux-only"
+          : "Script not found";
     return NextResponse.json(
-      { error: `Script not found: ${config.script}`, command: commandId },
+      { error: reason, command: commandId, platform: config.platform },
       { status: 404 },
     );
   }

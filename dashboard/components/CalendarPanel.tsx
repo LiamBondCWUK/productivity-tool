@@ -83,7 +83,7 @@ export function CalendarPanel({ today, weekAhead, hasToken }: Props) {
           </button>
           {!hasToken && (
             <span className="text-yellow-600 text-xs">
-              No token — run setup-graph-token.ps1
+              No calendar data — set ICS_CALENDAR_URL or run setup-graph-token.ps1
             </span>
           )}
         </div>
@@ -96,7 +96,7 @@ export function CalendarPanel({ today, weekAhead, hasToken }: Props) {
             <p className="text-gray-600 text-xs px-1">
               {hasToken
                 ? "No meetings today"
-                : "Calendar unavailable — run /focus to set up Graph API"}
+                : "Calendar unavailable — configure ICS feed or Graph API"}
             </p>
           ) : (
             todayEvents.map((event) => (

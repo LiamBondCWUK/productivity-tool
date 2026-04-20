@@ -12,6 +12,9 @@ export function CeremoniesTab({ embedUrl }: CeremoniesTabProps) {
   const { execute, running, lastResult } = useExecuteCommand();
   const [lastRefreshed, setLastRefreshed] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [iframeError, setIframeError] = useState(false);
+
+  const isAbsoluteUrl = embedUrl.startsWith("http");
 
   const handleRegenerate = async () => {
     setShowResult(true);
@@ -69,11 +72,24 @@ export function CeremoniesTab({ embedUrl }: CeremoniesTabProps) {
       )}
 
       <div className="flex-1 min-h-0 rounded border border-gray-700 overflow-hidden">
-        <iframe
-          title="Ceremony Dashboard"
-          src={embedUrl}
-          className="w-full h-full bg-gray-950"
-        />
+        {isAbsoluteUrl && !iframeError ? (
+          <iframe
+            title="Ceremony Dashboard"
+            src={embedUrl}
+            className="w-full h-full bg-gray-950"
+            onError={() => setIframeError(true)}
+          />
+        ) : (
+          <div className="flex items-center justify-center h-full text-gray-500 text-sm">
+            <div className="text-center space-y-2">
+              <p>Ceremony dashboard embed not available</p>
+              <p className="text-xs text-gray-600">
+                Use &quot;Regenerate Data&quot; to fetch latest ceremony data from Jira,
+                or set NEXT_PUBLIC_CEREMONIES_URL to an external ceremony server.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

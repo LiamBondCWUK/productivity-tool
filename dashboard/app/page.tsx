@@ -171,7 +171,7 @@ export default function Dashboard() {
             calendarWeekAhead={data.calendar.weekAhead}
             calendarHasToken={data.calendar.hasToken}
             timeTracker={data.timeTracker}
-            standupUrl="http://localhost:3850/ceremony/sprint-operations"
+            standupUrl={process.env.NEXT_PUBLIC_CEREMONIES_URL || "/ceremony/sprint-operations"}
             ibpMeta={data.ibp ?? undefined}
             onClearNotification={handleClearNotification}
             onRefreshNotifications={handleRefreshNotifications}
@@ -209,7 +209,7 @@ export default function Dashboard() {
           />
         }
         ceremoniesContent={
-          <CeremoniesTab embedUrl="http://localhost:3850/ceremony/sprint-operations" />
+          <CeremoniesTab embedUrl={process.env.NEXT_PUBLIC_CEREMONIES_URL || "/ceremony/sprint-operations"} />
         }
         docsContent={
           <DocHealthTab

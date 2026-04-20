@@ -109,12 +109,51 @@ function normalizeCalendar(calendar: unknown): DashboardData["calendar"] {
   };
 }
 
+function normalizeTimeTracker(
+  tracker: unknown,
+): DashboardData["timeTracker"] {
+  const fallback: DashboardData["timeTracker"] = {
+    activeSession: null,
+    todaySessions: [],
+    todayTotalMinutes: 0,
+    weekTotalMinutes: 0,
+  };
+
+  if (!isRecord(tracker)) return fallback;
+
+  const raw = tracker as Record<string, unknown>;
+  const todaySessions = Array.isArray(raw.todaySessions)
+    ? raw.todaySessions
+    : [];
+
+  const todayTotalMinutes =
+    typeof raw.todayTotalMinutes === "number"
+      ? raw.todayTotalMinutes
+      : todaySessions.reduce(
+          (sum: number, s: Record<string, unknown>) =>
+            sum + (typeof s.durationMinutes === "number" ? s.durationMinutes : 0),
+          0,
+        );
+
+  const weekTotalMinutes =
+    typeof raw.weekTotalMinutes === "number" ? raw.weekTotalMinutes : todayTotalMinutes;
+
+  return {
+    ...fallback,
+    ...raw,
+    todaySessions,
+    todayTotalMinutes,
+    weekTotalMinutes,
+  } as DashboardData["timeTracker"];
+}
+
 function normalizeDashboardData(raw: unknown): DashboardData {
   const data = raw as DashboardApiData;
 
   return {
     ...data,
     calendar: normalizeCalendar(data.calendar),
+    timeTracker: normalizeTimeTracker((data as Record<string, unknown>).timeTracker),
   } as DashboardData;
 }
 

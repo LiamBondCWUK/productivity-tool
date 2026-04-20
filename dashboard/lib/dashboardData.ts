@@ -8,7 +8,18 @@ function resolveDashboardDataFile(): string {
     return path.resolve(envPath);
   }
 
+  const isReplit = Boolean(process.env.REPL_SLUG || process.env.REPL_ID);
+
   const candidates = [
+    // Replit workspace paths
+    ...(isReplit
+      ? [
+          path.resolve("/home/runner/workspace/dashboard/data/dashboard-data.json"),
+          path.resolve("/home/runner/workspace/coordinator/dashboard-data.json"),
+          path.resolve(process.cwd(), "data", "dashboard-data.json"),
+        ]
+      : []),
+    // Local development paths
     path.resolve(process.cwd(), "..", "workspace", "coordinator", "dashboard-data.json"),
     path.resolve(process.cwd(), "workspace", "coordinator", "dashboard-data.json"),
     path.resolve(process.cwd(), "Productivity Tool", "workspace", "coordinator", "dashboard-data.json"),
