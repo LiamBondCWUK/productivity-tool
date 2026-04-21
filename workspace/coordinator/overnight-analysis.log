@@ -247,3 +247,61 @@ Discovered 21 projects → C:\Users\liam.bond\Documents\Productivity Tool\worksp
 ====== Overnight Analysis Complete (763s) ======
 
 [20/04/2026  9:23:06.40] Overnight analysis complete 
+[21/04/2026  2:00:03.87] Starting overnight analysis v2 
+
+====== Overnight Analysis v2 — 2026-04-21T01:00:05.129Z ======
+
+[1/6] Refreshing project registry...
+Discovered 22 projects → C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\project-registry.json
+  [Building] UKCAUD Spec Studio  (git:true)
+  [Building] dotfiles-publish  (git:true)
+  [Building] CW Lead Schedule Specifications  (git:true)
+  [Building] claude-mobile  (git:true)
+  [Building] Claude Onboarding Meeting  (git:true)
+  [Building] UKCAUD AI Project  (git:true)
+  [Building] CW Release Notes Tool  (git:true)
+  [Building] AI Work Presentation Tool  (git:true)
+  [Building] Bondlw Programming Architecture  (git:true)
+  [Building] AI Onboarding  (git:true)
+  [Building] Activepieces  (git:true)
+  [Building] UKCAUD-Authoring-Agent-Spec-Layer  (git:true)
+  [Review] Property Search Tool  (git:true)
+  [Review] Productivity Tool  (git:true)
+  [Review] CW UKCAUD Project Tracker  (git:true)
+  [Review] CW Template Comparison Tool  (git:true)
+  [Review] CW UKJPD Workflows  (git:true)
+  [Review] Builder Forms HAT Sampling  (git:true)
+  [Review] Yearly Reviews  (git:true)
+  [Backlog] UKCAUD-CLAUDE  (git:true)
+  [Done] AI Breaking News Tool  (git:true)
+  [Done] CW UAT Testing Tool  (git:true)
+[1/6] 22 projects loaded
+
+[2/6] Running deterministic health checks...
+  UKCAUD Spec Studio: ⚠ 2 findings
+  dotfiles-publish: ⚠ 2 findings
+  CW Lead Schedule Specifications: ⚠ 2 findings
+  claude-mobile: ⚠ 3 findings
+  Claude Onboarding Meeting: ⚠ 4 findings
+  [skip] UKCAUD AI Project — no changes since last run
+  [skip] CW Release Notes Tool — no changes since last run
+  [skip] AI Work Presentation Tool — no changes since last run
+  [skip] Bondlw Programming Architecture — no changes since last run
+  [skip] AI Onboarding — no changes since last run
+  [skip] Activepieces — no changes since last run
+  [skip] UKCAUD-Authoring-Agent-Spec-Layer — no changes since last run
+  Property Search Tool: ⚠ 2 findings
+  Productivity Tool: ⚠ 2 findings
+  CW UKCAUD Project Tracker: ⚠ 2 findings
+  CW Template Comparison Tool: ⚠ 2 findings
+  [skip] CW UKJPD Workflows — no changes since last run
+  [skip] Builder Forms HAT Sampling — no changes since last run
+  [skip] Yearly Reviews — no changes since last run
+  UKCAUD-CLAUDE: ✓ healthy
+  AI Breaking News Tool: ⚠ 1 findings
+  [skip] CW UAT Testing Tool — no changes since last run
+
+[2/6] 10/22 projects have findings
+
+[3/6] Running budget-guarded LLM synthesis...
+[synthesize] UKCAUD Spec Studio (haiku, 2 findings)

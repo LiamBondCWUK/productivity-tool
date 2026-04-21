@@ -8328,5 +8328,1230 @@
     "windowTitle": "Introducing MCP and 8 more pages - Work - Microsoft? Edge",
     "inferredTask": "browser",
     "durationMin": 5
+  },
+  {
+    "start": "2026-04-20T16:31:58.849Z",
+    "end": "2026-04-20T16:36:58.186Z",
+    "windowTitle": "MCP clients and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-20T16:36:58.186Z",
+    "end": "2026-04-20T16:42:28.829Z",
+    "windowTitle": "Project setup and 8 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-20T16:42:28.829Z",
+    "end": "2026-04-20T17:15:29.081Z",
+    "windowTitle": "Claude",
+    "inferredTask": "ai-coding",
+    "durationMin": 33
+  },
+  {
+    "start": "2026-04-20T17:15:29.081Z",
+    "end": "2026-04-20T17:33:29.117Z",
+    "windowTitle": "2026-04-17 - Notes Library Export Tool & UX Research Dashboard & Client Portal Prototype.mp4 and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 18
+  },
+  {
+    "start": "2026-04-20T17:33:29.117Z",
+    "end": "2026-04-20T17:34:29.160Z",
+    "windowTitle": "Getting an API key and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-20T17:34:29.160Z",
+    "end": "2026-04-20T17:34:59.167Z",
+    "windowTitle": "Accessing the API and 9 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-20T17:34:59.167Z",
+    "end": "2026-04-20T17:35:29.268Z",
+    "windowTitle": "Google and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-20T17:35:29.268Z",
+    "end": "2026-04-20T17:36:06.237Z",
+    "windowTitle": "Making a request and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-20T17:36:29.153Z",
+    "end": "2026-04-20T21:00:02.886Z",
+    "windowTitle": "Making a request and 10 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 204
+  },
+  {
+    "start": "2026-04-20T21:00:02.886Z",
+    "end": "2026-04-20T22:42:38.627Z",
+    "windowTitle": "Claude",
+    "inferredTask": "ai-coding",
+    "durationMin": 103
+  },
+  {
+    "start": "2026-04-20T22:43:05.887Z",
+    "end": "2026-04-20T22:43:37.734Z",
+    "windowTitle": "Claude",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-20T22:44:37.147Z",
+    "end": "2026-04-20T22:50:43.388Z",
+    "windowTitle": "Claude",
+    "inferredTask": "ai-coding",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-20T22:51:03.781Z",
+    "end": "2026-04-20T23:05:04.277Z",
+    "windowTitle": "Claude",
+    "inferredTask": "ai-coding",
+    "durationMin": 14
+  },
+  {
+    "start": "2026-04-20T23:05:04.277Z",
+    "end": "2026-04-20T23:08:34.635Z",
+    "windowTitle": "[DIST-69292] Enable MCP Functionality On HAT Server - Caseware Jira and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-69292",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-20T23:08:34.635Z",
+    "end": "2026-04-20T23:27:38.429Z",
+    "windowTitle": "[DIST-64653] HAT server environments - Caseware Jira and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-64653",
+    "durationMin": 19
+  },
+  {
+    "start": "2026-04-20T23:28:04.684Z",
+    "end": "2026-04-20T23:43:34.622Z",
+    "windowTitle": "[DIST-64653] HAT server environments - Caseware Jira and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "DIST-64653",
+    "durationMin": 15
+  },
+  {
+    "start": "2026-04-20T23:43:34.622Z",
+    "end": "2026-04-20T23:44:04.699Z",
+    "windowTitle": "[Reported by me] Work item search - Caseware Jira and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-20T23:44:04.699Z",
+    "end": "2026-04-20T23:46:23.481Z",
+    "windowTitle": "UKCAUD Spec Studio and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-20T23:46:23.481Z",
+    "end": "2026-04-20T23:48:23.748Z",
+    "windowTitle": "UKCAUD Spec Studio and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-20T23:48:53.365Z",
+    "end": "2026-04-20T23:49:23.638Z",
+    "windowTitle": "localhost and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-20T23:49:23.638Z",
+    "end": "2026-04-20T23:59:23.588Z",
+    "windowTitle": "Project Jupyter | Installing Jupyter and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 10
+  },
+  {
+    "start": "2026-04-20T23:59:23.588Z",
+    "end": "2026-04-21T00:01:55.043Z",
+    "windowTitle": "Google and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-21T00:01:55.043Z",
+    "end": "2026-04-21T00:56:57.351Z",
+    "windowTitle": "Project Jupyter | Installing Jupyter and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 55
+  },
+  {
+    "start": "2026-04-21T00:56:57.351Z",
+    "end": "2026-04-21T00:57:56.468Z",
+    "windowTitle": "Anthropic Courses and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T00:57:56.468Z",
+    "end": "2026-04-21T01:01:56.811Z",
+    "windowTitle": "Anthropic Courses and 12 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-21T01:01:56.811Z",
+    "end": "2026-04-21T01:02:27.183Z",
+    "windowTitle": "Anthropic Courses and 11 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T01:02:27.183Z",
+    "end": "2026-04-21T01:02:57.857Z",
+    "windowTitle": "Anthropic Courses and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T01:03:56.260Z",
+    "end": "2026-04-21T01:04:26.292Z",
+    "windowTitle": "Extras and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T01:04:26.292Z",
+    "end": "2026-04-21T01:10:25.627Z",
+    "windowTitle": "Your details and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-21T01:10:25.627Z",
+    "end": "2026-04-21T03:05:57.717Z",
+    "windowTitle": "Introduction to subagents and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 116
+  },
+  {
+    "start": "2026-04-21T03:05:57.717Z",
+    "end": "2026-04-21T03:06:27.949Z",
+    "windowTitle": "claude auto mode on enterprise desktop apps - Google Search and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T03:06:27.949Z",
+    "end": "2026-04-21T04:00:31.451Z",
+    "windowTitle": "Introduction to subagents and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 54
+  },
+  {
+    "start": "2026-04-21T04:00:59.239Z",
+    "end": "2026-04-21T05:03:32.535Z",
+    "windowTitle": "Introduction to subagents and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 63
+  },
+  {
+    "start": "2026-04-21T05:05:30.207Z",
+    "end": "2026-04-21T08:25:31.722Z",
+    "windowTitle": "Introduction to subagents and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 200
+  },
+  {
+    "start": "2026-04-21T08:25:31.722Z",
+    "end": "2026-04-21T08:26:02.021Z",
+    "windowTitle": "Google and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:26:02.021Z",
+    "end": "2026-04-21T08:35:31.889Z",
+    "windowTitle": "Activities and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 9
+  },
+  {
+    "start": "2026-04-21T08:36:01.801Z",
+    "end": "2026-04-21T08:36:31.962Z",
+    "windowTitle": "agent-workflow-playground/authoring-agent/README.md at main � caseware/agent-workflow-playground and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:37:31.772Z",
+    "end": "2026-04-21T08:40:32.576Z",
+    "windowTitle": "agent-workflow-playground/authoring-agent/test-files at main � caseware/agent-workflow-playground and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-21T08:40:32.576Z",
+    "end": "2026-04-21T08:41:02.762Z",
+    "windowTitle": "Activities and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:41:02.762Z",
+    "end": "2026-04-21T08:42:03.041Z",
+    "windowTitle": "Your details and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:42:32.376Z",
+    "end": "2026-04-21T08:44:02.027Z",
+    "windowTitle": "Confirm access and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:44:31.925Z",
+    "end": "2026-04-21T08:47:02.137Z",
+    "windowTitle": "[UKCAUD-15956] Add AI testing product (uk-audit-company-mercia-ai-testing-1) to monorepo - Caseware Jira and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAUD-15956",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-21T08:47:02.137Z",
+    "end": "2026-04-21T08:47:32.193Z",
+    "windowTitle": "Microsoft Power Automate | Connections and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:47:32.193Z",
+    "end": "2026-04-21T08:48:02.269Z",
+    "windowTitle": "Microsoft Power Automate | Connections and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:48:02.269Z",
+    "end": "2026-04-21T08:48:32.363Z",
+    "windowTitle": "login.microsoftonline.com/common/reprocess?ctx=rQQIARAAnZA9aBNRAIDf66VpjdpeUwqii4M4qO_u3v3mAi1UrDZDqm0tpl3Ce-_eNae5e8ndu9JmcJSAPziK6OIixkVdFKfiKAgdxamgg2SxY0ZxEVxdvvX7-C4oWMPVcx6hXsU1GbKZ4yHbxxxViO2gwDGJxw3T8itWWi6p75_tfz9_mtSfv-1-uqffrQ9gpSVlJ6vq-nZbUNLWmEgynkiN9PKUI9KJYi3hUk95EKWcSV2EYcS45TofIDyA8CeE38amry_msmX-gUijHh-OTWW8zZlsEsZEnsinygIjRuA5doh8C4fIZqaLiEsJsin2LcyISQ2jyUhCAoIMAzf_9Q-UM387U9JpaXHEUpGJUGpMxO-UIhNxLJKvCjwowGHhhKFUJydLKjgFzoJRAb4YL5fUB1vH0fDH3NKrLw8f3XoyCz6P6726K_dw7YZYzHs-SW7a1KpvtFals1azuMuubTVEo7GiB6ubd-ZxFT8uwqMi7E-Aj8f-e9v-STCauj8Y9F8fvfy1PJy-VKNX6M6yJyk27bXMX7l6sXtZiM56O6_puzsJMd2l2xvrvr3b3Zx_o4JDFRzOgNGM2i-D3w2&sessionid=0040453a-743d-e788-9146-df3fd27f778b - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:49:32.013Z",
+    "end": "2026-04-21T08:50:32.198Z",
+    "windowTitle": "Edit your flow | Power Automate and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:50:32.198Z",
+    "end": "2026-04-21T08:51:02.255Z",
+    "windowTitle": "AI Capabilities and Limitations and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:51:32.131Z",
+    "end": "2026-04-21T08:52:02.145Z",
+    "windowTitle": "Audit log - Automation - UK Cloud Audit - Jira and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:52:02.145Z",
+    "end": "2026-04-21T08:52:32.259Z",
+    "windowTitle": "Rule builder - Automation - UK Cloud Audit - Jira and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:52:32.259Z",
+    "end": "2026-04-21T08:54:32.450Z",
+    "windowTitle": "Your details and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T08:54:32.450Z",
+    "end": "2026-04-21T08:55:02.484Z",
+    "windowTitle": "Stratford Hotels | Book Cheap Hotels In London Stratford | Premier Inn and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:55:32.264Z",
+    "end": "2026-04-21T08:56:02.821Z",
+    "windowTitle": "Stratford Hotels | Book Cheap Hotels In London Stratford | Premier Inn and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:56:32.133Z",
+    "end": "2026-04-21T08:57:02.358Z",
+    "windowTitle": "Extras and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T08:57:02.358Z",
+    "end": "2026-04-21T08:59:32.266Z",
+    "windowTitle": "Payment details and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T08:59:32.266Z",
+    "end": "2026-04-21T09:04:32.365Z",
+    "windowTitle": "Extras and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-21T09:05:02.298Z",
+    "end": "2026-04-21T09:06:02.617Z",
+    "windowTitle": "Payment details and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T09:06:32.275Z",
+    "end": "2026-04-21T09:14:32.528Z",
+    "windowTitle": "Confirmation and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 8
+  },
+  {
+    "start": "2026-04-21T09:14:32.528Z",
+    "end": "2026-04-21T09:15:04.491Z",
+    "windowTitle": "Rule builder - Automation - UK Cloud Audit - Jira and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T09:15:04.491Z",
+    "end": "2026-04-21T09:19:03.482Z",
+    "windowTitle": "Standup - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-21T09:19:03.482Z",
+    "end": "2026-04-21T09:22:38.893Z",
+    "windowTitle": "Making a request and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-21T09:24:33.156Z",
+    "end": "2026-04-21T09:25:33.885Z",
+    "windowTitle": "Home and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T09:25:33.885Z",
+    "end": "2026-04-21T09:40:34.640Z",
+    "windowTitle": "Standup - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 15
+  },
+  {
+    "start": "2026-04-21T09:41:03.635Z",
+    "end": "2026-04-21T09:41:34.429Z",
+    "windowTitle": "CaseWare Cloud and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T09:41:34.429Z",
+    "end": "2026-04-21T09:42:34.570Z",
+    "windowTitle": "CaseWare Cloud and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T09:42:34.570Z",
+    "end": "2026-04-21T09:45:33.445Z",
+    "windowTitle": "CaseWare Cloud and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-21T09:46:03.358Z",
+    "end": "2026-04-21T09:46:33.553Z",
+    "windowTitle": "CaseWare Cloud and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T09:47:03.363Z",
+    "end": "2026-04-21T09:47:33.715Z",
+    "windowTitle": "Mitchell Payne and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T09:47:33.715Z",
+    "end": "2026-04-21T09:49:03.778Z",
+    "windowTitle": "AI Capabilities and Limitations and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T09:49:03.778Z",
+    "end": "2026-04-21T09:49:34.134Z",
+    "windowTitle": "Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T09:49:34.134Z",
+    "end": "2026-04-21T09:50:34.043Z",
+    "windowTitle": "Rovo Search - Caseware Jira and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T09:50:34.043Z",
+    "end": "2026-04-21T09:54:04.135Z",
+    "windowTitle": "Developer Onboarding - Getting Started - Data Analytics - Caseware Confluence and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-21T09:54:04.135Z",
+    "end": "2026-04-21T09:56:04.948Z",
+    "windowTitle": "?? Copilot Onboarding Guide for Developers - UK Solutions Development Team - Caseware Confluence and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T09:56:34.100Z",
+    "end": "2026-04-21T09:58:03.731Z",
+    "windowTitle": "Developer Onboarding - Getting Started - Data Analytics - Caseware Confluence and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T09:58:03.731Z",
+    "end": "2026-04-21T10:04:34.273Z",
+    "windowTitle": "AI Capabilities and Limitations and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-21T10:04:34.273Z",
+    "end": "2026-04-21T10:10:04.396Z",
+    "windowTitle": "Standup - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-21T10:10:04.396Z",
+    "end": "2026-04-21T10:19:37.895Z",
+    "windowTitle": "Standup and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 10
+  },
+  {
+    "start": "2026-04-21T10:20:04.690Z",
+    "end": "2026-04-21T10:26:04.212Z",
+    "windowTitle": "Standup and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-21T10:26:04.212Z",
+    "end": "2026-04-21T10:26:34.431Z",
+    "windowTitle": "caseware/agent-workflow-playground and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:26:34.431Z",
+    "end": "2026-04-21T10:27:04.557Z",
+    "windowTitle": "agent-workflow-playground/authoring-agent at main � caseware/agent-workflow-playground and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:27:04.557Z",
+    "end": "2026-04-21T10:31:04.293Z",
+    "windowTitle": "agent-workflow-playground/authoring-agent/prompts/03-full-workflow.md at main � caseware/agent-workflow-playground and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-21T10:31:04.293Z",
+    "end": "2026-04-21T10:32:04.316Z",
+    "windowTitle": "History for authoring-agent - caseware/agent-workflow-playground and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:32:04.316Z",
+    "end": "2026-04-21T10:32:34.694Z",
+    "windowTitle": "Remove Financial Statements section from README � caseware/agent-workflow-playground@b470e76 and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:32:34.694Z",
+    "end": "2026-04-21T10:35:04.549Z",
+    "windowTitle": "agent-workflow-playground/authoring-agent/prompts/03-full-workflow.md at main � caseware/agent-workflow-playground and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T10:35:04.549Z",
+    "end": "2026-04-21T10:35:34.656Z",
+    "windowTitle": "Google and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:36:04.626Z",
+    "end": "2026-04-21T10:36:34.782Z",
+    "windowTitle": "Spaces - Caseware Jira and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:37:04.398Z",
+    "end": "2026-04-21T10:37:34.571Z",
+    "windowTitle": "?? We've been busy! What we shipped in JPD in Janu... - Atlassian Community and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:37:34.571Z",
+    "end": "2026-04-21T10:38:05.343Z",
+    "windowTitle": "?? We've been busy! What we shipped in JPD in Janu... - Atlassian Community and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:38:34.581Z",
+    "end": "2026-04-21T10:39:05.081Z",
+    "windowTitle": "Roadmaps (cross-project views) improvements (Premium) JPD - Google Search and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:39:34.987Z",
+    "end": "2026-04-21T10:41:35.465Z",
+    "windowTitle": "Product roadmap - UK Product Feature Requests (JPD) - Jira Product Discovery and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T10:41:35.465Z",
+    "end": "2026-04-21T10:43:06.433Z",
+    "windowTitle": "Cross-team Dependencies - UK Product Feature Requests (JPD) - Jira Product Discovery and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T10:43:06.433Z",
+    "end": "2026-04-21T10:47:05.080Z",
+    "windowTitle": "atlas - Google Search and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-21T10:47:34.739Z",
+    "end": "2026-04-21T10:48:34.886Z",
+    "windowTitle": "[CWI-79] UKCAUD - UK Cloud Audit & Discovery - Caseware - Atlassian Home and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "CWI-79",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:48:34.886Z",
+    "end": "2026-04-21T10:49:04.919Z",
+    "windowTitle": "Status updates - Projects - Caseware - Atlassian Home and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:50:04.611Z",
+    "end": "2026-04-21T10:51:04.820Z",
+    "windowTitle": "New View - UK Product Feature Requests (JPD) - Jira Product Discovery and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:51:34.736Z",
+    "end": "2026-04-21T10:52:04.786Z",
+    "windowTitle": "Releases - UKCAUD - Advanced Roadmap - Plans - Caseware Jira and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:52:34.748Z",
+    "end": "2026-04-21T10:53:35.712Z",
+    "windowTitle": "Settings - Work item sources - UKCAUD - Advanced Roadmap - Plans - Caseware Jira and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T10:54:05.149Z",
+    "end": "2026-04-21T10:56:05.078Z",
+    "windowTitle": "Releases - UKCAUD - Advanced Roadmap - Plans - Caseware Jira and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T10:56:05.078Z",
+    "end": "2026-04-21T10:58:34.917Z",
+    "windowTitle": "Timeline - UKCAUD - Advanced Roadmap - Plans - Caseware Jira and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T10:58:34.917Z",
+    "end": "2026-04-21T11:00:04.750Z",
+    "windowTitle": "[CWI-79] UKCAUD - UK Cloud Audit & Discovery - Caseware - Atlassian Home and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "CWI-79",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T11:00:04.750Z",
+    "end": "2026-04-21T11:00:34.916Z",
+    "windowTitle": "Timeline - UKCAUD - Advanced Roadmap - Plans - Caseware Jira and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T11:00:34.916Z",
+    "end": "2026-04-21T11:01:04.977Z",
+    "windowTitle": "Settings - Work item sources - UKCAUD - Advanced Roadmap - Plans - Caseware Jira and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T11:01:04.977Z",
+    "end": "2026-04-21T12:03:06.329Z",
+    "windowTitle": "Timeline - UKCAUD - Advanced Roadmap - Plans - Caseware Jira and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 62
+  },
+  {
+    "start": "2026-04-21T12:03:35.748Z",
+    "end": "2026-04-21T12:08:36.261Z",
+    "windowTitle": "AI Capabilities and Limitations and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-21T12:09:06.051Z",
+    "end": "2026-04-21T12:31:10.146Z",
+    "windowTitle": "Manage Template and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 22
+  },
+  {
+    "start": "2026-04-21T12:31:37.847Z",
+    "end": "2026-04-21T12:32:10.173Z",
+    "windowTitle": "Manage Template and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T12:34:36.977Z",
+    "end": "2026-04-21T12:46:00.454Z",
+    "windowTitle": "Manage Template and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-21T12:46:08.955Z",
+    "end": "2026-04-21T12:48:10.532Z",
+    "windowTitle": "Manage Template and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T12:49:09.245Z",
+    "end": "2026-04-21T12:53:10.552Z",
+    "windowTitle": "Generic Engagement (2025) - Documents and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-21T12:55:10.431Z",
+    "end": "2026-04-21T13:05:38.516Z",
+    "windowTitle": "Manage Template and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 10
+  },
+  {
+    "start": "2026-04-21T13:05:38.516Z",
+    "end": "2026-04-21T13:06:10.706Z",
+    "windowTitle": "Google and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T13:06:37.172Z",
+    "end": "2026-04-21T13:08:10.795Z",
+    "windowTitle": "Zephyr - Caseware Jira and 17 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T13:08:37.886Z",
+    "end": "2026-04-21T13:10:07.927Z",
+    "windowTitle": "CaseWare Cloud and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T13:10:07.927Z",
+    "end": "2026-04-21T13:10:38.317Z",
+    "windowTitle": "Operating Name test - FED (2024) and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T13:10:38.317Z",
+    "end": "2026-04-21T13:11:10.841Z",
+    "windowTitle": "Untitled and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T13:12:07.794Z",
+    "end": "2026-04-21T13:12:38.067Z",
+    "windowTitle": "Audit Mercia UK Company and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T13:12:38.067Z",
+    "end": "2026-04-21T13:22:10.965Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Datasets and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 10
+  },
+  {
+    "start": "2026-04-21T13:22:38.165Z",
+    "end": "2026-04-21T13:25:37.768Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Datasets and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-21T13:25:37.768Z",
+    "end": "2026-04-21T13:34:37.869Z",
+    "windowTitle": "Operating Name test - FED (2024) - Consolidation and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 9
+  },
+  {
+    "start": "2026-04-21T13:34:37.869Z",
+    "end": "2026-04-21T13:40:09.026Z",
+    "windowTitle": "Operating Name test - FED (2024) - Substantive sampling form - Judgemental and 18 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-21T13:40:38.388Z",
+    "end": "2026-04-21T13:41:38.049Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Documents and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T13:41:38.049Z",
+    "end": "2026-04-21T13:42:08.242Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Substantive sampling form - Judgemental and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T13:42:08.242Z",
+    "end": "2026-04-21T13:42:38.276Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Accounts and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T13:42:38.276Z",
+    "end": "2026-04-21T13:43:08.532Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Datasets and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T13:43:08.532Z",
+    "end": "2026-04-21T13:44:11.284Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T13:44:11.284Z",
+    "end": "2026-04-21T13:45:38.533Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Datasets and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T13:46:08.411Z",
+    "end": "2026-04-21T13:48:38.087Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Adjustments and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T13:48:38.087Z",
+    "end": "2026-04-21T13:49:11.410Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Substantive sampling form - Judgemental and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T13:49:38.916Z",
+    "end": "2026-04-21T14:00:08.336Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Substantive sampling form - Judgemental and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 10
+  },
+  {
+    "start": "2026-04-21T14:00:08.336Z",
+    "end": "2026-04-21T14:02:39.263Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Accounts and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-21T14:02:39.263Z",
+    "end": "2026-04-21T14:13:12.923Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Substantive sampling form - Judgemental and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 11
+  },
+  {
+    "start": "2026-04-21T14:15:08.271Z",
+    "end": "2026-04-21T14:18:39.951Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Substantive sampling form - Judgemental and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-21T14:19:08.450Z",
+    "end": "2026-04-21T14:19:38.699Z",
+    "windowTitle": "Accessing bypass permissions on the desktop version : r/ClaudeAI and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T14:19:38.699Z",
+    "end": "2026-04-21T14:21:43.551Z",
+    "windowTitle": "Claude Code Desktop now supports --dangerously-skip-permissions! : r/ClaudeCode and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "ai-coding",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T14:23:38.540Z",
+    "end": "2026-04-21T14:24:39.912Z",
+    "windowTitle": "Operating Name test - FED (2024) - Accounts and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T14:24:39.912Z",
+    "end": "2026-04-21T14:25:38.575Z",
+    "windowTitle": "Operating Name test - FED (2024) - Substantive sampling form - Judgemental and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T14:25:38.575Z",
+    "end": "2026-04-21T14:26:08.747Z",
+    "windowTitle": "Jira and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T14:26:08.747Z",
+    "end": "2026-04-21T14:28:38.871Z",
+    "windowTitle": "Work item search - Caseware Jira and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-21T14:28:38.871Z",
+    "end": "2026-04-21T14:31:08.895Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - Substantive sampling form - Judgemental and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-21T14:31:08.895Z",
+    "end": "2026-04-21T14:31:39.777Z",
+    "windowTitle": "[UKCAS-334] Moore South - 01400570 - B32 and Q1 Documents showing incorrect Accounting Estimate information - - Caseware Jira and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAS-334",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T14:32:38.374Z",
+    "end": "2026-04-21T14:33:08.477Z",
+    "windowTitle": "[UKCAS-334] Moore South - 01400570 - B32 and Q1 Documents showing incorrect Accounting Estimate information - - Caseware Jira and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "UKCAS-334",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T14:33:08.477Z",
+    "end": "2026-04-21T14:33:38.631Z",
+    "windowTitle": "UK Cloud Audit: DEVELOP - Audit HAT UK Corporate - SEB HF 02-04 - Caseware Jira and 22 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T14:33:38.631Z",
+    "end": "2026-04-21T14:34:38.511Z",
+    "windowTitle": "UK Cloud Audit: DEVELOP - Audit HAT UK Corporate - SEB HF 02-04 - Caseware Jira and 23 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T14:34:38.511Z",
+    "end": "2026-04-21T14:36:38.786Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 23 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T14:36:38.786Z",
+    "end": "2026-04-21T14:38:08.871Z",
+    "windowTitle": "UK Cloud Audit: DEVELOP - Audit HAT UK Corporate - SEB HF 02-04 - Caseware Jira and 22 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T14:38:38.668Z",
+    "end": "2026-04-21T14:40:08.518Z",
+    "windowTitle": "Operating Name test - FED (2024) - Substantive sampling form - Judgemental and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T14:40:08.518Z",
+    "end": "2026-04-21T14:49:38.972Z",
+    "windowTitle": "Operating Name test - FED (2024) - Substantive sampling form - Judgemental and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 10
+  },
+  {
+    "start": "2026-04-21T14:50:08.757Z",
+    "end": "2026-04-21T14:53:08.995Z",
+    "windowTitle": "Operating Name test - FED (2024) - Substantive sampling form - Judgemental and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-21T14:53:08.995Z",
+    "end": "2026-04-21T14:54:09.510Z",
+    "windowTitle": "Operating Name test - FED (2024) - Materiality and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T14:54:09.510Z",
+    "end": "2026-04-21T14:56:39.519Z",
+    "windowTitle": "Operating Name test - FED (2024) - and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-21T14:56:39.519Z",
+    "end": "2026-04-21T15:03:38.744Z",
+    "windowTitle": "Operating Name test - FED (2024) - Materiality and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 7
+  },
+  {
+    "start": "2026-04-21T15:03:38.744Z",
+    "end": "2026-04-21T15:05:39.190Z",
+    "windowTitle": "Operating Name test - FED (2024) - Substantive sampling form - Judgemental and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T15:05:39.190Z",
+    "end": "2026-04-21T15:06:09.437Z",
+    "windowTitle": "Operating Name test - FED (2024) - Substantive sampling form - Judgemental and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:06:39.271Z",
+    "end": "2026-04-21T15:07:39.176Z",
+    "windowTitle": "UK - Develop Liams Test Area (2023) - and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:08:38.836Z",
+    "end": "2026-04-21T15:09:39.185Z",
+    "windowTitle": "Operating Name test - FED (2024) - and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:09:39.185Z",
+    "end": "2026-04-21T15:11:10.980Z",
+    "windowTitle": "Operating Name test - FED (2024) - Materiality and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T15:11:39.221Z",
+    "end": "2026-04-21T15:12:09.838Z",
+    "windowTitle": "Test-Claude-updated conversation (SSSF added) (1).xlsx - Excel",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:12:09.838Z",
+    "end": "2026-04-21T15:13:09.479Z",
+    "windowTitle": "Operating Name test - FED (2024) - Materiality and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:13:09.479Z",
+    "end": "2026-04-21T15:13:39.564Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:13:39.564Z",
+    "end": "2026-04-21T15:16:39.230Z",
+    "windowTitle": "Operating Name test - FED (2024) - Materiality and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-21T15:16:39.230Z",
+    "end": "2026-04-21T15:17:09.448Z",
+    "windowTitle": "Operating Name test - FED (2024) - Substantive sampling form - Judgemental and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:17:09.448Z",
+    "end": "2026-04-21T15:18:10.664Z",
+    "windowTitle": "Operating Name test - FED (2024) - Materiality and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:19:39.206Z",
+    "end": "2026-04-21T15:20:09.449Z",
+    "windowTitle": "Test-Claude-updated conversation (SSSF added) (1).xlsx - Excel",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:20:09.449Z",
+    "end": "2026-04-21T15:22:09.804Z",
+    "windowTitle": "Operating Name test - FED (2024) - Materiality and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-21T15:22:39.148Z",
+    "end": "2026-04-21T15:26:39.543Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-21T15:26:39.543Z",
+    "end": "2026-04-21T15:27:40.213Z",
+    "windowTitle": "Operating Name test - FED (2024) - Materiality and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:27:40.213Z",
+    "end": "2026-04-21T15:28:39.278Z",
+    "windowTitle": "Operating Name test - FED (2024) - Substantive sampling form - Judgemental and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:28:39.278Z",
+    "end": "2026-04-21T15:29:09.356Z",
+    "windowTitle": "HAT Sampling Forms Combined Spec (Sharepoint).xlsx - Excel",
+    "inferredTask": null,
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:29:09.356Z",
+    "end": "2026-04-21T15:40:40.259Z",
+    "windowTitle": "Operating Name test - FED (2024) - Materiality and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 12
+  },
+  {
+    "start": "2026-04-21T15:41:39.993Z",
+    "end": "2026-04-21T15:46:10.237Z",
+    "windowTitle": "Operating Name test - FED (2024) - Substantive sampling form - Judgemental and 19 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-21T15:46:10.237Z",
+    "end": "2026-04-21T15:46:40.277Z",
+    "windowTitle": "Google and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:47:39.654Z",
+    "end": "2026-04-21T15:50:39.817Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 20 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-21T15:50:39.817Z",
+    "end": "2026-04-21T15:51:10.140Z",
+    "windowTitle": "SE 2024-05 release notes and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:51:39.665Z",
+    "end": "2026-04-21T15:52:09.710Z",
+    "windowTitle": "Operating Name test - FED (2024) - Substantive sampling form - Statistical and 22 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-21T15:52:09.710Z",
+    "end": "2026-04-21T16:00:40.971Z",
+    "windowTitle": "Audit - Backlog - Caseware Jira and 22 more pages - Work - Microsoft? Edge",
+    "inferredTask": "jira-browse",
+    "durationMin": 9
+  },
+  {
+    "start": "2026-04-21T16:00:40.971Z",
+    "end": "2026-04-21T16:13:13.583Z",
+    "windowTitle": "Operating Name test - FED (2024) - Substantive sampling form - Judgemental and 21 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 13
   }
 ]

@@ -185,3 +185,60 @@ If `settings.json` already has content, merge the `allow` array rather than repl
 **Option 3: Change permission mode** ÔÇö in Claude Code settings, switch from "default" to "auto-approve reads" (or equivalent).
 
 Once permissions are set, re-run `/gm` and it'll execute fully. Would you like me to walk through editing the settings.json with PowerShell?
+[2026-04-21 08:45:02] Starting /gm auto-trigger
+[2026-04-21 08:45:03] fetch-notifications: ­ƒô¼ fetch-notifications: starting... Ôä¦  graph-token.json not found ÔÇö skipping Office doc comment fetch ÔÜá  Jira search returned 410   Jira @mentions: 0 item(s)   Doc comments:   0 item(s) Ô£à fetch-notifications: dashboard-data.json updated
+[2026-04-21 08:45:03] graph-teams-fetch: [graph-teams-fetch] No graph-token.json ÔÇö run setup-graph-token.ps1 first [graph-teams-fetch] wrote 0 messages to dashboard-data.json
+[2026-04-21 08:45:18] graph-email-fetch: [graph-email-fetch] No graph-token.json ÔÇö run setup-graph-token.ps1 first [graph-email-fetch] Outlook fallback: [outlook-mail-fetch] wrote 0 emails to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-21 08:45:20] outlook-mail-fetch: [outlook-mail-fetch] wrote 0 emails to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-21 08:45:23] outlook-calendar-fetch: [outlook-calendar-fetch] wrote 5 today events and 26 week-ahead events to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-21 08:45:23] generate-day-plan: [generate-day-plan] Error: Unexpected token '´++', "´++{     "o"... is not valid JSON
+[2026-04-21 08:56:43] /gm completed
+---
+
+Good morning! Here's your brief for **Tuesday, 2026-04-21**:
+
+---
+
+**­ƒöÑ Top 3:**
+1. Run /standup and post to Teams *(due 09:15)*
+2. **DIST-69292** ÔÇö Enable MCP on HAT Server *(8+ days aging ÔÇö escalate or close)*
+3. Refresh weekly-plan.md + initiative todos *(35+ days stale since 2026-03-17)*
+
+---
+
+**­ƒôï My Tasks (LB_WIP):** Jira unavailable ÔÇö see DIST-69292 note below
+**­ƒôè Team Activity:** SKIPPED ÔÇö Jira API down
+**ÔÜá´©Å Stale Tasks:**
+- ­ƒö¦ DIST-69292: Enable MCP on HAT Server (8+ days, near abandoned threshold)
+- ­ƒö¦ weekly-plan.md refresh (35+ days ÔÇö last populated 2026-03-17)
+- ­ƒƒí No daily notes since 2026-04-17 (4-day vault gap)
+
+---
+
+**­ƒôà Schedule:**
+
+| Time | Block | Task |
+|------|-------|------|
+| 09:00ÔÇô09:15 | Quick Win | /inbox |
+| 09:15ÔÇô09:30 | Quick Win | /standup ÔåÆ Teams |
+| 09:30ÔÇô10:30 | Deep Work | DIST-69292 ÔÇö escalate or close |
+| 10:30ÔÇô12:00 | Deep Work | Refresh weekly-plan + initiative todos |
+| 12:00ÔÇô12:30 | Break | Lunch |
+| 12:30ÔÇô13:30 | Admin | Jira review (once API restored) |
+| 13:30ÔÇô17:00 | Deep Work | UKCAUD sprint work |
+| 17:00ÔÇô17:15 | Wrap | /eod |
+
+---
+
+**­ƒôú Standup (ready to paste):**
+> **Yesterday:** No daily note (vault lapsed since Fri 17th). Last recorded: Backlog Refinement Prep, LB_WIP tagging, Retro contribution.
+> **Today:** Resolve DIST-69292 escalation -À Refresh weekly plan & initiative todos -À UKCAUD sprint delivery
+> **Blockers:** Jira MCP returning "Unbounded JQL" error ÔÇö all Jira layers unavailable
+
+---
+
+**ÔÜá´©Å Issues to fix:**
+- **Jira API:** `/rest/api/3/search/jql` is rejecting queries as "Unbounded JQL" ÔÇö may need Atlassian admin attention or token scope fix
+- **Playwright:** Blocked by CWD permission (`C:\WINDOWS\system32`) ÔÇö Calendar + Email skipped. Run `/inbox` manually.
+
+**Full brief:** `workspace/coordinator/daily-brief-2026-04-21.md`

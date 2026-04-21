@@ -1,6 +1,61 @@
 {
-  "updatedAt": "2026-04-20T08:10:46.106Z",
+  "updatedAt": "2026-04-21T01:01:03.266Z",
   "projects": [
+    {
+      "name": "UKCAUD Spec Studio",
+      "path": "C:/Users/liam.bond/Documents/UKCAUD Spec Studio",
+      "phase": "Building",
+      "lastCommit": "2026-04-20T20:38:04+01:00",
+      "lastCommitMsg": "feat: JSON export, publish routes, Replit config, typed routes + Suspense fixes",
+      "hasGit": true,
+      "hasPkg": true,
+      "hasClaude": false,
+      "description": "Interactive web app that reverse-engineers SE Builder forms from `caseware/code` into a living spec. Users iterate new v"
+    },
+    {
+      "name": "dotfiles-publish",
+      "path": "C:/Users/liam.bond/Documents/dotfiles-publish",
+      "phase": "Building",
+      "lastCommit": "2026-04-20T17:34:20+01:00",
+      "lastCommitMsg": "chore: eod sync (14 added) - claude/skills/caseware-pr/, claude/skills/commit-message/, claude/skills/daily-brief/, claude/skills/monorepo-setup-v2/, claude/skills/performance-self-assessment-v2/",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": "Cross-machine configuration sync for Claude Code, VS Code, and Git."
+    },
+    {
+      "name": "CW Lead Schedule Specifications",
+      "path": "C:/Users/liam.bond/Documents/CW Lead Schedule Specifications",
+      "phase": "Building",
+      "lastCommit": "2026-04-20T17:33:39+01:00",
+      "lastCommitMsg": "chore: eod sync (5 modified) - M backend/main.py, M backend/services/cw_api.py, M frontend/app/page.tsx, M frontend/app/specs/page.tsx, M frontend/app/validation/page.tsx",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": true,
+      "description": "Specification management platform for CaseWare financial statement lead schedule documents. Validates Excel specs agains"
+    },
+    {
+      "name": "claude-mobile",
+      "path": "C:/Users/liam.bond/Documents/claude-mobile",
+      "phase": "Building",
+      "lastCommit": "2026-04-20T17:30:30+01:00",
+      "lastCommitMsg": "chore: eod sync (1 added) - .omc/sessions/9153e958-f495-4f10-93a2-adee5a75e3db.json",
+      "hasGit": true,
+      "hasPkg": true,
+      "hasClaude": false,
+      "description": "A multi-session Claude dashboard you can use from your phone or any browser on the local network. Runs an Express + WebS"
+    },
+    {
+      "name": "Claude Onboarding Meeting",
+      "path": "C:/Users/liam.bond/Documents/Claude Onboarding Meeting",
+      "phase": "Building",
+      "lastCommit": "2026-04-20T17:30:23+01:00",
+      "lastCommitMsg": "chore: eod sync (7 added, 5 modified, 1 deleted) - M CLAUDE-CODE-COMPLETE-GUIDE.md, M TRY-THIS-WEEK.md, M claude-onboarding-presentation.js, D ibp-exercise/CLAUDE-VSCODE-USER-GUIDE.md, M ibp-exercise/dashboard.html",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": null
+    },
     {
       "name": "UKCAUD AI Project",
       "path": "C:/Users/liam.bond/Documents/UKCAUD AI Project",
@@ -11,17 +66,6 @@
       "hasPkg": false,
       "hasClaude": false,
       "description": "Feedback widget host application for AI-assisted audit workflows. Deployed to Replit."
-    },
-    {
-      "name": "CW Lead Schedule Specifications",
-      "path": "C:/Users/liam.bond/Documents/CW Lead Schedule Specifications",
-      "phase": "Building",
-      "lastCommit": "2026-04-19T02:09:14+01:00",
-      "lastCommitMsg": "feat: update feedback widget URL to productivity-tool.replit.app",
-      "hasGit": true,
-      "hasPkg": false,
-      "hasClaude": true,
-      "description": "Specification management platform for CaseWare financial statement lead schedule documents. Validates Excel specs agains"
     },
     {
       "name": "CW Release Notes Tool",
@@ -35,28 +79,6 @@
       "description": "> **Status: Implemented**"
     },
     {
-      "name": "UKCAUD Spec Studio",
-      "path": "C:/Users/liam.bond/Documents/UKCAUD Spec Studio",
-      "phase": "Building",
-      "lastCommit": "2026-04-18T17:51:49+01:00",
-      "lastCommitMsg": "chore: initial scaffold (Batch 0.1 - Scaffolder)",
-      "hasGit": true,
-      "hasPkg": true,
-      "hasClaude": false,
-      "description": "Interactive web app that reverse-engineers SE Builder forms from `caseware/code` into a living spec. Users iterate new v"
-    },
-    {
-      "name": "dotfiles-publish",
-      "path": "C:/Users/liam.bond/Documents/dotfiles-publish",
-      "phase": "Building",
-      "lastCommit": "2026-04-18T17:28:28+01:00",
-      "lastCommitMsg": "config: sync 2 file(s) from UK-PW0B2H3M",
-      "hasGit": true,
-      "hasPkg": false,
-      "hasClaude": false,
-      "description": "Cross-machine configuration sync for Claude Code, VS Code, and Git."
-    },
-    {
       "name": "AI Work Presentation Tool",
       "path": "C:/Users/liam.bond/Documents/AI Work Presentation Tool",
       "phase": "Building",
@@ -66,28 +88,6 @@
       "hasPkg": true,
       "hasClaude": false,
       "description": "Generates a branded Caseware PowerPoint presentation on AI at Work topics. One-click PPTX generation via a web UI, or ru"
-    },
-    {
-      "name": "Claude Onboarding Meeting",
-      "path": "C:/Users/liam.bond/Documents/Claude Onboarding Meeting",
-      "phase": "Building",
-      "lastCommit": "2026-04-17T00:41:05+01:00",
-      "lastCommitMsg": "feat: Claude onboarding session materials with presentation, IBP demo, and user guide",
-      "hasGit": true,
-      "hasPkg": false,
-      "hasClaude": false,
-      "description": null
-    },
-    {
-      "name": "claude-mobile",
-      "path": "C:/Users/liam.bond/Documents/claude-mobile",
-      "phase": "Building",
-      "lastCommit": "2026-04-16T23:24:18+01:00",
-      "lastCommitMsg": "feat: add README, import-session script, and update server + package for Groq Whisper integration",
-      "hasGit": true,
-      "hasPkg": true,
-      "hasClaude": false,
-      "description": "A multi-session Claude dashboard you can use from your phone or any browser on the local network. Runs an Express + WebS"
     },
     {
       "name": "Bondlw Programming Architecture",
@@ -134,48 +134,48 @@
       "description": "**AI-powered automation for audit, compliance, and financial workflows**"
     },
     {
-      "name": "Productivity Tool",
-      "path": "C:/Users/liam.bond/Documents/Productivity Tool",
-      "phase": "Review",
-      "lastCommit": "2026-04-19T13:26:59+01:00",
-      "lastCommitMsg": "diag: print cwd and find dashboard dir in build container",
-      "hasGit": true,
-      "hasPkg": true,
-      "hasClaude": true,
-      "description": "The dashboard is a Next.js 14 app at `localhost:3002`, managed by pm2. It provides a live view of the priority inbox, pe"
-    },
-    {
       "name": "Property Search Tool",
       "path": "C:/Users/liam.bond/Documents/Property Search Tool",
       "phase": "Review",
-      "lastCommit": "2026-04-19T02:25:09+01:00",
-      "lastCommitMsg": "config: set dashboard URL for feedback widget",
+      "lastCommit": "2026-04-20T17:35:02+01:00",
+      "lastCommitMsg": "chore: eod sync (4 modified) - M .replit, M requirements.txt, M src/notifications/notifier.py, M src/server/report_server.py",
       "hasGit": true,
       "hasPkg": false,
       "hasClaude": true,
       "description": "Automated UK property search tool for the Tunbridge Wells cluster. Scrapes Rightmove daily, applies financial and qualit"
     },
     {
-      "name": "CW Template Comparison Tool",
-      "path": "C:/Users/liam.bond/Documents/CW Template Comparison Tool",
+      "name": "Productivity Tool",
+      "path": "C:/Users/liam.bond/Documents/Productivity Tool",
       "phase": "Review",
-      "lastCommit": "2026-04-19T02:09:57+01:00",
-      "lastCommitMsg": "feat: update feedback widget URL to productivity-tool.replit.app",
+      "lastCommit": "2026-04-20T17:34:55+01:00",
+      "lastCommitMsg": "chore: eod sync (3 added, 16 modified) - M dashboard/app/api/execute/route.ts, M dashboard/app/page.tsx, M dashboard/components/CalendarPanel.tsx, M dashboard/components/CeremoniesTab.tsx, M dashboard/components/TimeTracker.tsx",
       "hasGit": true,
-      "hasPkg": false,
+      "hasPkg": true,
       "hasClaude": true,
-      "description": "A full-stack tool for comparing CaseWare Cloud document templates across products. It wraps the [CW API Scraper](cw-api-"
+      "description": "The dashboard is a Next.js 14 app at `localhost:3002`, managed by pm2. It provides a live view of the priority inbox, pe"
     },
     {
       "name": "CW UKCAUD Project Tracker",
       "path": "C:/Users/liam.bond/Documents/CW UKCAUD Project Tracker",
       "phase": "Review",
-      "lastCommit": "2026-04-19T02:08:27+01:00",
-      "lastCommitMsg": "feat: update feedback widget URL to productivity-tool.replit.app",
+      "lastCommit": "2026-04-20T17:34:07+01:00",
+      "lastCommitMsg": "chore: eod sync (4 added, 2 modified) - M scripts/collect-dekka-digest.ps1, M scripts/setup-scheduled-task.ps1, outputs/ai-analysis-cache/standup_blockers_2026-04-20.json, outputs/ai-analysis-cache/standup_capacity_2026-04-20.json, outputs/ai-analysis-cache/standup_velocity_2026-04-20.json",
       "hasGit": true,
       "hasPkg": true,
       "hasClaude": true,
       "description": "**AI-powered sprint ceremony automation and delivery tracking for the UK Cloud Audit (UKCAUD) Jira project.**"
+    },
+    {
+      "name": "CW Template Comparison Tool",
+      "path": "C:/Users/liam.bond/Documents/CW Template Comparison Tool",
+      "phase": "Review",
+      "lastCommit": "2026-04-20T17:33:54+01:00",
+      "lastCommitMsg": "chore: eod sync (3 modified) - M .env.example, M backend/main.py, M frontend/next.config.ts",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": true,
+      "description": "A full-stack tool for comparing CaseWare Cloud document templates across products. It wraps the [CW API Scraper](cw-api-"
     },
     {
       "name": "CW UKJPD Workflows",
@@ -211,6 +211,28 @@
       "description": null
     },
     {
+      "name": "UKCAUD-CLAUDE",
+      "path": "C:/Users/liam.bond/Documents/UKCAUD-CLAUDE",
+      "phase": "Backlog",
+      "lastCommit": null,
+      "lastCommitMsg": null,
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": "- TODO: describe the skills, agents, commands, rules, and hooks bundled in this repo."
+    },
+    {
+      "name": "AI Breaking News Tool",
+      "path": "C:/Users/liam.bond/Documents/AI Breaking News Tool",
+      "phase": "Done",
+      "lastCommit": "2026-04-20T17:30:16+01:00",
+      "lastCommitMsg": "chore: eod sync (2 added, 3 modified) - M auth-gate.js, M gnews-raw.json, M static-server.js, node_modules/, package-lock.json",
+      "hasGit": true,
+      "hasPkg": true,
+      "hasClaude": true,
+      "description": "> Last updated: 2026-04-12"
+    },
+    {
       "name": "CW UAT Testing Tool",
       "path": "C:/Users/liam.bond/Documents/CW UAT Testing Tool",
       "phase": "Done",
@@ -220,17 +242,6 @@
       "hasPkg": false,
       "hasClaude": true,
       "description": "This folder contains all artifacts related to User Acceptance Testing (UAT) for the UK Cloud Audit squad."
-    },
-    {
-      "name": "AI Breaking News Tool",
-      "path": "C:/Users/liam.bond/Documents/AI Breaking News Tool",
-      "phase": "Done",
-      "lastCommit": "2026-04-18T00:13:07+01:00",
-      "lastCommitMsg": "chore: fix .replit run commands (git pull + dev mode for Next.js)",
-      "hasGit": true,
-      "hasPkg": true,
-      "hasClaude": true,
-      "description": "> Last updated: 2026-04-12"
     }
   ]
 }

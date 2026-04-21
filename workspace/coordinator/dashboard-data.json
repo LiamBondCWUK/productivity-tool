@@ -1,689 +1,1006 @@
-{
-  "overnightAnalysis": {
-    "generatedAt": "2026-04-20T08:23:06.206Z",
-    "durationMs": 763082,
-    "model": "tiered (haiku/sonnet)",
-    "estimatedCostUsd": 0.0516,
-    "estimatedInputTokens": 12431,
-    "estimatedOutputTokens": 10420,
-    "budgetLimit": 5,
-    "budgetLimitReached": false,
-    "projectsScanned": 21,
-    "projectsWithFindings": 20,
-    "projectsProcessedByLLM": 20,
-    "kanbanCardsPushed": 0,
-    "kanbanCardsPending": 34,
-    "projects": {
-      "ukcaud-ai-project": {
-        "state": "Early-stage Replit scaffolding project with minimal git tracking and active deployment configuration work, but fundamental tooling gaps suggest code is primarily in the Replit IDE rather than version control.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Commit package.json to git immediately. Recent commits reference 'dev mode for Next.js' but no package.json is tracked — this breaks reproducibility and dependency auditing. Extract it from Replit and commit.",
-            "effort": "S"
-          },
-          {
-            "priority": "HIGH",
-            "action": "Create CLAUDE.md documenting: (1) Replit deployment process, (2) feedback widget integration pattern, (3) how other projects consume this widget. Only 1 source file is tracked; context file will clarify intent.",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Establish test directory structure and add one smoke test for the feedback widget endpoint. Zero test files despite 'application' label suggests testing was deferred at project start.",
-            "effort": "M"
-          }
-        ],
-        "qualityIssues": [
-          "package.json missing from git despite Node.js tooling in commit history ('dev mode for Next.js')",
-          "Test coverage is 0/N — no test files present in active project",
-          "Only 1 source file tracked in git; likely incomplete sync from Replit IDE to version control"
-        ],
-        "neglected": [
-          "Testing infrastructure not initialized (0 test files)",
-          "Application source code minimal or unsynced from development environment"
-        ],
-        "crossProjectDeps": [
-          "Feedback widget integrates with 'productivity-tool.replit.app' (separate project) per commit 18ed11f"
-        ]
-      },
-      "cw-lead-schedule-specifications": {
-        "state": "54-file spec validator in active development but completely untested, with 26 pending changelog entries accumulated over 12 days.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Establish test suite baseline for spec validation logic: start with smoke tests for Excel parsing and core validation rules. Target 60%+ coverage on data-path code using Jest/Vitest.",
-            "effort": "M"
-          },
-          {
-            "priority": "MED",
-            "action": "Consolidate 26 CHANGELOG-PENDING.md entries into CHANGELOG.md and verify pre-commit hooks are installed and enforced per ~/.claude/rules/common/git-workflow.md hooks section.",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "54 source files with zero test coverage — critical risk for financial spec validation logic",
-          "CHANGELOG-PENDING.md backlog (26 entries, 12 days old) indicates pre-commit hook not enforcing consolidation"
-        ],
-        "neglected": [
-          "Test suite completely absent across entire codebase — no unit, integration, or end-to-end tests"
-        ],
-        "crossProjectDeps": [
-          "Feedback widget hardcoded to productivity-tool.replit.app — project availability is a runtime dependency"
-        ]
-      },
-      "cw-release-notes-tool": {
-        "state": "Active development with recent deployment focus, but zero test coverage and 12-day changelog backlog pose readiness risk.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Add test suite for 11 source files (jest or vitest). Start with critical paths (release notes rendering, data transformation). Target 60%+ coverage before next deploy.",
-            "effort": "L"
-          },
-          {
-            "priority": "MED",
-            "action": "Consolidate CHANGELOG-PENDING.md (6 entries, 12 days old) into CHANGELOG.md per hooks discipline. This aligns with your documentation-with-commits rule.",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Verify package.json exists if Node.js-based (Replit suggests it is). If absent, create it with dependencies; if intentionally omitted, document why in README.",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "Zero test files on 11 source files (0% coverage)",
-          "CHANGELOG-PENDING.md backlog (6 entries, 12 days) violates doc-with-commits discipline"
-        ],
-        "neglected": [],
-        "crossProjectDeps": [
-          "Feedback widget now points to productivity-tool.replit.app — verify that project remains stable"
-        ]
-      },
-      "ukcaud-spec-studio": {
-        "state": "Freshly scaffolded (2 days ago) with initial structure; 8 source files, zero test files, no CLAUDE.md context.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Establish TDD baseline for spec parsing engine: write integration tests for form-to-spec reverse-engineering logic (happy path + error cases) before feature expansion. Use Jest or Playwright depending on test scope.",
-            "effort": "M"
-          },
-          {
-            "priority": "MED",
-            "action": "Create CLAUDE.md documenting architecture decisions (spec parsing strategy, form schema storage), dependency on caseware/code, and CI test requirements.",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "Zero test coverage for 8 source files — no safety net for refactoring as reverse-engineering logic expands"
-        ],
-        "neglected": [],
-        "crossProjectDeps": [
-          "Reverse-depends on caseware/code for SE Builder form schemas to parse",
-          "Phase 1.5 UKCAUD ↔ UKCAUS sync workflow blocked pending DIST admin; Spec Studio stability is prerequisite"
-        ]
-      },
-      "dotfiles-publish": {
-        "state": "Active sync utility with 42 files but zero test coverage; all recent commits are automated configuration synchronizations from UK-PW0B2H3M.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Add integration tests for the sync mechanism: verify config files are correctly synced from source, detect merge conflicts, and validate that all 42 files maintain integrity across machines. Critical for a cross-machine config tool.",
-            "effort": "M"
-          },
-          {
-            "priority": "HIGH",
-            "action": "Create project CLAUDE.md defining: sync targets (machine list), validation rules, conflict resolution strategy, and rollback procedures. This will guide maintenance and prevent silent configuration failures.",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Document the 42-file architecture: map which files control Claude Code vs VS Code vs Git, add a README explaining sync flow, and flag dependencies between files to prevent partial syncs.",
-            "effort": "M"
-          }
-        ],
-        "qualityIssues": [
-          "Zero test coverage for configuration sync logic despite 42 source files—critical for a tool affecting multiple machines",
-          "All commits are automated syncs with no manual validation; no evidence of semantic correctness checking",
-          "No explicit conflict resolution, rollback mechanism, or validation rules visible in repository"
-        ],
-        "neglected": [
-          "Test suite (0 files)",
-          "Project-specific documentation beyond commit messages"
-        ],
-        "crossProjectDeps": []
-      },
-      "ai-work-presentation-tool": {
-        "state": "Active Next.js web app with password-protected Replit deployment, recently shipped auth gate, but lacks test coverage and has 7 unpublished changelog entries pending consolidation.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Add test suite for Next.js API routes and core PPTX generation logic. Start with Jest + @testing-library for components, node test runner for server-side logic.",
-            "effort": "M"
-          },
-          {
-            "priority": "HIGH",
-            "action": "Consolidate CHANGELOG-PENDING.md (7 entries, 11 days old) into CHANGELOG.md per global hooks protocol, then commit.",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Create CLAUDE.md documenting Replit password gate setup, environment variables, and dev/build workflow for future sessions.",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "Zero test files for 6 source files — no coverage for API routes, components, or presentation generation logic",
-          "CHANGELOG-PENDING.md has 7 unpublished entries after 11 days; consolidation process not being followed per hooks protocol"
-        ],
-        "neglected": [],
-        "crossProjectDeps": [
-          "Likely depends on Caseware branding and Nova design system for PowerPoint theme — verify assets are accessible in deployment"
-        ]
-      },
-      "claude-onboarding-meeting": {
-        "state": "Active presentation materials project with 13 uncommitted changes and missing core documentation (README).",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Commit 13 pending file changes with descriptive message (e.g., 'feat: finalize onboarding materials and demos'); maintain commit discipline for presentation projects",
-            "effort": "S"
-          },
-          {
-            "priority": "HIGH",
-            "action": "Add README.md documenting: (1) purpose of onboarding session, (2) contents of each file (presentation, IBP demo, user guide), (3) how to view/present materials, (4) any setup or viewer requirements",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Add CLAUDE.md context file describing the onboarding session goals, presentation flow, and any dependencies on other projects (e.g., command center integration)",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "13 uncommitted changes 3 days after last commit — inconsistent version control discipline",
-          "No README documentation for presentation materials project — stakeholders cannot determine what content exists or how to access it"
-        ],
-        "neglected": [],
-        "crossProjectDeps": []
-      },
-      "claude-mobile": {
-        "state": "claude-mobile is actively building with recent Groq Whisper integration, but lacks test coverage and has 11 days of unpublished changelog entries.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Add unit and integration tests for the 6 source files (server, WebSocket handlers, session management). Start with critical paths: Express routes and session persistence.",
-            "effort": "M"
-          },
-          {
-            "priority": "HIGH",
-            "action": "Consolidate CHANGELOG-PENDING.md (11 entries, 11 days old) into CHANGELOG.md under a new version header to restore release clarity.",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Create CLAUDE.md with project phase, tech stack (Express, WebSocket, Groq Whisper), key files, and dev setup notes.",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "0% test coverage on 6 source files—critical gap for a multi-session dashboard",
-          "11-day-old unpublished changelog entries blocking version clarity and release readiness"
-        ],
-        "neglected": [],
-        "crossProjectDeps": []
-      },
-      "bondlw-programming-architecture": {
-        "state": "Newly initialized Caseware documentation project; baseline files committed but zero content files created.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Create project-specific CLAUDE.md with scope (SDK/API documentation), planned content sections, and phase milestones for tracking",
-            "effort": "S"
-          },
-          {
-            "priority": "HIGH",
-            "action": "Establish documentation directory structure (/docs/api/, /docs/architecture/, /docs/integration/) and write initial TOC",
-            "effort": "M"
-          },
-          {
-            "priority": "MED",
-            "action": "Add .gitignore for docs build artifacts and baseline markdown templates for consistent reference formatting",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "Zero documentation files despite explicit SDK/API documentation purpose",
-          "Missing CLAUDE.md for project context, scope definition, and phase tracking"
-        ],
-        "neglected": [],
-        "crossProjectDeps": [
-          "Should coordinate with caseware/code repository for SDK/API accuracy and version alignment"
-        ]
-      },
-      "ai-onboarding": {
-        "state": "Project initialized with baseline structure; no source content created yet, missing CLAUDE.md project context.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Create CLAUDE.md with project objectives, target audience (new joiners), curriculum outline, and publishing/deployment plan. Reference as template: the Productivity Tool's CLAUDE.md structure.",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Define onboarding content roadmap: core modules (Claude tools, best practices), sequencing, and ownership. Prevents duplicated effort with existing company training materials.",
-            "effort": "M"
-          },
-          {
-            "priority": "MED",
-            "action": "Establish documentation template and directory structure (e.g., `/docs/modules/`, `/docs/guides/`) to standardize formatting before bulk content creation.",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [],
-        "neglected": [],
-        "crossProjectDeps": [
-          "Clarify relationship to Productivity Tool's Today tab—consider whether onboarding materials should be embedded or linked from dashboard."
-        ]
-      },
-      "activepieces": {
-        "state": "Activepieces repository initialized 5 days ago with baseline files only—no source code, tests, package.json, or CLAUDE.md yet committed.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Create package.json with dependencies (Node runtime, build tools, linter, test framework) and establish directory structure (src/, tests/, scripts/, etc.)",
-            "effort": "S"
-          },
-          {
-            "priority": "HIGH",
-            "action": "Write CLAUDE.md documenting project phase, architecture decisions, integration strategy (280+ integrations), and deployment model",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Set up GitHub Actions CI workflow (ESLint, TypeScript strict mode, test coverage gate at 80%+) and pre-commit hooks",
-            "effort": "M"
-          }
-        ],
-        "qualityIssues": [
-          "Zero source and test files—project structure not established",
-          "Missing package.json—dependency and script definitions undefined",
-          "No type safety configuration visible—tsconfig.json absent"
-        ],
-        "neglected": [
-          "Development halted after initialization; 5 days without commits suggests setup phase stalled"
-        ],
-        "crossProjectDeps": []
-      },
-      "ukcaud-authoring-agent-spec-layer": {
-        "state": "Building phase project with 36 source files but zero test coverage; last active 5 days ago.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Establish baseline test coverage for the 36 source files—audit and compliance automation workflows require safety nets. Start with unit tests for the core agent spec layer and critical path logic.",
-            "effort": "M"
-          },
-          {
-            "priority": "MED",
-            "action": "Create CLAUDE.md with project context (tech stack, key directories, testing strategy) to unblock future Claude-assisted work and document conventions.",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Review recent commit cadence—single 'eod sync' visible suggests either active feature branches or parallel work not reflected in main. Consolidate or document branching strategy.",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "36 source files with zero test files—no safety net for audit/compliance automation logic",
-          "No project context file; development guidelines and integration points undocumented"
-        ],
-        "neglected": [],
-        "crossProjectDeps": [
-          "Part of Caseware UK audit ecosystem (UKCAUD/UKCAS); likely integrates with compliance pipelines and reverse-sync flows mentioned in active project notes"
-        ]
-      },
-      "productivity-tool": {
-        "state": "Next.js 14 dashboard in post-deployment stabilization with 1% test coverage, 5 uncommitted changes, and build configuration fragility.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Commit or revert 5 uncommitted file changes immediately — per execution discipline rules, no half-finished implementations allowed.",
-            "effort": "S"
-          },
-          {
-            "priority": "HIGH",
-            "action": "Establish test suite: 93 source files with only 1 test file violates the 80%+ coverage rule. Start with critical paths (data fetching, state management, key UI components) targeting 40%+ coverage as intermediate milestone.",
-            "effort": "M"
-          },
-          {
-            "priority": "MED",
-            "action": "Consolidate CHANGELOG-PENDING.md (143 entries, 3 days old) into CHANGELOG.md per pre-commit hook requirements to restore clean state.",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "Catastrophic test coverage: 1/93 source files tested (1%)",
-          "React 19 peer dependency conflict requiring --legacy-peer-deps workaround",
-          "Build container path handling fragile: requires npm --prefix instead of native cd",
-          "Deployment setup accumulating workarounds (Nix modules, NODE_ENV bypasses, bash login shells)"
-        ],
-        "neglected": [
-          "Test suite: 92 source files untested",
-          "Feature development: last 10 commits are all diagnostic/deployment fixes"
-        ],
-        "crossProjectDeps": [
-          "Depends on 'AI Breaking News Tool' for data pipeline — primer shows daily scrape workflow feeds localhost:3002"
-        ]
-      },
-      "property-search-tool": {
-        "state": "94-file Next.js property search tool in active Review phase with recent auth/security improvements, but completely untested—critical gap for a data-handling system.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Create test infrastructure (Jest + Playwright) and write integration tests for scraping logic, financial filter validation, and auth flows. 94 untested files handling property/financial data is unsustainable.",
-            "effort": "L"
-          },
-          {
-            "priority": "MED",
-            "action": "Consolidate CHANGELOG-PENDING.md (2 entries, 29 days stale) into CHANGELOG.md per project pre-commit hook workflow.",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "Zero test files across 94 source files — no unit, integration, or E2E test coverage",
-          "CHANGELOG-PENDING.md entries unpublished for 29 days, changelog consolidation not enforced"
-        ],
-        "neglected": [],
-        "crossProjectDeps": []
-      },
-      "cw-ukcaud-project-tracker": {
-        "state": "Active sprint ceremony automation tool with strong feature development but critical test coverage gap (7.5%) for mission-critical Jira analysis pipeline.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Add unit tests for data processing functions generating standup_blockers.json, standup_capacity.json, and standup_velocity.json (mock Jira API responses, validate output schemas). Target 60%+ coverage on analysis modules.",
-            "effort": "M"
-          },
-          {
-            "priority": "MED",
-            "action": "Consolidate 5-day-old CHANGELOG-PENDING.md entries into CHANGELOG.md and tag a release to keep deployment history current with active development.",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Add pre-commit hook validation: block eod sync commits if test coverage drops below 50% threshold (enforce via .husky/ or custom git hooks).",
-            "effort": "M"
-          }
-        ],
-        "qualityIssues": [
-          "Only 3 test files covering 40 source files (7.5% coverage) — critical gap for automation that processes sprint metrics and feeds downstream systems",
-          "CHANGELOG-PENDING.md entries stale for 5 days — release process not synchronized with active development cadence"
-        ],
-        "neglected": [],
-        "crossProjectDeps": [
-          "Feedback widget URL points to productivity-tool.replit.app (external dependency on Productivity Tool project)",
-          "Standup analysis outputs (blockers, capacity, velocity caches) consumed by ceremony-prep system — silent failures in processing could propagate downstream"
-        ]
-      },
-      "cw-ukjpd-workflows": {
-        "state": "Active documentation project with recent deployment config updates; pending changelog entries violate post-commit-doc-cleanup hook.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Consolidate CHANGELOG-PENDING.md (6 entries, 12 days old) into CHANGELOG.md and delete pending file per post-commit-doc-cleanup enforcement",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Verify feedback widget URL stabilization — recent commits show auth gate added then removed (73d6b80→88b5e02), then URL updated (fb78a8c). Confirm config is production-ready.",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "CHANGELOG-PENDING.md outdated 12 days (6 unpublished entries) — violates documented post-commit-doc-cleanup hook"
-        ],
-        "neglected": [],
-        "crossProjectDeps": [
-          "Feedback widget now depends on productivity-tool.replit.app (recent update fb78a8c); verify this is deployed and stable before proceeding"
-        ]
-      },
-      "yearly-reviews": {
-        "state": "Newly initialized project (5 days old) with baseline structure but no documentation or test coverage.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Create README.md documenting purpose, structure, setup instructions, and workflow for the yearly review process",
-            "effort": "M"
-          },
-          {
-            "priority": "MED",
-            "action": "Plan test structure and CI/CD config from ~/Documents/dotfiles/templates/ once core functionality is scoped",
-            "effort": "M"
-          }
-        ],
-        "qualityIssues": [],
-        "neglected": [],
-        "crossProjectDeps": []
-      },
-      "cw-uat-testing-tool": {
-        "state": "Active small project (1 source file, 0 tests) with recent feature commits and unresolved changelog entries blocking pre-commit compliance.",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Consolidate CHANGELOG-PENDING.md (6 entries, 12 days old) into CHANGELOG.md per pre-commit hook policy documented in CLAUDE.md, then commit with `chore: consolidate changelog`.",
-            "effort": "S"
-          },
-          {
-            "priority": "MED",
-            "action": "Add test file(s) or document why a UAT testing tool has zero tests. If tests are genuinely not applicable, add a note to the .claude config explaining the test strategy.",
-            "effort": "M"
-          },
-          {
-            "priority": "LOW",
-            "action": "Update project phase from 'Done' to 'Active' — last commit (2026-04-19) shows ongoing feature development, not completion.",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "changelog-pending: 6 unpublished entries (12 days old) violate documented pre-commit consolidation policy",
-          "Pre-commit hook bypass: commits were allowed despite pending changelog (hook enforcement may be misconfigured or not running in this repo)"
-        ],
-        "neglected": [],
-        "crossProjectDeps": [
-          "Feedback widget points to productivity-tool.replit.app — verify that deployment target is active and stable"
-        ]
-      },
-      "ai-breaking-news-tool": {
-        "state": "AI Breaking News Tool is operational (marked Done) with recent active development (password auth gate, .replit config fixes), small codebase (3 source files), zero test coverage, and a 13-day unpublished changelog backlog (20 entries).",
-        "suggestions": [
-          {
-            "priority": "HIGH",
-            "action": "Consolidate CHANGELOG-PENDING.md (20 entries, 13 days old) into CHANGELOG.md per documented pre-commit hook workflow, then delete pending file to restore compliance.",
-            "effort": "S"
-          },
-          {
-            "priority": "HIGH",
-            "action": "Add test coverage for scripts/scrape-gnews.js — currently 0 test files for a live scraper that feeds the command center; add unit tests for session-based and RSS-fallback flows.",
-            "effort": "M"
-          },
-          {
-            "priority": "MED",
-            "action": "Verify eod-sync automation is respecting pre-commit hooks — automated commits are active but changelog consolidation hook is not firing; check if automation bypasses git hooks.",
-            "effort": "S"
-          }
-        ],
-        "qualityIssues": [
-          "Zero test files for a production scraper — scripts/scrape-gnews.js has session management and dual-path logic (Google News + RSS fallback) with no automated verification",
-          "Changelog workflow violation — CHANGELOG-PENDING.md has 20 entries aged 13 days; should have been consolidated per documented pre-commit hook before recent commits"
-        ],
-        "neglected": [],
-        "crossProjectDeps": [
-          "Feeds Productivity Tool command center (localhost:3002) — news scraper output is consumed downstream; scraper breaks would halt command center news display"
-        ]
-      }
-    },
-    "globalInsights": [
-      "This is a minimal infrastructure/scaffolding layer optimized for Replit hosting, not a full source repository — code lives in the IDE and config changes are what get committed.",
-      "Auth strategy recently settled (Replit native privacy preferred over custom middleware), but financial-grade validation platform requires test coverage foundation before feature expansion.",
-      "Deployment readiness is blocked by missing tests; recent commits show reactive fixes rather than feature work.",
-      "Part of UKCAUD initiative; early test coverage here unblocks downstream spec management workflows.",
-      "Pure sync-as-infrastructure with zero test coverage—adding validation rules and integration tests will prevent silent config corruption across machines.",
-      "Early-stage web apps often defer testing for speed; this 6-file project should establish testing pattern now before growth accelerates, especially with recent auth additions.",
-      "Presentation/materials projects need explicit documentation (README) and commit discipline more than code projects — pending changes suggest ongoing refinement without version control updates.",
-      "Small but actively developed project with infrastructure work (Groq integration) outpacing test coverage; typical early-phase pattern but testing investment needed before user sessions go live.",
-      "New documentation-only project needs immediate structural scaffolding; prioritize CLAUDE.md + directory layout before content authoring.",
-      "New Caseware onboarding initiative complements AI Breaking News Tool and Productivity Tool; establish cross-project content syndication early if materials should appear in multiple places.",
-      "Activepieces is in pre-development limbo; immediate setup work (package.json, tsconfig, CLAUDE.md) required before any feature implementation can begin.",
-      "Portfolio pattern: Caseware audit/compliance projects in Building phase across multiple domains (UKCAS, UKCAUD) suggest coordinated compliance workflow rollout.",
-      "Project is in stabilization mode post-deployment with accumulating build workarounds, but test coverage and state cleanliness must be restored before resuming feature development.",
-      "Recent security improvements (custom auth → Replit privacy, financial data cleanup) show good judgment, but absence of tests undermines confidence in those changes.",
-      "Continuous eod sync pipeline generates ceremony intelligence; lack of test coverage on analysis modules creates silent failure risk in sprint metric accuracy.",
-      "Project is in active deployment refinement phase with configuration-heavy commits suggesting automation is being hardened for production use.",
-      "Small, active UAT tool with documentation debt (changelog) and no automated tests; verify hook enforcement is enabled.",
-      "eod-sync automation is bypassing or not triggering the documented changelog consolidation hook — suggests pre-commit enforcement may not be wired for automated commit workflows."
-    ],
-    "topPriorityAction": "[CW UKJPD Workflows] Consolidate pending changelog"
-  },
-  "priorityInbox": {
-    "urgent": [],
-    "aiSuggested": [],
-    "today": [],
-    "backlog": []
-  },
-  "aiNewsResults": {
-    "lastRun": "2026-04-12T22:05:36.720Z",
-    "topStories": [
-      {
-        "title": "Anthropic Claude 3.5 Advanced Kit",
-        "summary": "GitHub Trending (2 hours ago). Comprehensive toolkit for building agentic systems. 8.2k stars, 145 forks. Featured in ai-starter-kit repo.",
-        "url": "https://github.com/anthropics"
-      },
-      {
-        "title": "OpenAI GPT-4 Vision Fine-tuning",
-        "summary": "GitHub (yesterday). Native support for vision task adaptation and multi-modal learning. 6.7k stars."
-      },
-      {
-        "title": "Show HN: MCP Protocol Debugger",
-        "summary": "Hacker News (312 points). Standalone tool for testing Model Context Protocol implementations, debugging workflows.",
-        "url": "https://news.ycombinator.com"
-      },
-      {
-        "title": "Agents Are the Future of Software",
-        "summary": "Hacker News (687 points). Discussion on agentic architectures and reasoning strategies from Anthropic CTO.",
-        "url": "https://news.ycombinator.com"
-      },
-      {
-        "title": "How I Built an Autonomous Research Agent",
-        "summary": "Reddit r/ClaudeAI (428 upvotes). Practical guide to multi-agent research systems using Claude APIs.",
-        "url": "https://reddit.com/r/ClaudeAI"
-      },
-      {
-        "title": "MCP Server Showcase",
-        "summary": "Reddit r/mcp (156 upvotes). Community sharing custom MCP tools and integrations.",
-        "url": "https://reddit.com/r/mcp"
-      },
-      {
-        "title": "Anthropic Raises Series C at $20B Valuation",
-        "summary": "TechCrunch (today). Major funding round accelerates agent research and MCP infrastructure.",
-        "url": "https://techcrunch.com"
-      },
-      {
-        "title": "Microsoft Expands Copilot Enterprise Features",
-        "summary": "The Verge (today). New capabilities for org-wide AI deployment and governance.",
-        "url": "https://theverge.com"
-      },
-      {
-        "title": "AI Trends: +920% Search Interest in AI Agents",
-        "summary": "Google Trends (this week). Breakout keywords: \"AI Agents\" (+920%), \"Model Context Protocol\" (+740%), \"Agentic workflow\" (+560%).",
-        "url": "https://trends.google.com"
-      },
-      {
-        "title": "Frontier Model Reliability Benchmarking",
-        "summary": "DeepLearning.ai (today). New course on measuring real-world AI system reliability.",
-        "url": "https://deeplearning.ai"
-      }
-    ],
-    "suggestions": [],
-    "internalIntel": {
-      "teamsChannels": [
-        {
-          "title": "Multi-agent Contract Review System",
-          "summary": "Sarah Chen prototyping automated contract analysis using Claude APIs. Early results show 40% faster turnaround vs manual review. Team seeking collaborators for compliance module.",
-          "sourceType": "teams",
-          "url": "https://teams.microsoft.com/l/channel/ai-innovation-lab"
-        },
-        {
-          "title": "Batch API Cost Optimization",
-          "summary": "Jamie Rodriguez tested Claude Batch API for compliance analysis pipeline. Results: 65% cost reduction vs real-time. Presenting findings at Data Science Guild standup this week.",
-          "sourceType": "teams",
-          "url": "https://teams.microsoft.com/l/channel/data-science-guild"
-        },
-        {
-          "title": "RAG with Internal Knowledge Base",
-          "summary": "Marcus Wong discussing domain-specific retrieval using Claude + Confluence CQL. 100 docs indexed, performance solid. 6 responses.",
-          "sourceType": "teams",
-          "url": "https://teams.microsoft.com/l/channel/ml-center"
-        },
-        {
-          "title": "Workpaper Generation Automation",
-          "summary": "Alex Thompson exploring Claude SDK for automated audit workpaper generation. Balance sheet tie-offs working, expanding to multi-workpaper coordination. 12 replies.",
-          "sourceType": "teams",
-          "url": "https://teams.microsoft.com/l/channel/caseware-advanced-tools"
-        }
-      ],
-      "confluencePages": [
-        {
-          "title": "AI Strategy Roadmap Q2-Q3",
-          "summary": "Multi-agent orchestration for client engagement workflows. MCP integration for tool extensibility. Budget approved, kickoff scheduled. Created 2 hours ago.",
-          "sourceType": "confluence",
-          "url": "https://confluence.caseware.com/ai-strategy-q2-q3"
-        },
-        {
-          "title": "Claude SDK Integration Patterns",
-          "summary": "New documentation section: Error Recovery in Agentic Workflows. Code examples, best practices. Last updated 3 hours ago.",
-          "sourceType": "confluence",
-          "url": "https://confluence.caseware.com/claude-sdk-patterns"
-        },
-        {
-          "title": "Compliance Automation Feasibility Study",
-          "summary": "Claude + MCP achieves 92% accuracy on routine compliance items. ROI analysis shows break-even by month 4. Updated 5 hours ago.",
-          "sourceType": "confluence",
-          "url": "https://confluence.caseware.com/compliance-feasibility"
-        },
-        {
-          "title": "Q2 AI Product Roadmap",
-          "summary": "Copilot integration for engagement letters, WIP scheduling, variance analysis. Engineering consensus on feasibility. Created 1 hour ago.",
-          "sourceType": "confluence",
-          "url": "https://confluence.caseware.com/q2-roadmap"
-        }
-      ],
-      "newsletterHighlights": [
-        {
-          "title": "The Neuron Weekly #128",
-          "summary": "Frontier Model Reliability: Benchmarking Real-World Performance across production systems and use cases—focus on measuring actual reliability metrics. [Read](https://theneurondaily.com)",
-          "sourceType": "newsletter"
-        },
-        {
-          "title": "Pragmatic Engineer",
-          "summary": "Building AI Teams: Scaling from POC to Production—case studies of 1→20 person AI team growth and organizational patterns. [Read](https://newsletter.pragmaticengineer.com)",
-          "sourceType": "newsletter"
-        },
-        {
-          "title": "deeplearning.ai",
-          "summary": "New Course: Building with Agents—covering agent architectures, MCP patterns, error handling, and production deployment lessons. [Read](https://deeplearning.ai/courses)",
-          "sourceType": "newsletter"
-        },
-        {
-          "title": "Caseware Internal – Product Updates",
-          "summary": "Q2 AI Priorities & Resource Allocation approved: Copilot SDK integration, MCP infrastructure budget, AI Integration team hiring. [Read](https://internal.caseware.com/product-updates)",
-          "sourceType": "newsletter"
-        },
-        {
-          "title": "ben's bites",
-          "summary": "The AI Ops Stack: Tools That Actually Work—operational frameworks companies adopting for production AI systems. [Read](https://bensbites.com)",
-          "sourceType": "newsletter"
-        }
-      ]
-    }
-  }
+﻿{
+    "overnightAnalysis":  {
+                              "generatedAt":  "2026-04-20T08:23:06.206Z",
+                              "durationMs":  763082,
+                              "model":  "tiered (haiku/sonnet)",
+                              "estimatedCostUsd":  0.0516,
+                              "estimatedInputTokens":  12431,
+                              "estimatedOutputTokens":  10420,
+                              "budgetLimit":  5,
+                              "budgetLimitReached":  false,
+                              "projectsScanned":  21,
+                              "projectsWithFindings":  20,
+                              "projectsProcessedByLLM":  20,
+                              "kanbanCardsPushed":  0,
+                              "kanbanCardsPending":  34,
+                              "projects":  {
+                                               "ukcaud-ai-project":  {
+                                                                         "state":  "Early-stage Replit scaffolding project with minimal git tracking and active deployment configuration work, but fundamental tooling gaps suggest code is primarily in the Replit IDE rather than version control.",
+                                                                         "suggestions":  [
+                                                                                             {
+                                                                                                 "priority":  "HIGH",
+                                                                                                 "action":  "Commit package.json to git immediately. Recent commits reference \u0027dev mode for Next.js\u0027 but no package.json is tracked â€” this breaks reproducibility and dependency auditing. Extract it from Replit and commit.",
+                                                                                                 "effort":  "S"
+                                                                                             },
+                                                                                             {
+                                                                                                 "priority":  "HIGH",
+                                                                                                 "action":  "Create CLAUDE.md documenting: (1) Replit deployment process, (2) feedback widget integration pattern, (3) how other projects consume this widget. Only 1 source file is tracked; context file will clarify intent.",
+                                                                                                 "effort":  "S"
+                                                                                             },
+                                                                                             {
+                                                                                                 "priority":  "MED",
+                                                                                                 "action":  "Establish test directory structure and add one smoke test for the feedback widget endpoint. Zero test files despite \u0027application\u0027 label suggests testing was deferred at project start.",
+                                                                                                 "effort":  "M"
+                                                                                             }
+                                                                                         ],
+                                                                         "qualityIssues":  [
+                                                                                               "package.json missing from git despite Node.js tooling in commit history (\u0027dev mode for Next.js\u0027)",
+                                                                                               "Test coverage is 0/N â€” no test files present in active project",
+                                                                                               "Only 1 source file tracked in git; likely incomplete sync from Replit IDE to version control"
+                                                                                           ],
+                                                                         "neglected":  [
+                                                                                           "Testing infrastructure not initialized (0 test files)",
+                                                                                           "Application source code minimal or unsynced from development environment"
+                                                                                       ],
+                                                                         "crossProjectDeps":  [
+                                                                                                  "Feedback widget integrates with \u0027productivity-tool.replit.app\u0027 (separate project) per commit 18ed11f"
+                                                                                              ]
+                                                                     },
+                                               "cw-lead-schedule-specifications":  {
+                                                                                       "state":  "54-file spec validator in active development but completely untested, with 26 pending changelog entries accumulated over 12 days.",
+                                                                                       "suggestions":  [
+                                                                                                           {
+                                                                                                               "priority":  "HIGH",
+                                                                                                               "action":  "Establish test suite baseline for spec validation logic: start with smoke tests for Excel parsing and core validation rules. Target 60%+ coverage on data-path code using Jest/Vitest.",
+                                                                                                               "effort":  "M"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "priority":  "MED",
+                                                                                                               "action":  "Consolidate 26 CHANGELOG-PENDING.md entries into CHANGELOG.md and verify pre-commit hooks are installed and enforced per ~/.claude/rules/common/git-workflow.md hooks section.",
+                                                                                                               "effort":  "S"
+                                                                                                           }
+                                                                                                       ],
+                                                                                       "qualityIssues":  [
+                                                                                                             "54 source files with zero test coverage â€” critical risk for financial spec validation logic",
+                                                                                                             "CHANGELOG-PENDING.md backlog (26 entries, 12 days old) indicates pre-commit hook not enforcing consolidation"
+                                                                                                         ],
+                                                                                       "neglected":  [
+                                                                                                         "Test suite completely absent across entire codebase â€” no unit, integration, or end-to-end tests"
+                                                                                                     ],
+                                                                                       "crossProjectDeps":  [
+                                                                                                                "Feedback widget hardcoded to productivity-tool.replit.app â€” project availability is a runtime dependency"
+                                                                                                            ]
+                                                                                   },
+                                               "cw-release-notes-tool":  {
+                                                                             "state":  "Active development with recent deployment focus, but zero test coverage and 12-day changelog backlog pose readiness risk.",
+                                                                             "suggestions":  [
+                                                                                                 {
+                                                                                                     "priority":  "HIGH",
+                                                                                                     "action":  "Add test suite for 11 source files (jest or vitest). Start with critical paths (release notes rendering, data transformation). Target 60%+ coverage before next deploy.",
+                                                                                                     "effort":  "L"
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "priority":  "MED",
+                                                                                                     "action":  "Consolidate CHANGELOG-PENDING.md (6 entries, 12 days old) into CHANGELOG.md per hooks discipline. This aligns with your documentation-with-commits rule.",
+                                                                                                     "effort":  "S"
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "priority":  "MED",
+                                                                                                     "action":  "Verify package.json exists if Node.js-based (Replit suggests it is). If absent, create it with dependencies; if intentionally omitted, document why in README.",
+                                                                                                     "effort":  "S"
+                                                                                                 }
+                                                                                             ],
+                                                                             "qualityIssues":  [
+                                                                                                   "Zero test files on 11 source files (0% coverage)",
+                                                                                                   "CHANGELOG-PENDING.md backlog (6 entries, 12 days) violates doc-with-commits discipline"
+                                                                                               ],
+                                                                             "neglected":  [
+
+                                                                                           ],
+                                                                             "crossProjectDeps":  [
+                                                                                                      "Feedback widget now points to productivity-tool.replit.app â€” verify that project remains stable"
+                                                                                                  ]
+                                                                         },
+                                               "ukcaud-spec-studio":  {
+                                                                          "state":  "Freshly scaffolded (2 days ago) with initial structure; 8 source files, zero test files, no CLAUDE.md context.",
+                                                                          "suggestions":  [
+                                                                                              {
+                                                                                                  "priority":  "HIGH",
+                                                                                                  "action":  "Establish TDD baseline for spec parsing engine: write integration tests for form-to-spec reverse-engineering logic (happy path + error cases) before feature expansion. Use Jest or Playwright depending on test scope.",
+                                                                                                  "effort":  "M"
+                                                                                              },
+                                                                                              {
+                                                                                                  "priority":  "MED",
+                                                                                                  "action":  "Create CLAUDE.md documenting architecture decisions (spec parsing strategy, form schema storage), dependency on caseware/code, and CI test requirements.",
+                                                                                                  "effort":  "S"
+                                                                                              }
+                                                                                          ],
+                                                                          "qualityIssues":  [
+                                                                                                "Zero test coverage for 8 source files â€” no safety net for refactoring as reverse-engineering logic expands"
+                                                                                            ],
+                                                                          "neglected":  [
+
+                                                                                        ],
+                                                                          "crossProjectDeps":  [
+                                                                                                   "Reverse-depends on caseware/code for SE Builder form schemas to parse",
+                                                                                                   "Phase 1.5 UKCAUD â†” UKCAUS sync workflow blocked pending DIST admin; Spec Studio stability is prerequisite"
+                                                                                               ]
+                                                                      },
+                                               "dotfiles-publish":  {
+                                                                        "state":  "Active sync utility with 42 files but zero test coverage; all recent commits are automated configuration synchronizations from UK-PW0B2H3M.",
+                                                                        "suggestions":  [
+                                                                                            {
+                                                                                                "priority":  "HIGH",
+                                                                                                "action":  "Add integration tests for the sync mechanism: verify config files are correctly synced from source, detect merge conflicts, and validate that all 42 files maintain integrity across machines. Critical for a cross-machine config tool.",
+                                                                                                "effort":  "M"
+                                                                                            },
+                                                                                            {
+                                                                                                "priority":  "HIGH",
+                                                                                                "action":  "Create project CLAUDE.md defining: sync targets (machine list), validation rules, conflict resolution strategy, and rollback procedures. This will guide maintenance and prevent silent configuration failures.",
+                                                                                                "effort":  "S"
+                                                                                            },
+                                                                                            {
+                                                                                                "priority":  "MED",
+                                                                                                "action":  "Document the 42-file architecture: map which files control Claude Code vs VS Code vs Git, add a README explaining sync flow, and flag dependencies between files to prevent partial syncs.",
+                                                                                                "effort":  "M"
+                                                                                            }
+                                                                                        ],
+                                                                        "qualityIssues":  [
+                                                                                              "Zero test coverage for configuration sync logic despite 42 source filesâ€”critical for a tool affecting multiple machines",
+                                                                                              "All commits are automated syncs with no manual validation; no evidence of semantic correctness checking",
+                                                                                              "No explicit conflict resolution, rollback mechanism, or validation rules visible in repository"
+                                                                                          ],
+                                                                        "neglected":  [
+                                                                                          "Test suite (0 files)",
+                                                                                          "Project-specific documentation beyond commit messages"
+                                                                                      ],
+                                                                        "crossProjectDeps":  [
+
+                                                                                             ]
+                                                                    },
+                                               "ai-work-presentation-tool":  {
+                                                                                 "state":  "Active Next.js web app with password-protected Replit deployment, recently shipped auth gate, but lacks test coverage and has 7 unpublished changelog entries pending consolidation.",
+                                                                                 "suggestions":  [
+                                                                                                     {
+                                                                                                         "priority":  "HIGH",
+                                                                                                         "action":  "Add test suite for Next.js API routes and core PPTX generation logic. Start with Jest + @testing-library for components, node test runner for server-side logic.",
+                                                                                                         "effort":  "M"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "HIGH",
+                                                                                                         "action":  "Consolidate CHANGELOG-PENDING.md (7 entries, 11 days old) into CHANGELOG.md per global hooks protocol, then commit.",
+                                                                                                         "effort":  "S"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "MED",
+                                                                                                         "action":  "Create CLAUDE.md documenting Replit password gate setup, environment variables, and dev/build workflow for future sessions.",
+                                                                                                         "effort":  "S"
+                                                                                                     }
+                                                                                                 ],
+                                                                                 "qualityIssues":  [
+                                                                                                       "Zero test files for 6 source files â€” no coverage for API routes, components, or presentation generation logic",
+                                                                                                       "CHANGELOG-PENDING.md has 7 unpublished entries after 11 days; consolidation process not being followed per hooks protocol"
+                                                                                                   ],
+                                                                                 "neglected":  [
+
+                                                                                               ],
+                                                                                 "crossProjectDeps":  [
+                                                                                                          "Likely depends on Caseware branding and Nova design system for PowerPoint theme â€” verify assets are accessible in deployment"
+                                                                                                      ]
+                                                                             },
+                                               "claude-onboarding-meeting":  {
+                                                                                 "state":  "Active presentation materials project with 13 uncommitted changes and missing core documentation (README).",
+                                                                                 "suggestions":  [
+                                                                                                     {
+                                                                                                         "priority":  "HIGH",
+                                                                                                         "action":  "Commit 13 pending file changes with descriptive message (e.g., \u0027feat: finalize onboarding materials and demos\u0027); maintain commit discipline for presentation projects",
+                                                                                                         "effort":  "S"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "HIGH",
+                                                                                                         "action":  "Add README.md documenting: (1) purpose of onboarding session, (2) contents of each file (presentation, IBP demo, user guide), (3) how to view/present materials, (4) any setup or viewer requirements",
+                                                                                                         "effort":  "S"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "MED",
+                                                                                                         "action":  "Add CLAUDE.md context file describing the onboarding session goals, presentation flow, and any dependencies on other projects (e.g., command center integration)",
+                                                                                                         "effort":  "S"
+                                                                                                     }
+                                                                                                 ],
+                                                                                 "qualityIssues":  [
+                                                                                                       "13 uncommitted changes 3 days after last commit â€” inconsistent version control discipline",
+                                                                                                       "No README documentation for presentation materials project â€” stakeholders cannot determine what content exists or how to access it"
+                                                                                                   ],
+                                                                                 "neglected":  [
+
+                                                                                               ],
+                                                                                 "crossProjectDeps":  [
+
+                                                                                                      ]
+                                                                             },
+                                               "claude-mobile":  {
+                                                                     "state":  "claude-mobile is actively building with recent Groq Whisper integration, but lacks test coverage and has 11 days of unpublished changelog entries.",
+                                                                     "suggestions":  [
+                                                                                         {
+                                                                                             "priority":  "HIGH",
+                                                                                             "action":  "Add unit and integration tests for the 6 source files (server, WebSocket handlers, session management). Start with critical paths: Express routes and session persistence.",
+                                                                                             "effort":  "M"
+                                                                                         },
+                                                                                         {
+                                                                                             "priority":  "HIGH",
+                                                                                             "action":  "Consolidate CHANGELOG-PENDING.md (11 entries, 11 days old) into CHANGELOG.md under a new version header to restore release clarity.",
+                                                                                             "effort":  "S"
+                                                                                         },
+                                                                                         {
+                                                                                             "priority":  "MED",
+                                                                                             "action":  "Create CLAUDE.md with project phase, tech stack (Express, WebSocket, Groq Whisper), key files, and dev setup notes.",
+                                                                                             "effort":  "S"
+                                                                                         }
+                                                                                     ],
+                                                                     "qualityIssues":  [
+                                                                                           "0% test coverage on 6 source filesâ€”critical gap for a multi-session dashboard",
+                                                                                           "11-day-old unpublished changelog entries blocking version clarity and release readiness"
+                                                                                       ],
+                                                                     "neglected":  [
+
+                                                                                   ],
+                                                                     "crossProjectDeps":  [
+
+                                                                                          ]
+                                                                 },
+                                               "bondlw-programming-architecture":  {
+                                                                                       "state":  "Newly initialized Caseware documentation project; baseline files committed but zero content files created.",
+                                                                                       "suggestions":  [
+                                                                                                           {
+                                                                                                               "priority":  "HIGH",
+                                                                                                               "action":  "Create project-specific CLAUDE.md with scope (SDK/API documentation), planned content sections, and phase milestones for tracking",
+                                                                                                               "effort":  "S"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "priority":  "HIGH",
+                                                                                                               "action":  "Establish documentation directory structure (/docs/api/, /docs/architecture/, /docs/integration/) and write initial TOC",
+                                                                                                               "effort":  "M"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "priority":  "MED",
+                                                                                                               "action":  "Add .gitignore for docs build artifacts and baseline markdown templates for consistent reference formatting",
+                                                                                                               "effort":  "S"
+                                                                                                           }
+                                                                                                       ],
+                                                                                       "qualityIssues":  [
+                                                                                                             "Zero documentation files despite explicit SDK/API documentation purpose",
+                                                                                                             "Missing CLAUDE.md for project context, scope definition, and phase tracking"
+                                                                                                         ],
+                                                                                       "neglected":  [
+
+                                                                                                     ],
+                                                                                       "crossProjectDeps":  [
+                                                                                                                "Should coordinate with caseware/code repository for SDK/API accuracy and version alignment"
+                                                                                                            ]
+                                                                                   },
+                                               "ai-onboarding":  {
+                                                                     "state":  "Project initialized with baseline structure; no source content created yet, missing CLAUDE.md project context.",
+                                                                     "suggestions":  [
+                                                                                         {
+                                                                                             "priority":  "HIGH",
+                                                                                             "action":  "Create CLAUDE.md with project objectives, target audience (new joiners), curriculum outline, and publishing/deployment plan. Reference as template: the Productivity Tool\u0027s CLAUDE.md structure.",
+                                                                                             "effort":  "S"
+                                                                                         },
+                                                                                         {
+                                                                                             "priority":  "MED",
+                                                                                             "action":  "Define onboarding content roadmap: core modules (Claude tools, best practices), sequencing, and ownership. Prevents duplicated effort with existing company training materials.",
+                                                                                             "effort":  "M"
+                                                                                         },
+                                                                                         {
+                                                                                             "priority":  "MED",
+                                                                                             "action":  "Establish documentation template and directory structure (e.g., `/docs/modules/`, `/docs/guides/`) to standardize formatting before bulk content creation.",
+                                                                                             "effort":  "S"
+                                                                                         }
+                                                                                     ],
+                                                                     "qualityIssues":  [
+
+                                                                                       ],
+                                                                     "neglected":  [
+
+                                                                                   ],
+                                                                     "crossProjectDeps":  [
+                                                                                              "Clarify relationship to Productivity Tool\u0027s Today tabâ€”consider whether onboarding materials should be embedded or linked from dashboard."
+                                                                                          ]
+                                                                 },
+                                               "activepieces":  {
+                                                                    "state":  "Activepieces repository initialized 5 days ago with baseline files onlyâ€”no source code, tests, package.json, or CLAUDE.md yet committed.",
+                                                                    "suggestions":  [
+                                                                                        {
+                                                                                            "priority":  "HIGH",
+                                                                                            "action":  "Create package.json with dependencies (Node runtime, build tools, linter, test framework) and establish directory structure (src/, tests/, scripts/, etc.)",
+                                                                                            "effort":  "S"
+                                                                                        },
+                                                                                        {
+                                                                                            "priority":  "HIGH",
+                                                                                            "action":  "Write CLAUDE.md documenting project phase, architecture decisions, integration strategy (280+ integrations), and deployment model",
+                                                                                            "effort":  "S"
+                                                                                        },
+                                                                                        {
+                                                                                            "priority":  "MED",
+                                                                                            "action":  "Set up GitHub Actions CI workflow (ESLint, TypeScript strict mode, test coverage gate at 80%+) and pre-commit hooks",
+                                                                                            "effort":  "M"
+                                                                                        }
+                                                                                    ],
+                                                                    "qualityIssues":  [
+                                                                                          "Zero source and test filesâ€”project structure not established",
+                                                                                          "Missing package.jsonâ€”dependency and script definitions undefined",
+                                                                                          "No type safety configuration visibleâ€”tsconfig.json absent"
+                                                                                      ],
+                                                                    "neglected":  [
+                                                                                      "Development halted after initialization; 5 days without commits suggests setup phase stalled"
+                                                                                  ],
+                                                                    "crossProjectDeps":  [
+
+                                                                                         ]
+                                                                },
+                                               "ukcaud-authoring-agent-spec-layer":  {
+                                                                                         "state":  "Building phase project with 36 source files but zero test coverage; last active 5 days ago.",
+                                                                                         "suggestions":  [
+                                                                                                             {
+                                                                                                                 "priority":  "HIGH",
+                                                                                                                 "action":  "Establish baseline test coverage for the 36 source filesâ€”audit and compliance automation workflows require safety nets. Start with unit tests for the core agent spec layer and critical path logic.",
+                                                                                                                 "effort":  "M"
+                                                                                                             },
+                                                                                                             {
+                                                                                                                 "priority":  "MED",
+                                                                                                                 "action":  "Create CLAUDE.md with project context (tech stack, key directories, testing strategy) to unblock future Claude-assisted work and document conventions.",
+                                                                                                                 "effort":  "S"
+                                                                                                             },
+                                                                                                             {
+                                                                                                                 "priority":  "MED",
+                                                                                                                 "action":  "Review recent commit cadenceâ€”single \u0027eod sync\u0027 visible suggests either active feature branches or parallel work not reflected in main. Consolidate or document branching strategy.",
+                                                                                                                 "effort":  "S"
+                                                                                                             }
+                                                                                                         ],
+                                                                                         "qualityIssues":  [
+                                                                                                               "36 source files with zero test filesâ€”no safety net for audit/compliance automation logic",
+                                                                                                               "No project context file; development guidelines and integration points undocumented"
+                                                                                                           ],
+                                                                                         "neglected":  [
+
+                                                                                                       ],
+                                                                                         "crossProjectDeps":  [
+                                                                                                                  "Part of Caseware UK audit ecosystem (UKCAUD/UKCAS); likely integrates with compliance pipelines and reverse-sync flows mentioned in active project notes"
+                                                                                                              ]
+                                                                                     },
+                                               "productivity-tool":  {
+                                                                         "state":  "Next.js 14 dashboard in post-deployment stabilization with 1% test coverage, 5 uncommitted changes, and build configuration fragility.",
+                                                                         "suggestions":  [
+                                                                                             {
+                                                                                                 "priority":  "HIGH",
+                                                                                                 "action":  "Commit or revert 5 uncommitted file changes immediately â€” per execution discipline rules, no half-finished implementations allowed.",
+                                                                                                 "effort":  "S"
+                                                                                             },
+                                                                                             {
+                                                                                                 "priority":  "HIGH",
+                                                                                                 "action":  "Establish test suite: 93 source files with only 1 test file violates the 80%+ coverage rule. Start with critical paths (data fetching, state management, key UI components) targeting 40%+ coverage as intermediate milestone.",
+                                                                                                 "effort":  "M"
+                                                                                             },
+                                                                                             {
+                                                                                                 "priority":  "MED",
+                                                                                                 "action":  "Consolidate CHANGELOG-PENDING.md (143 entries, 3 days old) into CHANGELOG.md per pre-commit hook requirements to restore clean state.",
+                                                                                                 "effort":  "S"
+                                                                                             }
+                                                                                         ],
+                                                                         "qualityIssues":  [
+                                                                                               "Catastrophic test coverage: 1/93 source files tested (1%)",
+                                                                                               "React 19 peer dependency conflict requiring --legacy-peer-deps workaround",
+                                                                                               "Build container path handling fragile: requires npm --prefix instead of native cd",
+                                                                                               "Deployment setup accumulating workarounds (Nix modules, NODE_ENV bypasses, bash login shells)"
+                                                                                           ],
+                                                                         "neglected":  [
+                                                                                           "Test suite: 92 source files untested",
+                                                                                           "Feature development: last 10 commits are all diagnostic/deployment fixes"
+                                                                                       ],
+                                                                         "crossProjectDeps":  [
+                                                                                                  "Depends on \u0027AI Breaking News Tool\u0027 for data pipeline â€” primer shows daily scrape workflow feeds localhost:3002"
+                                                                                              ]
+                                                                     },
+                                               "property-search-tool":  {
+                                                                            "state":  "94-file Next.js property search tool in active Review phase with recent auth/security improvements, but completely untestedâ€”critical gap for a data-handling system.",
+                                                                            "suggestions":  [
+                                                                                                {
+                                                                                                    "priority":  "HIGH",
+                                                                                                    "action":  "Create test infrastructure (Jest + Playwright) and write integration tests for scraping logic, financial filter validation, and auth flows. 94 untested files handling property/financial data is unsustainable.",
+                                                                                                    "effort":  "L"
+                                                                                                },
+                                                                                                {
+                                                                                                    "priority":  "MED",
+                                                                                                    "action":  "Consolidate CHANGELOG-PENDING.md (2 entries, 29 days stale) into CHANGELOG.md per project pre-commit hook workflow.",
+                                                                                                    "effort":  "S"
+                                                                                                }
+                                                                                            ],
+                                                                            "qualityIssues":  [
+                                                                                                  "Zero test files across 94 source files â€” no unit, integration, or E2E test coverage",
+                                                                                                  "CHANGELOG-PENDING.md entries unpublished for 29 days, changelog consolidation not enforced"
+                                                                                              ],
+                                                                            "neglected":  [
+
+                                                                                          ],
+                                                                            "crossProjectDeps":  [
+
+                                                                                                 ]
+                                                                        },
+                                               "cw-ukcaud-project-tracker":  {
+                                                                                 "state":  "Active sprint ceremony automation tool with strong feature development but critical test coverage gap (7.5%) for mission-critical Jira analysis pipeline.",
+                                                                                 "suggestions":  [
+                                                                                                     {
+                                                                                                         "priority":  "HIGH",
+                                                                                                         "action":  "Add unit tests for data processing functions generating standup_blockers.json, standup_capacity.json, and standup_velocity.json (mock Jira API responses, validate output schemas). Target 60%+ coverage on analysis modules.",
+                                                                                                         "effort":  "M"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "MED",
+                                                                                                         "action":  "Consolidate 5-day-old CHANGELOG-PENDING.md entries into CHANGELOG.md and tag a release to keep deployment history current with active development.",
+                                                                                                         "effort":  "S"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "priority":  "MED",
+                                                                                                         "action":  "Add pre-commit hook validation: block eod sync commits if test coverage drops below 50% threshold (enforce via .husky/ or custom git hooks).",
+                                                                                                         "effort":  "M"
+                                                                                                     }
+                                                                                                 ],
+                                                                                 "qualityIssues":  [
+                                                                                                       "Only 3 test files covering 40 source files (7.5% coverage) â€” critical gap for automation that processes sprint metrics and feeds downstream systems",
+                                                                                                       "CHANGELOG-PENDING.md entries stale for 5 days â€” release process not synchronized with active development cadence"
+                                                                                                   ],
+                                                                                 "neglected":  [
+
+                                                                                               ],
+                                                                                 "crossProjectDeps":  [
+                                                                                                          "Feedback widget URL points to productivity-tool.replit.app (external dependency on Productivity Tool project)",
+                                                                                                          "Standup analysis outputs (blockers, capacity, velocity caches) consumed by ceremony-prep system â€” silent failures in processing could propagate downstream"
+                                                                                                      ]
+                                                                             },
+                                               "cw-ukjpd-workflows":  {
+                                                                          "state":  "Active documentation project with recent deployment config updates; pending changelog entries violate post-commit-doc-cleanup hook.",
+                                                                          "suggestions":  [
+                                                                                              {
+                                                                                                  "priority":  "HIGH",
+                                                                                                  "action":  "Consolidate CHANGELOG-PENDING.md (6 entries, 12 days old) into CHANGELOG.md and delete pending file per post-commit-doc-cleanup enforcement",
+                                                                                                  "effort":  "S"
+                                                                                              },
+                                                                                              {
+                                                                                                  "priority":  "MED",
+                                                                                                  "action":  "Verify feedback widget URL stabilization â€” recent commits show auth gate added then removed (73d6b80â†’88b5e02), then URL updated (fb78a8c). Confirm config is production-ready.",
+                                                                                                  "effort":  "S"
+                                                                                              }
+                                                                                          ],
+                                                                          "qualityIssues":  [
+                                                                                                "CHANGELOG-PENDING.md outdated 12 days (6 unpublished entries) â€” violates documented post-commit-doc-cleanup hook"
+                                                                                            ],
+                                                                          "neglected":  [
+
+                                                                                        ],
+                                                                          "crossProjectDeps":  [
+                                                                                                   "Feedback widget now depends on productivity-tool.replit.app (recent update fb78a8c); verify this is deployed and stable before proceeding"
+                                                                                               ]
+                                                                      },
+                                               "yearly-reviews":  {
+                                                                      "state":  "Newly initialized project (5 days old) with baseline structure but no documentation or test coverage.",
+                                                                      "suggestions":  [
+                                                                                          {
+                                                                                              "priority":  "HIGH",
+                                                                                              "action":  "Create README.md documenting purpose, structure, setup instructions, and workflow for the yearly review process",
+                                                                                              "effort":  "M"
+                                                                                          },
+                                                                                          {
+                                                                                              "priority":  "MED",
+                                                                                              "action":  "Plan test structure and CI/CD config from ~/Documents/dotfiles/templates/ once core functionality is scoped",
+                                                                                              "effort":  "M"
+                                                                                          }
+                                                                                      ],
+                                                                      "qualityIssues":  [
+
+                                                                                        ],
+                                                                      "neglected":  [
+
+                                                                                    ],
+                                                                      "crossProjectDeps":  [
+
+                                                                                           ]
+                                                                  },
+                                               "cw-uat-testing-tool":  {
+                                                                           "state":  "Active small project (1 source file, 0 tests) with recent feature commits and unresolved changelog entries blocking pre-commit compliance.",
+                                                                           "suggestions":  [
+                                                                                               {
+                                                                                                   "priority":  "HIGH",
+                                                                                                   "action":  "Consolidate CHANGELOG-PENDING.md (6 entries, 12 days old) into CHANGELOG.md per pre-commit hook policy documented in CLAUDE.md, then commit with `chore: consolidate changelog`.",
+                                                                                                   "effort":  "S"
+                                                                                               },
+                                                                                               {
+                                                                                                   "priority":  "MED",
+                                                                                                   "action":  "Add test file(s) or document why a UAT testing tool has zero tests. If tests are genuinely not applicable, add a note to the .claude config explaining the test strategy.",
+                                                                                                   "effort":  "M"
+                                                                                               },
+                                                                                               {
+                                                                                                   "priority":  "LOW",
+                                                                                                   "action":  "Update project phase from \u0027Done\u0027 to \u0027Active\u0027 â€” last commit (2026-04-19) shows ongoing feature development, not completion.",
+                                                                                                   "effort":  "S"
+                                                                                               }
+                                                                                           ],
+                                                                           "qualityIssues":  [
+                                                                                                 "changelog-pending: 6 unpublished entries (12 days old) violate documented pre-commit consolidation policy",
+                                                                                                 "Pre-commit hook bypass: commits were allowed despite pending changelog (hook enforcement may be misconfigured or not running in this repo)"
+                                                                                             ],
+                                                                           "neglected":  [
+
+                                                                                         ],
+                                                                           "crossProjectDeps":  [
+                                                                                                    "Feedback widget points to productivity-tool.replit.app â€” verify that deployment target is active and stable"
+                                                                                                ]
+                                                                       },
+                                               "ai-breaking-news-tool":  {
+                                                                             "state":  "AI Breaking News Tool is operational (marked Done) with recent active development (password auth gate, .replit config fixes), small codebase (3 source files), zero test coverage, and a 13-day unpublished changelog backlog (20 entries).",
+                                                                             "suggestions":  [
+                                                                                                 {
+                                                                                                     "priority":  "HIGH",
+                                                                                                     "action":  "Consolidate CHANGELOG-PENDING.md (20 entries, 13 days old) into CHANGELOG.md per documented pre-commit hook workflow, then delete pending file to restore compliance.",
+                                                                                                     "effort":  "S"
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "priority":  "HIGH",
+                                                                                                     "action":  "Add test coverage for scripts/scrape-gnews.js â€” currently 0 test files for a live scraper that feeds the command center; add unit tests for session-based and RSS-fallback flows.",
+                                                                                                     "effort":  "M"
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "priority":  "MED",
+                                                                                                     "action":  "Verify eod-sync automation is respecting pre-commit hooks â€” automated commits are active but changelog consolidation hook is not firing; check if automation bypasses git hooks.",
+                                                                                                     "effort":  "S"
+                                                                                                 }
+                                                                                             ],
+                                                                             "qualityIssues":  [
+                                                                                                   "Zero test files for a production scraper â€” scripts/scrape-gnews.js has session management and dual-path logic (Google News + RSS fallback) with no automated verification",
+                                                                                                   "Changelog workflow violation â€” CHANGELOG-PENDING.md has 20 entries aged 13 days; should have been consolidated per documented pre-commit hook before recent commits"
+                                                                                               ],
+                                                                             "neglected":  [
+
+                                                                                           ],
+                                                                             "crossProjectDeps":  [
+                                                                                                      "Feeds Productivity Tool command center (localhost:3002) â€” news scraper output is consumed downstream; scraper breaks would halt command center news display"
+                                                                                                  ]
+                                                                         }
+                                           },
+                              "globalInsights":  [
+                                                     "This is a minimal infrastructure/scaffolding layer optimized for Replit hosting, not a full source repository â€” code lives in the IDE and config changes are what get committed.",
+                                                     "Auth strategy recently settled (Replit native privacy preferred over custom middleware), but financial-grade validation platform requires test coverage foundation before feature expansion.",
+                                                     "Deployment readiness is blocked by missing tests; recent commits show reactive fixes rather than feature work.",
+                                                     "Part of UKCAUD initiative; early test coverage here unblocks downstream spec management workflows.",
+                                                     "Pure sync-as-infrastructure with zero test coverageâ€”adding validation rules and integration tests will prevent silent config corruption across machines.",
+                                                     "Early-stage web apps often defer testing for speed; this 6-file project should establish testing pattern now before growth accelerates, especially with recent auth additions.",
+                                                     "Presentation/materials projects need explicit documentation (README) and commit discipline more than code projects â€” pending changes suggest ongoing refinement without version control updates.",
+                                                     "Small but actively developed project with infrastructure work (Groq integration) outpacing test coverage; typical early-phase pattern but testing investment needed before user sessions go live.",
+                                                     "New documentation-only project needs immediate structural scaffolding; prioritize CLAUDE.md + directory layout before content authoring.",
+                                                     "New Caseware onboarding initiative complements AI Breaking News Tool and Productivity Tool; establish cross-project content syndication early if materials should appear in multiple places.",
+                                                     "Activepieces is in pre-development limbo; immediate setup work (package.json, tsconfig, CLAUDE.md) required before any feature implementation can begin.",
+                                                     "Portfolio pattern: Caseware audit/compliance projects in Building phase across multiple domains (UKCAS, UKCAUD) suggest coordinated compliance workflow rollout.",
+                                                     "Project is in stabilization mode post-deployment with accumulating build workarounds, but test coverage and state cleanliness must be restored before resuming feature development.",
+                                                     "Recent security improvements (custom auth â†’ Replit privacy, financial data cleanup) show good judgment, but absence of tests undermines confidence in those changes.",
+                                                     "Continuous eod sync pipeline generates ceremony intelligence; lack of test coverage on analysis modules creates silent failure risk in sprint metric accuracy.",
+                                                     "Project is in active deployment refinement phase with configuration-heavy commits suggesting automation is being hardened for production use.",
+                                                     "Small, active UAT tool with documentation debt (changelog) and no automated tests; verify hook enforcement is enabled.",
+                                                     "eod-sync automation is bypassing or not triggering the documented changelog consolidation hook â€” suggests pre-commit enforcement may not be wired for automated commit workflows."
+                                                 ],
+                              "topPriorityAction":  "[CW UKJPD Workflows] Consolidate pending changelog"
+                          },
+    "priorityInbox":  {
+                          "urgent":  [
+
+                                     ],
+                          "aiSuggested":  [
+
+                                          ],
+                          "today":  [
+
+                                    ],
+                          "backlog":  [
+
+                                      ]
+                      },
+    "aiNewsResults":  {
+                          "lastRun":  "2026-04-12T22:05:36.720Z",
+                          "topStories":  [
+                                             {
+                                                 "title":  "Anthropic Claude 3.5 Advanced Kit",
+                                                 "summary":  "GitHub Trending (2 hours ago). Comprehensive toolkit for building agentic systems. 8.2k stars, 145 forks. Featured in ai-starter-kit repo.",
+                                                 "url":  "https://github.com/anthropics"
+                                             },
+                                             {
+                                                 "title":  "OpenAI GPT-4 Vision Fine-tuning",
+                                                 "summary":  "GitHub (yesterday). Native support for vision task adaptation and multi-modal learning. 6.7k stars."
+                                             },
+                                             {
+                                                 "title":  "Show HN: MCP Protocol Debugger",
+                                                 "summary":  "Hacker News (312 points). Standalone tool for testing Model Context Protocol implementations, debugging workflows.",
+                                                 "url":  "https://news.ycombinator.com"
+                                             },
+                                             {
+                                                 "title":  "Agents Are the Future of Software",
+                                                 "summary":  "Hacker News (687 points). Discussion on agentic architectures and reasoning strategies from Anthropic CTO.",
+                                                 "url":  "https://news.ycombinator.com"
+                                             },
+                                             {
+                                                 "title":  "How I Built an Autonomous Research Agent",
+                                                 "summary":  "Reddit r/ClaudeAI (428 upvotes). Practical guide to multi-agent research systems using Claude APIs.",
+                                                 "url":  "https://reddit.com/r/ClaudeAI"
+                                             },
+                                             {
+                                                 "title":  "MCP Server Showcase",
+                                                 "summary":  "Reddit r/mcp (156 upvotes). Community sharing custom MCP tools and integrations.",
+                                                 "url":  "https://reddit.com/r/mcp"
+                                             },
+                                             {
+                                                 "title":  "Anthropic Raises Series C at $20B Valuation",
+                                                 "summary":  "TechCrunch (today). Major funding round accelerates agent research and MCP infrastructure.",
+                                                 "url":  "https://techcrunch.com"
+                                             },
+                                             {
+                                                 "title":  "Microsoft Expands Copilot Enterprise Features",
+                                                 "summary":  "The Verge (today). New capabilities for org-wide AI deployment and governance.",
+                                                 "url":  "https://theverge.com"
+                                             },
+                                             {
+                                                 "title":  "AI Trends: +920% Search Interest in AI Agents",
+                                                 "summary":  "Google Trends (this week). Breakout keywords: \"AI Agents\" (+920%), \"Model Context Protocol\" (+740%), \"Agentic workflow\" (+560%).",
+                                                 "url":  "https://trends.google.com"
+                                             },
+                                             {
+                                                 "title":  "Frontier Model Reliability Benchmarking",
+                                                 "summary":  "DeepLearning.ai (today). New course on measuring real-world AI system reliability.",
+                                                 "url":  "https://deeplearning.ai"
+                                             }
+                                         ],
+                          "suggestions":  [
+
+                                          ],
+                          "internalIntel":  {
+                                                "teamsChannels":  [
+                                                                      {
+                                                                          "title":  "Multi-agent Contract Review System",
+                                                                          "summary":  "Sarah Chen prototyping automated contract analysis using Claude APIs. Early results show 40% faster turnaround vs manual review. Team seeking collaborators for compliance module.",
+                                                                          "sourceType":  "teams",
+                                                                          "url":  "https://teams.microsoft.com/l/channel/ai-innovation-lab"
+                                                                      },
+                                                                      {
+                                                                          "title":  "Batch API Cost Optimization",
+                                                                          "summary":  "Jamie Rodriguez tested Claude Batch API for compliance analysis pipeline. Results: 65% cost reduction vs real-time. Presenting findings at Data Science Guild standup this week.",
+                                                                          "sourceType":  "teams",
+                                                                          "url":  "https://teams.microsoft.com/l/channel/data-science-guild"
+                                                                      },
+                                                                      {
+                                                                          "title":  "RAG with Internal Knowledge Base",
+                                                                          "summary":  "Marcus Wong discussing domain-specific retrieval using Claude + Confluence CQL. 100 docs indexed, performance solid. 6 responses.",
+                                                                          "sourceType":  "teams",
+                                                                          "url":  "https://teams.microsoft.com/l/channel/ml-center"
+                                                                      },
+                                                                      {
+                                                                          "title":  "Workpaper Generation Automation",
+                                                                          "summary":  "Alex Thompson exploring Claude SDK for automated audit workpaper generation. Balance sheet tie-offs working, expanding to multi-workpaper coordination. 12 replies.",
+                                                                          "sourceType":  "teams",
+                                                                          "url":  "https://teams.microsoft.com/l/channel/caseware-advanced-tools"
+                                                                      }
+                                                                  ],
+                                                "confluencePages":  [
+                                                                        {
+                                                                            "title":  "AI Strategy Roadmap Q2-Q3",
+                                                                            "summary":  "Multi-agent orchestration for client engagement workflows. MCP integration for tool extensibility. Budget approved, kickoff scheduled. Created 2 hours ago.",
+                                                                            "sourceType":  "confluence",
+                                                                            "url":  "https://confluence.caseware.com/ai-strategy-q2-q3"
+                                                                        },
+                                                                        {
+                                                                            "title":  "Claude SDK Integration Patterns",
+                                                                            "summary":  "New documentation section: Error Recovery in Agentic Workflows. Code examples, best practices. Last updated 3 hours ago.",
+                                                                            "sourceType":  "confluence",
+                                                                            "url":  "https://confluence.caseware.com/claude-sdk-patterns"
+                                                                        },
+                                                                        {
+                                                                            "title":  "Compliance Automation Feasibility Study",
+                                                                            "summary":  "Claude + MCP achieves 92% accuracy on routine compliance items. ROI analysis shows break-even by month 4. Updated 5 hours ago.",
+                                                                            "sourceType":  "confluence",
+                                                                            "url":  "https://confluence.caseware.com/compliance-feasibility"
+                                                                        },
+                                                                        {
+                                                                            "title":  "Q2 AI Product Roadmap",
+                                                                            "summary":  "Copilot integration for engagement letters, WIP scheduling, variance analysis. Engineering consensus on feasibility. Created 1 hour ago.",
+                                                                            "sourceType":  "confluence",
+                                                                            "url":  "https://confluence.caseware.com/q2-roadmap"
+                                                                        }
+                                                                    ],
+                                                "newsletterHighlights":  [
+                                                                             {
+                                                                                 "title":  "The Neuron Weekly #128",
+                                                                                 "summary":  "Frontier Model Reliability: Benchmarking Real-World Performance across production systems and use casesâ€”focus on measuring actual reliability metrics. [Read](https://theneurondaily.com)",
+                                                                                 "sourceType":  "newsletter"
+                                                                             },
+                                                                             {
+                                                                                 "title":  "Pragmatic Engineer",
+                                                                                 "summary":  "Building AI Teams: Scaling from POC to Productionâ€”case studies of 1â†’20 person AI team growth and organizational patterns. [Read](https://newsletter.pragmaticengineer.com)",
+                                                                                 "sourceType":  "newsletter"
+                                                                             },
+                                                                             {
+                                                                                 "title":  "deeplearning.ai",
+                                                                                 "summary":  "New Course: Building with Agentsâ€”covering agent architectures, MCP patterns, error handling, and production deployment lessons. [Read](https://deeplearning.ai/courses)",
+                                                                                 "sourceType":  "newsletter"
+                                                                             },
+                                                                             {
+                                                                                 "title":  "Caseware Internal â€“ Product Updates",
+                                                                                 "summary":  "Q2 AI Priorities \u0026 Resource Allocation approved: Copilot SDK integration, MCP infrastructure budget, AI Integration team hiring. [Read](https://internal.caseware.com/product-updates)",
+                                                                                 "sourceType":  "newsletter"
+                                                                             },
+                                                                             {
+                                                                                 "title":  "ben\u0027s bites",
+                                                                                 "summary":  "The AI Ops Stack: Tools That Actually Workâ€”operational frameworks companies adopting for production AI systems. [Read](https://bensbites.com)",
+                                                                                 "sourceType":  "newsletter"
+                                                                             }
+                                                                         ]
+                                            }
+                      },
+    "teamMessages":  [
+
+                     ],
+    "flaggedEmails":  [
+
+                      ],
+    "flaggedEmailsFetchedAt":  "2026-04-21T08:45:20.1238942+01:00",
+    "calendar":  {
+                     "lastRefreshed":  "2026-04-21T08:45:23.3189052+01:00",
+                     "hasToken":  true,
+                     "today":  [
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                       "startTime":  "2026-04-21T10:15:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-21T10:30:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "UKCAUD - Stand-up - MS Teams "
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300024A75AA1C0000",
+                                       "startTime":  "2026-04-21T11:00:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-21T12:00:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "PM Weekly Meeting"
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                       "startTime":  "2026-04-21T12:00:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-21T13:00:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "Lunch"
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000549D27DD50000",
+                                       "startTime":  "2026-04-21T13:00:00.0000000",
+                                       "isFocusBlock":  true,
+                                       "endTime":  "2026-04-21T17:00:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "Focus time"
+                                   },
+                                   {
+                                       "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002ACDF6B380000",
+                                       "startTime":  "2026-04-21T16:15:00.0000000",
+                                       "isFocusBlock":  false,
+                                       "endTime":  "2026-04-21T17:00:00.0000000",
+                                       "isCompleted":  false,
+                                       "title":  "Following: SE Builder - bi-weekly demo"
+                                   }
+                               ],
+                     "weekAhead":  [
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                           "startTime":  "2026-04-22T10:15:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-22T10:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Stand-up - MS Teams "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0E350000",
+                                           "startTime":  "2026-04-22T10:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-22T11:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Sprint Retrospective - MS Teams"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000338ED31790000",
+                                           "startTime":  "2026-04-22T11:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-22T11:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UK - Release Readiness Meeting"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001E78F0E5E0000",
+                                           "startTime":  "2026-04-22T11:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-22T12:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Sprint Planning - MS Teams"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                           "startTime":  "2026-04-22T12:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-22T13:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Lunch"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000549D27DD60000",
+                                           "startTime":  "2026-04-22T13:00:00.0000000",
+                                           "isFocusBlock":  true,
+                                           "endTime":  "2026-04-22T17:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Focus time"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300056672ACD40000",
+                                           "startTime":  "2026-04-22T13:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-22T14:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Office Lunch "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                           "startTime":  "2026-04-23T10:15:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-23T10:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Stand-up - MS Teams "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002F332CC580000",
+                                           "startTime":  "2026-04-23T10:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-23T11:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Specifications Sync (Review Cards + Ask Questions) "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000359DB3F930000",
+                                           "startTime":  "2026-04-23T10:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-23T11:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Jason/ UK Product Monthly Catch Up"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                           "startTime":  "2026-04-23T12:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-23T13:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Lunch"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000549D27DD70000",
+                                           "startTime":  "2026-04-23T13:00:00.0000000",
+                                           "isFocusBlock":  true,
+                                           "endTime":  "2026-04-23T16:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Focus time"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000533025F1B0000",
+                                           "startTime":  "2026-04-23T16:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-23T17:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Claude Usage In Audit Specifications "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E83000549D27DD80000",
+                                           "startTime":  "2026-04-24T07:30:00.0000000",
+                                           "isFocusBlock":  true,
+                                           "endTime":  "2026-04-24T10:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Focus time"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                           "startTime":  "2026-04-24T10:15:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-24T10:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Stand-up - MS Teams "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                           "startTime":  "2026-04-24T12:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-24T13:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Lunch"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002D2E473650000",
+                                           "startTime":  "2026-04-24T14:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-24T15:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "AI Showcasing - Product"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300059C5F92080000",
+                                           "startTime":  "2026-04-24T16:05:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-24T16:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Craft: Claude Code Acceleration"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002A88098150000",
+                                           "startTime":  "2026-04-27T08:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-27T09:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Canceled: Sprint Review NL Cloud Team"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                           "startTime":  "2026-04-27T10:15:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-27T10:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Stand-up - MS Teams "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                           "startTime":  "2026-04-27T12:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-27T13:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Lunch"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300025B8E1E900000",
+                                           "startTime":  "2026-04-27T15:30:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-27T16:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UK Quarterly Roadmap Review"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830002A89285D90000",
+                                           "startTime":  "2026-04-27T19:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-27T20:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Following: North America Cloud Solutions bi-weekly sprint review/demo"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E830001F03E66E90000",
+                                           "startTime":  "2026-04-28T10:15:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-28T10:30:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "UKCAUD - Stand-up - MS Teams "
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300024A75AA1C0000",
+                                           "startTime":  "2026-04-28T11:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-28T12:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "PM Weekly Meeting"
+                                       },
+                                       {
+                                           "id":  "000000008CAEDC8608EABB42B0DC8601625DA04907004D982E7133CA544B97DE70BB0AF65E8300000000010D00004D982E7133CA544B97DE70BB0AF65E8300020EE8D9980000",
+                                           "startTime":  "2026-04-28T12:00:00.0000000",
+                                           "isFocusBlock":  false,
+                                           "endTime":  "2026-04-28T13:00:00.0000000",
+                                           "isCompleted":  false,
+                                           "title":  "Lunch"
+                                       }
+                                   ]
+                 }
 }
