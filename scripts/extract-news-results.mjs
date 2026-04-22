@@ -157,11 +157,11 @@ function parseInternalItems(sectionContent, sourceType) {
     let rest = match[2].trim();
 
     // Extract URL if present
-    const urlMatch = rest.match(/\[(?:Link|Open|View)\]\(([^)]+)\)/);
+    const urlMatch = rest.match(/\[(?:Link|Open|View|Read)\]\(([^)]+)\)/);
     const url = urlMatch ? urlMatch[1] : undefined;
 
     // Strip link from summary
-    const summary = rest.replace(/\s*\[(?:Link|Open|View)\]\([^)]+\)\s*/g, '').trim();
+    const summary = rest.replace(/\s*\[(?:Link|Open|View|Read)\]\([^)]+\)\s*/g, '').trim();
 
     items.push({ title, summary, sourceType, url });
   }

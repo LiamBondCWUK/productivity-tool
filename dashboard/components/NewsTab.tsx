@@ -6,10 +6,11 @@ import { RunButton, StatusBanner } from "./RunButton";
 import type {
   InternalIntelItem,
   InternalIntelligence,
+  PopularRepo,
   RecommendedInstall,
 } from "../types/dashboard";
 
-type TabId = "external" | "internal" | "suggestions";
+type TabId = "external" | "internal" | "suggestions" | "repos";
 
 interface TopStory {
   title: string;
@@ -24,6 +25,7 @@ interface NewsTabProps {
   suggestions?: string[];
   internalIntel?: InternalIntelligence;
   recommendedInstalls?: RecommendedInstall[];
+  popularRepos?: PopularRepo[];
   onMarkInstalled?: (id: string) => Promise<void>;
   onRefetch?: () => void;
 }
@@ -224,6 +226,7 @@ export function NewsTab({
   suggestions = [],
   internalIntel,
   recommendedInstalls = [],
+  popularRepos = [],
   onMarkInstalled,
   onRefetch,
 }: NewsTabProps) {
@@ -234,6 +237,12 @@ export function NewsTab({
   const handleRefreshNews = async () => {
     setShowResult(true);
     const result = await execute("refresh-news");
+    if (result.success) onRefetch?.();
+  };
+
+  const handleMorningScan = async () => {
+    setShowResult(true);
+    const result = await execute("ai-morning-scan");
     if (result.success) onRefetch?.();
   };
 
@@ -253,11 +262,8 @@ export function NewsTab({
   const tabs: Array<{ id: TabId; label: string; count: number }> = [
     { id: "external", label: "External", count: topStories.length },
     { id: "internal", label: "Internal", count: internalCount },
-    {
-      id: "suggestions",
-      label: "Suggestions",
-      count: pendingInstalls.length,
-    },
+    { id: "suggestions", label: "Suggestions", count: pendingInstalls.length },
+    { id: "repos", label: "Popular Repos", count: popularRepos.length },
   ];
 
   return (
@@ -282,6 +288,12 @@ export function NewsTab({
               runningLabel="Gathering…"
               running={running === "refresh-news"}
               onClick={handleRefreshNews}
+            />
+            <RunButton
+              label="☀ Morning Scan"
+              runningLabel="Scanning…"
+              running={running === "ai-morning-scan"}
+              onClick={handleMorningScan}
             />
           </div>
         </div>
@@ -458,6 +470,66 @@ export function NewsTab({
                   install={install}
                   onMarkInstalled={onMarkInstalled}
                 />
+              ))
+            )}
+          </div>
+        )}
+
+        {/* Popular Repos Tab */}
+        {activeTab === "repos" && (
+          <div className="p-4 space-y-2">
+            {popularRepos.length === 0 ? (
+              <div className="flex items-center justify-center h-full py-12">
+                <p className="text-gray-600 text-sm text-center">
+                  No repos yet.
+                  <br />
+                  <span className="text-xs text-gray-700 mt-1 block">
+                    Click "☀ Morning Scan" to fetch trending AI repos.
+                  </span>
+                </p>
+              </div>
+            ) : (
+              popularRepos.map((repo) => (
+                <a
+                  key={repo.id}
+                  href={repo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block bg-gray-800/40 rounded-lg p-3 border border-gray-700/40 hover:border-blue-500/60 transition-colors"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-gray-200 text-sm truncate">
+                        {repo.owner}/{repo.name}
+                      </p>
+                      {repo.description && (
+                        <p className="text-xs text-gray-400 mt-0.5 line-clamp-2">
+                          {repo.description}
+                        </p>
+                      )}
+                      {repo.topics.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {repo.topics.slice(0, 4).map((t) => (
+                            <span
+                              key={t}
+                              className="text-xs bg-blue-900/40 text-blue-300 px-1.5 py-0.5 rounded"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <div className="text-right shrink-0">
+                      <span className="text-sm text-yellow-400">
+                        ⭐ {repo.stars.toLocaleString()}
+                      </span>
+                      {repo.language && (
+                        <p className="text-xs text-gray-500 mt-0.5">{repo.language}</p>
+                      )}
+                    </div>
+                  </div>
+                </a>
               ))
             )}
           </div>

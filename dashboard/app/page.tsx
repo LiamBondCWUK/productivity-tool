@@ -230,6 +230,7 @@ export default function Dashboard() {
             suggestions={data.aiNewsResults?.suggestions ?? []}
             internalIntel={data.aiNewsResults?.internalIntel}
             recommendedInstalls={data.recommendedInstalls?.items ?? []}
+            popularRepos={data.aiNewsResults?.popularRepos ?? []}
             onRefetch={refetch}
             onMarkInstalled={async (id) => {
               try {

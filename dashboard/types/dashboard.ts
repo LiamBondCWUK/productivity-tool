@@ -287,6 +287,19 @@ export interface InternalIntelligence {
   newsletterHighlights: InternalIntelItem[];
 }
 
+export interface PopularRepo {
+  id: number;
+  name: string;
+  fullName: string;
+  owner: string;
+  url: string;
+  stars: number;
+  description: string | null;
+  language: string | null;
+  topics: string[];
+  updatedAt: string;
+}
+
 export interface AiNewsResults {
   lastRun: string | null;
   topStories: Array<{
@@ -294,9 +307,11 @@ export interface AiNewsResults {
     summary: string;
     url?: string;
     publishedAt?: string;
+    source?: string;
   }>;
   suggestions: string[];
   internalIntel?: InternalIntelligence;
+  popularRepos?: PopularRepo[];
 }
 
 export type FeedbackStatus = "inbox" | "accepted" | "denied";

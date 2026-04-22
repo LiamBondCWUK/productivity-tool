@@ -155,6 +155,13 @@ const COMMAND_REGISTRY: Record<
     timeout: 60_000,
     platform: "cross",
   },
+  "ai-morning-scan": {
+    description: "Full morning scan: live inventory + HN, GitHub, Reddit, Anthropic, MCP, arXiv, ProductHunt",
+    type: "node",
+    script: join(SCRIPTS_DIR, "morning-orchestrator.mjs"),
+    timeout: 180_000,
+    platform: "cross",
+  },
 };
 
 // Safe environment allowlist for child processes
@@ -171,6 +178,7 @@ const ENV_ALLOWLIST_COMMON = [
   "SYNC_SECRET",
   "CW_CLIENT_ID",
   "CW_CLIENT_SECRET",
+  "GITHUB_TOKEN",
 ];
 
 const ENV_ALLOWLIST_WINDOWS = [
