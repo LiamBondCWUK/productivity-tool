@@ -20,6 +20,17 @@ import { readFileSync, writeFileSync, existsSync, statSync, readdirSync } from "
 import { resolve, dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { execSync } from "child_process";
+import { get as httpsGet } from "https";
+
+const NEWSLETTER_RSS = [
+  { name: "The Batch (deeplearning.ai)", url: "https://www.deeplearning.ai/the-batch/rss.xml" },
+  { name: "TLDR AI",                     url: "https://actions.tldrnewsletter.com/rss/ai" },
+  { name: "Import AI",                   url: "https://jack-clark.net/feed/" },
+  { name: "Ben's Bites",                 url: "https://www.bensbites.com/feed" },
+  { name: "Pragmatic Engineer",          url: "https://newsletter.pragmaticengineer.com/feed" },
+  { name: "The Neuron",                  url: "https://theneurondaily.com/feed" },
+  { name: "Howard Yu",                   url: "https://howardyu.substack.com/feed" },
+];
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
@@ -70,6 +81,98 @@ const AI_PATTERN = /\b(AI|artificial.?intelligence|machine.?learn|ML|deep.?learn
 
 function matchesAI(text) {
   return AI_PATTERN.test(text);
+}
+
+// ── RSS Newsletter Scraping ───────────────────────────────────────────────────
+
+function fetchText(url) {
+  return new Promise((resolve, reject) => {
+    const req = httpsGet(url, { timeout: 10_000 }, (res) => {
+      if (res.statusCode === 301 || res.statusCode === 302) {
+        fetchText(res.headers.location).then(resolve).catch(reject);
+        return;
+      }
+      if (res.statusCode !== 200) {
+        reject(new Error(`HTTP ${res.statusCode} for ${url}`));
+        return;
+      }
+      const chunks = [];
+      res.on("data", (c) => chunks.push(c));
+      res.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+    });
+    req.on("error", reject);
+    req.on("timeout", () => req.destroy(new Error(`Timeout fetching ${url}`)));
+  });
+}
+
+function extractRSSItems(xml, sourceName, limit = 2) {
+  const items = [];
+  const blockRx = /<(?:item|entry)>([\s\S]*?)<\/(?:item|entry)>/g;
+  const decode = (s) =>
+    s
+      ?.replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&#\d+;/g, "")
+      .trim();
+
+  let m;
+  while ((m = blockRx.exec(xml)) !== null && items.length < limit) {
+    const block = m[1];
+
+    const rawTitle =
+      block.match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/)?.[1];
+    const title = decode(rawTitle);
+    if (!title) continue;
+
+    const link =
+      block.match(/<link>(https?:\/\/[^\s<]+)<\/link>/)?.[1] ||
+      block.match(/<link[^>]+href="(https?:\/\/[^"]+)"/)?.[1] ||
+      "";
+
+    const rawDesc =
+      block.match(/<description>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/description>/)?.[1] ||
+      block.match(/<summary[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/summary>/)?.[1] ||
+      "";
+    const summary = rawDesc
+      ? decode(rawDesc).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 200)
+      : `Latest from ${sourceName}`;
+
+    items.push({
+      title,
+      summary,
+      sourceType: "newsletter",
+      url: link,
+      newsletter: sourceName,
+      receivedAt: new Date().toISOString(),
+      emailSourceType: "external",
+    });
+  }
+  return items;
+}
+
+async function scrapeNewsletterRSS() {
+  log("newsletters", "Email cache empty — falling back to RSS scraping");
+  const results = [];
+
+  await Promise.allSettled(
+    NEWSLETTER_RSS.map(async ({ name, url }) => {
+      try {
+        const xml = await fetchText(url);
+        const items = extractRSSItems(xml, name, 2);
+        results.push(...items);
+        log("newsletters", `RSS ${name}: ${items.length} items`);
+      } catch (err) {
+        log("newsletters", `RSS ${name} failed: ${err.message}`);
+      }
+    })
+  );
+
+  results.sort((a, b) => b.receivedAt.localeCompare(a.receivedAt));
+  log("newsletters", `RSS total: ${results.length} items`);
+  return results.slice(0, 15);
 }
 
 // ── Teams: Parse LevelDB Evidence Files ──────────────────────────────────────
@@ -232,7 +335,7 @@ async function collectConfluence() {
 
 // ── Newsletters: Outlook COM Output + Graph Fallback ─────────────────────────
 
-function collectNewsletters() {
+async function collectNewsletters() {
   log("newsletters", "Scanning for newsletter emails...");
 
   // Load newsletter sender config
@@ -284,8 +387,7 @@ function collectNewsletters() {
   ];
 
   if (allEmails.length === 0) {
-    log("newsletters", "No emails found in dashboard-data.json");
-    return [];
+    return scrapeNewsletterRSS();
   }
 
   // Filter for newsletters
@@ -471,7 +573,7 @@ async function main() {
   // Collect from local extractors
   const teams = collectTeams();
   const confluence = await collectConfluence();
-  const newsletters = collectNewsletters();
+  const newsletters = await collectNewsletters();
 
   const localResults = { teams, confluence, newsletters };
   log("summary", `Local: ${teams.length} teams, ${confluence.length} confluence, ${newsletters.length} newsletters`);
