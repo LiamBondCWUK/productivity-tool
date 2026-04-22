@@ -10,6 +10,25 @@ const DATA_FILE = join(ROOT, 'workspace', 'coordinator', 'dashboard-data.json');
 const CLAUDE_DIR = join(process.env.USERPROFILE || process.env.HOME || '', '.claude');
 const NEWS_ROOT = 'C:\\Users\\liam.bond\\Documents\\AI Breaking News Tool';
 const NEVER_SUGGEST_FILE = join(NEWS_ROOT, 'never-suggest.md');
+const GNEWS_SCRIPT = join(NEWS_ROOT, 'scripts', 'scrape-gnews.js');
+
+function runGnewsScraper() {
+  if (!existsSync(GNEWS_SCRIPT)) {
+    console.warn('[gnews] scraper not found, skipping');
+    return;
+  }
+  try {
+    console.log('[gnews] running scraper…');
+    execSync(`node "${GNEWS_SCRIPT}"`, {
+      cwd: NEWS_ROOT,
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: 60_000,
+    });
+    console.log('[gnews] scraper done');
+  } catch (err) {
+    console.warn('[gnews] scraper failed (will use cached):', err.message?.split('\n')[0]);
+  }
+}
 
 const AI_KEYWORDS = [
   'llm', 'gpt', 'claude', 'anthropic', 'openai', 'gemini', 'mcp',
@@ -346,7 +365,7 @@ function loadGNewsStories() {
   try {
     const raw = JSON.parse(readFileSync(gnewsFile, 'utf8'));
     const ageHours = (Date.now() - new Date(raw.scrapedAt).getTime()) / 36e5;
-    if (ageHours > 4) return [];
+    if (ageHours > 24) return [];
     const articles = [
       ...(raw.personalisedFeed ?? []),
       ...Object.values(raw.rssSearches ?? {}).flat(),
@@ -458,6 +477,47 @@ function extractInstallSuggestions(allItems, githubRepos, installed) {
     });
   }
 
+  // 4. GNews articles about tools/products worth evaluating for setup
+  const GNEWS_TOOL_SIGNALS = [
+    'release', 'launch', 'open source', 'open-source', 'plugin', 'extension',
+    ' cli ', 'command line', 'mcp', 'npm package', 'framework', ' sdk', ' api ',
+    'cursor', 'windsurf', 'continue.dev', 'cline', 'copilot', 'devin',
+    'vs code', 'vscode', 'neovim', 'jetbrains', 'zed editor',
+    'claude code', 'claude desktop', 'anthropic',
+    'model context', 'agent tool', 'coding assistant', 'ai tool',
+  ];
+  const GNEWS_SKIP_SIGNALS = [
+    'raises', 'funding', 'valuation', 'lawsuit', 'regulation', 'policy',
+    'stock', 'shares', 'acquisition', 'merger', 'layoff', 'job',
+  ];
+
+  for (const item of allItems.filter((i) => i.source === 'gnews')) {
+    const text = ((item.rawTitle ?? item.title ?? '') + ' ' + (item.summary ?? '')).toLowerCase();
+    const isToolRelated = GNEWS_TOOL_SIGNALS.some((sig) => text.includes(sig));
+    const isNoise = GNEWS_SKIP_SIGNALS.some((sig) => text.includes(sig));
+    if (!isToolRelated || isNoise) continue;
+
+    const id = 'gnews-' + slugify((item.rawTitle ?? item.title ?? '').slice(0, 60));
+    if (installed.has(id)) continue;
+
+    const isMcp = text.includes('mcp') || text.includes('model context');
+    const isVSCode = text.includes('vs code') || text.includes('vscode') || text.includes('extension');
+    const isNpm = text.includes('npm') || text.includes('package') || text.includes('framework') || text.includes(' sdk');
+    const category = isMcp ? 'MCP' : isVSCode ? 'VSCode' : isNpm ? 'npm' : 'App';
+
+    suggestions.push({
+      id,
+      name: (item.rawTitle ?? item.title ?? '').slice(0, 80),
+      category,
+      priority: 'MED',
+      description: `Google News: ${(item.summary ?? '').slice(0, 140) || (item.rawTitle ?? item.title ?? '')}`,
+      signal: item.url ?? '',
+      installCommand: `# Read then evaluate:\n# ${item.url}`,
+      status: 'PENDING',
+      addedAt: new Date().toISOString(),
+    });
+  }
+
   // Deduplicate by id, keep first occurrence
   const seen = new Set();
   return suggestions
@@ -466,7 +526,7 @@ function extractInstallSuggestions(allItems, githubRepos, installed) {
       seen.add(s.id);
       return true;
     })
-    .slice(0, 20);
+    .slice(0, 30);
 }
 
 // ─────────────────────────────────────────
@@ -498,6 +558,7 @@ async function main() {
     fetchProductHunt(),
   ]);
 
+  runGnewsScraper();
   const gnewsStories = loadGNewsStories();
 
   // Step 3: run internal intel (Teams/Confluence/Newsletters)
