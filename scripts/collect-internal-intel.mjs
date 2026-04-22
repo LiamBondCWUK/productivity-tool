@@ -23,13 +23,23 @@ import { execSync } from "child_process";
 import { get as httpsGet } from "https";
 
 const NEWSLETTER_RSS = [
-  { name: "The Batch (deeplearning.ai)", url: "https://www.deeplearning.ai/the-batch/rss.xml" },
-  { name: "TLDR AI",                     url: "https://actions.tldrnewsletter.com/rss/ai" },
-  { name: "Import AI",                   url: "https://jack-clark.net/feed/" },
-  { name: "Ben's Bites",                 url: "https://www.bensbites.com/feed" },
-  { name: "Pragmatic Engineer",          url: "https://newsletter.pragmaticengineer.com/feed" },
-  { name: "The Neuron",                  url: "https://theneurondaily.com/feed" },
-  { name: "Howard Yu",                   url: "https://howardyu.substack.com/feed" },
+  // ── AI newsletters ───────────────────────────────────────────────────────
+  { name: "Import AI",          url: "https://jack-clark.net/feed/" },
+  { name: "Ben's Bites",        url: "https://www.bensbites.com/feed" },
+  { name: "Pragmatic Engineer", url: "https://newsletter.pragmaticengineer.com/feed" },
+  { name: "Howard Yu",          url: "https://howardyu.substack.com/feed" },
+  { name: "TLDR AI",            url: "https://tldr.tech/api/rss/ai" },
+  { name: "404 Media",          url: "https://www.404media.co/rss" },
+  { name: "Hugging Face Blog",  url: "https://huggingface.co/blog/feed.xml" },
+  // ── AI / tech news sites (3 items each for broader coverage) ────────────
+  { name: "VentureBeat AI",     url: "https://venturebeat.com/category/ai/feed/",                         limit: 3 },
+  { name: "TechCrunch AI",      url: "https://techcrunch.com/category/artificial-intelligence/feed/",     limit: 3 },
+  { name: "The Verge AI",       url: "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml", limit: 3 },
+  { name: "MIT Tech Review",    url: "https://www.technologyreview.com/feed",                              limit: 3 },
+  { name: "Wired AI",           url: "https://www.wired.com/feed/tag/ai/latest/rss",                      limit: 3 },
+  // ── Community signals ────────────────────────────────────────────────────
+  { name: "Hacker News",        url: "https://hnrss.org/frontpage?points=100",                            limit: 5 },
+  { name: "Simon Willison",     url: "https://simonwillison.net/atom/everything/" },
 ];
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -85,11 +95,15 @@ function matchesAI(text) {
 
 // ── RSS Newsletter Scraping ───────────────────────────────────────────────────
 
-function fetchText(url) {
+function fetchText(url, base = url) {
+  let resolved;
+  try { resolved = new URL(url, base).toString(); } catch {
+    return Promise.reject(new Error(`Invalid URL: ${url}`));
+  }
   return new Promise((resolve, reject) => {
-    const req = httpsGet(url, { timeout: 10_000 }, (res) => {
-      if (res.statusCode === 301 || res.statusCode === 302) {
-        fetchText(res.headers.location).then(resolve).catch(reject);
+    const req = httpsGet(resolved, { timeout: 10_000 }, (res) => {
+      if ([301, 302, 307, 308].includes(res.statusCode)) {
+        fetchText(res.headers.location, resolved).then(resolve).catch(reject);
         return;
       }
       if (res.statusCode !== 200) {
@@ -123,7 +137,7 @@ function extractRSSItems(xml, sourceName, limit = 2) {
     const block = m[1];
 
     const rawTitle =
-      block.match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/)?.[1];
+      block.match(/<title(?:[^>]*)>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/)?.[1];
     const title = decode(rawTitle);
     if (!title) continue;
 
@@ -140,13 +154,23 @@ function extractRSSItems(xml, sourceName, limit = 2) {
       ? decode(rawDesc).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 200)
       : `Latest from ${sourceName}`;
 
+    const rawDate =
+      block.match(/<pubDate>([\s\S]*?)<\/pubDate>/)?.[1] ||
+      block.match(/<published>([\s\S]*?)<\/published>/)?.[1] ||
+      block.match(/<updated>([\s\S]*?)<\/updated>/)?.[1] ||
+      "";
+    let receivedAt = new Date().toISOString();
+    if (rawDate) {
+      try { receivedAt = new Date(rawDate.trim()).toISOString(); } catch {}
+    }
+
     items.push({
       title,
       summary,
       sourceType: "newsletter",
       url: link,
       newsletter: sourceName,
-      receivedAt: new Date().toISOString(),
+      receivedAt,
       emailSourceType: "external",
     });
   }
@@ -158,10 +182,10 @@ async function scrapeNewsletterRSS() {
   const results = [];
 
   await Promise.allSettled(
-    NEWSLETTER_RSS.map(async ({ name, url }) => {
+    NEWSLETTER_RSS.map(async ({ name, url, limit = 2 }) => {
       try {
         const xml = await fetchText(url);
-        const items = extractRSSItems(xml, name, 2);
+        const items = extractRSSItems(xml, name, limit);
         results.push(...items);
         log("newsletters", `RSS ${name}: ${items.length} items`);
       } catch (err) {
@@ -172,7 +196,7 @@ async function scrapeNewsletterRSS() {
 
   results.sort((a, b) => b.receivedAt.localeCompare(a.receivedAt));
   log("newsletters", `RSS total: ${results.length} items`);
-  return results.slice(0, 15);
+  return results.slice(0, 25);
 }
 
 // ── Teams: Parse LevelDB Evidence Files ──────────────────────────────────────
