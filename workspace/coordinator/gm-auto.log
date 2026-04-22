@@ -242,3 +242,12 @@ Good morning! Here's your brief for **Tuesday, 2026-04-21**:
 - **Playwright:** Blocked by CWD permission (`C:\WINDOWS\system32`) ÔÇö Calendar + Email skipped. Run `/inbox` manually.
 
 **Full brief:** `workspace/coordinator/daily-brief-2026-04-21.md`
+[2026-04-22 08:45:03] Starting /gm auto-trigger
+[2026-04-22 08:45:04] fetch-notifications: ­ƒô¼ fetch-notifications: starting... Ôä¦  graph-token.json not found ÔÇö skipping Office doc comment fetch   Jira @mentions: 0 item(s)   Doc comments:   0 item(s) ÔÜá  Jira search returned 410 Ô£à fetch-notifications: dashboard-data.json updated
+[2026-04-22 08:45:05] graph-teams-fetch: [graph-teams-fetch] No graph-token.json ÔÇö run setup-graph-token.ps1 first [graph-teams-fetch] wrote 0 messages to dashboard-data.json
+[2026-04-22 08:45:38] graph-email-fetch: [graph-email-fetch] No graph-token.json ÔÇö run setup-graph-token.ps1 first [graph-email-fetch] Outlook fallback: [outlook-mail-fetch] wrote 0 emails to C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+[2026-04-22 08:46:25] outlook-mail-fetch: Call was rejected by callee. (Exception from HRESULT: 0x80010001 (RPC_E_CALL_REJECTED)) At C:\Users\liam.bond\Documents\Productivity Tool\scripts\outlook-mail-fetch.ps1:47 char:5 +     $namespace = $outlook.GetNamespace('MAPI') +     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     + CategoryInfo          : OperationStopped: (:) [], COMException     + FullyQualifiedErrorId : System.Runtime.InteropServices.COMException  
+[2026-04-22 08:46:50] outlook-calendar-fetch: Exception calling "GetNamespace" with "1" argument(s): "Unable to cast COM object of type  'Microsoft.Office.Interop.Outlook.ApplicationClass' to interface type 'Microsoft.Office.Interop.Outlook._Application'.  This operation failed because the QueryInterface call on the COM component for the interface with IID  '{00063001-0000-0000-C000-000000000046}' failed due to the following error: The RPC server is unavailable. (Exception  from HRESULT: 0x800706BA)." At C:\Users\liam.bond\Documents\Productivity Tool\scripts\outlook-calendar-fetch.ps1:53 char:5 +     $namespace = $outlook.GetNamespace('MAPI') +     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     + CategoryInfo          : NotSpecified: (:) [], ParentContainsErrorRecordException     + FullyQualifiedErrorId : InvalidCastException  
+[2026-04-22 08:46:50] generate-day-plan: [generate-day-plan] Error: Unexpected token '´++', "´++{     "m"... is not valid JSON
+[2026-04-22 08:52:11] /gm completed
+

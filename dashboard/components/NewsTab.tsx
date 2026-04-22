@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useExecuteCommand } from "../hooks/useExecuteCommand";
 import { RunButton, StatusBanner } from "./RunButton";
 import type {
@@ -254,17 +254,38 @@ export function NewsTab({
   const [activeTab, setActiveTab] = useState<TabId>("external");
   const { execute, running, lastResult } = useExecuteCommand();
   const [showResult, setShowResult] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(20);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  const loadMore = useCallback(() => {
+    setVisibleCount((c) => c + 20);
+  }, []);
+
+  useEffect(() => {
+    setVisibleCount(20);
+  }, [topStories]);
+
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => { if (entries[0].isIntersecting) loadMore(); },
+      { rootMargin: "200px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [loadMore, activeTab]);
 
   const handleRefreshNews = async () => {
     setShowResult(true);
-    const result = await execute("refresh-news");
-    if (result.success) onRefetch?.();
+    await execute("refresh-news");
+    onRefetch?.();
   };
 
   const handleMorningScan = async () => {
     setShowResult(true);
-    const result = await execute("ai-morning-scan");
-    if (result.success) onRefetch?.();
+    await execute("ai-morning-scan");
+    onRefetch?.();
   };
 
   const hasStories = topStories.length > 0;
@@ -305,16 +326,18 @@ export function NewsTab({
               </span>
             )}
             <RunButton
-              label="↻ Run Fresh"
-              runningLabel="Gathering…"
+              label="↻ Re-parse Brief"
+              runningLabel="Parsing…"
               running={running === "refresh-news"}
               onClick={handleRefreshNews}
+              title="Re-parse morning-brief.md (no live fetch — fast)"
             />
             <RunButton
-              label="☀ Morning Scan"
+              label="☀ Live Scan"
               runningLabel="Scanning…"
               running={running === "ai-morning-scan"}
               onClick={handleMorningScan}
+              title="Fetch live sources: HN, GitHub, Reddit, Anthropic, MCP registry, arXiv, ProductHunt"
             />
           </div>
         </div>
@@ -367,7 +390,7 @@ export function NewsTab({
               </div>
             ) : (
               <div className="p-4 space-y-3">
-                {topStories.map((story, index) => (
+                {topStories.slice(0, visibleCount).map((story, index) => (
                   <div
                     key={index}
                     className="bg-gray-800/40 rounded-lg p-3 border border-gray-700/40 hover:border-gray-600/60 transition-colors"
@@ -415,6 +438,13 @@ export function NewsTab({
                     )}
                   </div>
                 ))}
+
+                {/* Infinite scroll sentinel */}
+                {visibleCount < topStories.length && (
+                  <div ref={sentinelRef} className="py-3 text-center text-xs text-gray-600">
+                    Loading more… ({visibleCount}/{topStories.length})
+                  </div>
+                )}
 
                 {/* Legacy suggestions badges (simple list) */}
                 {suggestions.length > 0 && (

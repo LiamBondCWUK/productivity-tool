@@ -134,7 +134,7 @@ async function fetchHackerNews() {
     const idsRes = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json');
     const ids = await idsRes.json();
     const items = await Promise.all(
-      ids.slice(0, 80).map((id) =>
+      ids.slice(0, 200).map((id) =>
         fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
           .then((r) => r.json())
           .catch(() => null),
@@ -144,7 +144,8 @@ async function fetchHackerNews() {
     const cutoff = Date.now() - 48 * 60 * 60 * 1000;
     return items
       .filter((item) => item && item.score > 50 && isAiRelated(item.title) && item.time * 1000 > cutoff)
-      .slice(0, 12)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 40)
       .map((item) => ({
         title: item.title,
         summary: `HN | ${item.score} points | ${item.descendants ?? 0} comments`,
@@ -212,7 +213,7 @@ async function fetchGitHubRepos() {
 async function fetchReddit() {
   const subs = 'ClaudeAI+ClaudeCode+mcp+LocalLLaMA';
   try {
-    const res = await fetch(`https://www.reddit.com/r/${subs}/hot.json?limit=30`, {
+    const res = await fetch(`https://www.reddit.com/r/${subs}/hot.json?limit=100`, {
       headers: { 'User-Agent': 'AI-Breaking-News-Tool/1.0' },
     });
     if (!res.ok) throw new Error(`Reddit ${res.status}`);
@@ -220,7 +221,8 @@ async function fetchReddit() {
     return (data.data?.children ?? [])
       .map((c) => c.data)
       .filter((p) => p.score > 30 && !p.stickied)
-      .slice(0, 10)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 25)
       .map((p) => ({
         title: p.title,
         source: 'reddit',
@@ -314,7 +316,7 @@ async function fetchArxiv() {
     });
     const practical = items
       .filter((i) => TOOL_KEYWORDS.some((kw) => i.title.toLowerCase().includes(kw)))
-      .slice(0, 5);
+      .slice(0, 15);
     return practical.map((i) => ({
       title: i.title,
       summary: i.description.slice(0, 180).replace(/<[^>]+>/g, ''),
@@ -345,7 +347,7 @@ async function fetchProductHunt() {
       const pubDate = (m[1].match(/<pubDate>(.*?)<\/pubDate>/) ?? [])[1] ?? '';
       return { title, link, desc, pubDate };
     });
-    return items.slice(0, 8).map((i) => ({
+    return items.slice(0, 20).map((i) => ({
       title: i.title,
       summary: i.desc.replace(/<[^>]+>/g, '').slice(0, 180),
       url: i.link,
@@ -370,7 +372,7 @@ function loadGNewsStories() {
       ...(raw.personalisedFeed ?? []),
       ...Object.values(raw.rssSearches ?? {}).flat(),
     ];
-    return articles.slice(0, 20).map((a) => ({
+    return articles.slice(0, 60).map((a) => ({
       title: a.title,
       summary: a.source ?? '',
       url: a.link ?? a.url ?? '',
@@ -587,7 +589,7 @@ async function main() {
       const tb = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
       return tb - ta;
     })
-    .slice(0, 25);
+    .slice(0, 120);
 
   // Step 5: extract install suggestions (net-new only)
   const newSuggestions = extractInstallSuggestions(allExternal, githubRepos, installed);

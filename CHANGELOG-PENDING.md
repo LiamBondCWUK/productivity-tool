@@ -171,3 +171,26 @@
 
 - 2026-04-17 08:50:50 [added] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\daily-brief-2026-04-17.md`
 - 2026-04-17 08:51:08 [docs] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\system-metrics.md`
+
+## 2026-04-22
+
+- 2026-04-22 05:46:26 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\extract-news-results.mjs`
+- 2026-04-22 05:48:55 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\types\dashboard.ts`
+- 2026-04-22 05:49:02 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\api\execute\route.ts`
+- 2026-04-22 05:50:29 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\morning-orchestrator.mjs`
+- 2026-04-22 05:51:01 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\NewsTab.tsx`
+- 2026-04-22 05:52:12 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\NewsTab.tsx`
+- 2026-04-22 05:53:57 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\morning-orchestrator.mjs`
+- 2026-04-22 05:54:30 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\morning-orchestrator.mjs`
+- 2026-04-22 05:55:32 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\morning-orchestrator.mjs`
+- 2026-04-22 06:49:25 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\NewsTab.tsx`
+- 2026-04-22 06:50:05 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\NewsTab.tsx`
+- 2026-04-22 06:50:17 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\morning-orchestrator.mjs`
+- 2026-04-22 06:51:23 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\NewsTab.tsx`
+- 2026-04-22 07:03:42 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\NewsTab.tsx`
+- 2026-04-22 07:04:03 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\NewsTab.tsx`
+- 2026-04-22 07:04:31 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\RunButton.tsx`
+- 2026-04-22 07:21:12 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\morning-orchestrator.mjs`
+- 2026-04-22 07:55:57 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\morning-orchestrator.mjs`
+- 2026-04-22 07:56:14 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\morning-orchestrator.mjs`
+- 2026-04-22 07:57:02 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\morning-orchestrator.mjs`

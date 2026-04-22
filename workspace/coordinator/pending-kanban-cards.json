@@ -1,226 +1,226 @@
 {
-  "generatedAt": "2026-04-20T08:23:05.400Z",
+  "generatedAt": "2026-04-22T01:13:42.524Z",
   "totalCards": 34,
   "cards": [
     {
-      "title": "package.json not in version control",
-      "body": "Recent commits reference Next.js dev mode and Replit deployment, but package.json is missing from git. This breaks environment reproducibility and dependency auditing. Extract from the Replit IDE and commit it to establish a proper Node.js project structure.",
-      "priority": "urgent",
-      "type": "bug",
-      "labels": [
-        "ukcaud-ai-project",
-        "overnight",
-        "bug"
-      ],
-      "project": "UKCAUD AI Project"
-    },
-    {
-      "title": "No CLAUDE.md project context",
-      "body": "This is an active, deployed project with minimal git tracking (1 source file). CLAUDE.md would clarify: Replit deployment process, feedback widget integration contract, how other projects consume this service. Essential for future contributors or session resumption.",
+      "title": "Add CLAUDE.md to UKCAUD Spec Studio",
+      "body": "Project is in Building phase with active batch-parallel execution, but no local CLAUDE.md to document SE Builder form ingestion constraints, monorepo DSL compatibility expectations, or schema version governance. This creates context loss when switching between UKCAUD, caseware/code, and productivity-tool work. Add a project-level CLAUDE.md with ingestion rules, test matrix (DSL versions × form types), and rollback procedures.",
       "priority": "high",
       "type": "docs",
-      "labels": [
-        "ukcaud-ai-project",
-        "overnight",
-        "docs"
-      ],
-      "project": "UKCAUD AI Project"
-    },
-    {
-      "title": "Zero test coverage on early-stage application",
-      "body": "No test files exist despite the project being deployed and serving a feedback widget. Establish at minimum a test directory structure and smoke test for the widget endpoint. Early project phase is the right time to bake in testing habits.",
-      "priority": "high",
-      "type": "improvement",
-      "labels": [
-        "ukcaud-ai-project",
-        "overnight",
-        "improvement"
-      ],
-      "project": "UKCAUD AI Project"
-    },
-    {
-      "title": "No test coverage on financial spec validator",
-      "body": "54 source files processing financial Excel documents with zero test coverage is unacceptable before productionization. Start with smoke tests for Excel parsing, spec validation rules, and error paths. Target 60%+ coverage on data-path code using Jest or Vitest.",
-      "priority": "urgent",
-      "type": "improvement",
-      "labels": [
-        "cw-lead-schedule-specifications",
-        "overnight",
-        "improvement"
-      ],
-      "project": "CW Lead Schedule Specifications"
-    },
-    {
-      "title": "Changelog consolidation workflow broken (26-entry backlog)",
-      "body": "CHANGELOG-PENDING.md has 26 entries pending consolidation over 12 days. Per ~/.claude/rules/common/git-workflow.md, pre-commit hooks MUST enforce consolidation. Verify hooks are installed in .git/hooks and not being bypassed (--no-verify). If missing, reinstall and run consolidation immediately.",
-      "priority": "high",
-      "type": "improvement",
-      "labels": [
-        "cw-lead-schedule-specifications",
-        "overnight",
-        "improvement"
-      ],
-      "project": "CW Lead Schedule Specifications"
-    },
-    {
-      "title": "Add test coverage",
-      "body": "11 source files with zero tests creates ship risk for a user-facing release notes tool. Add jest/vitest suite focusing on critical paths (release rendering, data transforms, API integration). Aim for 60%+ coverage before next production deploy. No test files detected.",
-      "priority": "urgent",
-      "type": "bug",
-      "labels": [
-        "cw-release-notes-tool",
-        "overnight",
-        "bug"
-      ],
-      "project": "CW Release Notes Tool"
-    },
-    {
-      "title": "Consolidate changelog backlog",
-      "body": "CHANGELOG-PENDING.md has 6 unpublished entries (12 days old) and violates your documentation-with-commits hooks. Consolidate into CHANGELOG.md and establish a weekly publish cadence to keep docs in sync.",
-      "priority": "high",
-      "type": "docs",
-      "labels": [
-        "cw-release-notes-tool",
-        "overnight",
-        "docs"
-      ],
-      "project": "CW Release Notes Tool"
-    },
-    {
-      "title": "Add test coverage for spec reverse-engineering engine",
-      "body": "Eight source files exist but zero tests. The core spec parsing/transformation logic needs coverage before feature expansion. Write integration tests for form-to-spec conversion: start with happy path (valid form → valid spec output) and 2–3 error cases (malformed input, missing fields). This is the highest-risk area and will prevent silent bugs as others iterate on specs.",
-      "priority": "urgent",
-      "type": "feature",
       "labels": [
         "ukcaud-spec-studio",
         "overnight",
-        "feature"
+        "docs"
       ],
       "project": "UKCAUD Spec Studio"
     },
     {
-      "title": "No test coverage for cross-machine sync",
-      "body": "42 source files manage critical developer configuration (Claude Code, VS Code, Git settings) with zero tests. A failed sync could silently corrupt settings on multiple machines. Add integration tests verifying: file integrity after sync, conflict detection, and rollback capability.",
-      "priority": "urgent",
+      "title": "Audit Zod schema relaxations for validation gaps",
+      "body": "Commit 0ff2a14 relaxed Zod schemas to match real monorepo DSL shapes, but lacks inline documentation of what changed and why. If schemas became too permissive, malformed forms could slip into the spec. Audit the specific field relaxations (check git diff on that commit), add TypeScript comments documenting the tradeoff, and verify no new error-silent codepaths exist.",
+      "priority": "high",
       "type": "bug",
       "labels": [
-        "dotfiles-publish",
+        "ukcaud-spec-studio",
         "overnight",
         "bug"
       ],
-      "project": "dotfiles-publish"
+      "project": "UKCAUD Spec Studio"
     },
     {
-      "title": "Missing CLAUDE.md and validation rules",
-      "body": "All commits are automated syncs with no explicit conflict resolution or validation strategy. Create project CLAUDE.md documenting sync targets, validation rules, and rollback procedures. This prevents silent failures and guides future maintenance.",
-      "priority": "high",
-      "type": "docs",
-      "labels": [
-        "dotfiles-publish",
-        "overnight",
-        "docs"
-      ],
-      "project": "dotfiles-publish"
-    },
-    {
-      "title": "Document 42-file config architecture",
-      "body": "Structure is inferred only from commit diffs. Add README mapping files to tools (Claude Code, VS Code, Git), document sync flow, and flag file dependencies. Future maintainers need this to understand impact and prevent partial syncs.",
+      "title": "Resolve 3 TODO/FIXME markers before batch 2",
+      "body": "3 TODO/FIXME markers scattered across the codebase. With batch 1 complete and tests green, clear these now rather than letting them compound during batch 2. Search the codebase (grep TODO, FIXME), assess if each is blocking or can be deferred, and either fix or convert to tracked issues.",
       "priority": "medium",
-      "type": "docs",
-      "labels": [
-        "dotfiles-publish",
-        "overnight",
-        "docs"
-      ],
-      "project": "dotfiles-publish"
-    },
-    {
-      "title": "Add Test Coverage for PPTX Generation and API Routes",
-      "body": "Zero tests across 6 source files. Core risk: presentation generation logic, password auth gate (added 2 days ago), and API routes lack automated validation. Regression testing is critical after recent auth changes. Start with Jest + API route tests targeting the presentation generation flow, then add component tests.",
-      "priority": "high",
-      "type": "feature",
-      "labels": [
-        "ai-work-presentation-tool",
-        "overnight",
-        "feature"
-      ],
-      "project": "AI Work Presentation Tool"
-    },
-    {
-      "title": "Consolidate Stale Changelog Entries",
-      "body": "CHANGELOG-PENDING.md has 7 entries pending consolidation for 11 days. Per global hooks protocol, pre-commit should enforce this consolidation. Run consolidation immediately, then verify pre-commit hook configuration in settings.json to prevent future staleness.",
-      "priority": "high",
       "type": "improvement",
       "labels": [
-        "ai-work-presentation-tool",
+        "ukcaud-spec-studio",
         "overnight",
         "improvement"
       ],
-      "project": "AI Work Presentation Tool"
+      "project": "UKCAUD Spec Studio"
     },
     {
-      "title": "Commit pending onboarding materials (13 files)",
-      "body": "13 file changes uncommitted for 3 days since last commit. Commit with clear message describing what was finalized (presentation, IBP demo, user guide updates). This ensures project state matches git history and enables easy rollback or reference if needed.",
-      "priority": "urgent",
-      "type": "bug",
-      "labels": [
-        "claude-onboarding-meeting",
-        "overnight",
-        "bug"
-      ],
-      "project": "Claude Onboarding Meeting"
-    },
-    {
-      "title": "Document onboarding materials with README",
-      "body": "Create README.md explaining: purpose of session, structure of materials (presentation vs. demo vs. guide), how stakeholders access/view content, any external dependencies. Critical for maintainability of presentation projects — enables others to find and use materials.",
-      "priority": "high",
-      "type": "docs",
-      "labels": [
-        "claude-onboarding-meeting",
-        "overnight",
-        "docs"
-      ],
-      "project": "Claude Onboarding Meeting"
-    },
-    {
-      "title": "No test coverage for 6 source files",
-      "body": "Express routes, WebSocket handlers, and session management have zero test coverage. This is a critical gap for a multi-session dashboard where session corruption or message loss would cause user data loss. Prioritize tests for session persistence, message routing, and import workflow.",
+      "title": "Add integration tests for dotfiles sync",
+      "body": "Currently 55 config files are synced across machines with zero test coverage. A bad config sync could break VS Code, Claude Code, or Git across all synced machines. Add tests that verify JSON/YAML/shell syntax validity after pull, and simulate the sync pipeline to catch breaks before deployment.",
       "priority": "urgent",
       "type": "feature",
       "labels": [
-        "claude-mobile",
+        "dotfiles-publish",
         "overnight",
         "feature"
+      ],
+      "project": "dotfiles-publish"
+    },
+    {
+      "title": "Pre-sync validation layer",
+      "body": "Implement config validation before syncing: parse JSON settings files, validate shell script syntax, check YAML in config files. Reject invalid configs and log detailed error messages so users can fix the source before resync.",
+      "priority": "high",
+      "type": "feature",
+      "labels": [
+        "dotfiles-publish",
+        "overnight",
+        "feature"
+      ],
+      "project": "dotfiles-publish"
+    },
+    {
+      "title": "Add Comprehensive Test Suite",
+      "body": "54-file spec validation platform with zero test coverage is a critical reliability gap. Validation logic in backend/services/cw_api.py and Excel parsing need unit tests to ensure correctness. Frontend spec upload and validation UI also need React Testing Library coverage. Recommended approach: add pytest to backend, Jest to frontend, establish coverage threshold (80%+ minimum for validators).",
+      "priority": "urgent",
+      "type": "bug",
+      "labels": [
+        "cw-lead-schedule-specifications",
+        "overnight",
+        "bug"
+      ],
+      "project": "CW Lead Schedule Specifications"
+    },
+    {
+      "title": "Release Changelog and Establish Cadence",
+      "body": "26 pending changelog entries accumulated over 13 days (from 2026-04-09). Publishing schedule has drifted. Consolidate CHANGELOG-PENDING.md into CHANGELOG.md, tag a version, and establish weekly release cadence aligned with sprint rhythm or feature completion.",
+      "priority": "medium",
+      "type": "improvement",
+      "labels": [
+        "cw-lead-schedule-specifications",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW Lead Schedule Specifications"
+    },
+    {
+      "title": "Add test coverage for multi-session Express + WebSocket server",
+      "body": "The claude-mobile dashboard has 6 source files with zero test files. For a system managing multi-session state and real-time WebSocket communication, this is a reliability risk. Prioritize endpoint tests (session CRUD, WebSocket connection/disconnect) and at least one integration test validating session persistence across connections.",
+      "priority": "urgent",
+      "type": "bug",
+      "labels": [
+        "claude-mobile",
+        "overnight",
+        "bug"
       ],
       "project": "claude-mobile"
     },
     {
-      "title": "Scaffold Documentation Project Structure",
-      "body": "Project initialized but lacks any content or structure. Create CLAUDE.md defining scope and milestones, establish /docs/ directory layout (/api/, /architecture/, /integration/), and write a baseline TOC. This foundation is critical before authoring SDK and API reference content.",
+      "title": "Missing README for onboarding materials",
+      "body": "Onboarding project has 5 source files (presentation, dashboard, guides, exercises) but no README explaining structure or usage. This is critical for discoverability and user onboarding. Add README with file descriptions, entry points (presentation.js, dashboard.html), and intended audience.",
+      "priority": "urgent",
+      "type": "docs",
+      "labels": [
+        "claude-onboarding-meeting",
+        "overnight",
+        "docs"
+      ],
+      "project": "Claude Onboarding Meeting"
+    },
+    {
+      "title": "No CLAUDE.md context file",
+      "body": "Active project lacks CLAUDE.md to document purpose, content architecture, and maintenance guidelines. Recent file deletion (ibp-exercise/CLAUDE-VSCODE-USER-GUIDE.md) suggests evolving structure — document decisions to preserve context.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "claude-onboarding-meeting",
+        "overnight",
+        "docs"
+      ],
+      "project": "Claude Onboarding Meeting"
+    },
+    {
+      "title": "Add test coverage for feedback widget",
+      "body": "Widget has 0 test files. Add unit tests for render, user interactions (submit, cancel), and API endpoints. Integration tests should verify communication with UKCAS/UKCAUD audit workflows. This is production-facing UI and must be reliable.",
+      "priority": "urgent",
+      "type": "feature",
+      "labels": [
+        "ukcaud-ai-project",
+        "overnight",
+        "feature"
+      ],
+      "project": "UKCAUD AI Project"
+    },
+    {
+      "title": "Create CLAUDE.md with project context",
+      "body": "No CLAUDE.md exists. Document feedback widget purpose, Replit deployment setup, Jira automation integration, and the productivity-tool dependency. Include auth model decision (why Replit privacy over code-level gating). Helps future developers and coordinates with your global rules.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "ukcaud-ai-project",
+        "overnight",
+        "docs"
+      ],
+      "project": "UKCAUD AI Project"
+    },
+    {
+      "title": "Clarify and document codebase structure",
+      "body": "With only 1 source file, the architecture is unclear. Confirm whether this is complete, a monorepo reference, or if code is generated elsewhere. Add a README explaining the feedback widget's role in the UKCAUD audit workflow and how it communicates with dependencies.",
       "priority": "high",
       "type": "improvement",
       "labels": [
-        "bondlw-programming-architecture",
+        "ukcaud-ai-project",
         "overnight",
         "improvement"
+      ],
+      "project": "UKCAUD AI Project"
+    },
+    {
+      "title": "Establish test coverage for Release Notes Tool",
+      "body": "Zero tests exist for 11 source files in a user-facing tool. This is a critical gap. Start with tests for core release note generation logic and API endpoints. Adopt TDD going forward to prevent regression and document intended behavior.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "cw-release-notes-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW Release Notes Tool"
+    },
+    {
+      "title": "Add test coverage for PPTX generation",
+      "body": "6 source files, 0 tests — no validation that the core output (PowerPoint presentations) is correctly formatted, branded, or structured. This is particularly risky for a code generation tool. Set up jest, add tests that validate slide counts, Caseware branding tokens (colors, fonts), and XML structure integrity.",
+      "priority": "urgent",
+      "type": "feature",
+      "labels": [
+        "ai-work-presentation-tool",
+        "overnight",
+        "feature"
+      ],
+      "project": "AI Work Presentation Tool"
+    },
+    {
+      "title": "Publish stale changelog entries",
+      "body": "7 items in CHANGELOG-PENDING.md have been aging for 13 days without publication. Either consolidate into CHANGELOG.md or remove if already shipped. Prevents future changelog bloat and keeps release notes current.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "ai-work-presentation-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "AI Work Presentation Tool"
+    },
+    {
+      "title": "Add CLAUDE.md and scope documentation",
+      "body": "Repository initialized but lacks project context. Add CLAUDE.md defining: (1) whether this documents SDK, API, or both; (2) target audience; (3) maintenance cadence. Add README with directory layout and coverage scope. This unblocks content population.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "bondlw-programming-architecture",
+        "overnight",
+        "docs"
       ],
       "project": "Bondlw Programming Architecture"
     },
     {
-      "title": "Bootstrap project structure",
-      "body": "Package.json, tsconfig, ESLint, and Jest are undefined. Without these, no source code can be committed or tested. This is the blocker preventing development start. Create minimal package.json with Node runtime, TypeScript, linter, and test framework, then establish src/ and tests/ directories.",
+      "title": "Repository setup incomplete",
+      "body": "The Activepieces clone has zero source files and no package.json, suggesting the repository initialization is incomplete or the codebase wasn't cloned properly. Verify the clone contains the full source tree (packages/, integrations/, etc.) and run npm install to restore node_modules. If this is a deliberate fresh start, document the rationale in CLAUDE.md.",
       "priority": "urgent",
-      "type": "feature",
+      "type": "bug",
       "labels": [
         "activepieces",
         "overnight",
-        "feature"
+        "bug"
       ],
       "project": "Activepieces"
     },
     {
-      "title": "Document project approach in CLAUDE.md",
-      "body": "21K-star Zapier alternative with 280+ integrations needs clear development context: architecture (monorepo vs. modular?), integration SDK design, deployment strategy (Docker/Kubernetes?), and team workflow. CLAUDE.md should guide future contributors and maintain coherence as integrations scale.",
+      "title": "Add project context and development guide",
+      "body": "With 280+ integrations and a complex plugin architecture, Activepieces requires clear documentation of how to extend and test locally. Create CLAUDE.md with: architecture overview, integration development workflow, testing strategy, and contribution checklist. Reference the main repo's CONTRIBUTING.md if forking.",
       "priority": "high",
       "type": "docs",
       "labels": [
@@ -231,20 +231,32 @@
       "project": "Activepieces"
     },
     {
-      "title": "Zero test coverage for 36-file codebase in Building phase",
-      "body": "36 source files with no tests is a critical risk for audit and compliance automation workflows—these are high-stakes domains where correctness and auditability are non-negotiable. Establish baseline unit tests for the agent specification layer and critical path logic immediately to prevent rework downstream.",
+      "title": "Add test coverage for spec validation",
+      "body": "36 source files with zero tests creates risk that spec changes silently break agent workflows or compliance rules. Recommend starting with unit tests for critical paths: spec parsing, validation rules, and audit trail generation. Consider using a test framework appropriate for spec validation (Jest, Mocha, or domain-specific validator).",
       "priority": "urgent",
-      "type": "improvement",
+      "type": "feature",
       "labels": [
         "ukcaud-authoring-agent-spec-layer",
         "overnight",
-        "improvement"
+        "feature"
       ],
       "project": "UKCAUD-Authoring-Agent-Spec-Layer"
     },
     {
-      "title": "Test Coverage Crisis: 1% Coverage Across 93 Files",
-      "body": "Only 1 source file has tests out of 93 total. This violates the mandatory 80%+ test coverage rule and leaves the codebase vulnerable to regressions. Recent deployment fixes suggest high fragility. Start with critical paths: API data fetching, state management (hooks/context), and core dashboard components. Intermediate goal of 40% coverage would unlock safer feature development.",
+      "title": "Document spec layer architecture and integrations",
+      "body": "The spec layer appears to be a foundation for audit/compliance automation but lacks documented interfaces. Add README with: data model overview, integration points with UKCAS/UKCAUD systems, agent responsibilities, and validation guarantees. This prevents misuse downstream.",
+      "priority": "high",
+      "type": "docs",
+      "labels": [
+        "ukcaud-authoring-agent-spec-layer",
+        "overnight",
+        "docs"
+      ],
+      "project": "UKCAUD-Authoring-Agent-Spec-Layer"
+    },
+    {
+      "title": "Establish test coverage for dashboard API and components",
+      "body": "Only 1 of 95 source files has tests. Critical paths (/api/execute route, CalendarPanel, TimeTracker, CeremoniesTab) are unprotected. This is a production safety gap and blocks confident refactoring. Priority: add integration tests for the execute endpoint and unit tests for complex components.",
       "priority": "urgent",
       "type": "improvement",
       "labels": [
@@ -255,56 +267,20 @@
       "project": "Productivity Tool"
     },
     {
-      "title": "5 Uncommitted File Changes Block Clean State",
-      "body": "Working directory has 5 uncommitted changes. Per execution discipline rules, no half-finished implementations are allowed — either commit these as legitimate work or revert them. This is blocking proper state tracking and pre-commit hook validation (changelog consolidation depends on clean state).",
+      "title": "Consolidate and publish changelog backlog",
+      "body": "CHANGELOG-PENDING.md has 143 unpublished entries from 5 days ago. Per git-workflow hooks rules, these should be published into CHANGELOG.md immediately and hook enforcement activated. Clears technical debt and unblocks EOD sync workflows.",
       "priority": "high",
-      "type": "bug",
+      "type": "docs",
       "labels": [
         "productivity-tool",
         "overnight",
-        "bug"
+        "docs"
       ],
       "project": "Productivity Tool"
     },
     {
-      "title": "Build Configuration Accumulating Workarounds",
-      "body": "Recent commits reveal fragile deployment setup: React 19 peer dep conflicts (--legacy-peer-deps), cwd path issues (npm --prefix), Nix environment complexity, and NODE_ENV bypasses. Each workaround increases maintenance burden and deployment risk. Refactor to address root causes: resolve React 19 compatibility, standardize build container environment, simplify Node/npm setup.",
-      "priority": "high",
-      "type": "improvement",
-      "labels": [
-        "productivity-tool",
-        "overnight",
-        "improvement"
-      ],
-      "project": "Productivity Tool"
-    },
-    {
-      "title": "Zero test coverage on 94-file property scraper",
-      "body": "Critical gap: no tests covering scraping logic, financial filter validation, or auth. For a tool handling property listings and financial data, untested code creates regression and accuracy risks. Prioritize integration tests for core filters and scraper reliability.",
-      "priority": "urgent",
-      "type": "bug",
-      "labels": [
-        "property-search-tool",
-        "overnight",
-        "bug"
-      ],
-      "project": "Property Search Tool"
-    },
-    {
-      "title": "Stale changelog entries blocking release discipline",
-      "body": "CHANGELOG-PENDING.md has 2 unpublished entries from 29 days ago. Consolidate into CHANGELOG.md to resume changelog tracking discipline and unblock release readiness.",
-      "priority": "high",
-      "type": "improvement",
-      "labels": [
-        "property-search-tool",
-        "overnight",
-        "improvement"
-      ],
-      "project": "Property Search Tool"
-    },
-    {
-      "title": "Urgent: Establish test coverage for standup analysis modules",
-      "body": "Only 3 test files for 40 source files. The standup_blockers, standup_capacity, and standup_velocity generation functions have no visible test coverage, yet they directly feed sprint ceremony decisions and downstream systems. Add schema validation tests + mock Jira response tests to catch silent failures in data processing before metrics reach teams.",
+      "title": "Add unit tests for critical automation paths",
+      "body": "Automation tool with 7.5% test coverage (3/40 files) is at risk of silent failures. PowerShell scripts for Dekka digest and scheduled tasks have zero tests. Target 20% coverage: add fixtures for file I/O, mock Jira API responses, and validate sprint data transformations. This protects daily syncs from breaking undetected.",
       "priority": "urgent",
       "type": "bug",
       "labels": [
@@ -315,8 +291,8 @@
       "project": "CW UKCAUD Project Tracker"
     },
     {
-      "title": "Publish stale changelog entries (5-day backlog)",
-      "body": "CHANGELOG-PENDING.md contains 2 unpublished entries from 5 days ago while active feature development continues (feedback widget, auth, replit config). Consolidate into CHANGELOG.md and tag a release to keep deployment history accurate and ensure stakeholders see feature updates.",
+      "title": "Consolidate stale CHANGELOG-PENDING.md entries",
+      "body": "Two entries have been pending for 6 days (since 2026-04-16). Daily eod sync commits are running, but changelog consolidation hook is not. Merge pending entries into CHANGELOG.md now, then fix the pre-commit hook to enforce consolidation on next eod sync.",
       "priority": "high",
       "type": "improvement",
       "labels": [
@@ -327,9 +303,57 @@
       "project": "CW UKCAUD Project Tracker"
     },
     {
-      "title": "Consolidate pending changelog",
-      "body": "CHANGELOG-PENDING.md contains 6 unpublished entries from 12 days ago. Per the post-commit-doc-cleanup hook enforcement rule in CLAUDE.md, these must be consolidated into CHANGELOG.md before any further commits or PR review. This is a process violation blocking release readiness.",
+      "title": "Zero Test Coverage on 94 Source Files",
+      "body": "Property Search Tool has no test suite despite heavy reliance on web scraping and financial calculations. Recent features (feedback widget, auth gate) added without tests. Scraper is fragile to Rightmove DOM changes; financial logic has no regression tests. Recommend starting with pytest fixtures for mock Rightmove responses and unit tests for analysis.py before next release.",
       "priority": "urgent",
+      "type": "bug",
+      "labels": [
+        "property-search-tool",
+        "overnight",
+        "bug"
+      ],
+      "project": "Property Search Tool"
+    },
+    {
+      "title": "Stale Changelog (31 Days)",
+      "body": "CHANGELOG-PENDING.md has 2 unpublished entries from ~March 22. Release process appears blocked or manual. Establish automated release cadence (every 2 weeks) tied to git tags and consolidate pending entries into CHANGELOG.md.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "property-search-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "Property Search Tool"
+    },
+    {
+      "title": "Add Test Coverage for Review Phase",
+      "body": "51 source files with 0 tests blocks Review phase completion. Python backend (main.py) and Next.js frontend both untested. Start with pytest suite for backend routes and React Testing Library for critical UI paths. Target 60%+ coverage on business logic before release.",
+      "priority": "urgent",
+      "type": "feature",
+      "labels": [
+        "cw-template-comparison-tool",
+        "overnight",
+        "feature"
+      ],
+      "project": "CW Template Comparison Tool"
+    },
+    {
+      "title": "Resolve Auth Strategy Churn",
+      "body": "Auth middleware was added (75f8ef9), removed (a69ff8c), then re-added (96d0458) in recent commits. Current state uses 'Replit publish privacy instead' per latest messages. Document final decision, remove dead code paths, and add a comment explaining why middleware was deprioritized.",
+      "priority": "high",
+      "type": "improvement",
+      "labels": [
+        "cw-template-comparison-tool",
+        "overnight",
+        "improvement"
+      ],
+      "project": "CW Template Comparison Tool"
+    },
+    {
+      "title": "Consolidate changelog (13 days overdue)",
+      "body": "6 unpublished entries in CHANGELOG-PENDING.md dating back 13 days. Per hooks protocol in CLAUDE.md, changelog consolidation should occur with each commit batch. Consolidate into CHANGELOG.md and verify all recent workflow/template changes are documented.",
+      "priority": "high",
       "type": "docs",
       "labels": [
         "cw-ukjpd-workflows",
@@ -339,8 +363,8 @@
       "project": "CW UKJPD Workflows"
     },
     {
-      "title": "Add README documentation",
-      "body": "Yearly Reviews has no README. For a project focused on reviews and documentation, clarity on purpose, file structure, and usage is critical for collaborators. Add README with sections covering: project overview, setup instructions, file organization, and contribution workflow.",
+      "title": "Add README.md documenting Yearly Reviews purpose and structure",
+      "body": "Missing README.md is blocking clarity on this project's role. Document: (1) the purpose of Yearly Reviews in your workflow, (2) what each of the 4 source files does, (3) how to run or contribute to the review process. This is foundational context for resuming the project later.",
       "priority": "high",
       "type": "docs",
       "labels": [
@@ -351,64 +375,40 @@
       "project": "Yearly Reviews"
     },
     {
-      "title": "Resolve pending changelog entries",
-      "body": "CHANGELOG-PENDING.md contains 6 unpublished entries from 12 days ago. User's documented pre-commit policy requires these to be consolidated into CHANGELOG.md before any commit. This suggests either the pre-commit hook is not running or was bypassed in recent commits. Consolidate now and verify hook is active.",
+      "title": "Add test suite for scraper and auth",
+      "body": "Zero tests for a production tool handling Google News session cookies and Replit password auth (auth-gate.js, scripts/scrape-gnews.js). Recent auth changes (2026-04-20) are untested. Add unit tests for session validation, scraper data parsing, and fallback logic. Aim for 80%+ coverage per your coding rules.",
       "priority": "high",
-      "type": "improvement",
+      "type": "feature",
+      "labels": [
+        "ai-breaking-news-tool",
+        "overnight",
+        "feature"
+      ],
+      "project": "AI Breaking News Tool"
+    },
+    {
+      "title": "Consolidate changelog (14 days stale)",
+      "body": "CHANGELOG-PENDING.md has 20 unpublished entries aged since ~2026-04-08. Per your documentation-with-commits hook protocol, consolidate into CHANGELOG.md before next git push. This is blocking your pre-commit-doc-check.",
+      "priority": "urgent",
+      "type": "docs",
+      "labels": [
+        "ai-breaking-news-tool",
+        "overnight",
+        "docs"
+      ],
+      "project": "AI Breaking News Tool"
+    },
+    {
+      "title": "Publish stale changelog entries",
+      "body": "6 changelog entries have been pending for 13 days. Either merge them into CHANGELOG.md to document the feedback widget and auth gate changes, or confirm those changes were reverted and the entries should be discarded. Stale changelogs can mask what's actually deployed.",
+      "priority": "high",
+      "type": "docs",
       "labels": [
         "cw-uat-testing-tool",
         "overnight",
-        "improvement"
+        "docs"
       ],
       "project": "CW UAT Testing Tool"
-    },
-    {
-      "title": "Clarify test strategy for UAT tool",
-      "body": "Project has 0 test files despite being a UAT testing tool. Either tests are managed elsewhere, the tool is documentation-only, or test coverage is incomplete. Add a brief note to .claude config or README explaining the testing approach.",
-      "priority": "high",
-      "type": "improvement",
-      "labels": [
-        "cw-uat-testing-tool",
-        "overnight",
-        "improvement"
-      ],
-      "project": "CW UAT Testing Tool"
-    },
-    {
-      "title": "Publish changelog backlog (13 days, 20 entries)",
-      "body": "CHANGELOG-PENDING.md violates the pre-commit consolidation rule documented in hooks. Review the 20 entries, move them into CHANGELOG.md with dates, and delete the pending file. This restores workflow compliance and signals current project state to consumers.",
-      "priority": "high",
-      "type": "improvement",
-      "labels": [
-        "ai-breaking-news-tool",
-        "overnight",
-        "improvement"
-      ],
-      "project": "AI Breaking News Tool"
-    },
-    {
-      "title": "Add tests for scraper logic",
-      "body": "scripts/scrape-gnews.js is a live, production scraper feeding the command center but has zero tests. Add unit tests for cookie-based authentication vs. RSS fallback flows, and integration tests for output format stability. This catches regressions before they break the news feed.",
-      "priority": "high",
-      "type": "improvement",
-      "labels": [
-        "ai-breaking-news-tool",
-        "overnight",
-        "improvement"
-      ],
-      "project": "AI Breaking News Tool"
-    },
-    {
-      "title": "Wire pre-commit hooks into eod-sync automation",
-      "body": "Automated eod-sync commits are active (3 recent commits) but not triggering changelog consolidation. Either the automation is bypassing hooks (--no-verify) or hooks aren't configured in the automation context. Verify that automated commits respect the full pre-commit workflow.",
-      "priority": "medium",
-      "type": "improvement",
-      "labels": [
-        "ai-breaking-news-tool",
-        "overnight",
-        "improvement"
-      ],
-      "project": "AI Breaking News Tool"
     }
   ]
 }

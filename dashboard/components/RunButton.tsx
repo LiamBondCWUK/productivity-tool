@@ -8,6 +8,7 @@ interface RunButtonProps {
   variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md";
   disabled?: boolean;
+  title?: string;
 }
 
 export function RunButton({
@@ -18,6 +19,7 @@ export function RunButton({
   variant = "secondary",
   size = "sm",
   disabled = false,
+  title,
 }: RunButtonProps) {
   const base = "rounded font-medium transition-colors disabled:opacity-40";
   const sizeClass = size === "sm" ? "text-xs px-2.5 py-1" : "text-sm px-3 py-1.5";
@@ -32,6 +34,7 @@ export function RunButton({
       onClick={onClick}
       disabled={running || disabled}
       className={`${base} ${sizeClass} ${variantClass}`}
+      title={title}
     >
       {running ? (runningLabel ?? "Running…") : label}
     </button>

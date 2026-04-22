@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-04-21T01:01:03.266Z",
+  "updatedAt": "2026-04-22T01:00:23.767Z",
   "projects": [
     {
       "name": "UKCAUD Spec Studio",
       "path": "C:/Users/liam.bond/Documents/UKCAUD Spec Studio",
       "phase": "Building",
-      "lastCommit": "2026-04-20T20:38:04+01:00",
-      "lastCommitMsg": "feat: JSON export, publish routes, Replit config, typed routes + Suspense fixes",
+      "lastCommit": "2026-04-21T17:34:29+01:00",
+      "lastCommitMsg": "chore: eod sync (1 modified) - M frontend/next-env.d.ts",
       "hasGit": true,
       "hasPkg": true,
       "hasClaude": false,
@@ -16,8 +16,8 @@
       "name": "dotfiles-publish",
       "path": "C:/Users/liam.bond/Documents/dotfiles-publish",
       "phase": "Building",
-      "lastCommit": "2026-04-20T17:34:20+01:00",
-      "lastCommitMsg": "chore: eod sync (14 added) - claude/skills/caseware-pr/, claude/skills/commit-message/, claude/skills/daily-brief/, claude/skills/monorepo-setup-v2/, claude/skills/performance-self-assessment-v2/",
+      "lastCommit": "2026-04-21T10:58:56+01:00",
+      "lastCommitMsg": "config: sync 1 file(s) from UK-PW0B2H3M",
       "hasGit": true,
       "hasPkg": false,
       "hasClaude": false,
@@ -134,22 +134,11 @@
       "description": "**AI-powered automation for audit, compliance, and financial workflows**"
     },
     {
-      "name": "Property Search Tool",
-      "path": "C:/Users/liam.bond/Documents/Property Search Tool",
-      "phase": "Review",
-      "lastCommit": "2026-04-20T17:35:02+01:00",
-      "lastCommitMsg": "chore: eod sync (4 modified) - M .replit, M requirements.txt, M src/notifications/notifier.py, M src/server/report_server.py",
-      "hasGit": true,
-      "hasPkg": false,
-      "hasClaude": true,
-      "description": "Automated UK property search tool for the Tunbridge Wells cluster. Scrapes Rightmove daily, applies financial and qualit"
-    },
-    {
       "name": "Productivity Tool",
       "path": "C:/Users/liam.bond/Documents/Productivity Tool",
       "phase": "Review",
-      "lastCommit": "2026-04-20T17:34:55+01:00",
-      "lastCommitMsg": "chore: eod sync (3 added, 16 modified) - M dashboard/app/api/execute/route.ts, M dashboard/app/page.tsx, M dashboard/components/CalendarPanel.tsx, M dashboard/components/CeremoniesTab.tsx, M dashboard/components/TimeTracker.tsx",
+      "lastCommit": "2026-04-21T17:34:11+01:00",
+      "lastCommitMsg": "chore: eod sync (7 modified) - M outputs/review-evidence/DRAFT-goal-reframes.md, M outputs/review-evidence/DRAFT-self-assessment.md, M workspace/coordinator/activity-log.json, M workspace/coordinator/dashboard-data.json, M workspace/coordinator/gm-auto.log",
       "hasGit": true,
       "hasPkg": true,
       "hasClaude": true,
@@ -159,12 +148,23 @@
       "name": "CW UKCAUD Project Tracker",
       "path": "C:/Users/liam.bond/Documents/CW UKCAUD Project Tracker",
       "phase": "Review",
-      "lastCommit": "2026-04-20T17:34:07+01:00",
-      "lastCommitMsg": "chore: eod sync (4 added, 2 modified) - M scripts/collect-dekka-digest.ps1, M scripts/setup-scheduled-task.ps1, outputs/ai-analysis-cache/standup_blockers_2026-04-20.json, outputs/ai-analysis-cache/standup_capacity_2026-04-20.json, outputs/ai-analysis-cache/standup_velocity_2026-04-20.json",
+      "lastCommit": "2026-04-21T17:33:04+01:00",
+      "lastCommitMsg": "chore: eod sync (6 added, 4 modified) - M outputs/ai-analysis-cache/planning_capacity_sprint0.json, M outputs/ai-analysis-cache/planning_dor_sprint0.json, M outputs/ai-analysis-cache/planning_sprintGoal_sprint0.json, M outputs/ai-analysis-cache/retro_retro_sprint0.json, outputs/ai-analysis-cache/standup_blockers_2026-04-21.json",
       "hasGit": true,
       "hasPkg": true,
       "hasClaude": true,
       "description": "**AI-powered sprint ceremony automation and delivery tracking for the UK Cloud Audit (UKCAUD) Jira project.**"
+    },
+    {
+      "name": "Property Search Tool",
+      "path": "C:/Users/liam.bond/Documents/Property Search Tool",
+      "phase": "Review",
+      "lastCommit": "2026-04-20T17:35:02+01:00",
+      "lastCommitMsg": "chore: eod sync (4 modified) - M .replit, M requirements.txt, M src/notifications/notifier.py, M src/server/report_server.py",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": true,
+      "description": "Automated UK property search tool for the Tunbridge Wells cluster. Scrapes Rightmove daily, applies financial and qualit"
     },
     {
       "name": "CW Template Comparison Tool",
