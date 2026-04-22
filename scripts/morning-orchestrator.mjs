@@ -121,8 +121,10 @@ async function fetchHackerNews() {
           .catch(() => null),
       ),
     );
+    // Only stories from the last 48h to keep feed current
+    const cutoff = Date.now() - 48 * 60 * 60 * 1000;
     return items
-      .filter((item) => item && item.score > 50 && isAiRelated(item.title))
+      .filter((item) => item && item.score > 50 && isAiRelated(item.title) && item.time * 1000 > cutoff)
       .slice(0, 12)
       .map((item) => ({
         title: item.title,
@@ -142,10 +144,11 @@ async function fetchGitHubRepos() {
   const headers = { 'User-Agent': 'AI-Breaking-News-Tool/1.0' };
   if (process.env.GITHUB_TOKEN) headers['Authorization'] = `Bearer ${process.env.GITHUB_TOKEN}`;
 
-  // Two focused queries — keep them simple, topic-only, to avoid 422s
+  // Filter to repos pushed in the last 30 days so results stay trending/recent
+  const monthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
   const queries = [
-    'topic:mcp language:TypeScript',
-    'topic:llm-tools',
+    `topic:mcp pushed:>${monthAgo}`,
+    `topic:llm-tools pushed:>${monthAgo}`,
   ];
 
   const results = [];
@@ -516,6 +519,12 @@ async function main() {
       if (!s.url || seenUrls.has(s.url)) return false;
       seenUrls.add(s.url);
       return true;
+    })
+    // Sort by publishedAt descending so today's content appears first
+    .sort((a, b) => {
+      const ta = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
+      const tb = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
+      return tb - ta;
     })
     .slice(0, 25);
 

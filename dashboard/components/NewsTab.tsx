@@ -17,6 +17,7 @@ interface TopStory {
   summary: string;
   url?: string;
   publishedAt?: string;
+  source?: string;
 }
 
 interface NewsTabProps {
@@ -35,6 +36,13 @@ const SOURCE_BADGE_STYLES: Record<string, string> = {
   confluence: "bg-purple-900/40 text-purple-300 border-purple-700/40",
   newsletter: "bg-green-900/40 text-green-300 border-green-700/40",
   external: "bg-gray-800/40 text-gray-300 border-gray-700/40",
+  hackernews: "bg-orange-900/40 text-orange-300 border-orange-700/40",
+  reddit: "bg-red-900/40 text-red-300 border-red-700/40",
+  "anthropic-release": "bg-violet-900/40 text-violet-300 border-violet-700/40",
+  "mcp-registry": "bg-cyan-900/40 text-cyan-300 border-cyan-700/40",
+  arxiv: "bg-emerald-900/40 text-emerald-300 border-emerald-700/40",
+  producthunt: "bg-pink-900/40 text-pink-300 border-pink-700/40",
+  gnews: "bg-sky-900/40 text-sky-300 border-sky-700/40",
 };
 
 const SOURCE_LABELS: Record<string, string> = {
@@ -42,6 +50,13 @@ const SOURCE_LABELS: Record<string, string> = {
   confluence: "Confluence",
   newsletter: "Newsletter",
   external: "External",
+  hackernews: "HN",
+  reddit: "Reddit",
+  "anthropic-release": "Anthropic",
+  "mcp-registry": "MCP Registry",
+  arxiv: "arXiv",
+  producthunt: "PH",
+  gnews: "News",
 };
 
 function SourceBadge({ type }: { type: string }) {
@@ -191,9 +206,15 @@ function SuggestionCard({
           </div>
           <p className="text-xs text-gray-400 mt-1">{install.description}</p>
           {install.signal && (
-            <p className="text-xs text-gray-600 mt-0.5 italic">
-              Signal: {install.signal}
-            </p>
+            <a
+              href={install.signal}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[10px] text-gray-600 hover:text-blue-400 transition-colors mt-0.5 block truncate"
+              title={install.signal}
+            >
+              ↗ {install.signal}
+            </a>
           )}
           {install.installCommand && (
             <code className="text-[10px] text-green-400 bg-gray-900/60 rounded px-1.5 py-0.5 mt-1 inline-block font-mono">
@@ -352,20 +373,29 @@ export function NewsTab({
                     className="bg-gray-800/40 rounded-lg p-3 border border-gray-700/40 hover:border-gray-600/60 transition-colors"
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <p className="text-sm font-medium text-gray-200 leading-snug flex-1">
-                        {story.url ? (
-                          <a
-                            href={story.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:text-blue-400 transition-colors"
+                      <div className="flex-1 min-w-0">
+                        {story.source && (
+                          <span
+                            className={`text-[10px] font-medium border rounded px-1.5 py-0.5 mr-1.5 ${SOURCE_BADGE_STYLES[story.source] ?? SOURCE_BADGE_STYLES.external}`}
                           >
-                            {story.title}
-                          </a>
-                        ) : (
-                          story.title
+                            {SOURCE_LABELS[story.source] ?? story.source}
+                          </span>
                         )}
-                      </p>
+                        <span className="text-sm font-medium text-gray-200 leading-snug">
+                          {story.url ? (
+                            <a
+                              href={story.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:text-blue-400 transition-colors"
+                            >
+                              {story.title}
+                            </a>
+                          ) : (
+                            story.title
+                          )}
+                        </span>
+                      </div>
                       {story.url && <ExternalLink url={story.url} />}
                     </div>
                     {story.summary && (
@@ -378,11 +408,7 @@ export function NewsTab({
                         <time dateTime={story.publishedAt}>
                           {new Date(story.publishedAt).toLocaleDateString(
                             "en-GB",
-                            {
-                              day: "numeric",
-                              month: "short",
-                              year: "numeric",
-                            },
+                            { day: "numeric", month: "short", year: "numeric" },
                           )}
                         </time>
                       </p>
