@@ -31,15 +31,25 @@ const NEWSLETTER_RSS = [
   { name: "TLDR AI",            url: "https://tldr.tech/api/rss/ai" },
   { name: "404 Media",          url: "https://www.404media.co/rss" },
   { name: "Hugging Face Blog",  url: "https://huggingface.co/blog/feed.xml" },
+  // ── AI lab blogs (primary source — straight from the labs) ───────────────
+  { name: "Google DeepMind",    url: "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/rss/" },
+  { name: "OpenAI News",        url: "https://openai.com/news/rss.xml" },
+  { name: "Meta AI / Eng",      url: "https://engineering.fb.com/tag/ai/feed/" },
   // ── AI / tech news sites (3 items each for broader coverage) ────────────
   { name: "VentureBeat AI",     url: "https://venturebeat.com/category/ai/feed/",                         limit: 3 },
   { name: "TechCrunch AI",      url: "https://techcrunch.com/category/artificial-intelligence/feed/",     limit: 3 },
   { name: "The Verge AI",       url: "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml", limit: 3 },
   { name: "MIT Tech Review",    url: "https://www.technologyreview.com/feed",                              limit: 3 },
   { name: "Wired AI",           url: "https://www.wired.com/feed/tag/ai/latest/rss",                      limit: 3 },
+  // ── Research frontier (arXiv — papers before press, 2 per category) ──────
+  { name: "arXiv cs.AI",        url: "https://export.arxiv.org/rss/cs.AI",  limit: 2 },
+  { name: "arXiv cs.LG",        url: "https://export.arxiv.org/rss/cs.LG",  limit: 2 },
+  { name: "arXiv cs.CL",        url: "https://export.arxiv.org/rss/cs.CL",  limit: 2 },
   // ── Community signals ────────────────────────────────────────────────────
   { name: "Hacker News",        url: "https://hnrss.org/frontpage?points=100",                            limit: 5 },
   { name: "Simon Willison",     url: "https://simonwillison.net/atom/everything/" },
+  { name: "r/MachineLearning",  url: "https://www.reddit.com/r/MachineLearning/top/.rss?t=day",           limit: 4, headers: { "User-Agent": "Mozilla/5.0 NewsBot/1.0" } },
+  { name: "r/LocalLLaMA",       url: "https://www.reddit.com/r/LocalLLaMA/top/.rss?t=day",               limit: 4, headers: { "User-Agent": "Mozilla/5.0 NewsBot/1.0" } },
 ];
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -95,15 +105,16 @@ function matchesAI(text) {
 
 // ── RSS Newsletter Scraping ───────────────────────────────────────────────────
 
-function fetchText(url, base = url) {
+function fetchText(url, base = url, extraHeaders = {}) {
   let resolved;
   try { resolved = new URL(url, base).toString(); } catch {
     return Promise.reject(new Error(`Invalid URL: ${url}`));
   }
+  const headers = { "User-Agent": "Mozilla/5.0 NewsBot/1.0", ...extraHeaders };
   return new Promise((resolve, reject) => {
-    const req = httpsGet(resolved, { timeout: 10_000 }, (res) => {
+    const req = httpsGet(resolved, { timeout: 10_000, headers }, (res) => {
       if ([301, 302, 307, 308].includes(res.statusCode)) {
-        fetchText(res.headers.location, resolved).then(resolve).catch(reject);
+        fetchText(res.headers.location, resolved, extraHeaders).then(resolve).catch(reject);
         return;
       }
       if (res.statusCode !== 200) {
@@ -182,9 +193,9 @@ async function scrapeNewsletterRSS() {
   const results = [];
 
   await Promise.allSettled(
-    NEWSLETTER_RSS.map(async ({ name, url, limit = 2 }) => {
+    NEWSLETTER_RSS.map(async ({ name, url, limit = 2, headers = {} }) => {
       try {
-        const xml = await fetchText(url);
+        const xml = await fetchText(url, url, headers);
         const items = extractRSSItems(xml, name, limit);
         results.push(...items);
         log("newsletters", `RSS ${name}: ${items.length} items`);
@@ -196,7 +207,7 @@ async function scrapeNewsletterRSS() {
 
   results.sort((a, b) => b.receivedAt.localeCompare(a.receivedAt));
   log("newsletters", `RSS total: ${results.length} items`);
-  return results.slice(0, 25);
+  return results.slice(0, 40);
 }
 
 // ── Teams: Parse LevelDB Evidence Files ──────────────────────────────────────
