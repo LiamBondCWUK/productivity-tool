@@ -16,5 +16,19 @@ module.exports = {
       max_restarts: 10,
       restart_delay: 5000,
     },
+    {
+      name: "agentic-kanban",
+      script: "pnpm",
+      args: "run dev",
+      cwd: "C:/Users/liam.bond/Documents/agentic-kanban/packages/server",
+      env: {
+        NODE_ENV: "production",
+        BACKEND_PORT: 3001,
+      },
+      watch: false,
+      autorestart: true,
+      max_restarts: 10,
+      restart_delay: 5000,
+    },
   ],
 };

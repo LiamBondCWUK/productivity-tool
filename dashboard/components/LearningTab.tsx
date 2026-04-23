@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useExecuteCommand } from "../hooks/useExecuteCommand";
 import { RunButton, StatusBanner } from "./RunButton";
-import { PendingCardsReview } from "./PendingCardsReview";
 import type {
   OvernightProjectAnalysis,
   RecommendedInstalls,
@@ -176,9 +175,6 @@ export function LearningTab({
             )}
           </div>
         ))}
-
-        {/* Pending Kanban Cards review */}
-        <PendingCardsReview />
 
         {/* Recommended Installs */}
         <div className="pt-2">

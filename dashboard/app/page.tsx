@@ -15,6 +15,7 @@ import { NewsTab } from "../components/NewsTab";
 import { SystemTab } from "../components/tabs/SystemTab";
 import { IBPTab } from "../components/IBPTab";
 import { FeedbackTab } from "../components/FeedbackTab";
+import { AgenticKanbanTab } from "../components/AgenticKanbanTab";
 import type { ProjectPhase, ProjectSuggestion } from "../types/dashboard";
 
 function formatCurrentTime(): string {
@@ -251,6 +252,7 @@ export default function Dashboard() {
         feedbackContent={
           <FeedbackTab initialItems={data.feedback?.items ?? []} />
         }
+        kanbanContent={<AgenticKanbanTab />}
         systemContent={
           <SystemTab
             suggestions={data.aiNewsResults?.suggestions ?? []}
