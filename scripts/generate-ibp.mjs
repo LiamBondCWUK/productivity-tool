@@ -1294,88 +1294,235 @@ async function buildPlainSummary(ctx) {
 
   return preservedOutput;
 }
+// --- Output validation -----------------------------------------------------
+
+// F5: Hard validation of the final markdown before writing. Fails loud on drift.
+function validateIbpOutput(markdown, ctx) {
+  const failures = [];
+  const required = [
+    "## 🚀 Last Week: Wins & Impact",
+    "## ⚠️ Issues / Blockers",
+    "## 🔥 This Week: Top Priorities",
+    "## 🔮 Looking Ahead",
+  ];
+  required.forEach((h) => {
+    if (!markdown.includes(h)) failures.push(`missing required section: ${h}`);
+  });
+  if (markdown.includes("## Communications")) {
+    failures.push("non-spec section present: ## Communications");
+  }
+  if (/[^.][.…]…/.test(markdown) || /\w…/.test(markdown)) {
+    failures.push("mid-sentence truncation (…) detected");
+  }
+  // Word-count band — exclude the YAML/preserved-section content if any.
+  const narrativeOnly = markdown
+    .replace(/^# IBP[^\n]*\n/, "")
+    .replace(/^---[\s\S]*$/m, "")
+    .trim();
+  const wc = narrativeOnly.split(/\s+/).filter(Boolean).length;
+  if (wc < 250 || wc > 450) failures.push(`word count ${wc} outside band 250–450`);
+
+  // Block false-negative blockers.
+  const hasKnownBlocker = (ctx.knownBlockers ?? []).length > 0;
+  if (hasKnownBlocker && /## ⚠️ Issues \/ Blockers\s*\n+No new blockers/i.test(markdown)) {
+    failures.push("emitted 'No new blockers' while ctx.knownBlockers is non-empty");
+  }
+  return failures;
+}
+
+// F6: Read ~/.claude/primer.md ## Open Blockers section (cross-machine source of truth).
+function readPrimerBlockers() {
+  const primerPath = resolve(homedir(), ".claude", "primer.md");
+  if (!existsSync(primerPath)) return [];
+  try {
+    const text = readFileSync(primerPath, "utf8");
+    const m = text.match(/##\s*Open Blockers\s*\n+([\s\S]*?)(?=\n##\s|$)/);
+    if (!m) return [];
+    return m[1]
+      .split("\n")
+      .map((l) => l.replace(/^\s*[-*]\s*/, "").trim())
+      .filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
 // --- Claude narrative -------------------------------------------------------
 
+// F12: Load 3 hand-picked peer IBPs as multi-shot anchors. Auto-discovered.
+function readPeerExamples() {
+  const examplesDir = resolve(__dirname, "ibp-examples");
+  if (!existsSync(examplesDir)) return [];
+  return readdirSync(examplesDir)
+    .filter((f) => f.endsWith(".md"))
+    .sort()
+    .slice(0, 3)
+    .map((f, idx) => {
+      const author = f.replace(/^\d+-/, "").replace(/\.md$/, "").replace(/-/g, " ");
+      const body = readFileSync(resolve(examplesDir, f), "utf8").trim();
+      return `<example index="${idx + 1}" author="${author}">\n${body}\n</example>`;
+    });
+}
+
+// F4: XML-structured prompt with role / format / constraints / 3 multi-shot examples.
+// Replaces the daily-framing prompt with weekly framing matching the official Caseware IBP spec.
 function buildNarrativePrompt(ctx) {
   const topItems = (block, limit = 3) => {
     if (!block) return [];
     return String(block)
       .split("\n")
-      .map((line) => cleanText(line.replace(/^\s*[-*]\s*/, ""), 110))
+      .map((line) => cleanText(line.replace(/^\s*[-*]\s*/, ""), 240))
       .filter(Boolean)
       .slice(0, limit);
   };
 
   const jiraProjectTop = (ctx.jiraProjectSnapshots ?? [])
-    .flatMap((s) => s.issues.slice(0, 2).map((i) => `${i.key} [${i.status}] ${cleanText(i.summary, 70)}`))
-    .slice(0, 4);
+    .flatMap((s) =>
+      s.issues.slice(0, 4).map((i) => `${i.key} [${i.status}] ${cleanText(i.summary, 240)}`)
+    )
+    .slice(0, 8);
 
-  return `Write a concise markdown IBP summary for ${ctx.date}.
+  const knownBlockers = (ctx.knownBlockers ?? []).map((b) => `- ${b}`).join("\n") ||
+    "(none active — emit 'No new blockers identified this week.')";
 
-Facts:
-- Total tracked: ${ctx.totalTracked}
+  const upcomingMilestones = (ctx.upcomingMilestones ?? []).map((m) => `- ${m}`).join("\n") || "- (none surfaced)";
+  const oooBlocks = (ctx.oooBlocks ?? []).map((o) => `- ${o}`).join("\n") || "- (none planned next 4 weeks)";
+
+  const examples = readPeerExamples().join("\n\n");
+
+  return `<role>
+You are a senior Caseware Product Manager (UK Audit). You write the weekly IBP for the Global Product organisation. You write like Kartik Narayan and Quinn Daneyko — concise, outcome-framed, no fluff. Your reader is Andrew Smith and the wider Product leadership team. Optimise for: clarity of impact, surfacing of blockers, sharpness of next-week priorities.
+</role>
+
+<format>
+Output MUST follow the official Caseware IBP format exactly. Four sections, in this order, with these exact headings:
+
+## 🚀 Last Week: Wins & Impact
+## ⚠️ Issues / Blockers
+## 🔥 This Week: Top Priorities
+## 🔮 Looking Ahead
+
+Within each section, use bold-initiative bullets:
+**Initiative name:** One-to-two-sentence outcome description.
+
+End "This Week: Top Priorities" with a single line:
+**Biggest lever:** [one sentence on the highest-impact action this week]
+</format>
+
+<constraints>
+- Total output: 250–400 words. NEVER exceed 400.
+- Top Priorities: maximum 3 items + biggest lever line.
+- Last Week: Wins & Impact: maximum 6 items.
+- NEVER emit a "Communications" section. Distill 1:1s and team syncs into wins if relevant, otherwise drop.
+- NEVER emit raw Jira ticket titles ("Start Audit X — Enable Y..."). Synthesise to outcome-framed priorities.
+- NEVER pack multiple items into one comma-separated bullet. One bullet per workstream.
+- NEVER truncate mid-sentence with "…". Rewrite to fit the budget.
+- Issues / Blockers: distinguish FYI vs Help Needed. If genuinely no blockers, write "No new blockers identified this week." If known blockers exist (see <known_blockers>), include them. NEVER write "None" while real blockers are open.
+- Looking Ahead: release dates, OOO blocks ≥2 days, cross-team milestones over the next 1–2 months. NOT a list of daily meeting names.
+- Tone: third person, action-oriented, professional. No emojis except the 4 section markers.
+- Do not invent facts. If a fact is not in the input data, do not include it.
+</constraints>
+
+<input>
+<week>${ctx.weekLabel ?? ctx.date}</week>
+
+<facts>
+- Total tracked time: ${ctx.totalTracked}
 - Planned focus: ${fmtMin(ctx.plannedTodayMinutes)}${ctx.actualToPlannedPct !== null ? ` (${ctx.actualToPlannedPct}% execution)` : ""}
-- Meetings today: ${ctx.meetingCount} (${fmtMin(ctx.meetingsTotalMin)})
+- Meetings: ${ctx.meetingCount} (${fmtMin(ctx.meetingsTotalMin)})
 - Teams messages: ${ctx.teamMessageCount}
 - Flagged emails: ${ctx.flaggedEmailCount}
 - Jira inbox items: ${ctx.jiraInboxCount}
+</facts>
 
-Top activity items:
-${topItems(ctx.claudeSummary, 4).map((x) => `- ${x}`).join("\n") || "- none"}
+<top_activity>
+${topItems(ctx.claudeSummary, 6).map((x) => `- ${x}`).join("\n") || "- (none)"}
+</top_activity>
 
-Top inbox items:
-${ctx.inboxItems.slice(0, 4).map((i) => `- ${cleanText(i, 110)}`).join("\n") || "- none"}
+<top_jira_workstreams>
+${jiraProjectTop.map((x) => `- ${x}`).join("\n") || "- (none)"}
+</top_jira_workstreams>
 
-Top jira items:
-${topItems(ctx.jiraInboxSummary, 4).map((x) => `- ${x}`).join("\n") || "- none"}
+<top_inbox>
+${ctx.inboxItems.slice(0, 6).map((i) => `- ${cleanText(i, 240)}`).join("\n") || "- (none)"}
+</top_inbox>
 
-Top jira project updates:
-${jiraProjectTop.map((x) => `- ${x}`).join("\n") || "- none"}
+<known_blockers>
+${knownBlockers}
+</known_blockers>
 
-Output 120-180 words with sections:
-1) What I accomplished today (3-5 bullets)
-2) Time breakdown (short paragraph)
-3) Open threads (2-3 bullets)
-4) Tomorrow's priority (1 bullet)
+<upcoming_milestones>
+${upcomingMilestones}
+</upcoming_milestones>
 
-Keep it factual and actionable.`;
+<ooo_blocks>
+${oooBlocks}
+</ooo_blocks>
+</input>
+
+<examples>
+${examples}
+</examples>
+
+<instructions>
+Think step by step before writing.
+
+1. Identify the 3–5 highest-impact wins from <top_activity>, <top_jira_workstreams>, and <top_inbox>. Group by workstream. Reframe each from "what was done" to "what advanced and why it matters".
+2. Check <known_blockers>. If non-empty, include them under Issues / Blockers with FYI vs Help Needed labels. If empty, write "No new blockers identified this week."
+3. Identify the top 2–3 strategic priorities for next week. Drop raw Jira titles. Phrase as forward-looking actions.
+4. Name the single biggest lever — the one item that, if executed well, changes the trajectory.
+5. Build Looking Ahead from <upcoming_milestones> and <ooo_blocks>. Drop daily meeting names.
+6. Verify total length 250–400 words before emitting.
+7. Verify zero "…" mid-sentence.
+8. Verify no Communications section.
+9. Emit only the four-section markdown — no preamble, no postamble.
+</instructions>`;
 }
 
 function callClaudeCliOAuth(ctx) {
   const prompt = buildNarrativePrompt(ctx);
 
+  // F1: On Windows we run via cmd.exe (shell:true) so PATHEXT resolves claude.exe / claude.cmd correctly.
+  // F3: Pin model for deterministic peer-norm voice.
+  const modelArgs = ["--print", "--model", "claude-sonnet-4-6"];
+
   const attempts = [
-    // Most reliable path for larger prompts: pass prompt via stdin.
-    { cmd: "claude", args: ["--print"], useStdin: true },
-    // Fallback: inline prompt mode.
-    { cmd: "claude", args: ["-p", prompt, "--output-format", "text"], useStdin: false },
-    // Final fallback if global CLI isn't on PATH.
-    { cmd: "npx", args: ["-y", "@anthropic-ai/claude-code", "--print"], useStdin: true },
+    // Stdin-only path. Inline mode fails on Windows due to ARG_MAX (the new XML prompt is ~7KB).
+    { cmd: "claude", args: modelArgs, useStdin: true },
+    // Fallback if global CLI isn't on PATH (rare).
+    { cmd: "npx", args: ["-y", "@anthropic-ai/claude-code", ...modelArgs], useStdin: true },
   ];
 
+  // Strip ANTHROPIC_API_KEY so the CLI falls back to OAuth (Claude Code subscription).
+  // Without this, the CLI uses a (potentially zero-credit) API key from the parent env.
+  const cliEnv = { ...process.env };
+  delete cliEnv.ANTHROPIC_API_KEY;
+  delete cliEnv.ANTHROPIC_AUTH_TOKEN;
+
   for (const attempt of attempts) {
-    const cmd = process.platform === "win32" && attempt.cmd === "npx" ? "npx.cmd" : attempt.cmd;
-    const result = spawnSync(cmd, attempt.args, {
+    const result = spawnSync(attempt.cmd, attempt.args, {
       input: attempt.useStdin ? prompt : undefined,
       cwd: ROOT,
       encoding: "utf8",
-      timeout: 25000,
-      env: process.env,
+      timeout: 180000,
+      env: cliEnv,
       windowsHide: true,
+      shell: process.platform === "win32",
     });
 
     if (!result.error && result.status === 0 && result.stdout?.trim()) {
+      const mode = attempt.useStdin ? "stdin" : "inline";
+      console.log(`[generate-ibp] Claude OAuth narrative succeeded via ${attempt.cmd} (${mode}, ${result.stdout.length} chars)`);
       return result.stdout.trim();
     }
 
-    const errMsg = result.error?.message || result.stderr?.trim();
-    if (errMsg) {
-      const mode = attempt.useStdin ? "stdin" : "inline";
-      console.warn(`[generate-ibp] OAuth attempt failed (${attempt.cmd}, ${mode}): ${errMsg.slice(0, 200)}`);
-    }
+    // F2: log every attempt failure even when stderr is empty so we can debug silent failures.
+    const errMsg = result.error?.message || result.stderr?.trim() || "";
+    const exitInfo = `status=${result.status} signal=${result.signal} stdout-empty=${!result.stdout?.trim()}`;
+    const mode = attempt.useStdin ? "stdin" : "inline";
+    console.warn(`[generate-ibp] OAuth attempt failed (${attempt.cmd}, ${mode}): ${errMsg.slice(0, 200)} | ${exitInfo}`);
   }
 
-  console.log("[generate-ibp] OAuth narrative unavailable (run 'claude login')");
   return null;
 }
 
@@ -1892,6 +2039,30 @@ async function run() {
     ctx.jiraAutomationActivity = [];
   }
 
+  ctx.weekLabel = formatWeekLabel(weekRanges.currentWeekStart, weekRanges.currentWeekEnd);
+  ctx.knownBlockers = [
+    ...readPrimerBlockers(),
+    ...(ctx.jiraProjectSnapshots ?? [])
+      .flatMap((s) => s.issues)
+      .filter((i) => i.key?.startsWith("DIST-") && (i.status ?? "").toLowerCase() !== "done")
+      .map((i) => `${i.key}: ${i.summary} (${i.status})`),
+    ...(ctx.jiraDistBlockers ?? [])
+      .map((b) => (typeof b === "string" ? b : `${b.key ?? ""}: ${b.summary ?? ""}`))
+      .filter(Boolean),
+  ];
+  const _seenBlockers = new Set();
+  ctx.knownBlockers = ctx.knownBlockers.filter((b) => {
+    const key = b.match(/[A-Z]+-\d+/)?.[0] ?? b;
+    if (_seenBlockers.has(key)) return false;
+    _seenBlockers.add(key);
+    return true;
+  });
+  ctx.upcomingMilestones = ctx.upcomingMilestones ?? [];
+  ctx.oooBlocks = ctx.oooBlocks ?? [];
+  console.log(
+    `[generate-ibp] knownBlockers: ${ctx.knownBlockers.length} (${ctx.knownBlockers.slice(0, 2).join(" | ") || "none"})`,
+  );
+
   let content;
 
   if (SKIP_AI) {
@@ -1901,25 +2072,53 @@ async function run() {
     console.log("[generate-ibp] calling Claude via OAuth for narrative...");
     const narrative = callClaudeCliOAuth(ctx);
 
-    if (narrative) {
+    if (!narrative) {
+      console.error("\n[generate-ibp] FATAL: Claude narrative unavailable.");
+      console.error("  1. 'claude' CLI not on PATH");
+      console.error("  2. Not logged in (run `claude login`)");
+      console.error("  3. Windows: claude.cmd not resolvable by spawnSync");
+      console.error("  Set IBP_ALLOW_FALLBACK=1 to force the legacy plain-summary fallback.");
+      if (process.env.IBP_ALLOW_FALLBACK !== "1") {
+        process.exit(2);
+      }
+      console.warn("[generate-ibp] IBP_ALLOW_FALLBACK=1 set — emitting plain summary (off-spec).");
+      content = await buildPlainSummary(ctx);
+    } else {
       content = [
-        `# IBP — ${ctx.date}`,
-        ``,
-        `**Total tracked time:** ${ctx.totalTracked}`,
+        `# IBP — ${ctx.weekLabel ?? ctx.date}`,
         ``,
         narrative,
         ``,
         `---`,
-        `_Generated by generate-ibp.mjs with Claude narrative at ${new Date().toLocaleTimeString("en-GB")}_`,
+        `_Generated by generate-ibp.mjs (Claude sonnet-4-6) at ${new Date().toLocaleTimeString("en-GB")}_`,
       ].join("\n");
-    } else {
-      console.log("[generate-ibp] falling back to plain summary because OAuth narrative is unavailable");
-      content = await buildPlainSummary(ctx);
+    }
+  }
+
+  if (!SKIP_AI) {
+    const failures = validateIbpOutput(content, ctx);
+    if (failures.length > 0) {
+      const failuresPath = OUTPUT_PATH.replace(/\.md$/, "-validation-failures.json");
+      writeFileSync(failuresPath, JSON.stringify({ failures, generatedAt: new Date().toISOString() }, null, 2));
+      console.error(`[generate-ibp] Validation flagged ${failures.length} issue(s). See ${failuresPath}`);
+      failures.forEach((f) => console.error(`  - ${f}`));
+      if (process.env.IBP_ALLOW_DRIFT !== "1") {
+        console.error("  Set IBP_ALLOW_DRIFT=1 to write anyway.");
+        process.exit(3);
+      }
     }
   }
 
   writeFileSync(OUTPUT_PATH, content);
   console.log(`[generate-ibp] wrote ${OUTPUT_PATH}`);
+}
+
+function formatWeekLabel(startISO, endISO) {
+  if (!startISO || !endISO) return null;
+  const start = new Date(startISO);
+  const end = new Date(endISO);
+  const opts = { weekday: "short", day: "numeric", month: "short" };
+  return `Week of ${start.toLocaleDateString("en-GB", opts)} - ${end.toLocaleDateString("en-GB", opts)}`;
 }
 
 const isDirectExecution =
