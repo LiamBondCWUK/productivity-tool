@@ -21,7 +21,8 @@ import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from "
 import { resolve, dirname } from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 import { execSync, spawnSync } from "child_process";
-import { homedir } from "os";
+import { homedir, tmpdir } from "os";
+const TMPDIR_FOR_CLAUDE = tmpdir();
 
 // Load .env if it exists
 try {
@@ -1317,10 +1318,10 @@ function validateIbpOutput(markdown, ctx) {
   // Word-count band — exclude the YAML/preserved-section content if any.
   const narrativeOnly = markdown
     .replace(/^# IBP[^\n]*\n/, "")
-    .replace(/^---[\s\S]*$/m, "")
+    .replace(/\n---\s*\n_Generated[\s\S]*$/, "")
     .trim();
   const wc = narrativeOnly.split(/\s+/).filter(Boolean).length;
-  if (wc < 250 || wc > 450) failures.push(`word count ${wc} outside band 250–450`);
+  if (wc < 350 || wc > 700) failures.push(`word count ${wc} outside band 350–700`);
 
   // Block false-negative blockers.
   const hasKnownBlocker = (ctx.knownBlockers ?? []).length > 0;
@@ -1364,34 +1365,37 @@ function readPeerExamples() {
     });
 }
 
-// F4: XML-structured prompt with role / format / constraints / 3 multi-shot examples.
-// Replaces the daily-framing prompt with weekly framing matching the official Caseware IBP spec.
+// F4 v2: XML-structured prompt with expanded input slots, looser word band,
+// and explicit "default include" rule for shipped work / cross-team enablement / recognition.
 function buildNarrativePrompt(ctx) {
-  const topItems = (block, limit = 3) => {
+  const topItems = (block, limit = 12) => {
     if (!block) return [];
     return String(block)
       .split("\n")
-      .map((line) => cleanText(line.replace(/^\s*[-*]\s*/, ""), 240))
+      .map((line) => cleanText(line.replace(/^\s*[-*]\s*/, ""), 280))
       .filter(Boolean)
       .slice(0, limit);
   };
 
   const jiraProjectTop = (ctx.jiraProjectSnapshots ?? [])
     .flatMap((s) =>
-      s.issues.slice(0, 4).map((i) => `${i.key} [${i.status}] ${cleanText(i.summary, 240)}`)
+      s.issues.slice(0, 6).map((i) => `${i.key} [${i.status}] ${cleanText(i.summary, 280)}`)
     )
-    .slice(0, 8);
+    .slice(0, 12);
 
   const knownBlockers = (ctx.knownBlockers ?? []).map((b) => `- ${b}`).join("\n") ||
     "(none active — emit 'No new blockers identified this week.')";
 
   const upcomingMilestones = (ctx.upcomingMilestones ?? []).map((m) => `- ${m}`).join("\n") || "- (none surfaced)";
   const oooBlocks = (ctx.oooBlocks ?? []).map((o) => `- ${o}`).join("\n") || "- (none planned next 4 weeks)";
+  const skillsShipped = (ctx.skillsShipped ?? []).map((s) => `- ${s}`).join("\n") || "- (none this week)";
+  const crossTeamEnablement = (ctx.crossTeamEnablement ?? []).map((c) => `- ${c}`).join("\n") || "- (none this week)";
+  const recognition = (ctx.recognition ?? []).map((r) => `- ${r}`).join("\n") || "- (none captured)";
 
   const examples = readPeerExamples().join("\n\n");
 
   return `<role>
-You are a senior Caseware Product Manager (UK Audit). You write the weekly IBP for the Global Product organisation. You write like Kartik Narayan and Quinn Daneyko — concise, outcome-framed, no fluff. Your reader is Andrew Smith and the wider Product leadership team. Optimise for: clarity of impact, surfacing of blockers, sharpness of next-week priorities.
+You are a senior Caseware Product Manager (UK Audit) who is also the team's AI/Claude force multiplier. You write the weekly IBP for the Global Product organisation. You write like Kartik Narayan and Quinn Daneyko — concise, outcome-framed, no fluff. Your reader is Andrew Smith and the wider Product leadership team. Optimise for: clarity of impact, surfacing of blockers, sharpness of next-week priorities, and honest reflection of cross-team enablement work that doesn't always show up in Jira.
 </role>
 
 <format>
@@ -1410,17 +1414,18 @@ End "This Week: Top Priorities" with a single line:
 </format>
 
 <constraints>
-- Total output: 250–400 words. NEVER exceed 400.
-- Top Priorities: maximum 3 items + biggest lever line.
-- Last Week: Wins & Impact: maximum 6 items.
-- NEVER emit a "Communications" section. Distill 1:1s and team syncs into wins if relevant, otherwise drop.
-- NEVER emit raw Jira ticket titles ("Start Audit X — Enable Y..."). Synthesise to outcome-framed priorities.
-- NEVER pack multiple items into one comma-separated bullet. One bullet per workstream.
+- Total output: 400–650 words. The reader has multiple workstreams and AI-evangelism work to absorb — don't undershoot.
+- Top Priorities: 2–4 strategic items + biggest lever line.
+- Last Week: Wins & Impact: 6–10 items. Group across (a) Jira workstreams, (b) skills/tooling shipped, (c) cross-team enablement, (d) recognition / leadership signals.
+- Default to INCLUDE: if an item shipped, named another person, was delivered to another team, or moved a quarterly initiative — it's a win. Do not drop high-signal items just to hit the word target. Cut filler before substance.
+- NEVER emit a "Communications" section as a separate heading. Cross-team work belongs in Wins & Impact, framed as outcomes.
+- NEVER emit raw Jira ticket titles ("Start Audit X — Enable Y..."). Synthesise to outcome-framed wins/priorities.
+- NEVER pack multiple items into one comma-separated bullet. One bullet per initiative or workstream.
 - NEVER truncate mid-sentence with "…". Rewrite to fit the budget.
 - Issues / Blockers: distinguish FYI vs Help Needed. If genuinely no blockers, write "No new blockers identified this week." If known blockers exist (see <known_blockers>), include them. NEVER write "None" while real blockers are open.
 - Looking Ahead: release dates, OOO blocks ≥2 days, cross-team milestones over the next 1–2 months. NOT a list of daily meeting names.
 - Tone: third person, action-oriented, professional. No emojis except the 4 section markers.
-- Do not invent facts. If a fact is not in the input data, do not include it.
+- Do not invent facts. If a fact is not in the input data, do not include it. If a fact IS in the data (especially in <skills_and_tooling_shipped>, <cross_team_enablement>, or <recognition>), include it — those slots exist because they consistently get under-counted.
 </constraints>
 
 <input>
@@ -1436,7 +1441,7 @@ End "This Week: Top Priorities" with a single line:
 </facts>
 
 <top_activity>
-${topItems(ctx.claudeSummary, 6).map((x) => `- ${x}`).join("\n") || "- (none)"}
+${topItems(ctx.claudeSummary, 12).map((x) => `- ${x}`).join("\n") || "- (none)"}
 </top_activity>
 
 <top_jira_workstreams>
@@ -1444,8 +1449,20 @@ ${jiraProjectTop.map((x) => `- ${x}`).join("\n") || "- (none)"}
 </top_jira_workstreams>
 
 <top_inbox>
-${ctx.inboxItems.slice(0, 6).map((i) => `- ${cleanText(i, 240)}`).join("\n") || "- (none)"}
+${ctx.inboxItems.slice(0, 12).map((i) => `- ${cleanText(i, 280)}`).join("\n") || "- (none)"}
 </top_inbox>
+
+<skills_and_tooling_shipped>
+${skillsShipped}
+</skills_and_tooling_shipped>
+
+<cross_team_enablement>
+${crossTeamEnablement}
+</cross_team_enablement>
+
+<recognition>
+${recognition}
+</recognition>
 
 <known_blockers>
 ${knownBlockers}
@@ -1467,15 +1484,20 @@ ${examples}
 <instructions>
 Think step by step before writing.
 
-1. Identify the 3–5 highest-impact wins from <top_activity>, <top_jira_workstreams>, and <top_inbox>. Group by workstream. Reframe each from "what was done" to "what advanced and why it matters".
-2. Check <known_blockers>. If non-empty, include them under Issues / Blockers with FYI vs Help Needed labels. If empty, write "No new blockers identified this week."
-3. Identify the top 2–3 strategic priorities for next week. Drop raw Jira titles. Phrase as forward-looking actions.
-4. Name the single biggest lever — the one item that, if executed well, changes the trajectory.
-5. Build Looking Ahead from <upcoming_milestones> and <ooo_blocks>. Drop daily meeting names.
-6. Verify total length 250–400 words before emitting.
-7. Verify zero "…" mid-sentence.
-8. Verify no Communications section.
-9. Emit only the four-section markdown — no preamble, no postamble.
+1. Build the wins list. Pull from FOUR sources, in this priority:
+   a. <top_jira_workstreams> — group by initiative, frame as outcomes.
+   b. <skills_and_tooling_shipped> — every entry deserves a bullet (this is YOUR distinctive output as the team's AI multiplier).
+   c. <cross_team_enablement> — every entry deserves a bullet (these are the wins that don't show up in Jira).
+   d. <recognition> — fold into wins as proof points (e.g. "shipped X — leadership called it 'Y'").
+2. Aim for 6–10 wins total. Combine related items but never silently drop anything from b/c/d.
+3. Check <known_blockers>. If non-empty, include all of them under Issues / Blockers with FYI vs Help Needed labels. If empty, write "No new blockers identified this week."
+4. Identify the top 2–4 strategic priorities for next week from the items still open across all input sources. Drop raw Jira titles. Phrase as forward-looking actions.
+5. Name the single biggest lever — the one item that, if executed well, changes the trajectory.
+6. Build Looking Ahead from <upcoming_milestones> and <ooo_blocks>. Drop daily meeting names.
+7. Verify total length 400–650 words before emitting.
+8. Verify zero "…" mid-sentence.
+9. Verify no Communications section.
+10. Emit only the four-section markdown — no preamble, no postamble.
 </instructions>`;
 }
 
@@ -1484,7 +1506,27 @@ function callClaudeCliOAuth(ctx) {
 
   // F1: On Windows we run via cmd.exe (shell:true) so PATHEXT resolves claude.exe / claude.cmd correctly.
   // F3: Pin model for deterministic peer-norm voice.
-  const modelArgs = ["--print", "--model", "claude-sonnet-4-6"];
+  // Write system prompt to a temp file once, pass via --system-prompt-file.
+  // Avoids cmd.exe quoting issues with special chars (apostrophes, emoji, etc.).
+  const sysPromptPath = resolve(TMPDIR_FOR_CLAUDE, "ibp-sys-prompt.txt");
+  const sysPromptText = [
+    "You are a deterministic IBP synthesis function. Your ONLY task: read the structured input and emit the four-section IBP markdown described in <format>.",
+    "",
+    "CRITICAL: Respond with ONLY the markdown content starting at the first heading (Last Week: Wins & Impact). NO preamble. NO commentary. NO notes. NO explanations of choices. NO meta-discussion.",
+    "",
+    "The output must be ready to paste directly into the Caseware IBP form. If you produce any text before the first heading, the system will reject the output and a human will be paged.",
+    "",
+    "Follow every constraint inside the <constraints> block exactly. Honour the word-count band. Include all entries from <skills_and_tooling_shipped>, <cross_team_enablement>, and <recognition> as wins — these slots exist because they consistently get under-counted.",
+  ].join("\n");
+  writeFileSync(sysPromptPath, sysPromptText);
+
+  const modelArgs = [
+    "--print",
+    "--model", "claude-sonnet-4-6",
+    "--no-session-persistence",
+    
+    "--system-prompt-file", sysPromptPath,
+  ];
 
   const attempts = [
     // Stdin-only path. Inline mode fails on Windows due to ARG_MAX (the new XML prompt is ~7KB).
@@ -1502,9 +1544,9 @@ function callClaudeCliOAuth(ctx) {
   for (const attempt of attempts) {
     const result = spawnSync(attempt.cmd, attempt.args, {
       input: attempt.useStdin ? prompt : undefined,
-      cwd: ROOT,
+      cwd: TMPDIR_FOR_CLAUDE,
       encoding: "utf8",
-      timeout: 180000,
+      timeout: 300000,
       env: cliEnv,
       windowsHide: true,
       shell: process.platform === "win32",
@@ -2057,10 +2099,31 @@ async function run() {
     _seenBlockers.add(key);
     return true;
   });
+  // F4 v2: load ibp-context-WEEK.json once and surface three under-counted categories
+  // directly to the prompt: skills shipped, cross-team enablement, recognition signals.
+  const _isoWeek = getISOWeek(ctx.date);
+  const _ctxPath = resolve(ROOT, "workspace", "coordinator", `ibp-context-${_isoWeek}.json`);
+  const _ibpCtx = existsSync(_ctxPath) ? readJson(_ctxPath, null) : null;
+  ctx.skillsShipped = (_ibpCtx?.standaloneSignals ?? [])
+    .filter((s) =>
+      /\b(skill|guide|starter kit|MCP|extractor|framework|template|automation|connector)\b/i.test(s) &&
+      !/^DIST-/.test(s),
+    )
+    .slice(0, 12);
+  ctx.crossTeamEnablement = (_ibpCtx?.teamsChats ?? [])
+    .filter((c) => c.summary && c.summary.length > 40)
+    .map((c) => `${c.with}${c.topic ? " — " + c.topic : ""}: ${c.summary}`)
+    .slice(0, 14);
+  ctx.recognition = (_ibpCtx?.transcriptHighlights ?? [])
+    .flatMap((t) => (t.keyPoints ?? []).map((kp) => `${t.meeting} — ${kp}`))
+    .slice(0, 10);
   ctx.upcomingMilestones = ctx.upcomingMilestones ?? [];
   ctx.oooBlocks = ctx.oooBlocks ?? [];
   console.log(
     `[generate-ibp] knownBlockers: ${ctx.knownBlockers.length} (${ctx.knownBlockers.slice(0, 2).join(" | ") || "none"})`,
+  );
+  console.log(
+    `[generate-ibp] context slots: skills=${ctx.skillsShipped.length}, enablement=${ctx.crossTeamEnablement.length}, recognition=${ctx.recognition.length}`,
   );
 
   let content;
@@ -2084,10 +2147,16 @@ async function run() {
       console.warn("[generate-ibp] IBP_ALLOW_FALLBACK=1 set — emitting plain summary (off-spec).");
       content = await buildPlainSummary(ctx);
     } else {
+      // Strip preamble Claude sometimes emits before the first "## " heading
+      // (project-context bleed even with --no-session-persistence).
+      const firstHeadingIdx = narrative.search(/^## .{0,80}(Last Week|Wins|Impact)/m);
+      const cleanNarrative = firstHeadingIdx > 0 ? narrative.slice(firstHeadingIdx).trim() : narrative.trim();
+      // Strip any "# IBP" line Claude added — we add our own.
+      const finalNarrative = cleanNarrative.replace(/^# IBP[^\n]*\n+/, "").trim();
       content = [
         `# IBP — ${ctx.weekLabel ?? ctx.date}`,
         ``,
-        narrative,
+        finalNarrative,
         ``,
         `---`,
         `_Generated by generate-ibp.mjs (Claude sonnet-4-6) at ${new Date().toLocaleTimeString("en-GB")}_`,
@@ -2103,6 +2172,10 @@ async function run() {
       console.error(`[generate-ibp] Validation flagged ${failures.length} issue(s). See ${failuresPath}`);
       failures.forEach((f) => console.error(`  - ${f}`));
       if (process.env.IBP_ALLOW_DRIFT !== "1") {
+        // Debug: write Claude raw output so we can see what failed validation
+        const debugPath = OUTPUT_PATH.replace(/\.md$/, "-debug-raw.md");
+        writeFileSync(debugPath, content);
+        console.error();
         console.error("  Set IBP_ALLOW_DRIFT=1 to write anyway.");
         process.exit(3);
       }
