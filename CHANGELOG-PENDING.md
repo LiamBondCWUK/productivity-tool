@@ -267,3 +267,6 @@
 - 2026-04-25 17:39:54 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\_fix_v2_postproc.py`
 - 2026-04-25 23:49:25 [docs] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-2026-04-25.md`
 - 2026-04-25 23:50:08 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`
+- 2026-04-25 23:52:21 [docs] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-2026-04-25.md`
+- 2026-04-25 23:52:59 [config] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-context-2026-W17.json`
+- 2026-04-25 23:53:13 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`

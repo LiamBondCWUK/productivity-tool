@@ -1391,6 +1391,7 @@ function buildNarrativePrompt(ctx) {
   const skillsShipped = (ctx.skillsShipped ?? []).map((s) => `- ${s}`).join("\n") || "- (none this week)";
   const crossTeamEnablement = (ctx.crossTeamEnablement ?? []).map((c) => `- ${c}`).join("\n") || "- (none this week)";
   const recognition = (ctx.recognition ?? []).map((r) => `- ${r}`).join("\n") || "- (none captured)";
+  const nextWeekPriorities = (ctx.nextWeekPriorities ?? []).map((p) => - ${p}`).join("\n") || "- (none specified)";
 
   const examples = readPeerExamples().join("\n\n");
 
@@ -1484,6 +1485,10 @@ ${upcomingMilestones}
 <ooo_blocks>
 ${oooBlocks}
 </ooo_blocks>
+
+<next_week_priorities>
+${nextWeekPriorities}
+</next_week_priorities>
 </input>
 
 <examples>
@@ -1500,7 +1505,7 @@ Think step by step before writing.
    d. <recognition> — fold into wins as proof points (e.g. "shipped X — leadership called it 'Y'").
 2. Aim for 6–10 wins total. Combine related items but never silently drop anything from b/c/d.
 3. Check <known_blockers>. If non-empty, include all of them under Issues / Blockers with FYI vs Help Needed labels. If empty, write "No new blockers identified this week."
-4. Identify the top 2–4 strategic priorities for next week from the items still open across all input sources. Drop raw Jira titles. Phrase as forward-looking actions.
+4. Build priorities from <next_week_priorities> first (these are explicit owner-stated intentions — always include them). Supplement with open items from Jira/blockers. Top 2-4 total. Drop raw Jira titles. Phrase as forward-looking actions.
 5. Name the single biggest lever — the one item that, if executed well, changes the trajectory.
 6. Build Looking Ahead from <upcoming_milestones> and <ooo_blocks>. Constrain to <looking_ahead_horizon> (i.e. 2+ weeks out from now). NEVER duplicate items already in This Week: Top Priorities. Drop daily meeting names.
 7. Verify total length 400–650 words before emitting.
@@ -2150,6 +2155,7 @@ async function run() {
   ].slice(0, 12);
   ctx.upcomingMilestones = ctx.upcomingMilestones ?? [];
   ctx.oooBlocks = ctx.oooBlocks ?? [];
+  ctx.nextWeekPriorities = (_ibpCtx?.nextWeekPriorities ?? []);
   console.log(
     `[generate-ibp] knownBlockers: ${ctx.knownBlockers.length} (${ctx.knownBlockers.slice(0, 2).join(" | ") || "none"})`,
   );
