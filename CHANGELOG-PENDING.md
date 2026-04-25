@@ -255,3 +255,13 @@
 - 2026-04-25 14:49:15 [added] `C:\Users\liam.bond\Documents\Productivity Tool\audits\ibp-audit-2026-04-25\comparison.md`
 - 2026-04-25 14:50:35 [added] `C:\Users\liam.bond\Documents\Productivity Tool\audits\ibp-audit-2026-04-25\refactored-prompt.md`
 - 2026-04-25 14:52:04 [added] `C:\Users\liam.bond\Documents\Productivity Tool\audits\ibp-audit-2026-04-25\pipeline-fixes.diff`
+- 2026-04-25 15:11:59 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\ibp-examples\01-quinn-short.md`
+- 2026-04-25 15:12:24 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\ibp-examples\02-kartik-typical.md`
+- 2026-04-25 15:12:33 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\ibp-examples\03-kartik-with-blocker.md`
+- 2026-04-25 15:13:45 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`
+- 2026-04-25 15:14:05 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`
+- 2026-04-25 15:20:43 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\_apply_ibp_fixes.py`
+- 2026-04-25 15:36:25 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\IBPTab.tsx`
+- 2026-04-25 15:38:05 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\api\ibp\route.ts`
+- 2026-04-25 17:15:39 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\_apply_prompt_v2.py`
+- 2026-04-25 17:39:54 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\_fix_v2_postproc.py`

@@ -14656,5 +14656,82 @@
     "windowTitle": "Certificate of completion and 13 more pages - Work - Microsoft? Edge",
     "inferredTask": "browser",
     "durationMin": 27
+  },
+  {
+    "start": "2026-04-25T13:06:54.875Z",
+    "end": "2026-04-25T14:43:27.187Z",
+    "windowTitle": "All Product-Team - All IBP Data - All Items and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 97
+  },
+  {
+    "start": "2026-04-25T14:43:27.187Z",
+    "end": "2026-04-25T14:45:26.125Z",
+    "windowTitle": "Certificate of completion and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-25T14:45:26.125Z",
+    "end": "2026-04-25T14:45:56.285Z",
+    "windowTitle": "Anthropic Courses and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T14:46:56.132Z",
+    "end": "2026-04-25T14:47:56.304Z",
+    "windowTitle": "Notifications | LinkedIn and 16 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T14:47:56.304Z",
+    "end": "2026-04-25T14:48:26.499Z",
+    "windowTitle": "Anthropic Courses and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T14:48:56.236Z",
+    "end": "2026-04-25T14:49:28.336Z",
+    "windowTitle": "Anthropic Courses and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T14:50:26.639Z",
+    "end": "2026-04-25T14:50:56.886Z",
+    "windowTitle": "Anthropic Courses and 15 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T14:50:56.886Z",
+    "end": "2026-04-25T14:51:56.510Z",
+    "windowTitle": "Anthropic Courses and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T14:51:56.510Z",
+    "end": "2026-04-25T14:57:26.907Z",
+    "windowTitle": "Certificate of completion and 13 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 6
+  },
+  {
+    "start": "2026-04-25T14:57:26.907Z",
+    "end": "2026-04-25T21:55:02.991Z",
+    "windowTitle": "Command Center and 14 more pages - Work - Microsoft? Edge",
+    "inferredTask": "browser",
+    "durationMin": 418
+  },
+  {
+    "start": "2026-04-25T21:55:02.991Z",
+    "end": "2026-04-25T22:10:03.701Z",
+    "windowTitle": "Claude Code - Complete Onboarding Guide - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 15
   }
 ]
