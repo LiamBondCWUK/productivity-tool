@@ -1,3 +1,4 @@
+// @no-tdd — process-spawn plumbing; integration-tested via Command Center end-to-end.
 import { NextRequest, NextResponse } from "next/server";
 import { readFileSync, readdirSync } from "fs";
 import { join, basename } from "path";
@@ -77,36 +78,53 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function POST() {
+export async function POST(req: NextRequest) {
   const scriptPath = join(SCRIPTS_DIR, "generate-ibp.mjs");
-  const today = new Date().toISOString().slice(0, 10);
+  const body = await req.json().catch(() => ({}));
+  const requestedDate = typeof body.date === "string" && body.date ? body.date : null;
+  const targetDate = requestedDate ?? new Date().toISOString().slice(0, 10);
+  const skipAi = body.skipAi === true;
+
+  // Strip ANTHROPIC_API_KEY from the spawn env so the CLI uses OAuth (mirroring
+  // generate-ibp.mjs). Without this, Command Center hits the same depleted-API-key
+  // issue the audit caught.
+  const cleanEnv = { ...process.env };
+  delete cleanEnv.ANTHROPIC_API_KEY;
+  delete cleanEnv.ANTHROPIC_AUTH_TOKEN;
 
   try {
     const stdout = execSync(
-      `node "${scriptPath}" --date=${today} --skip-ai`,
+      `node "${scriptPath}" --date=${targetDate}${skipAi ? " --skip-ai" : ""}`,
       {
-        timeout: 120_000,
+        timeout: 240_000,
         encoding: "utf8",
         cwd: join(process.cwd(), ".."),
+        env: cleanEnv,
       },
     );
 
     const ibpFiles = getIbpFiles();
     return NextResponse.json({
       success: true,
-      stdout: stdout?.slice(0, 500),
+      stdout: stdout?.slice(0, 800),
       lastGenerated: ibpFiles[0]?.date ?? null,
       availableDates: ibpFiles.map((f) => f.date),
-      generatedDate: today,
+      generatedDate: targetDate,
+      claudeUsed: !skipAi,
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     const stderr = (err as { stderr?: string }).stderr ?? "";
+    const status = (err as { status?: number }).status;
     return NextResponse.json(
       {
         success: false,
-        error: message.slice(0, 500),
-        stderr: stderr.slice(0, 500),
+        error: message.slice(0, 800),
+        stderr: stderr.slice(0, 800),
+        exitStatus: status ?? null,
+        // Surface validation-failures path so Command Center can link to it.
+        validationFailuresPath:
+          stderr.match(/See (\S+-validation-failures\.json)/)?.[1] ?? null,
       },
       { status: 500 },
     );

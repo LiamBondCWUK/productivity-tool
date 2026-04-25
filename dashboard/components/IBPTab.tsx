@@ -31,9 +31,11 @@ interface IBPHeaderMeta {
 function parseQuinnSections(markdown: string): QuinnSections | null {
   const content = String(markdown || "");
   const defs = [
-    { key: "winsAndImpact", regex: /^##\s*(?:🚀\s*)?(?:Current Week:\s*Wins\s*&\s*Impact|Impact)\s*$/im },
+    // Match the official Caseware IBP spec section names AND the older variants used in
+    // historical files. Order: spec name first, then back-compat fallbacks.
+    { key: "winsAndImpact", regex: /^##\s*(?:🚀\s*)?(?:Last Week:\s*Wins\s*&\s*Impact|Current Week:\s*Wins\s*&\s*Impact|Wins\s*&\s*Impact|Impact)\s*$/im },
     { key: "issuesBlockers", regex: /^##\s*(?:⚠️\s*)?(?:Issues\s*\/\s*Blockers|Blockers)\s*$/im },
-    { key: "nextWeekPriorities", regex: /^##\s*(?:🔥\s*)?(?:Next Week:\s*(?:Top\s*)?Priorities|Priorities)\s*$/im },
+    { key: "nextWeekPriorities", regex: /^##\s*(?:🔥\s*)?(?:This Week:\s*Top\s*Priorities|Next Week:\s*(?:Top\s*)?Priorities|Top Priorities|Priorities)\s*$/im },
     { key: "lookingAhead", regex: /^##\s*(?:🔮\s*)?Looking Ahead\s*$/im },
   ] as const;
 
@@ -492,7 +494,7 @@ export function IBPTab({ ibpMeta }: IBPTabProps) {
                 )}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <QuinnCard
-                    title="🚀 Current Week: Wins & Impact"
+                    title="🚀 Last Week: Wins & Impact"
                     content={quinnSections.winsAndImpact}
                     tone="text-rose-200 bg-rose-700/30"
                     bulletTone="text-rose-300"
@@ -504,7 +506,7 @@ export function IBPTab({ ibpMeta }: IBPTabProps) {
                     bulletTone="text-amber-300"
                   />
                   <QuinnCard
-                    title="🔥 Next Week: Top Priorities"
+                    title="🔥 This Week: Top Priorities"
                     content={quinnSections.nextWeekPriorities}
                     tone="text-orange-200 bg-orange-700/30"
                     bulletTone="text-orange-300"
