@@ -14733,5 +14733,54 @@
     "windowTitle": "Claude Code - Complete Onboarding Guide - Google Chrome",
     "inferredTask": "ai-coding",
     "durationMin": 15
+  },
+  {
+    "start": "2026-04-25T22:10:03.701Z",
+    "end": "2026-04-25T22:11:03.324Z",
+    "windowTitle": "AI Strategy - AI Strategy - Caseware Confluence - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T22:11:03.324Z",
+    "end": "2026-04-25T22:13:33.312Z",
+    "windowTitle": "Claude Code - Complete Onboarding Guide - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-25T22:13:33.312Z",
+    "end": "2026-04-25T22:14:33.443Z",
+    "windowTitle": "Not Found - Claude API Docs - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T22:14:33.443Z",
+    "end": "2026-04-25T22:16:33.445Z",
+    "windowTitle": "Claude Code - Complete Onboarding Guide - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-25T22:17:03.330Z",
+    "end": "2026-04-25T22:21:03.434Z",
+    "windowTitle": "Claude Code - Complete Onboarding Guide - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-25T22:21:03.434Z",
+    "end": "2026-04-25T22:22:03.439Z",
+    "windowTitle": "Claude 101 - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T22:22:03.439Z",
+    "end": "2026-04-25T22:24:03.677Z",
+    "windowTitle": "Claude Code - Complete Onboarding Guide - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 2
   }
 ]

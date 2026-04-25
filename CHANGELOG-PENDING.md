@@ -265,3 +265,5 @@
 - 2026-04-25 15:38:05 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\api\ibp\route.ts`
 - 2026-04-25 17:15:39 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\_apply_prompt_v2.py`
 - 2026-04-25 17:39:54 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\_fix_v2_postproc.py`
+- 2026-04-25 23:49:25 [docs] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-2026-04-25.md`
+- 2026-04-25 23:50:08 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`

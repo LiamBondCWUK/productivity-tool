@@ -1553,7 +1553,7 @@ function callClaudeCliOAuth(ctx) {
   for (const attempt of attempts) {
     const result = spawnSync(attempt.cmd, attempt.args, {
       input: attempt.useStdin ? prompt : undefined,
-      cwd: TMPDIR_FOR_CLAUDE,
+      cwd: ROOT,
       encoding: "utf8",
       timeout: 300000,
       env: cliEnv,
@@ -2132,7 +2132,7 @@ async function run() {
   const _ibpCtx = existsSync(_ctxPath) ? readJson(_ctxPath, null) : null;
   ctx.skillsShipped = (_ibpCtx?.standaloneSignals ?? [])
     .filter((s) =>
-      /\b(skill|guide|starter kit|MCP|extractor|framework|template|automation|connector)\b/i.test(s) &&
+      /\b(skill|guide|starter kit|MCP|extractor|framework|template|automation|connector|audit|pathway|certification|access expansion|course)\b/i.test(s) &&
       !/^DIST-/.test(s),
     )
     .slice(0, 12);
@@ -2140,9 +2140,14 @@ async function run() {
     .filter((c) => c.summary && c.summary.length > 40)
     .map((c) => `${c.with}${c.topic ? " — " + c.topic : ""}: ${c.summary}`)
     .slice(0, 14);
-  ctx.recognition = (_ibpCtx?.transcriptHighlights ?? [])
-    .flatMap((t) => (t.keyPoints ?? []).map((kp) => `${t.meeting} — ${kp}`))
-    .slice(0, 10);
+  // Recognition: transcript highlights + explicit quotes/callouts from teamsChats
+  const chatQuotes = (_ibpCtx?.teamsChats ?? [])
+    .filter((c) => /'[^']{10,}'/.test(c.summary) || /phenomenal|brilliant|great work|impressed|incredible/i.test(c.summary))
+    .map((c) => `${c.with} — ${c.topic}: ${c.summary}`);
+  ctx.recognition = [
+    ...(_ibpCtx?.transcriptHighlights ?? []).flatMap((t) => (t.keyPoints ?? []).map((kp) => `${t.meeting} — ${kp}`)),
+    ...chatQuotes,
+  ].slice(0, 12);
   ctx.upcomingMilestones = ctx.upcomingMilestones ?? [];
   ctx.oooBlocks = ctx.oooBlocks ?? [];
   console.log(
@@ -2175,8 +2180,8 @@ async function run() {
     } else {
       // Strip preamble Claude sometimes emits before the first "## " heading
       // (project-context bleed even with --no-session-persistence).
-      const firstHeadingIdx = narrative.search(/^## .{0,80}(Last Week|Wins|Impact)/m);
-      const cleanNarrative = firstHeadingIdx > 0 ? narrative.slice(firstHeadingIdx).trim() : narrative.trim();
+      const firstHeadingIdx = narrative.search(/^##\s+/m);
+      const cleanNarrative = firstHeadingIdx >= 0 ? narrative.slice(firstHeadingIdx).trim() : narrative.trim();
       // Strip any "# IBP" line Claude added — we add our own.
       const finalNarrative = cleanNarrative.replace(/^# IBP[^\n]*\n+/, "").trim();
       content = [
