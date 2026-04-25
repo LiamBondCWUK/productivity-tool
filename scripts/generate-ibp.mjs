@@ -1406,6 +1406,12 @@ Output MUST follow the official Caseware IBP format exactly. Four sections, in t
 ## 🔥 This Week: Top Priorities
 ## 🔮 Looking Ahead
 
+TIMEFRAME PER SECTION (read this carefully — Caseware's labels reflect the Monday-submission POV, not the Friday-generation POV):
+- "Last Week: Wins & Impact" → the just-completed working week (Mon–Fri provided as <reporting_week>). These are wins the user lived through. From the Friday writer's POV this IS the current week; from the Monday reader's POV it's last week.
+- "Issues / Blockers" → current state at submission time.
+- "This Week: Top Priorities" → the UPCOMING working week (Mon–Fri starting Monday <priorities_week>). NEVER put completed work or the just-finished week's items here.
+- "Looking Ahead" → strictly 2+ weeks out (i.e. AFTER <priorities_week>). Release dates, OOO ≥2 days, cross-team milestones, multi-week initiatives. NEVER duplicate items already in This Week: Top Priorities.
+
 Within each section, use bold-initiative bullets:
 **Initiative name:** One-to-two-sentence outcome description.
 
@@ -1430,6 +1436,9 @@ End "This Week: Top Priorities" with a single line:
 
 <input>
 <week>${ctx.weekLabel ?? ctx.date}</week>
+<reporting_week>${ctx.reportingWeekLabel ?? ctx.weekLabel ?? "(unknown)"}</reporting_week>
+<priorities_week>${ctx.prioritiesWeekLabel ?? "(unknown)"}</priorities_week>
+<looking_ahead_horizon>${ctx.lookingAheadHorizonLabel ?? "(unknown)"}</looking_ahead_horizon>
 
 <facts>
 - Total tracked time: ${ctx.totalTracked}
@@ -1493,7 +1502,7 @@ Think step by step before writing.
 3. Check <known_blockers>. If non-empty, include all of them under Issues / Blockers with FYI vs Help Needed labels. If empty, write "No new blockers identified this week."
 4. Identify the top 2–4 strategic priorities for next week from the items still open across all input sources. Drop raw Jira titles. Phrase as forward-looking actions.
 5. Name the single biggest lever — the one item that, if executed well, changes the trajectory.
-6. Build Looking Ahead from <upcoming_milestones> and <ooo_blocks>. Drop daily meeting names.
+6. Build Looking Ahead from <upcoming_milestones> and <ooo_blocks>. Constrain to <looking_ahead_horizon> (i.e. 2+ weeks out from now). NEVER duplicate items already in This Week: Top Priorities. Drop daily meeting names.
 7. Verify total length 400–650 words before emitting.
 8. Verify zero "…" mid-sentence.
 9. Verify no Communications section.
@@ -2082,6 +2091,23 @@ async function run() {
   }
 
   ctx.weekLabel = formatWeekLabel(weekRanges.currentWeekStart, weekRanges.currentWeekEnd);
+  ctx.reportingWeekLabel = ctx.weekLabel;
+  // Priorities cover the working week AFTER the reporting week (Mon-Fri starting next Monday).
+  const _nextMonday = new Date(weekRanges.currentWeekEnd);
+  _nextMonday.setDate(_nextMonday.getDate() + 3); // Fri -> next Mon
+  const _nextFriday = new Date(_nextMonday);
+  _nextFriday.setDate(_nextFriday.getDate() + 4); // Mon -> Fri
+  ctx.prioritiesWeekLabel = formatWeekLabel(
+    _nextMonday.toISOString().slice(0, 10),
+    _nextFriday.toISOString().slice(0, 10),
+  );
+  // Looking Ahead horizon: 2 weeks out through ~8 weeks.
+  const _horizonStart = new Date(_nextFriday);
+  _horizonStart.setDate(_horizonStart.getDate() + 3); // Fri -> Mon after priorities week
+  const _horizonEnd = new Date(_horizonStart);
+  _horizonEnd.setDate(_horizonEnd.getDate() + 6 * 7); // ~6 weeks of horizon
+  ctx.lookingAheadHorizonLabel =
+    `${_horizonStart.toLocaleDateString("en-GB", { day: "numeric", month: "short" })} – ${_horizonEnd.toLocaleDateString("en-GB", { day: "numeric", month: "short" })}`;
   ctx.knownBlockers = [
     ...readPrimerBlockers(),
     ...(ctx.jiraProjectSnapshots ?? [])
