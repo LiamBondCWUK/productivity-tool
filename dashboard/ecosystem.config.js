@@ -18,11 +18,10 @@ module.exports = {
     },
     {
       name: "agentic-kanban",
-      script: "pnpm",
-      args: "run dev",
+      script: "start-server.cjs",
       cwd: "C:/Users/liam.bond/Documents/agentic-kanban/packages/server",
       env: {
-        NODE_ENV: "production",
+        NODE_ENV: "development",
         BACKEND_PORT: 3001,
       },
       watch: false,

@@ -194,3 +194,64 @@
 - 2026-04-22 07:55:57 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\morning-orchestrator.mjs`
 - 2026-04-22 07:56:14 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\morning-orchestrator.mjs`
 - 2026-04-22 07:57:02 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\morning-orchestrator.mjs`
+- 2026-04-22 17:50:53 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\collect-internal-intel.mjs`
+- 2026-04-22 17:51:12 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\collect-internal-intel.mjs`
+- 2026-04-22 17:52:17 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\collect-internal-intel.mjs`
+- 2026-04-22 23:33:20 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\collect-internal-intel.mjs`
+- 2026-04-22 23:35:02 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\collect-internal-intel.mjs`
+- 2026-04-22 23:37:29 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\collect-internal-intel.mjs`
+- 2026-04-22 23:46:41 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\collect-internal-intel.mjs`
+- 2026-04-22 23:47:00 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\collect-internal-intel.mjs`
+
+## 2026-04-23
+
+- 2026-04-23 01:34:09 [config] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\ecosystem.config.js`
+- 2026-04-23 01:35:19 [added] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\api\ak-sync\route.ts`
+- 2026-04-23 01:35:52 [added] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\api\ak-proxy\[...path]\route.ts`
+- 2026-04-23 01:39:57 [added] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\AgenticKanbanTab.tsx`
+- 2026-04-23 01:40:57 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\TabWorkspace.tsx`
+- 2026-04-23 01:41:04 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\TabWorkspace.tsx`
+- 2026-04-23 01:48:07 [config] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\ecosystem.config.js`
+- 2026-04-23 04:16:52 [config] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\ecosystem.config.js`
+- 2026-04-23 04:21:39 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\AgenticKanbanTab.tsx`
+- 2026-04-23 04:22:04 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\AgenticKanbanTab.tsx`
+- 2026-04-23 04:23:07 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\AgenticKanbanTab.tsx`
+- 2026-04-23 04:25:23 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\api\ak-sync\route.ts`
+- 2026-04-23 04:28:17 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\AgenticKanbanTab.tsx`
+- 2026-04-23 04:34:57 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\api\ak-sync\route.ts`
+- 2026-04-23 04:36:10 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\AgenticKanbanTab.tsx`
+- 2026-04-23 05:26:49 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\AgenticKanbanTab.tsx`
+- 2026-04-23 05:29:58 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\AgenticKanbanTab.tsx`
+- 2026-04-23 06:05:25 [added] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\api\ak-discover\route.ts`
+- 2026-04-23 17:32:57 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\CeremoniesTab.tsx`
+- 2026-04-23 17:33:05 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\CeremoniesTab.tsx`
+
+## 2026-04-24
+
+- 2026-04-24 17:08:30 [added] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-2026-04-24.md`
+- 2026-04-24 18:42:38 [added] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-2026-04-24.md`
+- 2026-04-24 18:44:57 [added] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-2026-04-24.md`
+- 2026-04-24 18:45:24 [added] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-2026-04-24.md`
+- 2026-04-24 19:54:44 [added] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-2026-04-24.md`
+- 2026-04-24 19:55:14 [added] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-2026-04-24.md`
+- 2026-04-24 22:09:11 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`
+- 2026-04-24 22:09:23 [added] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\api\ibp\context-status\route.ts`
+- 2026-04-24 22:09:34 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\IBPTab.tsx`
+- 2026-04-24 22:10:02 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\components\IBPTab.tsx`
+- 2026-04-24 22:12:52 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`
+- 2026-04-24 22:14:37 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`
+- 2026-04-24 22:18:34 [added] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-context-2026-W17.json`
+- 2026-04-24 22:39:23 [added] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\api\ibp\context-status\route.ts`
+- 2026-04-24 22:41:59 [added] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\api\ibp\context-status\route.ts`
+- 2026-04-24 22:42:16 [added] `C:\Users\liam.bond\Documents\Productivity Tool\dashboard\app\api\ibp\context-status\route.ts`
+
+## 2026-04-25
+
+- 2026-04-25 08:56:06 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`
+- 2026-04-25 08:57:01 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`
+- 2026-04-25 08:58:50 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`
+- 2026-04-25 08:59:00 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`
+- 2026-04-25 14:47:46 [added] `C:\Users\liam.bond\Documents\Productivity Tool\audits\ibp-audit-2026-04-25\audit-report.md`
+- 2026-04-25 14:49:15 [added] `C:\Users\liam.bond\Documents\Productivity Tool\audits\ibp-audit-2026-04-25\comparison.md`
+- 2026-04-25 14:50:35 [added] `C:\Users\liam.bond\Documents\Productivity Tool\audits\ibp-audit-2026-04-25\refactored-prompt.md`
+- 2026-04-25 14:52:04 [added] `C:\Users\liam.bond\Documents\Productivity Tool\audits\ibp-audit-2026-04-25\pipeline-fixes.diff`

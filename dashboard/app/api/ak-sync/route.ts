@@ -25,18 +25,24 @@ interface SyncState {
   synced: string[]
 }
 
-interface AKTask {
-  title: string
-  description: string
-  priority: 'urgent' | 'high' | 'medium' | 'low'
+interface AKColumn {
+  id: string
+  name: string
+  position: number
   project_id: string
-  status: 'backlog' | 'todo' | 'in_progress' | 'done'
 }
 
 interface AKProject {
   id: string
   name: string
+  columns?: AKColumn[]
+}
+
+interface AKTask {
+  title: string
   description: string
+  priority: 'urgent' | 'high' | 'medium' | 'low'
+  column_id: string
 }
 
 interface SyncResponse {
@@ -69,28 +75,31 @@ async function writeJsonFile<T>(filePath: string, data: T): Promise<void> {
 async function getOrCreateProject(
   baseUrl: string,
   projectName: string
-): Promise<string> {
+): Promise<{ projectId: string; backlogColumnId: string }> {
   try {
-    // Try to fetch existing projects
-    const projectsRes = await fetch(`${baseUrl}/api/projects`)
+    // Fetch existing projects (raw array — no envelope)
+    const projectsRes = await fetch(`${baseUrl}/api/ak/projects`)
     if (!projectsRes.ok) {
       throw new Error(`Failed to fetch projects: ${projectsRes.statusText}`)
     }
 
-    const projectsData = await projectsRes.json()
-    const projects = Array.isArray(projectsData) ? projectsData : projectsData.projects || []
+    const projects: AKProject[] = await projectsRes.json()
+    const existing = Array.isArray(projects)
+      ? projects.find((p) => p.name === projectName)
+      : undefined
 
-    const existing = projects.find(
-      (p: unknown): p is AKProject =>
-        typeof p === 'object' && p !== null && 'name' in p && p.name === projectName
-    )
-
-    if (existing && typeof existing.id === 'string') {
-      return existing.id
+    if (existing) {
+      // Fetch the project with columns
+      const detailRes = await fetch(`${baseUrl}/api/ak/projects/${existing.id}`)
+      if (!detailRes.ok) throw new Error(`Failed to fetch project detail: ${detailRes.statusText}`)
+      const detail: AKProject & { columns: AKColumn[] } = await detailRes.json()
+      const backlog = detail.columns?.find((c) => c.name === 'Backlog')
+      if (!backlog) throw new Error('No Backlog column found in existing project')
+      return { projectId: existing.id, backlogColumnId: backlog.id }
     }
 
-    // Create new project
-    const createRes = await fetch(`${baseUrl}/api/projects`, {
+    // Create new project — response includes columns directly
+    const createRes = await fetch(`${baseUrl}/api/ak/projects`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -103,12 +112,13 @@ async function getOrCreateProject(
       throw new Error(`Failed to create project: ${createRes.statusText}`)
     }
 
-    const newProject = await createRes.json()
-    if (typeof newProject?.id !== 'string') {
-      throw new Error('Invalid project response: no id field')
-    }
+    const newProject: AKProject & { columns: AKColumn[] } = await createRes.json()
+    if (!newProject?.id) throw new Error('Invalid project response: no id field')
 
-    return newProject.id
+    const backlog = newProject.columns?.find((c) => c.name === 'Backlog')
+    if (!backlog) throw new Error('No Backlog column in newly created project')
+
+    return { projectId: newProject.id, backlogColumnId: backlog.id }
   } catch (error) {
     throw new Error(
       `Project lookup/creation failed: ${error instanceof Error ? error.message : String(error)}`
@@ -148,8 +158,11 @@ export async function POST(req: NextRequest): Promise<NextResponse<SyncResponse>
 
     // Get or create Command Center project
     let projectId: string
+    let backlogColumnId: string
     try {
-      projectId = await getOrCreateProject(baseUrl, 'Command Center')
+      const result = await getOrCreateProject(baseUrl, 'Command Center')
+      projectId = result.projectId
+      backlogColumnId = result.backlogColumnId
     } catch (error) {
       return NextResponse.json(
         {
@@ -177,12 +190,11 @@ export async function POST(req: NextRequest): Promise<NextResponse<SyncResponse>
         title: card.title,
         description: card.body || card.description || '',
         priority: card.priority || 'medium',
-        project_id: projectId,
-        status: 'backlog',
+        column_id: backlogColumnId,
       }
 
       try {
-        const taskRes = await fetch(`${baseUrl}/api/tasks`, {
+        const taskRes = await fetch(`${baseUrl}/api/ak/tasks`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(task),

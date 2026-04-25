@@ -402,3 +402,164 @@ Discovered 22 projects → C:\Users\liam.bond\Documents\Productivity Tool\worksp
 ====== Overnight Analysis Complete (822s) ======
 
 [22/04/2026  2:13:43.39] Overnight analysis complete 
+[23/04/2026  2:00:13.58] Starting overnight analysis v2 
+
+====== Overnight Analysis v2 — 2026-04-23T01:00:18.110Z ======
+
+[1/6] Refreshing project registry...
+[1/6] project-discovery failed: spawnSync C:\WINDOWS\system32\cmd.exe ETIMEDOUT — using cached registry
+[1/6] 22 projects loaded
+
+[2/6] Running deterministic health checks...
+  UKCAUD Spec Studio: ⚠ 2 findings
+Discovered 23 projects → C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\project-registry.json
+  [Building] CW Lead Schedule Specifications  (git:true)
+  [Building] Claude Onboarding Meeting  (git:true)
+  [Building] UKCAUD AI Project  (git:true)
+  [Building] CW Release Notes Tool  (git:true)
+  [Building] AI Onboarding  (git:true)
+  [Building] Activepieces  (git:true)
+  [Building] AI Work Presentation Tool  (git:true)
+  [Building] Bondlw Programming Architecture  (git:true)
+  [Building] claude-mobile  (git:true)
+  [Building] dotfiles-publish  (git:true)
+  [Building] UKCAUD Spec Studio  (git:true)
+  [Review] CW Template Comparison Tool  (git:true)
+  [Review] Builder Forms HAT Sampling  (git:true)
+  [Review] CW UKCAUD Project Tracker  (git:true)
+  [Review] CW UKJPD Workflows  (git:true)
+  [Review] Productivity Tool  (git:true)
+  [Review] Property Search Tool  (git:true)
+  [Review] Yearly Reviews  (git:true)
+  [Backlog] UKCAUD-Authoring-Agent-Spec-Layer  (git:true)
+  [Backlog] UKCAUD-CLAUDE  (git:true)
+  [Done] AI Breaking News Tool  (git:true)
+  [Done] agentic-kanban  (git:true)
+  [Done] CW UAT Testing Tool  (git:true)
+  dotfiles-publish: ⚠ 2 findings
+  CW Lead Schedule Specifications: ⚠ 2 findings
+  claude-mobile: ⚠ 3 findings
+  Claude Onboarding Meeting: ⚠ 4 findings
+  UKCAUD AI Project: ⚠ 1 findings
+  CW Release Notes Tool: ⚠ 2 findings
+  AI Work Presentation Tool: ⚠ 3 findings
+  Bondlw Programming Architecture: ⚠ 1 findings
+  AI Onboarding: ⚠ 1 findings
+  Activepieces: ⚠ 1 findings
+[24/04/2026  2:00:01.13] Starting overnight analysis v2 
+
+====== Overnight Analysis v2 — 2026-04-24T01:00:01.401Z ======
+
+[1/6] Refreshing project registry...
+Discovered 23 projects → C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\project-registry.json
+  [Building] dotfiles-publish  (git:true)
+  [Building] UKCAUD Spec Studio  (git:true)
+  [Building] CW Lead Schedule Specifications  (git:true)
+  [Building] claude-mobile  (git:true)
+  [Building] Claude Onboarding Meeting  (git:true)
+  [Building] UKCAUD AI Project  (git:true)
+  [Building] CW Release Notes Tool  (git:true)
+  [Building] AI Work Presentation Tool  (git:true)
+  [Building] Bondlw Programming Architecture  (git:true)
+  [Building] AI Onboarding  (git:true)
+  [Building] Activepieces  (git:true)
+  [Building] UKCAUD-Authoring-Agent-Spec-Layer  (git:true)
+  [Review] Productivity Tool  (git:true)
+  [Review] CW UKCAUD Project Tracker  (git:true)
+  [Review] Property Search Tool  (git:true)
+  [Review] CW Template Comparison Tool  (git:true)
+  [Review] CW UKJPD Workflows  (git:true)
+  [Review] Builder Forms HAT Sampling  (git:true)
+  [Review] Yearly Reviews  (git:true)
+  [Backlog] UKCAUD-CLAUDE  (git:true)
+  [Done] AI Breaking News Tool  (git:true)
+  [Done] CW UAT Testing Tool  (git:true)
+  [Done] agentic-kanban  (git:true)
+[1/6] 23 projects loaded
+
+[2/6] Running deterministic health checks...
+  dotfiles-publish: ⚠ 2 findings
+  UKCAUD Spec Studio: ⚠ 2 findings
+  CW Lead Schedule Specifications: ⚠ 2 findings
+  claude-mobile: ⚠ 3 findings
+  Claude Onboarding Meeting: ⚠ 4 findings
+  UKCAUD AI Project: ⚠ 1 findings
+  CW Release Notes Tool: ⚠ 2 findings
+  AI Work Presentation Tool: ⚠ 3 findings
+  Bondlw Programming Architecture: ⚠ 1 findings
+  AI Onboarding: ⚠ 1 findings
+  Activepieces: ⚠ 1 findings
+  UKCAUD-Authoring-Agent-Spec-Layer: ⚠ 2 findings
+  Productivity Tool: ⚠ 2 findings
+  CW UKCAUD Project Tracker: ⚠ 2 findings
+  Property Search Tool: ⚠ 2 findings
+  CW Template Comparison Tool: ⚠ 2 findings
+  CW UKJPD Workflows: ⚠ 1 findings
+  Builder Forms HAT Sampling: ✓ healthy
+  Yearly Reviews: ⚠ 1 findings
+  UKCAUD-CLAUDE: ✓ healthy
+  AI Breaking News Tool: ✓ healthy
+  CW UAT Testing Tool: ⚠ 1 findings
+  agentic-kanban: ⚠ 1 findings
+
+[2/6] 20/23 projects have findings
+
+[3/6] Running budget-guarded LLM synthesis...
+[synthesize] dotfiles-publish (haiku, 2 findings)
+[synthesize] dotfiles-publish failed: Claude CLI exited 1: 
+[synthesize] UKCAUD Spec Studio (haiku, 2 findings)
+[synthesize] UKCAUD Spec Studio failed: Claude CLI exited 1: 
+[synthesize] CW Lead Schedule Specifications (haiku, 2 findings)
+[synthesize] CW Lead Schedule Specifications failed: Claude CLI exited 1: 
+[synthesize] claude-mobile (haiku, 3 findings)
+[synthesize] claude-mobile failed: Claude CLI exited 1: 
+[synthesize] Claude Onboarding Meeting (haiku, 4 findings)
+[synthesize] Claude Onboarding Meeting failed: Claude CLI exited 1: 
+[synthesize] UKCAUD AI Project (haiku, 1 findings)
+[synthesize] UKCAUD AI Project failed: Claude CLI exited 1: 
+[synthesize] CW Release Notes Tool (haiku, 2 findings)
+[synthesize] CW Release Notes Tool failed: Claude CLI exited 1: 
+[synthesize] AI Work Presentation Tool (haiku, 3 findings)
+[synthesize] AI Work Presentation Tool failed: Claude CLI exited 1: 
+[synthesize] Bondlw Programming Architecture (haiku, 1 findings)
+[synthesize] Bondlw Programming Architecture failed: Claude CLI exited 1: 
+[synthesize] AI Onboarding (haiku, 1 findings)
+[synthesize] AI Onboarding failed: Claude CLI exited 1: 
+[synthesize] Activepieces (haiku, 1 findings)
+[synthesize] Activepieces failed: Claude CLI exited 1: 
+[synthesize] UKCAUD-Authoring-Agent-Spec-Layer (haiku, 2 findings)
+[synthesize] UKCAUD-Authoring-Agent-Spec-Layer failed: Claude CLI exited 1: 
+[synthesize] Productivity Tool (haiku, 2 findings)
+[synthesize] Productivity Tool failed: Claude CLI exited 1: 
+[synthesize] CW UKCAUD Project Tracker (haiku, 2 findings)
+[synthesize] CW UKCAUD Project Tracker failed: Claude CLI exited 1: 
+[synthesize] Property Search Tool (haiku, 2 findings)
+[synthesize] Property Search Tool failed: Claude CLI exited 1: 
+[synthesize] CW Template Comparison Tool (haiku, 2 findings)
+[synthesize] CW Template Comparison Tool failed: Claude CLI exited 1: 
+[synthesize] CW UKJPD Workflows (haiku, 1 findings)
+[synthesize] CW UKJPD Workflows failed: Claude CLI exited 1: 
+[synthesize] Yearly Reviews (haiku, 1 findings)
+[synthesize] Yearly Reviews failed: Claude CLI exited 1: 
+[synthesize] CW UAT Testing Tool (haiku, 1 findings)
+[synthesize] CW UAT Testing Tool failed: Claude CLI exited 1: 
+[synthesize] agentic-kanban (haiku, 1 findings)
+[synthesize] agentic-kanban failed: Claude CLI exited 1: 
+
+[3/6] LLM synthesis complete
+  Budget used: $0.0000 / $5.00
+  Projects called: 20, skipped: 3
+
+[4/6] Collecting and pushing kanban cards...
+[4/6] Cards: 0 generated | 0 pushed to vibe-kanban | 0 pending
+
+[5/6] Running doc freshness check...
+  Doc health script not available — skipping
+
+[6/6] Writing dashboard and report...
+  Dashboard updated: C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\dashboard-data.json
+  Report written: C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\overnight-report.md
+
+====== Overnight Analysis Complete (327s) ======
+
+[24/04/2026  2:05:28.42] Overnight analysis complete 

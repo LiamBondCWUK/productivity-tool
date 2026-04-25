@@ -14,7 +14,7 @@ export function CeremoniesTab({ embedUrl }: CeremoniesTabProps) {
   const [showResult, setShowResult] = useState(false);
   const [iframeError, setIframeError] = useState(false);
 
-  const isAbsoluteUrl = embedUrl.startsWith("http");
+  const hasUrl = Boolean(embedUrl);
 
   const handleRegenerate = async () => {
     setShowResult(true);
@@ -72,7 +72,7 @@ export function CeremoniesTab({ embedUrl }: CeremoniesTabProps) {
       )}
 
       <div className="flex-1 min-h-0 rounded border border-gray-700 overflow-hidden">
-        {isAbsoluteUrl && !iframeError ? (
+        {hasUrl && !iframeError ? (
           <iframe
             title="Ceremony Dashboard"
             src={embedUrl}

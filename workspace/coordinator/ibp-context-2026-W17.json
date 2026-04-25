@@ -1,0 +1,134 @@
+{
+  "week": "2026-W17",
+  "generatedAt": "2026-04-24T22:00:00.000Z",
+  "teamsChats": [
+    {
+      "date": "2026-04-24",
+      "with": "Bethany Sullivan",
+      "topic": "Claude onboarding",
+      "summary": "Bethany asked for an intro to Claude after struggling to get started. Liam walked her through Claude Code quickstart — shared docs link and live terminal setup ('Open terminal - type claude'). Practical 1:1 enablement session."
+    },
+    {
+      "date": "2026-04-24",
+      "with": "Mitchell Payne",
+      "topic": "UAT feature extractor skill delivery",
+      "summary": "Liam shared the UAT-feature-extractor skill with Mitchell (QA) — repackaged Rovo agent as a Claude skill that generates UAT ticket structure and scrapes data sources to give better UAT criteria for testing. Also shared uat-tickets-2026-04-example.md as a worked example."
+    },
+    {
+      "date": "2026-04-24",
+      "with": "Federico Marchionni",
+      "topic": "Claude for QA + Jira usage",
+      "summary": "Federico confirmed QA getting Claude access would give them everything they need. Discussed using Claude to organise Jira this sprint. Liam's framing: 'If QA gets access to Claude basically they have everything they need'."
+    },
+    {
+      "date": "2026-04-24",
+      "with": "Lee Hatcher, Damaris Dumitru",
+      "topic": "Claude access expansion",
+      "summary": "Liam requested Lee and Damaris submit Claude Code access tickets via FreshService — widening Claude footprint to additional team members. Also raised with Jonathan Millar to include them in MCP authoring standard tooling."
+    },
+    {
+      "date": "2026-04-24",
+      "with": "Jannie Conradie, Jason Bradley, Kyle Silverman",
+      "topic": "Anthropic courses + Claude Certified Architect pathway",
+      "summary": "Jannie shared her experience with the starter Anthropic courses — initial confusion, value discovered. Kyle summarised Jason Bradley on advanced courses: Claude Certified Architect course becomes available after completing starter track. Liam facilitated progression discussion."
+    },
+    {
+      "date": "2026-04-24",
+      "with": "Ricky Ng",
+      "topic": "Claude Code operations use cases",
+      "summary": "Ricky referenced Lenny's Podcast featuring Head of Product at Claude Code — internal teams building their own ops apps with CC and sharing tools. Context for expanding Liam's tooling approach internally."
+    },
+    {
+      "date": "2026-04-23",
+      "with": "Bethany Sullivan",
+      "topic": "Claude intro request",
+      "summary": "Bethany reached out: 'I don't suppose you could do me an intro to claude could you? Tbh I'm struggling to get started and your guidance would be really useful.' Liam shared FreshService access link and followed up with live session on Fri 24 Apr."
+    },
+    {
+      "date": "2026-04-22",
+      "with": "Alexa Tang, Mike Shoss",
+      "topic": "Claude Console agent + internal onboarding agent planning",
+      "summary": "Alexa initiated discussion on Claude Console access to build an internal onboarding/support agent — 'connect people, teams, and company knowledge, fill knowledge gaps, break silos, surface information'. Mike confirmed parallel 'Brain' project path. Liam offered Spec Studio demo to show what's possible. Alexa captured design team adoption challenges."
+    },
+    {
+      "date": "2026-04-22",
+      "with": "Jonathan Millar, Jason Bradley",
+      "topic": "MCP authoring agent delivery + Claude access for team",
+      "summary": "Liam shared Jason Bradley's Caseware authoring agent MCP as a custom connector to Claude — logged for unlock via DIST. Raised expanding access: Lee Hatcher and Damaris to be onboarded. Shared CAA Kanban board for authoring agent feedback tracking."
+    },
+    {
+      "date": "2026-04-22",
+      "with": "Natasha Kobrak, Han Tuttel",
+      "topic": "Productivity skill sharing",
+      "summary": "Following LB/NK 1:1, Natasha shared her cowork.tools daily overview skill (emails, calendar, Teams summary) with Han Tuttel — built on approach discussed with Liam."
+    },
+    {
+      "date": "2026-04-22",
+      "with": "Roy Tamir, Federico Marchionni, Jonathan Millar",
+      "topic": "Spec Studio build kick-off + Claude guidance sync",
+      "summary": "Liam presented Spec Studio concept: 'start by working backwards from monorepo to make a baseline spec, then iterate using Claude to edit and create new spec versions'. Getting demo of Spec Studio from Jason Bradley. Federico/Roy discussing their spec and QA items. Will Walker raised concern about Claude not understanding SE Builder."
+    },
+    {
+      "date": "2026-04-21",
+      "with": "Jonathan Millar, Jason Bradley",
+      "topic": "MCP authoring agent submission",
+      "summary": "Liam sent authoring agent MCP to Jonathan Millar — custom connector for Claude, requesting unlock. Asked whether Lee and Damaris should also be getting Claude Code access alongside Jonathan."
+    },
+    {
+      "date": "2026-04-20",
+      "with": "Roy Tamir, Federico Marchionni",
+      "topic": "Claude catchup + Spec Studio + QA spec review",
+      "summary": "Liam proposed Monday Claude catchup: 'shall we have a claude catchup today if Roy has some of his spec stuff working and Fed has this QA item and i have spec studio im working on'. Aligned on sharing Claude usage approaches across the team."
+    },
+    {
+      "date": "2026-04-20",
+      "with": "Andrew Smith, Alexa Tang, Mike Shoss, Alexandru Dinu",
+      "topic": "V1 Claude Code Complete Guide",
+      "summary": "Andrew Smith: 'Liam Bond has build a phenomenal Claude Starter Kit markdown file.' Andrew called for a discussion of CLAUDE-CODE-COMPLETE-GUIDE.md during the week. Liam confirmed it was a basic starter guide for new people — 'I did accept i think craft claude code acceleration?'. Liam described it as foundational enablement for new Claude users."
+    }
+  ],
+  "transcriptHighlights": [
+    {
+      "date": "2026-04-24",
+      "meeting": "Craft: Claude Code Acceleration",
+      "attendees": 8,
+      "keyPoints": [
+        "Liam ran/presented at the Craft session on Claude Code Acceleration",
+        "Covered Claude Code quickstart, CLI auto mode, and practical ops tooling",
+        "Shared CLAUDE-CODE-COMPLETE-GUIDE.md as the V1 company starter guide",
+        "8 attendees — cross-team Claude adoption event"
+      ]
+    },
+    {
+      "date": "2026-04-24",
+      "meeting": "QA + AI Zephyr audit (async, shared to channel)",
+      "attendees": 0,
+      "keyPoints": [
+        "Liam produced a full Zephyr Scale audit across UKCAUD and UKCFS using Claude",
+        "Audit covers: Advanced licence features not being used, what each project does well that the other could adopt",
+        "Shared to QA + AI channel at 05:14 UTC (pre-standup prep)"
+      ]
+    },
+    {
+      "date": "2026-04-22",
+      "meeting": "Claude for Product starter kit / Claude Console agent discussion",
+      "attendees": 3,
+      "keyPoints": [
+        "Alexa Tang, Mike Shoss, Liam discussed internal Claude Console agent to fill knowledge gaps and break silos",
+        "Identified design team Claude Code adoption challenges",
+        "Brainstormed internal agent use cases: onboarding, support, knowledge surfacing",
+        "Aligned on Spec Studio demo as a reference implementation"
+      ]
+    }
+  ],
+  "standaloneSignals": [
+    "DIST-69292 (Enable MCP Functionality On HAT Server) — blocker raised Apr 9, still unresolved but escalation ongoing",
+    "UAT-feature-extractor skill created and delivered to Mitchell Payne (QA) — generates UAT ticket structure from data sources",
+    "plan-prompt-frameworks skill created — comprehensive prompt engineering framework for planning sessions",
+    "V1 Claude Code Complete Guide (CLAUDE-CODE-COMPLETE-GUIDE.md) created — company starter kit for new Claude users",
+    "Caseware Authoring Agent MCP (from Jason Bradley) — submitted for unlock, shared with Jonathan Millar for team authoring use",
+    "QA + AI Zephyr Scale audit delivered — identified Advanced licence gaps across UKCAUD and UKCFS",
+    "Claude access expansion: Lee Hatcher, Damaris Dumitru, Mitchell Payne onboarding requests raised",
+    "Anthropic Claude Certified Architect course pathway confirmed — available after starter track completion"
+  ]
+}

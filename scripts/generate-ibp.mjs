@@ -17,10 +17,11 @@
  *   node scripts/generate-ibp.mjs [--date=YYYY-MM-DD] [--skip-ai] [--output=workspace/coordinator/demo-ibp-YYYY-MM-DD.md]
  */
 
-import { readFileSync, writeFileSync, existsSync } from "fs";
+import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 import { execSync, spawnSync } from "child_process";
+import { homedir } from "os";
 
 // Load .env if it exists
 try {
@@ -82,7 +83,9 @@ function cleanText(input, maxLen = 240) {
     .replace(/[<>]/g, "")
     .replace(/\s{2,}/g, " ")
     .trim();
-  return normalized.slice(0, maxLen);
+  if (normalized.length <= maxLen) return normalized;
+  const cut = normalized.slice(0, maxLen).replace(/\s+\S*$/, "");
+  return (cut || normalized.slice(0, maxLen)) + "…";
 }
 
 function blockToBullets(block, limit = 6) {
@@ -111,6 +114,36 @@ function uniqueBy(items, normalizer = (item) => item) {
   });
 }
 
+function groupSimilarItems(items) {
+  // Strip leading status prefix (Advanced, Scoped, Delivered, Start) and per-template identifier
+  // to find a canonical action key, then group items with the same action
+  const getActionKey = (item) => {
+    return item
+      .replace(/^-\s+/, '')
+      .replace(/^(Advanced|Scoped|Delivered|Start|Completed)\s+/i, '')
+      .replace(/^Audit\s+(HAT|Mercia)\s+\w+(\s+\w+)*\s+-\s+/i, '')
+      .replace(/^(Audit HAT UK Corporate|Audit HAT UK LLP|Audit HAT UK Charity|Audit Mercia UK Company|Audit Mercia UK LLP|Audit Mercia UK Charity|Audit Mercia UK Pension Schemes|Audit Mercia ROI Company|Audit Mercia International Company)\s*[-–]\s*/i, '')
+      .trim()
+  }
+
+  const groups = new Map()
+  for (const item of items) {
+    const key = getActionKey(item).toLowerCase()
+    if (!groups.has(key)) groups.set(key, { canonical: getActionKey(item), items: [] })
+    groups.get(key).items.push(item)
+  }
+
+  const result = []
+  for (const group of groups.values()) {
+    if (group.items.length === 1) {
+      result.push(group.items[0])
+    } else {
+      result.push(`- ${group.canonical} (×${group.items.length} audit templates)`)
+    }
+  }
+  return result
+}
+
 function toYmd(date) {
   return date.toISOString().slice(0, 10);
 }
@@ -123,6 +156,26 @@ function addDays(date, days) {
   const next = new Date(date);
   next.setUTCDate(next.getUTCDate() + days);
   return next;
+}
+
+function describeConfluencePage(title) {
+  if (/retro|retrospective/i.test(title)) return `Published sprint retrospective: ${title}`;
+  if (/planning|sprint.*plan/i.test(title)) return `Updated sprint planning doc: ${title}`;
+  if (/best.?practice|session.*management|guide/i.test(title)) return `Updated best practice guide: ${title}`;
+  if (/priorities/i.test(title)) return `Updated team priorities page`;
+  if (/tracker|schedule/i.test(title)) return `Updated content schedule tracker`;
+  return `Updated Confluence: ${title}`;
+}
+
+function normalizePersonKey(name) {
+  return name.split(',')[0].trim().toLowerCase();
+}
+
+function isLiamCentric(summary) {
+  const firstClause = summary.split(/[.;]|—/)[0];
+  if (/^[A-Z][a-z]+ (referenced|shared|summarised|raised concern|called for|captured)/i.test(firstClause)
+      && !/liam/i.test(firstClause)) return false;
+  return true;
 }
 
 function formatDateLabel(ymd) {
@@ -147,6 +200,14 @@ function getWorkWeekRanges(targetYmd) {
     nextWeekStart: toYmd(nextWeekStart),
     nextWeekEnd: toYmd(nextWeekEnd),
   };
+}
+
+function getISOWeek(date) {
+  const d = new Date(date);
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNum = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  return `${d.getUTCFullYear()}-W${String(weekNum).padStart(2, '0')}`;
 }
 
 function isYmdBetween(ymd, startYmd, endYmd) {
@@ -237,7 +298,7 @@ function buildContext(unifiedLog, dashboardData) {
   // Projects
   const projects = dashboardData?.personalProjects?.projects ?? [];
 
-  // Claude sessions narrative
+  // Claude sessions narrative (with claude-sessions-today.json supplementary read)
   const claudeSessions = entries.filter((e) => e.source === "claude");
   const claudeSummary = uniqueBy(
     claudeSessions
@@ -252,6 +313,29 @@ function buildContext(unifiedLog, dashboardData) {
       return `  - ${label} (${fmtMin(s.durationMin)})${detail ? ": " + detail : ""}`;
     })
     .join("\n");
+
+  // Supplementary Claude session enumeration from file
+  let claudeSessionsInfo = "";
+  try {
+    const sessionsPath = resolve(ROOT, "workspace/coordinator/claude-sessions-today.json");
+    if (existsSync(sessionsPath)) {
+      const allSessions = readJson(sessionsPath, []);
+      const weekRanges = getWorkWeekRanges(TARGET_DATE);
+      const weekStart = parseYmd(weekRanges.currentWeekStart).getTime();
+      const weekEnd = parseYmd(weekRanges.currentWeekEnd).getTime() + 86400000;
+      const weekSessions = allSessions.filter((s) => {
+        const startMs = new Date(s.start).getTime();
+        return startMs >= weekStart && startMs <= weekEnd;
+      });
+      if (weekSessions.length > 0) {
+        const projectDirs = new Set(weekSessions.map((s) => s.projectDir?.split(/[/\\]/).pop()).filter(Boolean));
+        const projectList = [...projectDirs].join(", ");
+        claudeSessionsInfo = `Claude Code: ${weekSessions.length} sessions across ${projectList} (this week)`;
+      }
+    }
+  } catch {
+    // claude-sessions-today.json not available
+  }
 
   // Window sessions by task
   const windowSummary = summary
@@ -391,6 +475,7 @@ function buildContext(unifiedLog, dashboardData) {
     inboxItems,
     windowSummary,
     claudeSummary,
+    claudeSessionsInfo,
     jiraSummary,
     plannedSummary,
     plannedTodayMinutes,
@@ -462,7 +547,7 @@ export function extractQuinnSections(markdown) {
   return result;
 }
 
-function buildPlainSummary(ctx) {
+async function buildPlainSummary(ctx) {
   const weekRanges = ctx.weekRanges ?? getWorkWeekRanges(ctx.date);
   const weekLabel = `${formatDateLabel(weekRanges.currentWeekStart)} - ${formatDateLabel(weekRanges.currentWeekEnd)}`;
   const nextWeekLabel = `${formatDateLabel(weekRanges.nextWeekStart)} - ${formatDateLabel(weekRanges.nextWeekEnd)}`;
@@ -484,6 +569,24 @@ function buildPlainSummary(ctx) {
     ...(github.commits ?? []),
     ...(github.localCommits ?? []).filter((lc) => !(github.commits ?? []).some((c) => c.message === lc.message && c.repo === lc.repo)),
   ];
+
+  // Load ibp-context JSON if available (Change 8)
+  // Expected ibp-context schema:
+  // { week, generatedAt, teamsChats: [{ date, with, topic, summary, liamAction?, outcome? }],
+  //   transcriptHighlights: [{ date, meeting, attendees, keyPoints }],
+  //   standaloneSignals: string[] }
+  // liamAction: verb phrase for what Liam did (e.g. "delivered skill", "ran intro session")
+  // outcome: one-sentence result separate from the full summary
+  const weekStr = getISOWeek(ctx.date);
+  const contextPath = resolve(ROOT, 'workspace', 'coordinator', `ibp-context-${weekStr}.json`);
+  let ibpContext = null;
+  try {
+    if (existsSync(contextPath)) {
+      ibpContext = readJson(contextPath, null);
+    }
+  } catch {
+    // context not available
+  }
 
   function isPersonallyTouchedIssue(issue) {
     // Reporter = always manual (user created it)
@@ -609,6 +712,16 @@ function buildPlainSummary(ctx) {
     const summary = cleanIssueSummary(issue.summary).toLowerCase();
     if (/academy/i.test(issue.summary)) return "sprint delivery work";
     if (/cosmetic|text|label|guidance/.test(summary)) return "UI polish and guidance improvements";
+    if (/financial.?statement|"statement".*true|statement.*option/i.test(summary))
+      return "HAT UK — Financial Statements";
+    if (/remove.*form|old.*se.?builder|legacy.?form/i.test(summary))
+      return "HAT UK — Legacy Form Cleanup";
+    if (/mercia.*ai.?test|ai.?test.*mercia/i.test(summary))
+      return "Mercia UK — AI Testing Audit";
+    if (/uk.?corporate|dist.*release|production.?deploy/i.test(summary))
+      return "HAT UK Corporate";
+    if (/\bMCP\b|enable.*mcp/i.test(summary))
+      return null;
     if (/hat|sampling|sample[\s.-]?size|transactional/.test(summary)) return "HAT UK Company Audit — Sampling & Sample Size";
     if (/audit/.test(summary)) return "HAT UK Company Audit — Sampling & Sample Size";
     if (/tailoring|\btb\b/.test(summary)) return "tailoring and trial balance logic";
@@ -694,7 +807,7 @@ function buildPlainSummary(ctx) {
     themeMap.get(theme).push(issue);
   }
   const winsByTheme = [...themeMap.entries()]
-    .filter(([theme]) => theme !== "sprint delivery work")
+    .filter(([theme]) => theme && theme !== "sprint delivery work")
     .sort((a, b) => b[1].length - a[1].length)
     .slice(0, 5)
     .map(([theme, issues]) => ({
@@ -785,7 +898,7 @@ function buildPlainSummary(ctx) {
   ];
 
   // Exec summary — outcome-first, quantified
-  const themeNames = winsByTheme.slice(0, 2).map((w) => w.theme);
+  const themeNames = winsByTheme.filter(w => w.theme).map((w) => w.theme);
   let execSummary =
     themeNames.length > 0
       ? `Delivered progress across ${joinNarrativeList(themeNames)} this week.`
@@ -804,16 +917,21 @@ function buildPlainSummary(ctx) {
 
   // Thematic sub-sections — one bold heading per workstream, bullets per ticket
   for (const { theme, issues } of winsByTheme) {
+    if (!theme) continue;
     const heading = theme.charAt(0).toUpperCase() + theme.slice(1);
     lines.push(`**${heading}**`);
     // Deduplicate by cleaned summary within the theme (different keys, same displayed text)
     const seenSummaries = new Set();
+    const impactItems = [];
     for (const issue of issues) {
       const cleaned = cleanIssueSummary(issue.summary).toLowerCase();
       if (seenSummaries.has(cleaned)) continue;
       seenSummaries.add(cleaned);
-      lines.push(`- ${statusVerb(issue.status)} ${cleanIssueSummary(issue.summary)}`);
+      impactItems.push(`- ${cleanIssueSummary(issue.summary)}`);
     }
+    // Apply groupSimilarItems deduplication for audit template items (Change 1)
+    const grouped = groupSimilarItems(impactItems);
+    grouped.forEach((l) => lines.push(l));
     lines.push("");
   }
 
@@ -850,17 +968,80 @@ function buildPlainSummary(ctx) {
     if (!commitsByRepo.has(c.repo)) commitsByRepo.set(c.repo, []);
     commitsByRepo.get(c.repo).push(stripped);
   }
+  // Build git lines before merging by repo
+  const gitLines = [];
   for (const [repo, messages] of commitsByRepo) {
     const cleaned = [...new Set(messages.filter((m) => m.length > 3))];
     if (cleaned.length === 0) continue;
     const label = humaniseRepo(repo);
     // One line per repo — most descriptive messages comma-separated
     const top = [...cleaned].sort((a, b) => b.length - a.length).slice(0, 4);
-    engLines.push(`- ${label}: ${top.map((m) => cleanText(m, 80)).join(", ")}`);
+    gitLines.push(`- ${label}: ${top.map((m) => cleanText(m, 80)).join(", ")}`);
   }
+
+  // Merge duplicate repo entries
+  const repoMap = new Map();
+  for (const line of gitLines) {
+    const repoMatch = line.match(/^- ([^:]+):/);
+    const key = repoMatch ? repoMatch[1].trim().toLowerCase() : line;
+    if (repoMap.has(key)) {
+      const existing = repoMap.get(key);
+      const newPart = line.replace(/^- [^:]+:\s*/, '');
+      const existingPart = existing.replace(/^- [^:]+:\s*/, '');
+      const newFeatures = newPart.split(/[,;]/).map(f => f.trim())
+        .filter(f => f && !existingPart.toLowerCase().includes(f.toLowerCase().slice(0, 20)));
+      if (newFeatures.length) repoMap.set(key, existing + ', ' + newFeatures.join(', '));
+    } else {
+      repoMap.set(key, line);
+    }
+  }
+  const mergedGitLines = [...repoMap.values()];
+  mergedGitLines.forEach((l) => engLines.push(l));
   for (const rule of automationRules.slice(0, 4)) {
     engLines.push(`- ${rule.action} Jira automation rule: ${cleanText(rule.name, 80)}`);
   }
+
+
+
+  // Add skills scan (Change 5) — prefer ibpContext signals over mtime (mtime unreliable on Windows)
+  const skillsDir = resolve(homedir(), '.claude', 'skills');
+  const weekStart = parseYmd(weekRanges.currentWeekStart);
+  const newSkills = [];
+  // Extract skill names from ibpContext standaloneSignals (most reliable on Windows)
+  const contextSkillNames = new Set();
+  if (ibpContext?.standaloneSignals) {
+    for (const signal of ibpContext.standaloneSignals) {
+      const m = signal.match(/^([\w-]+)\s+skill\s+created/i);
+      if (m) contextSkillNames.add(m[1].trim());
+    }
+  }
+  try {
+    for (const entry of readdirSync(skillsDir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const skillFile = resolve(skillsDir, entry.name, 'SKILL.md');
+      if (!existsSync(skillFile)) continue;
+      const content = readFileSync(skillFile, 'utf8');
+      const nameMatch = content.match(/^name:s*(.+)$/m);
+      const descMatch = content.match(/^description:s*(.+)$/m);
+      if (!nameMatch) continue;
+      const skillName = nameMatch[1].trim();
+      if (contextSkillNames.size > 0) {
+        if (!contextSkillNames.has(skillName)) continue;
+      } else {
+        const stat = statSync(skillFile);
+        if (stat.mtimeMs < weekStart.getTime()) continue;
+      }
+      const rawDesc = descMatch ? descMatch[1].trim() : '';
+      const desc = rawDesc.length > 80 ? rawDesc.slice(0, 77) + '...' : rawDesc;
+      newSkills.push(`${skillName}${desc ? ' — ' + desc : ''}`);
+    }
+  } catch {
+    // skills dir not accessible
+  }
+  if (newSkills.length > 0) {
+    engLines.push(`- Skills created this week: ${newSkills.join(', ')}`);
+  }
+
   // Group AI highlights by tool — one line per tool, no durations
   const aiByTool = new Map();
   for (const highlight of topAiHighlights) {
@@ -871,6 +1052,32 @@ function buildPlainSummary(ctx) {
     const unique = [...new Set(details)];
     engLines.push(`- ${tool}: ${unique.slice(0, 3).map((d) => cleanText(d, 70)).join("; ")}`);
   }
+
+  // Split standaloneSignals: engineering, comms, and blocker signals (Change 4)
+  const engSignals = [];
+  const commsSignals = [];
+  const contextBlockerSignals = [];
+  if (ibpContext?.standaloneSignals) {
+    for (const signal of ibpContext.standaloneSignals) {
+      if (/skill created|\.md.*created|mcp.*submitted|zephyr.*audit|delivered.*to|guide created/i.test(signal))
+        engSignals.push(signal);
+      else if (/access.*raised|onboarding.*request|course.*pathway|architect.*certif/i.test(signal))
+        commsSignals.push(signal);
+      else if (/DIST-\d+|blocker raised|still unresolved|blocked on/i.test(signal))
+        contextBlockerSignals.push(signal);
+      else
+        commsSignals.push(signal);
+    }
+  }
+
+  // Add engSignals to engineering section — skip skills already covered by newSkills
+  const newSkillNames = new Set(newSkills.map(s => s.split(' — ')[0].trim().toLowerCase()));
+  for (const s of engSignals) {
+    const skillMatch = s.match(/^([\w-]+)\s+skill\s+created/i);
+    if (skillMatch && newSkillNames.has(skillMatch[1].toLowerCase())) continue;
+    engLines.push(`- ${s}`);
+  }
+
   if (engLines.length > 0) {
     lines.push("**Engineering & AI-assisted work**");
     engLines.forEach((l) => lines.push(l));
@@ -880,23 +1087,64 @@ function buildPlainSummary(ctx) {
   // Collaboration & documentation sub-section
   const collabLines = [];
   for (const page of confluence.pagesCreated.slice(0, 3)) {
-    collabLines.push(`- Created Confluence page: ${cleanText(page.title, 80)}${page.space ? ` (${page.space})` : ""}`);
+    collabLines.push(`- ${describeConfluencePage(page.title)}${page.space ? ` (${page.space})` : ""}`);
   }
   const editedPageKeys = new Set();
   for (const page of confluence.pagesEdited.slice(0, 6)) {
     const key = page.title.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]/g, "");
     if (editedPageKeys.has(key)) continue;
     editedPageKeys.add(key);
-    collabLines.push(`- Updated Confluence: ${cleanText(page.title, 80)}`);
+    collabLines.push(`- ${describeConfluencePage(page.title)}`);
   }
   for (const comment of jiraComments.slice(0, 4)) {
     const firstSentence = comment.comment.split(/[.!?]/)[0].trim();
     if (firstSentence.length > 15) {
       collabLines.push(
-        `- Contributed to ${comment.issueKey}: ${firstSentence.charAt(0).toUpperCase()}${firstSentence.slice(1)}`
+        (() => { const s = cleanText(firstSentence, 60); return `- Contributed to ${comment.issueKey}: ${s.charAt(0).toUpperCase()}${s.slice(1)}`; })()
       );
     }
   }
+
+
+  // Build Communications section (Change 5)
+  const commsLines = [];
+
+  // Deduplicate Teams chats by person (keep richest summary)
+  const chatsByPerson = new Map();
+  for (const chat of ibpContext?.teamsChats ?? []) {
+    const key = normalizePersonKey(chat.with);
+    if (!chatsByPerson.has(key)) {
+      chatsByPerson.set(key, { ...chat });
+    } else {
+      const prev = chatsByPerson.get(key);
+      if (chat.summary.length > prev.summary.length) {
+        chatsByPerson.set(key, { ...chat, alsoDate: prev.date });
+      } else {
+        prev.alsoDate = chat.date;
+      }
+    }
+  }
+
+  for (const chat of chatsByPerson.values()) {
+    if (!isLiamCentric(chat.summary)) continue;
+    const dateNote = chat.alsoDate ? ` (also ${chat.alsoDate})` : '';
+    const isGroup = chat.with.includes(',');
+    const nameParts = chat.with.split(',').map(p => p.trim().split(' ')[0]).slice(0, 3).join(', ');
+    const prefix = isGroup ? `Team sync (${nameParts})` : `1:1 with ${chat.with}${dateNote}`;
+    const action = chat.liamAction ? `${chat.liamAction}: ` : '';
+    const outcome = chat.outcome ?? cleanText(chat.summary, 120);
+    commsLines.push(`- ${prefix} — ${action}${outcome}`);
+  }
+
+  // Add transcript highlights
+  for (const t of ibpContext?.transcriptHighlights ?? []) {
+    const points = (t.keyPoints ?? []).slice(0, 2).join('; ');
+    commsLines.push(`- ${t.meeting} [${t.date}]: ${points}`);
+  }
+
+  // Add comms signals from standaloneSignals
+  for (const s of commsSignals) commsLines.push(`- ${s}`);
+
   if (substantiveMeetings.length > 0) {
     collabLines.push(`- Meetings: ${substantiveMeetings.slice(0, 4).join("; ")}`);
   }
@@ -906,12 +1154,31 @@ function buildPlainSummary(ctx) {
     lines.push("");
   }
 
+  if (commsLines.length) {
+    lines.push("## Communications");
+    lines.push("");
+    commsLines.forEach((l) => lines.push(l));
+    lines.push("");
+  }
+
   // ---- BLOCKERS -----------------------------------------------------------
 
   lines.push("## Blockers");
   lines.push("");
-  if (blockerLines.length > 0) {
-    blockerLines.forEach((entry) => lines.push(`- ${entry}`));
+  const allBlockerEntries = [
+    ...blockerLines,
+    ...contextBlockerSignals,
+  ];
+
+  // Filter resolved blockers via Jira status check (Change 6)
+  const resolvedKeys = await getResolvedTicketKeys(allBlockerEntries);
+  const activeBlockers = allBlockerEntries.filter((b) => {
+    const keys = [...b.matchAll(/([A-Z]+-\d+)/g)].map(m => m[1]);
+    return !keys.some(k => resolvedKeys.has(k));
+  });
+
+  if (activeBlockers.length > 0) {
+    activeBlockers.forEach((entry) => lines.push(`- ${entry}`));
   } else {
     lines.push("- None");
   }
@@ -946,6 +1213,7 @@ function buildPlainSummary(ctx) {
     priorityByTheme.get(issue.theme).push(issue);
   }
 
+  const priorityLines = [];
   if (priorityByTheme.size > 1) {
     for (const [theme, issues] of priorityByTheme) {
       const heading = theme.charAt(0).toUpperCase() + theme.slice(1);
@@ -957,29 +1225,48 @@ function buildPlainSummary(ctx) {
     }
   } else {
     priorityIssues.slice(0, 5).forEach((issue) =>
-      lines.push(`- ${priorityVerb(issue.status)} ${issue.summary}`)
+      priorityLines.push(`- ${priorityVerb(issue.status)} ${issue.summary}`)
     );
     if ((ctx.documentSignalCount ?? 0) > 0) {
-      lines.push(
+      priorityLines.push(
         `- Review ${ctx.documentSignalCount} document change signal${ctx.documentSignalCount === 1 ? "" : "s"}`
       );
     }
-    lines.push("");
   }
+
+  // Action items from transcript highlights (Change 7)
+  const nextSteps = (ibpContext?.transcriptHighlights ?? [])
+    .flatMap(t => t.keyPoints ?? [])
+    .filter(p => /next|action|will|plan|schedule|follow.up/i.test(p))
+    .slice(0, 3);
+  for (const step of nextSteps) priorityLines.push(`- ${step}`);
+
+  // Notable next-week meetings
+  const notableMeetings = (ctx?.nextWeekMeetings ?? [])
+    .filter(m => !m.isCancelled && !m.title?.startsWith('Canceled:') && !/standup|stand[- ]?up|rollover|lunch|break/i.test(m.title ?? ""))
+    .map(m => (m.title ?? '').replace(/\s*-\s*MS Teams/i, '').trim())
+    .slice(0, 5);
+  if (notableMeetings.length) {
+    priorityLines.push(`- Upcoming: ${notableMeetings.join(', ')}`);
+  }
+
+  priorityLines.forEach((l) => lines.push(l));
+  if (priorityLines.length > 0) lines.push("");
 
   // ---- LOOKING AHEAD -------------------------------------------------------
 
   lines.push("## Looking Ahead");
   lines.push("");
 
-  const thisWeekRemaining = groupEventsByDay(ctx.thisWeekUpcomingMeetings ?? []);
-  const nextWeekMeetings = groupEventsByDay(ctx.nextWeekMeetings ?? []);
-
+  const STANDUP_NOISE_RE = /standup|stand[- ]?up|rollover|lunch|break/i;
+  const filterCalEvents = (evts) => (evts ?? []).filter(e => !STANDUP_NOISE_RE.test(e.title ?? '') && !e.title?.startsWith('Canceled:'));
+  const thisWeekRemaining = groupEventsByDay(filterCalEvents(ctx.thisWeekUpcomingMeetings));
+  const nextWeekMeetings = groupEventsByDay(filterCalEvents(ctx.nextWeekMeetings));
   lines.push("**Rest of this week:**");
   if (thisWeekRemaining.length > 0) {
     thisWeekRemaining.forEach((entry) => lines.push(`- ${entry}`));
   } else {
-    lines.push("- No further ceremonies scheduled for this week.");
+    lines.push("- No upcoming meetings scheduled for this week.");
   }
   lines.push("");
   lines.push("**Next week:**");
@@ -990,7 +1277,22 @@ function buildPlainSummary(ctx) {
   }
   lines.push("");
 
-  return lines.join("\n");
+  // Preserve hand-crafted sections from existing file (Change 2)
+  let preservedOutput = lines.join("\n");
+  const existingFile = existsSync(OUTPUT_PATH) ? readFileSync(OUTPUT_PATH, 'utf8') : '';
+  if (existingFile) {
+    const preservedSections = [];
+    const sectionPattern = /^(## (?:Daily Standup Highlights|Meeting Highlights|Team Retrospective Insights)[\s\S]*?)(?=^## |\Z)/gm;
+    let match;
+    while ((match = sectionPattern.exec(existingFile)) !== null) {
+      preservedSections.push(match[1].trim());
+    }
+    if (preservedSections.length > 0) {
+      preservedOutput += "\n\n" + preservedSections.join("\n\n");
+    }
+  }
+
+  return preservedOutput;
 }
 // --- Claude narrative -------------------------------------------------------
 
@@ -1259,6 +1561,51 @@ async function fetchJiraProjectSnapshot(fromDate) {
     distBlockers,
     comments,
   };
+}
+
+// --- Blocker auto-resolution via Jira status check (Change 6) --------
+
+async function getResolvedTicketKeys(ticketStrings) {
+  const jiraEmail = process.env.JIRA_EMAIL;
+  const jiraToken = process.env.JIRA_API_TOKEN;
+  if (!jiraEmail || !jiraToken) return new Set();
+
+  const authHeader = Buffer.from(`${jiraEmail}:${jiraToken}`).toString("base64");
+  const { default: https } = await import("https");
+
+  const resolved = new Set();
+  const keyPattern = /([A-Z]+-\d+)/g;
+  const allKeys = [...new Set(
+    ticketStrings.flatMap(s => [...s.matchAll(keyPattern)].map(m => m[1]))
+  )];
+
+  const jiraGetJson = async (path) => {
+    return new Promise((res) => {
+      const req = https.get(
+        {
+          hostname: "caseware.atlassian.net",
+          path,
+          method: "GET",
+          headers: { Authorization: `Basic ${authHeader}`, Accept: "application/json" },
+        },
+        (response) => {
+          let data = "";
+          response.on("data", (chunk) => { data += chunk; });
+          response.on("end", () => { try { res(JSON.parse(data)); } catch { res(null); } });
+        },
+      );
+      req.on("error", () => res(null));
+      req.setTimeout(10000, () => req.destroy());
+    });
+  };
+
+  for (const key of allKeys) {
+    try {
+      const data = await jiraGetJson(`/rest/api/3/issue/${key}?fields=status`);
+      if (data?.fields?.status?.statusCategory?.key === 'done') resolved.add(key);
+    } catch { /* keep blocker if fetch fails */ }
+  }
+  return resolved;
 }
 
 // --- Local git repo commit scan -------------------------------------------
@@ -1548,7 +1895,7 @@ async function run() {
   let content;
 
   if (SKIP_AI) {
-    content = buildPlainSummary(ctx);
+    content = await buildPlainSummary(ctx);
     console.log("[generate-ibp] using plain summary (no AI)");
   } else {
     console.log("[generate-ibp] calling Claude via OAuth for narrative...");
@@ -1567,7 +1914,7 @@ async function run() {
       ].join("\n");
     } else {
       console.log("[generate-ibp] falling back to plain summary because OAuth narrative is unavailable");
-      content = buildPlainSummary(ctx);
+      content = await buildPlainSummary(ctx);
     }
   }
 

@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-04-22T01:00:23.767Z",
+  "updatedAt": "2026-04-24T01:00:14.561Z",
   "projects": [
+    {
+      "name": "dotfiles-publish",
+      "path": "C:/Users/liam.bond/Documents/dotfiles-publish",
+      "phase": "Building",
+      "lastCommit": "2026-04-22T17:35:25+01:00",
+      "lastCommitMsg": "chore: eod sync (1 modified) - M CHANGELOG-PENDING.md",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": "Cross-machine configuration sync for Claude Code, VS Code, and Git."
+    },
     {
       "name": "UKCAUD Spec Studio",
       "path": "C:/Users/liam.bond/Documents/UKCAUD Spec Studio",
@@ -11,17 +22,6 @@
       "hasPkg": true,
       "hasClaude": false,
       "description": "Interactive web app that reverse-engineers SE Builder forms from `caseware/code` into a living spec. Users iterate new v"
-    },
-    {
-      "name": "dotfiles-publish",
-      "path": "C:/Users/liam.bond/Documents/dotfiles-publish",
-      "phase": "Building",
-      "lastCommit": "2026-04-21T10:58:56+01:00",
-      "lastCommitMsg": "config: sync 1 file(s) from UK-PW0B2H3M",
-      "hasGit": true,
-      "hasPkg": false,
-      "hasClaude": false,
-      "description": "Cross-machine configuration sync for Claude Code, VS Code, and Git."
     },
     {
       "name": "CW Lead Schedule Specifications",
@@ -137,8 +137,8 @@
       "name": "Productivity Tool",
       "path": "C:/Users/liam.bond/Documents/Productivity Tool",
       "phase": "Review",
-      "lastCommit": "2026-04-21T17:34:11+01:00",
-      "lastCommitMsg": "chore: eod sync (7 modified) - M outputs/review-evidence/DRAFT-goal-reframes.md, M outputs/review-evidence/DRAFT-self-assessment.md, M workspace/coordinator/activity-log.json, M workspace/coordinator/dashboard-data.json, M workspace/coordinator/gm-auto.log",
+      "lastCommit": "2026-04-23T04:10:43+01:00",
+      "lastCommitMsg": "feat: integrate Agentic Kanban into Command Center dashboard",
       "hasGit": true,
       "hasPkg": true,
       "hasClaude": true,
@@ -148,8 +148,8 @@
       "name": "CW UKCAUD Project Tracker",
       "path": "C:/Users/liam.bond/Documents/CW UKCAUD Project Tracker",
       "phase": "Review",
-      "lastCommit": "2026-04-21T17:33:04+01:00",
-      "lastCommitMsg": "chore: eod sync (6 added, 4 modified) - M outputs/ai-analysis-cache/planning_capacity_sprint0.json, M outputs/ai-analysis-cache/planning_dor_sprint0.json, M outputs/ai-analysis-cache/planning_sprintGoal_sprint0.json, M outputs/ai-analysis-cache/retro_retro_sprint0.json, outputs/ai-analysis-cache/standup_blockers_2026-04-21.json",
+      "lastCommit": "2026-04-22T17:34:50+01:00",
+      "lastCommitMsg": "chore: eod sync (4 added) - outputs/ai-analysis-cache/standup_blockers_2026-04-22.json, outputs/ai-analysis-cache/standup_capacity_2026-04-22.json, outputs/ai-analysis-cache/standup_velocity_2026-04-22.json, outputs/ceremony-prep/standup_sprint7_2026-04-22.md",
       "hasGit": true,
       "hasPkg": true,
       "hasClaude": true,
@@ -225,8 +225,8 @@
       "name": "AI Breaking News Tool",
       "path": "C:/Users/liam.bond/Documents/AI Breaking News Tool",
       "phase": "Done",
-      "lastCommit": "2026-04-20T17:30:16+01:00",
-      "lastCommitMsg": "chore: eod sync (2 added, 3 modified) - M auth-gate.js, M gnews-raw.json, M static-server.js, node_modules/, package-lock.json",
+      "lastCommit": "2026-04-22T17:30:09+01:00",
+      "lastCommitMsg": "chore: eod sync (2 modified) - M CHANGELOG-PENDING.md, M gnews-raw.json",
       "hasGit": true,
       "hasPkg": true,
       "hasClaude": true,
@@ -242,6 +242,17 @@
       "hasPkg": false,
       "hasClaude": true,
       "description": "This folder contains all artifacts related to User Acceptance Testing (UAT) for the UK Cloud Audit squad."
+    },
+    {
+      "name": "agentic-kanban",
+      "path": "C:/Users/liam.bond/Documents/agentic-kanban",
+      "phase": "Done",
+      "lastCommit": "2026-04-15T12:25:56+01:00",
+      "lastCommitMsg": "docs: update README with senior designer, ingest pipeline, CLI, macOS app, and all new features",
+      "hasGit": true,
+      "hasPkg": true,
+      "hasClaude": true,
+      "description": "A local-first kanban board for commanding AI coding agents through quests, dungeons, and campaigns — with deep knowledge"
     }
   ]
 }

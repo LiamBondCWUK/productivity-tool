@@ -1,0 +1,269 @@
+## Pipeline fixes — apply with `cd "Productivity Tool" && git apply audits/ibp-audit-2026-04-25/pipeline-fixes.diff`
+
+This diff covers Tier 1 + Tier 2 fixes (F1–F7) from `audit-report.md`. Apply on a feature
+branch and verify by regenerating the IBP for 2026-04-25 (the contents should look like
+column C in `comparison.md`).
+
+```diff
+--- a/scripts/generate-ibp.mjs
++++ b/scripts/generate-ibp.mjs
+@@ -1296,6 +1296,32 @@
+ }
++
++// --- Output validation -----------------------------------------------------
++
++/**
++ * Hard validation of the final markdown before writing.
++ * Throws if the output drifts from the official Caseware IBP spec.
++ */
++function validateIbpOutput(markdown, ctx) {
++  const failures = [];
++  const required = [
++    "## 🚀 Last Week: Wins & Impact",
++    "## ⚠️ Issues / Blockers",
++    "## 🔥 This Week: Top Priorities",
++    "## 🔮 Looking Ahead",
++  ];
++  required.forEach((h) => {
++    if (!markdown.includes(h)) failures.push(`missing section: ${h}`);
++  });
++  if (markdown.includes("## Communications")) failures.push("non-spec section: Communications");
++  if (/…/.test(markdown)) failures.push(`mid-sentence truncation (…) detected`);
++  const wc = markdown.split(/\s+/).filter(Boolean).length;
++  if (wc < 250 || wc > 400) failures.push(`word count ${wc} outside band 250–400`);
++  const hasKnownBlocker = (ctx.knownBlockers ?? []).length > 0;
++  if (hasKnownBlocker && /## ⚠️ Issues \/ Blockers\n+No new blockers/.test(markdown)) {
++    failures.push("emitted 'No new blockers' while knownBlockers is non-empty");
++  }
++  ctx.bullets?.forEach((b) => {
++    const w = b.split(/\s+/).filter(Boolean).length;
++    if (w > 60) failures.push(`bullet exceeds 60 words: "${b.slice(0, 60)}…"`);
++  });
++  return failures;
++}
++
+ // --- Claude narrative -------------------------------------------------------
+
+@@ -1297,3 +1323,3 @@
+-function buildNarrativePrompt(ctx) {
++function buildNarrativePrompt(ctx) { /* SEE: audits/ibp-audit-2026-04-25/refactored-prompt.md FOR THE FULL XML-STRUCTURED REPLACEMENT */
+   const topItems = (block, limit = 3) => {
+@@ -1303,3 +1329,3 @@
+       .split("\n")
+-      .map((line) => cleanText(line.replace(/^\s*[-*]\s*/, ""), 110))
++      .map((line) => cleanText(line.replace(/^\s*[-*]\s*/, ""), 240))
+       .filter(Boolean)
+@@ -1309,5 +1335,5 @@
+   const jiraProjectTop = (ctx.jiraProjectSnapshots ?? [])
+-    .flatMap((s) => s.issues.slice(0, 2).map((i) => `${i.key} [${i.status}] ${cleanText(i.summary, 70)}`))
+-    .slice(0, 4);
++    .flatMap((s) => s.issues.slice(0, 4).map((i) => `${i.key} [${i.status}] ${cleanText(i.summary, 240)}`))
++    .slice(0, 8);
+
+-  return `Write a concise markdown IBP summary for ${ctx.date}.
+-
+-Facts:
+-- Total tracked: ${ctx.totalTracked}
+-- Planned focus: ${fmtMin(ctx.plannedTodayMinutes)}${ctx.actualToPlannedPct !== null ? ` (${ctx.actualToPlannedPct}% execution)` : ""}
+-- Meetings today: ${ctx.meetingCount} (${fmtMin(ctx.meetingsTotalMin)})
+-- Teams messages: ${ctx.teamMessageCount}
+-- Flagged emails: ${ctx.flaggedEmailCount}
+-- Jira inbox items: ${ctx.jiraInboxCount}
+-
+-Top activity items:
+-${topItems(ctx.claudeSummary, 4).map((x) => `- ${x}`).join("\n") || "- none"}
+-
+-Top inbox items:
+-${ctx.inboxItems.slice(0, 4).map((i) => `- ${cleanText(i, 110)}`).join("\n") || "- none"}
+-
+-Top jira items:
+-${topItems(ctx.jiraInboxSummary, 4).map((x) => `- ${x}`).join("\n") || "- none"}
+-
+-Top jira project updates:
+-${jiraProjectTop.map((x) => `- ${x}`).join("\n") || "- none"}
+-
+-Output 120-180 words with sections:
+-1) What I accomplished today (3-5 bullets)
+-2) Time breakdown (short paragraph)
+-3) Open threads (2-3 bullets)
+-4) Tomorrow's priority (1 bullet)
+-
+-Keep it factual and actionable.`;
++  // The full XML-structured prompt with role / format / constraints / 3 multi-shot
++  // examples / instructions lives in audits/ibp-audit-2026-04-25/refactored-prompt.md.
++  // Copy that function body here on apply.
++  return buildXmlStructuredPrompt(ctx, { topItems, jiraProjectTop });
+ }
+
+@@ -1344,8 +1370,11 @@
+ function callClaudeCliOAuth(ctx) {
+   const prompt = buildNarrativePrompt(ctx);
+
++  // F1: Windows requires .cmd extension for global npm shims (claude, npx).
++  // Without this, spawnSync silently fails with EINVAL/ENOENT.
++  const winSuffix = process.platform === "win32" ? ".cmd" : "";
+   const attempts = [
+     // Most reliable path for larger prompts: pass prompt via stdin.
+-    { cmd: "claude", args: ["--print"], useStdin: true },
++    { cmd: `claude${winSuffix}`, args: ["--print", "--model", "claude-sonnet-4-6", "--temperature", "0.5"], useStdin: true },
+     // Fallback: inline prompt mode.
+-    { cmd: "claude", args: ["-p", prompt, "--output-format", "text"], useStdin: false },
++    { cmd: `claude${winSuffix}`, args: ["-p", prompt, "--output-format", "text", "--model", "claude-sonnet-4-6", "--temperature", "0.5"], useStdin: false },
+     // Final fallback if global CLI isn't on PATH.
+-    { cmd: "npx", args: ["-y", "@anthropic-ai/claude-code", "--print"], useStdin: true },
++    { cmd: `npx${winSuffix}`, args: ["-y", "@anthropic-ai/claude-code", "--print", "--model", "claude-sonnet-4-6", "--temperature", "0.5"], useStdin: true },
+   ];
+
+   for (const attempt of attempts) {
+-    const cmd = process.platform === "win32" && attempt.cmd === "npx" ? "npx.cmd" : attempt.cmd;
++    const cmd = attempt.cmd;
+     const result = spawnSync(cmd, attempt.args, {
+@@ -1366,2 +1395,3 @@
+     if (!result.error && result.status === 0 && result.stdout?.trim()) {
++      console.log(`[generate-ibp] Claude OAuth narrative succeeded via ${attempt.cmd} (${attempt.useStdin ? "stdin" : "inline"})`);
+       return result.stdout.trim();
+@@ -1370,3 +1400,5 @@
+     const errMsg = result.error?.message || result.stderr?.trim();
+-    if (errMsg) {
++    // F2: log every attempt failure even when stderr is empty so we can debug.
++    const exitInfo = `status=${result.status} signal=${result.signal} stdout-empty=${!result.stdout?.trim()}`;
++    if (errMsg || result.status !== 0) {
+       const mode = attempt.useStdin ? "stdin" : "inline";
+@@ -1373,3 +1405,3 @@
+-      console.warn(`[generate-ibp] OAuth attempt failed (${attempt.cmd}, ${mode}): ${errMsg.slice(0, 200)}`);
++      console.warn(`[generate-ibp] OAuth attempt failed (${attempt.cmd}, ${mode}): ${(errMsg || "").slice(0, 200)} | ${exitInfo}`);
+     }
+@@ -1377,3 +1409,2 @@
+   }
+
+-  console.log("[generate-ibp] OAuth narrative unavailable (run 'claude login')");
+   return null;
+@@ -1900,16 +1931,30 @@
+   } else {
+     console.log("[generate-ibp] calling Claude via OAuth for narrative...");
+     const narrative = callClaudeCliOAuth(ctx);
+
+-    if (narrative) {
+-      content = [
+-        `# IBP — ${ctx.date}`,
+-        ``,
+-        `**Total tracked time:** ${ctx.totalTracked}`,
+-        ``,
+-        narrative,
+-        ``,
+-        `---`,
+-        `_Generated by generate-ibp.mjs with Claude narrative at ${new Date().toLocaleTimeString("en-GB")}_`,
+-      ].join("\n");
+-    } else {
+-      console.log("[generate-ibp] falling back to plain summary because OAuth narrative is unavailable");
+-      content = await buildPlainSummary(ctx);
++    // F2: Claude narrative is now mandatory. Failing loudly is correct behaviour —
++    // raw heuristic markdown drifts from the IBP spec and silently degrades quality.
++    if (!narrative) {
++      console.error("\n[generate-ibp] FATAL: Claude narrative unavailable.");
++      console.error("  Likely causes:");
++      console.error("    1. 'claude' CLI not on PATH (try `which claude` / `where claude`)");
++      console.error("    2. Not logged in (run `claude login`)");
++      console.error("    3. Windows: ensure claude.cmd is resolvable");
++      console.error("  Set IBP_ALLOW_FALLBACK=1 to force the legacy plain-summary fallback (NOT recommended).");
++      if (process.env.IBP_ALLOW_FALLBACK !== "1") {
++        process.exit(2);
++      }
++      console.warn("[generate-ibp] IBP_ALLOW_FALLBACK=1 set — emitting plain summary (off-spec).");
++      content = await buildPlainSummary(ctx);
++    } else {
++      content = [
++        `# IBP — ${ctx.weekLabel ?? ctx.date}`,
++        ``,
++        narrative,
++        ``,
++        `---`,
++        `_Generated by generate-ibp.mjs with Claude (sonnet-4-6, temp 0.5) at ${new Date().toLocaleTimeString("en-GB")}_`,
++      ].join("\n");
++    }
++
++    // F5: Validate before writing. Fail loud on drift.
++    const failures = validateIbpOutput(content, ctx);
++    if (failures.length > 0) {
++      const failuresPath = OUTPUT_PATH.replace(/\.md$/, "-validation-failures.json");
++      writeFileSync(failuresPath, JSON.stringify({ failures, generatedAt: new Date().toISOString() }, null, 2));
++      console.error(`[generate-ibp] Validation failed (${failures.length} issues). See ${failuresPath}`);
++      failures.forEach((f) => console.error(`  - ${f}`));
++      if (process.env.IBP_ALLOW_DRIFT !== "1") process.exit(3);
++    }
+   }
+```
+
+---
+
+## Companion change: `ctx.knownBlockers` and `ctx.upcomingMilestones` (F6)
+
+Add a context-builder pass that reads `~/.claude/primer.md` `## Open Blockers` plus active
+DIST issues, and exposes them on `ctx`:
+
+```javascript
+// Insert near where ctx is built (around line 1750–1850 in run()).
+
+import { homedir } from "os";
+
+function readPrimerBlockers() {
+  const primerPath = resolve(homedir(), ".claude", "primer.md");
+  if (!existsSync(primerPath)) return [];
+  const text = readFileSync(primerPath, "utf8");
+  const m = text.match(/##\s*Open Blockers\s*\n+([\s\S]*?)(?=\n## |$)/);
+  if (!m) return [];
+  return m[1]
+    .split("\n")
+    .map((l) => l.replace(/^\s*[-*]\s*/, "").trim())
+    .filter(Boolean);
+}
+
+// In run(), after ctx is built:
+ctx.knownBlockers = [
+  ...readPrimerBlockers(),
+  ...(ctx.jiraProjectSnapshots ?? [])
+    .flatMap((s) => s.issues)
+    .filter((i) => i.key.startsWith("DIST-") && i.status?.toLowerCase() !== "done")
+    .map((i) => `${i.key}: ${i.summary} (${i.status})`),
+];
+
+ctx.upcomingMilestones = [
+  // Pull from Confluence release pages or hard-code monthly cadence
+  ...(ctx.confluenceReleases ?? []).slice(0, 5),
+];
+
+ctx.oooBlocks = (ctx.calendarEvents ?? [])
+  .filter((e) => /OOO|Out of Office|Annual Leave/i.test(e.subject ?? ""))
+  .filter((e) => (new Date(e.end) - new Date(e.start)) / 86400000 >= 2)
+  .map((e) => `${e.subject}: ${e.startDate} – ${e.endDate}`);
+```
+
+---
+
+## Companion change: drop the Communications section (F7)
+
+In `buildPlainSummary()` (or wherever the rendered `## Communications` section is built),
+delete the section emitter entirely. The Teams chat data should still be **surfaced to the
+prompt** under `<top_activity>` so Claude can distill 1–2 cross-team highlights into Wins,
+but it should not produce a dedicated section in the markdown output.
+
+Search for the string `"## Communications"` in `generate-ibp.mjs` and remove the block that
+appends it — including the surrounding loop that builds the 14 chat bullets.
+
+---
+
+## After applying
+
+1. `cd "C:\Users\liam.bond\Documents\Productivity Tool"`
+2. `git checkout -b fix/ibp-audit-tier1`
+3. `git apply audits/ibp-audit-2026-04-25/pipeline-fixes.diff`
+4. Copy the full `buildXmlStructuredPrompt(ctx, ...)` body from `refactored-prompt.md` into
+   `generate-ibp.mjs` (replacing the stub introduced by this diff).
+5. Add the `readPrimerBlockers()` companion code shown above.
+6. Remove the `## Communications` section emitter (F7).
+7. Run: `node scripts/generate-ibp.mjs --date=2026-04-25`
+8. Expected: process exits 0 (or 3 if validation flags drift); `ibp-2026-04-25.md`
+   contains the official 4 sections, 250–400 words, no `…`, no `Communications` section,
+   blockers populated.
+9. Side-by-side `ibp-2026-04-25.md` vs Kartik's typical IBP for parity check.
+10. Submit via `node scripts/playwright-ibp-submit.mjs --date=2026-04-25`.

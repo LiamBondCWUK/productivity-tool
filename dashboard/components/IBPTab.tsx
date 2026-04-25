@@ -31,9 +31,9 @@ interface IBPHeaderMeta {
 function parseQuinnSections(markdown: string): QuinnSections | null {
   const content = String(markdown || "");
   const defs = [
-    { key: "winsAndImpact", regex: /^##\s*(?:🚀\s*)?Current Week:\s*Wins\s*&\s*Impact\s*$/im },
-    { key: "issuesBlockers", regex: /^##\s*(?:⚠️\s*)?Issues\s*\/\s*Blockers\s*$/im },
-    { key: "nextWeekPriorities", regex: /^##\s*(?:🔥\s*)?Next Week:\s*(?:Top\s*)?Priorities\s*$/im },
+    { key: "winsAndImpact", regex: /^##\s*(?:🚀\s*)?(?:Current Week:\s*Wins\s*&\s*Impact|Impact)\s*$/im },
+    { key: "issuesBlockers", regex: /^##\s*(?:⚠️\s*)?(?:Issues\s*\/\s*Blockers|Blockers)\s*$/im },
+    { key: "nextWeekPriorities", regex: /^##\s*(?:🔥\s*)?(?:Next Week:\s*(?:Top\s*)?Priorities|Priorities)\s*$/im },
     { key: "lookingAhead", regex: /^##\s*(?:🔮\s*)?Looking Ahead\s*$/im },
   ] as const;
 
@@ -246,6 +246,13 @@ function renderInlineMarkdown(text: string): React.ReactNode {
   });
 }
 
+interface ContextStatus {
+  exists: boolean;
+  chats?: number;
+  transcripts?: number;
+  lastFetched?: string;
+}
+
 export function IBPTab({ ibpMeta }: IBPTabProps) {
   const [report, setReport] = useState<IBPReport | null>(null);
   const [availableDates, setAvailableDates] = useState<string[]>(
@@ -259,6 +266,7 @@ export function IBPTab({ ibpMeta }: IBPTabProps) {
   const [submittingToPowerApps, setSubmittingToPowerApps] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [contextStatus, setContextStatus] = useState<ContextStatus | null>(null);
 
   const quinnSections = report ? parseQuinnSections(report.rawMarkdown) : null;
   const headerMeta = report ? extractHeaderMeta(report.rawMarkdown) : null;
@@ -293,6 +301,21 @@ export function IBPTab({ ibpMeta }: IBPTabProps) {
   useEffect(() => {
     fetchReport();
   }, [fetchReport]);
+
+  useEffect(() => {
+    const fetchContextStatus = async () => {
+      try {
+        const res = await fetch("/api/ibp/context-status");
+        if (res.ok) {
+          const data = await res.json();
+          setContextStatus(data);
+        }
+      } catch {
+        // Silently fail if endpoint not available
+      }
+    };
+    fetchContextStatus();
+  }, []);
 
   const handleGenerate = async () => {
     setGenerating(true);
@@ -394,6 +417,20 @@ export function IBPTab({ ibpMeta }: IBPTabProps) {
             </button>
           </div>
         </div>
+        {contextStatus && (
+          <div className="mt-2 text-xs">
+            {contextStatus.exists ? (
+              <div className="text-green-700/70">
+                Context: {contextStatus.chats} chats, {contextStatus.transcripts} transcripts
+                {contextStatus.lastFetched && ` (last fetched ${contextStatus.lastFetched})`}
+              </div>
+            ) : (
+              <div className="text-gray-500">
+                No context loaded — run Claude to fetch Teams data
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Body */}
