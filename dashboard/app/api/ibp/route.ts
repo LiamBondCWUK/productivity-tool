@@ -84,6 +84,7 @@ export async function POST(req: NextRequest) {
   const requestedDate = typeof body.date === "string" && body.date ? body.date : null;
   const targetDate = requestedDate ?? new Date().toISOString().slice(0, 10);
   const skipAi = body.skipAi === true;
+  const gather = body.gather === true;
 
   // Strip ANTHROPIC_API_KEY from the spawn env so the CLI uses OAuth (mirroring
   // generate-ibp.mjs). Without this, Command Center hits the same depleted-API-key
@@ -94,7 +95,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const stdout = execSync(
-      `node "${scriptPath}" --date=${targetDate}${skipAi ? " --skip-ai" : ""}`,
+      `node "${scriptPath}" --date=${targetDate}${skipAi ? " --skip-ai" : ""}${gather ? " --gather" : ""}`,
       {
         timeout: 240_000,
         encoding: "utf8",

@@ -50,6 +50,7 @@ const dateArg = process.argv.find((a) => a.startsWith("--date"))?.split("=")[1];
 const outputArg = process.argv.find((a) => a.startsWith("--output"))?.split("=")[1];
 const TARGET_DATE = dateArg ?? new Date().toISOString().slice(0, 10);
 const SKIP_AI = process.argv.includes("--skip-ai");
+const AUTO_GATHER = process.argv.includes("--gather");
 
 const OUTPUT_PATH = outputArg
   ? resolve(ROOT, outputArg)
@@ -1391,7 +1392,9 @@ function buildNarrativePrompt(ctx) {
   const skillsShipped = (ctx.skillsShipped ?? []).map((s) => `- ${s}`).join("\n") || "- (none this week)";
   const crossTeamEnablement = (ctx.crossTeamEnablement ?? []).map((c) => `- ${c}`).join("\n") || "- (none this week)";
   const recognition = (ctx.recognition ?? []).map((r) => `- ${r}`).join("\n") || "- (none captured)";
-  const nextWeekPriorities = (ctx.nextWeekPriorities ?? []).map((p) => - ${p}`).join("\n") || "- (none specified)";
+  const nextWeekPriorities = (ctx.nextWeekPriorities ?? []).map((p) => `- ${p}`).join("\n") || "- (none specified)";
+  const gatheredJiraActivity = (ctx.gatheredJiraActivity ?? []).map((i) => `- ${i}`).join("\n") || "- (none gathered via MCP)";
+  const gatheredCalendarMeetings = (ctx.gatheredCalendarMeetings ?? []).map((m) => `- ${m}`).join("\n") || "- (none gathered via MCP)";
 
   const examples = readPeerExamples().join("\n\n");
 
@@ -1489,6 +1492,14 @@ ${oooBlocks}
 <next_week_priorities>
 ${nextWeekPriorities}
 </next_week_priorities>
+
+<gathered_jira_activity>
+${gatheredJiraActivity}
+</gathered_jira_activity>
+
+<gathered_calendar_meetings>
+${gatheredCalendarMeetings}
+</gathered_calendar_meetings>
 </input>
 
 <examples>
@@ -2130,6 +2141,22 @@ async function run() {
     _seenBlockers.add(key);
     return true;
   });
+  // Auto-gather: run gather-ibp-context.mjs as a preflight if --gather flag is set
+  if (AUTO_GATHER) {
+    console.log("[generate-ibp] --gather: running gather-ibp-context.mjs preflight...");
+    const gatherScript = resolve(__dirname, "gather-ibp-context.mjs");
+    const gatherCliEnv = { ...process.env };
+    delete gatherCliEnv.ANTHROPIC_API_KEY;
+    delete gatherCliEnv.ANTHROPIC_AUTH_TOKEN;
+    const gatherResult = spawnSync(
+      process.execPath, [gatherScript, `--date=${TARGET_DATE}`, "--merge"],
+      { stdio: "inherit", cwd: ROOT, env: gatherCliEnv, timeout: 300000, windowsHide: true },
+    );
+    if (gatherResult.status !== 0) {
+      console.warn("[generate-ibp] gather-ibp-context.mjs exited non-zero — proceeding with existing context.");
+    }
+  }
+
   // F4 v2: load ibp-context-WEEK.json once and surface three under-counted categories
   // directly to the prompt: skills shipped, cross-team enablement, recognition signals.
   const _isoWeek = getISOWeek(ctx.date);
@@ -2156,6 +2183,8 @@ async function run() {
   ctx.upcomingMilestones = ctx.upcomingMilestones ?? [];
   ctx.oooBlocks = ctx.oooBlocks ?? [];
   ctx.nextWeekPriorities = (_ibpCtx?.nextWeekPriorities ?? []);
+  ctx.gatheredJiraActivity = (_ibpCtx?.jiraActivity ?? []).map((i) => `${i.key} [${i.status}] ${cleanText(i.summary, 120)}`);
+  ctx.gatheredCalendarMeetings = (_ibpCtx?.calendarMeetings ?? []).map((m) => `${m.date} — ${m.title}${m.duration ? ` (${m.duration})` : ""}`);
   console.log(
     `[generate-ibp] knownBlockers: ${ctx.knownBlockers.length} (${ctx.knownBlockers.slice(0, 2).join(" | ") || "none"})`,
   );
