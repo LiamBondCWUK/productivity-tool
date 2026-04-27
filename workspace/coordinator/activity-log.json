@@ -14782,5 +14782,229 @@
     "windowTitle": "Claude Code - Complete Onboarding Guide - Google Chrome",
     "inferredTask": "ai-coding",
     "durationMin": 2
+  },
+  {
+    "start": "2026-04-25T22:24:33.521Z",
+    "end": "2026-04-25T23:15:34.402Z",
+    "windowTitle": "Claude Code - Complete Onboarding Guide - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 51
+  },
+  {
+    "start": "2026-04-25T23:15:34.402Z",
+    "end": "2026-04-25T23:16:04.514Z",
+    "windowTitle": "Anthropic Courses - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T23:16:34.398Z",
+    "end": "2026-04-25T23:17:34.399Z",
+    "windowTitle": "Claude for Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T23:17:34.399Z",
+    "end": "2026-04-25T23:43:34.833Z",
+    "windowTitle": "Anthropic Courses - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 26
+  },
+  {
+    "start": "2026-04-25T23:43:34.833Z",
+    "end": "2026-04-25T23:45:04.872Z",
+    "windowTitle": "What is Claude? - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-25T23:45:04.872Z",
+    "end": "2026-04-25T23:47:35.181Z",
+    "windowTitle": "Your first conversation with Claude - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-25T23:48:04.925Z",
+    "end": "2026-04-25T23:48:35.005Z",
+    "windowTitle": "Installing Claude Code - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T23:49:34.921Z",
+    "end": "2026-04-25T23:50:05.020Z",
+    "windowTitle": "What is Cowork? - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T23:50:34.901Z",
+    "end": "2026-04-25T23:52:35.478Z",
+    "windowTitle": "Plugins: Cowork as a specialist - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 2
+  },
+  {
+    "start": "2026-04-25T23:52:35.478Z",
+    "end": "2026-04-25T23:53:05.809Z",
+    "windowTitle": "File & document tasks - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T23:54:05.040Z",
+    "end": "2026-04-25T23:54:35.158Z",
+    "windowTitle": "Skills vs. other Claude Code features - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T23:55:05.020Z",
+    "end": "2026-04-25T23:55:35.609Z",
+    "windowTitle": "Designing effective subagents - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T23:56:05.276Z",
+    "end": "2026-04-25T23:56:35.605Z",
+    "windowTitle": "Making changes - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T23:57:05.112Z",
+    "end": "2026-04-25T23:57:35.132Z",
+    "windowTitle": "Introducing MCP - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T23:57:35.132Z",
+    "end": "2026-04-25T23:58:05.488Z",
+    "windowTitle": "Defining tools with MCP - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T23:59:05.062Z",
+    "end": "2026-04-25T23:59:35.080Z",
+    "windowTitle": "System prompts - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-25T23:59:35.080Z",
+    "end": "2026-04-26T00:00:05.172Z",
+    "windowTitle": "Introducing tool use - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-26T00:00:05.172Z",
+    "end": "2026-04-26T00:05:05.755Z",
+    "windowTitle": "Structure with XML tags - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 5
+  },
+  {
+    "start": "2026-04-26T00:05:05.755Z",
+    "end": "2026-04-26T00:05:35.825Z",
+    "windowTitle": "Claude Code Docs, Guides & Best Practices | ClaudeLog - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-26T00:06:05.374Z",
+    "end": "2026-04-26T00:08:36.509Z",
+    "windowTitle": "Install Claude Code | ClaudeLog - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 3
+  },
+  {
+    "start": "2026-04-26T00:09:35.504Z",
+    "end": "2026-04-26T00:10:05.898Z",
+    "windowTitle": "Sanity Check | ClaudeLog - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-26T00:10:35.303Z",
+    "end": "2026-04-26T00:11:05.670Z",
+    "windowTitle": "Claude Code FAQs | ClaudeLog - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-26T00:11:05.670Z",
+    "end": "2026-04-26T00:11:35.780Z",
+    "windowTitle": "Vibe Animating | ClaudeLog - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-26T00:11:35.780Z",
+    "end": "2026-04-26T00:12:35.584Z",
+    "windowTitle": "Anthropic - YouTube - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-26T00:12:35.584Z",
+    "end": "2026-04-26T00:14:05.343Z",
+    "windowTitle": "Claude 3.7 Sonnet and Claude Code - YouTube - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-26T00:14:05.343Z",
+    "end": "2026-04-26T00:14:35.453Z",
+    "windowTitle": "Introducing Claude Code - YouTube - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-26T00:14:35.453Z",
+    "end": "2026-04-26T00:15:35.433Z",
+    "windowTitle": "Mastering Claude Code in 30 minutes - YouTube - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-26T00:15:35.433Z",
+    "end": "2026-04-26T00:16:35.448Z",
+    "windowTitle": "The future of agentic coding with Claude Code - YouTube - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-26T00:16:35.448Z",
+    "end": "2026-04-26T00:21:05.438Z",
+    "windowTitle": "youtube.com/api/timedtext?v=iF9iV4xponk&lang=en&fmt=vtt - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 4
+  },
+  {
+    "start": "2026-04-26T00:21:05.438Z",
+    "end": "2026-04-26T00:21:35.570Z",
+    "windowTitle": "Claude for Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 1
+  },
+  {
+    "start": "2026-04-26T00:21:35.570Z",
+    "end": "2026-04-26T04:57:10.235Z",
+    "windowTitle": "youtube.com/api/timedtext?v=iF9iV4xponk&lang=en&fmt=vtt - Google Chrome",
+    "inferredTask": "browser",
+    "durationMin": 276
+  },
+  {
+    "start": "2026-04-26T04:57:10.235Z",
+    "end": "2026-04-26T05:23:10.810Z",
+    "windowTitle": "Claude Code - Complete Onboarding Guide - Google Chrome",
+    "inferredTask": "ai-coding",
+    "durationMin": 26
   }
 ]

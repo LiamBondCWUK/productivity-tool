@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-04-24T01:00:14.561Z",
+  "updatedAt": "2026-04-27T08:13:39.627Z",
   "projects": [
+    {
+      "name": "Claude Onboarding Meeting",
+      "path": "C:/Users/liam.bond/Documents/Claude Onboarding Meeting",
+      "phase": "Building",
+      "lastCommit": "2026-04-27T09:13:15+01:00",
+      "lastCommitMsg": "chore: eod sync (2 modified) - M CHANGELOG-PENDING.md, M claude-code-guide.html",
+      "hasGit": true,
+      "hasPkg": false,
+      "hasClaude": false,
+      "description": null
+    },
     {
       "name": "dotfiles-publish",
       "path": "C:/Users/liam.bond/Documents/dotfiles-publish",
@@ -44,17 +55,6 @@
       "hasPkg": true,
       "hasClaude": false,
       "description": "A multi-session Claude dashboard you can use from your phone or any browser on the local network. Runs an Express + WebS"
-    },
-    {
-      "name": "Claude Onboarding Meeting",
-      "path": "C:/Users/liam.bond/Documents/Claude Onboarding Meeting",
-      "phase": "Building",
-      "lastCommit": "2026-04-20T17:30:23+01:00",
-      "lastCommitMsg": "chore: eod sync (7 added, 5 modified, 1 deleted) - M CLAUDE-CODE-COMPLETE-GUIDE.md, M TRY-THIS-WEEK.md, M claude-onboarding-presentation.js, D ibp-exercise/CLAUDE-VSCODE-USER-GUIDE.md, M ibp-exercise/dashboard.html",
-      "hasGit": true,
-      "hasPkg": false,
-      "hasClaude": false,
-      "description": null
     },
     {
       "name": "UKCAUD AI Project",
@@ -137,8 +137,8 @@
       "name": "Productivity Tool",
       "path": "C:/Users/liam.bond/Documents/Productivity Tool",
       "phase": "Review",
-      "lastCommit": "2026-04-23T04:10:43+01:00",
-      "lastCommitMsg": "feat: integrate Agentic Kanban into Command Center dashboard",
+      "lastCommit": "2026-04-26T01:06:13+01:00",
+      "lastCommitMsg": "feat(ibp): M365/Atlassian MCP gather pipeline + fix nextWeekPriorities syntax error",
       "hasGit": true,
       "hasPkg": true,
       "hasClaude": true,
@@ -225,12 +225,23 @@
       "name": "AI Breaking News Tool",
       "path": "C:/Users/liam.bond/Documents/AI Breaking News Tool",
       "phase": "Done",
-      "lastCommit": "2026-04-22T17:30:09+01:00",
-      "lastCommitMsg": "chore: eod sync (2 modified) - M CHANGELOG-PENDING.md, M gnews-raw.json",
+      "lastCommit": "2026-04-25T17:39:42+01:00",
+      "lastCommitMsg": "chore: eod sync (1 added, 2 modified) - M CHANGELOG-PENDING.md, M gnews-raw.json, plans/",
       "hasGit": true,
       "hasPkg": true,
       "hasClaude": true,
       "description": "> Last updated: 2026-04-12"
+    },
+    {
+      "name": "agentic-kanban",
+      "path": "C:/Users/liam.bond/Documents/agentic-kanban",
+      "phase": "Done",
+      "lastCommit": "2026-04-25T17:33:39+01:00",
+      "lastCommitMsg": "chore: eod sync (118254 added) - .pnpm-store/v10/files/00/0069ddffa378e815f9f0af590194529b81d07b12e4c8d6fba89f8a308587a9553220b8a6cc9f488d64d45f57a1fb0065dc77e66babeef0deabc5efdd9c8c70, .pnpm-store/v10/files/00/0087aa25d75335ef5108659f7948cfebe0f1e1bae84f13659d2984252fec8a5d75390a06d2ee94943cd75886ae3805419fa7f267d2badb72f59522b017ec57, .pnpm-store/v10/files/00/023fd7b88acb4c9b063ff9860de4ba021c5b6f64fcc2884a56588112a7593475bc7d53af32cfd274814ad9fc9c89f90da65fd25426251c6a0e08adadbd03ae, .pnpm-store/v10/files/00/028f94c8bbdf67ddc72ba1ca0d3c94b2c431c8f9e857b1091942148df383d5f34e8621eaa2466f609ca224b2b946de3719dab8e7aa38b0289e9a6290c37511, .pnpm-store/v10/files/00/034e4d944aff4c6e15ee9462a9a2f75600da9ef049fd535483ee5d4bff81bb774cd3e0463d3bf3ab02b2bbc3a1cfda7d201d96c609443883e0b4a692283f85",
+      "hasGit": true,
+      "hasPkg": true,
+      "hasClaude": true,
+      "description": "A local-first kanban board for commanding AI coding agents through quests, dungeons, and campaigns — with deep knowledge"
     },
     {
       "name": "CW UAT Testing Tool",
@@ -242,17 +253,6 @@
       "hasPkg": false,
       "hasClaude": true,
       "description": "This folder contains all artifacts related to User Acceptance Testing (UAT) for the UK Cloud Audit squad."
-    },
-    {
-      "name": "agentic-kanban",
-      "path": "C:/Users/liam.bond/Documents/agentic-kanban",
-      "phase": "Done",
-      "lastCommit": "2026-04-15T12:25:56+01:00",
-      "lastCommitMsg": "docs: update README with senior designer, ingest pipeline, CLI, macOS app, and all new features",
-      "hasGit": true,
-      "hasPkg": true,
-      "hasClaude": true,
-      "description": "A local-first kanban board for commanding AI coding agents through quests, dungeons, and campaigns — with deep knowledge"
     }
   ]
 }

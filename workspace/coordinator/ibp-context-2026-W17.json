@@ -1,7 +1,19 @@
 {
   "week": "2026-W17",
-  "generatedAt": "2026-04-24T22:00:00.000Z",
+  "generatedAt": "2026-04-26T00:11:22.673Z",
   "teamsChats": [
+    {
+      "date": "2026-04-24",
+      "with": "Federico Marchionni",
+      "topic": "UKCAUD repo & Claude collaboration",
+      "summary": "Discussed creating a shared UKCAUD repository for collaboration with sync/conflict resolution approach. Planning to use Claude to help organize the effort and reduce noise in workflow."
+    },
+    {
+      "date": "2026-04-25",
+      "with": "Kyle Silverman",
+      "topic": "Week wrap-up",
+      "summary": "Friendly weekend sign-off after completion of work items for the week."
+    },
     {
       "date": "2026-04-24",
       "with": "Bethany Sullivan",
@@ -13,12 +25,6 @@
       "with": "Mitchell Payne",
       "topic": "UAT feature extractor skill delivery",
       "summary": "Liam shared the UAT-feature-extractor skill with Mitchell (QA) — repackaged Rovo agent as a Claude skill that generates UAT ticket structure and scrapes data sources to give better UAT criteria for testing. Also shared uat-tickets-2026-04-example.md as a worked example."
-    },
-    {
-      "date": "2026-04-24",
-      "with": "Federico Marchionni",
-      "topic": "Claude for QA + Jira usage",
-      "summary": "Federico confirmed QA getting Claude access would give them everything they need. Discussed using Claude to organise Jira this sprint. Liam's framing: 'If QA gets access to Claude basically they have everything they need'."
     },
     {
       "date": "2026-04-24",
@@ -122,6 +128,10 @@
     }
   ],
   "standaloneSignals": [
+    "Created v2 Claude Code guide for team distribution (entrusted to make another version)",
+    "Building sprint ceremonies automation app with reporting capabilities",
+    "Progressing through Anthropic certification courses (on track to complete ~60% through by week end)",
+    "Planning UKCAUD shared repository infrastructure for team collaboration",
     "DIST-69292 (Enable MCP Functionality On HAT Server) — blocker raised Apr 9, still unresolved but escalation ongoing",
     "UAT-feature-extractor skill created and delivered to Mitchell Payne (QA) — generates UAT ticket structure from data sources",
     "plan-prompt-frameworks skill created — comprehensive prompt engineering framework for planning sessions",
@@ -132,6 +142,8 @@
     "Anthropic Claude Certified Architect course pathway confirmed — available after starter track completion",
     "Anthropic Certifications completed — Liam completed Anthropic certification(s) this week; remaining team members continuing through starter courses toward Certified Architect track"
   ],
+  "jiraActivity": [],
+  "calendarMeetings": [],
   "nextWeekPriorities": [
     "V2 Claude Code Guide — iterate on V1 starter kit based on Craft session feedback and adoption signals",
     "HAT specification rework for clarity — resolve Mercia spec/form mismatch and improve overall spec clarity with Federico"

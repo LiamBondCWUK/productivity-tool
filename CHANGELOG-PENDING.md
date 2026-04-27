@@ -270,3 +270,8 @@
 - 2026-04-25 23:52:21 [docs] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-2026-04-25.md`
 - 2026-04-25 23:52:59 [config] `C:\Users\liam.bond\Documents\Productivity Tool\workspace\coordinator\ibp-context-2026-W17.json`
 - 2026-04-25 23:53:13 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`
+
+## 2026-04-26
+
+- 2026-04-26 00:56:04 [modified] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\generate-ibp.mjs`
+- 2026-04-26 00:57:43 [added] `C:\Users\liam.bond\Documents\Productivity Tool\scripts\gather-ibp-context.mjs`
